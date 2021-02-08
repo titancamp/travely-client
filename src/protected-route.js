@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { isAuthenticated } from "./components/auth/login";
+import { AuthContext } from "./context";
 
 export const ProtectedRoute = ({ component: Component, ...rest }) => {
+  const authContext = useContext(AuthContext);
   return (
     <Route
       {...rest}
       render={(props) => {
-        if (isAuthenticated) {
+        if (authContext.isLoggedIn) {
           return <Component {...props} />;
         } else {
           return (
@@ -21,7 +22,8 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
             />
           );
         }
-      }}
+      }
+      }
     />
   );
 };

@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Admin from "./components/admin/admin";
 import User from "./components/user/user";
 import Login from "./components/auth/login";
-// import { ProtectedRoute } from "./protected-route";
+import { ProtectedRoute } from "./protected-route";
 
 export default function Router() {
   return (
@@ -11,10 +11,8 @@ export default function Router() {
       <Switch>
         <Route exact path="/" component={Login} />
         <Route exact path="/login" component={Login} />
-        <Route path="/admin" component={Admin} />
-        <Route path="/user" component={User} />
-        {/*<ProtectedRoute path="/admin" component={Admin} />*/}
-        {/*<ProtectedRoute path="/user" component={User} />*/}
+        <ProtectedRoute path="/admin" component={Admin} />
+        <ProtectedRoute path="/user" component={User} />
       </Switch>
     </BrowserRouter>
   );
