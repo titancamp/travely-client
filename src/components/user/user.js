@@ -5,6 +5,7 @@ import Home from "./home/home";
 import Tour from "./tour/tour";
 import { Sidebar } from "../common/sidebar";
 import { ContentArea } from "../common/content-area";
+import { NotificationArea } from "../common/notification-area";
 
 const pages = [
   {
@@ -26,6 +27,7 @@ export default function User() {
     <React.Fragment>
       <Sidebar pages={pages} />
       <ContentArea pages={pages} />
+      <NotificationArea/>
     </React.Fragment>
   );
 }
