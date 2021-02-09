@@ -1,8 +1,12 @@
-import { getApiConfig } from "./config";
-import AuthClient from "./auth/auth-client";
+import axios from "axios";
 
-// read the configuration
-const config = getApiConfig();
+const ApiClient = axios.create({
+  baseURL: "https://api.example.com",
+  headers: {
+    // Authorization: "Bearer " + jwtToken,
+    // "Content-Type": "application/json",
+  },
+  //    ... rest of configuration
+});
 
-// create project client
-export const authClient = new AuthClient(config);
+export default ApiClient;
