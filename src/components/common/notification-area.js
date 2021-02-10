@@ -1,7 +1,7 @@
 import React from "react";
 import Drawer from "@material-ui/core/Drawer";
 import Box from "@material-ui/core/Box";
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import NotificationsIcon from "@material-ui/icons/Notifications";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import { makeStyles } from "@material-ui/core/styles";
@@ -51,9 +51,6 @@ export const NotificationArea = ()=>{
 
 // styles
 const useStyles = makeStyles((theme) => ({
-  logo: {
-    fontSize: "32px",
-  },
   toolbar: theme.mixins.toolbar,
   drawer: {
     width: DRAWER_WIDTH,
