@@ -1,6 +1,6 @@
 import ApiClient from "./api";
 
-// example API class
+// example API object
 const AuthClient = {
   // example method
   login: function () {
