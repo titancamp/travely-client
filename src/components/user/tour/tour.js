@@ -1,6 +1,26 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
+import { DataGrid } from '@material-ui/data-grid';
+import { TOUR_ROWS, TOUR_COLUMNS } from './utils/constants';
 
-export default function Tour() {
-  return <Typography paragraph>The 'Tour' Page comming soon...</Typography>;
+export default class Tour extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      tourData: []
+    };
+  }
+
+  getData(){
+    this.setState({tourData: TOUR_ROWS});
+  };
+
+  componentDidMount () {
+    this.getData();
+  };
+
+  render() {
+    return (
+        <DataGrid rows={this.state.tourData} columns={TOUR_COLUMNS} autoHeight autoPageSize />
+    );
+  };
 }
