@@ -20,7 +20,7 @@ export default class Tour extends React.Component {
 
   render() {
     return (
-        <DataGrid rows={this.state.tourData} columns={TOUR_COLUMNS} autoHeight='true' autoPageSize='true' />
+        <DataGrid rows={this.state.tourData} columns={TOUR_COLUMNS} autoHeight autoPageSize />
     );
   };
 }
