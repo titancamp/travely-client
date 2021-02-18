@@ -1,15 +1,17 @@
 import React from "react";
 import { DataGrid } from '@material-ui/data-grid';
-import ToutApi from "../../../api/tour-client";
-import * as Const from './utils/constants';
+import { TOUR_ROWS, TOUR_COLUMNS } from './utils/constants';
 
 export default class Tour extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      tourData: []
+    };
+  }
 
   getData(){
-    // new ToutApi()
-    //   .getAllTours()
-    //   .then((response) => console.log(response))
-    //   .catch((err) => console.log(err));
+    this.setState({tourData: TOUR_ROWS});
   };
 
   componentDidMount () {
@@ -18,7 +20,7 @@ export default class Tour extends React.Component {
 
   render() {
     return (
-        <DataGrid rows={Const.TourRows} columns={Const.TourColumns} autoHeight='true' autoPageSize='true' />
+        <DataGrid rows={this.state.tourData} columns={TOUR_COLUMNS} autoHeight='true' autoPageSize='true' />
     );
   };
 }

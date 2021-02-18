@@ -1,4 +1,4 @@
-export const TourColumns = [
+export const TOUR_COLUMNS = [
     { field: 'status', headerName: 'Status'},
     { field: 'name', headerName: 'Name', width: 150 },
     { field: 'origin', headerName: 'Origin' },
@@ -14,7 +14,7 @@ export const TourColumns = [
     { field: 'createdBy', headerName: 'Created By' },
 ];
 
-export const TourRows = [
+export const TOUR_ROWS = [
     {
         id: 1, 
         status: 'All booked',
