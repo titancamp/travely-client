@@ -13,7 +13,8 @@ import ManageActivities from "./activities/manage-activities";
 import ChangePassword from "./account/change-password";
 import {ContentArea} from "../common/content-area";
 import {Sidebar} from "../common/sidebar";
-import {NotificationContext} from "../../store/notificationContext";
+import NotificationPane from "../common/notification-pane";
+import {SnackbarProvider} from "notistack";
 
 const pages = [
     {
@@ -51,14 +52,11 @@ const pages = [
 export default function Admin() {
     return (
         <React.Fragment>
-            <NotificationContext.Consumer>
-                {(notifyService) => {
-                    notifyService.connect()
-                    notifyService.registerNotificationReceived(console.log)
-                }}
-            </NotificationContext.Consumer>
-            <Sidebar pages={pages}/>
-            <ContentArea pages={pages}/>
+            <SnackbarProvider maxSnack={1000}>
+                <NotificationPane/>
+                <Sidebar pages={pages}/>
+                <ContentArea pages={pages}/>
+            </SnackbarProvider>
         </React.Fragment>
     );
 }
