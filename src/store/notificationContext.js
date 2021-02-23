@@ -12,8 +12,8 @@ export const NotificationContext = createContext({
     connect: function () {
         if (!this.isConnected)
             return this.connection.start()
-                .then(_ => console.log('Connection started'))
-                .then(_ => this.isConnected = true)
+                .then(() => console.log('Connection started'))
+                .then(() => this.isConnected = true)
                 .catch(console.log)
     },
     registerOnClose: function (fn) {
