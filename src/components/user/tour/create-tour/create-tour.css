@@ -1,0 +1,36 @@
+.create-tour-modal .create-tour-container {
+    width: 800px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    background-color: #FFFFFF;
+    padding: 20px;
+}
+
+.create-tour-modal .create-tour-container .tour-details-heading {
+    padding-bottom: 5px;
+    border-bottom: 1px solid black;
+}
+
+.create-tour-modal .create-tour-container .tour-details-top-block {
+    display: flex;
+    justify-content: center;
+}
+
+.create-tour-modal .create-tour-container .tour-details-left-block {
+    padding: 0 5px;
+}
+
+.create-tour-modal .create-tour-container .form-field .MuiFormControl-root {
+    width: 100%;
+}
+
+.create-tour-modal .create-tour-container .form-inline-field {
+    /*margin: 0 2px;*/
+}
+
+.create-tour-modal .create-tour-container .date-fields {
+    display: flex;
+    justify-content: space-between;
+}

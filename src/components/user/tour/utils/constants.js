@@ -48,3 +48,45 @@ export const TOUR_ROWS = [
         createdBy: 'Armine G',
     },
 ];
+
+export const GUESTS_COLUMNS = [
+    { field: 'name', headerName: 'Name', width: 150 },
+    { field: 'phone', headerName: 'Phone' },
+    { field: 'email', headerName: 'Email' },
+    { field: 'dateOfBirth', headerName: 'Date of birth' },
+    { field: 'placeOfBirth', headerName: 'Place of birth' },
+    { field: 'passport', headerName: 'Passport' },
+    { field: 'issuedBy', headerName: 'Issued by' },
+    { field: 'issueDate', headerName: 'Issue date' },
+    { field: 'expireDate', headerName: 'Expire date' },
+    { field: 'notes', headerName: 'Notes' }
+];
+
+export const GUESTS_ROWS = [
+    {
+        id: 1,
+        name: 'Artur Vahanyan',
+        phone: '099009800',
+        email: 'artur.va@gmail.com',
+        dateOfBirth: 'Jan 28-Feb 11',
+        placeOfBirth: 'Chishineu',
+        passport: 'AN23478326',
+        issuedBy: '004',
+        issueDate: '02.02.16',
+        expireDate: '02.02.26',
+        notes: 'ababscjfbwjsvc',
+    },
+    {
+        id: 2,
+        name: 'Valod Valod',
+        phone: '0990098001',
+        email: 'artur.va@gmail.com1',
+        dateOfBirth: 'Jan 28-Feb 12',
+        placeOfBirth: 'Chishineu1',
+        passport: 'AN234783261',
+        issuedBy: '0044',
+        issueDate: '02.02.15',
+        expireDate: '02.02.25',
+        notes: 'ascasc',
+    },
+];
