@@ -9,11 +9,12 @@ import {GUESTS_COLUMNS, GUESTS_ROWS} from "../utils/constants";
 const CREATE_TOUR_STEPS = [
     {
         component: TourDetail,
-        name: 'tourDetail'
+        formKey: 'tourDetail'
     },
     {
         component: Guest,
-        name: 'guest'
+        formKey: 'guest',
+        dataKey: 'guestsGridRows'
     },
 ];
 
@@ -44,17 +45,18 @@ class CreateTour extends Component {
                 placeOfBirth: '',
                 passportNumber: '',
                 issuedBy: '',
+                issueDate: '',
                 expirationDate: '',
                 notes: '',
                 mainContact: '',
-                geustsGridRows: GUESTS_ROWS,
-                geustsGridColumns: GUESTS_COLUMNS,
                 mainCheckbox: true,
-            }
+            },
+            guestsGridRows: GUESTS_ROWS,
         };
         this.handleNextStep = this.handleNextStep.bind(this);
         this.handlePreviousStep = this.handlePreviousStep.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleAddData = this.handleAddData.bind(this);
     }
 
     handleNextStep() {
@@ -86,17 +88,27 @@ class CreateTour extends Component {
         }));
     }
 
+    handleAddData(currentStepName, newItem) {
+        this.setState(state => ({
+            [currentStepName]: state[currentStepName].concat({
+                ...newItem,
+                id: state[currentStepName][state[currentStepName].length - 1].id + 1
+            })
+        }));
+    }
+
     render() {
         const {currentStepIndex} = this.state;
         const {handleCreateModalToggle} = this.props;
         const CurrentStep = CREATE_TOUR_STEPS[currentStepIndex].component;
-        const currentStepName = CREATE_TOUR_STEPS[currentStepIndex].name;
+        const currentStepName = CREATE_TOUR_STEPS[currentStepIndex].formKey;
+        const currentStepData = CREATE_TOUR_STEPS[currentStepIndex].dataKey;
 
         const prevStepName = currentStepIndex !== 0 ?
-            CREATE_TOUR_STEPS[currentStepIndex - 1].name :
+            CREATE_TOUR_STEPS[currentStepIndex - 1].formKey :
             null;
         const nextStepName = currentStepIndex !== CREATE_TOUR_STEPS.length - 1 ?
-            CREATE_TOUR_STEPS[currentStepIndex + 1].name :
+            CREATE_TOUR_STEPS[currentStepIndex + 1].formKey :
             null;
 
         return (
@@ -112,30 +124,35 @@ class CreateTour extends Component {
                         <CurrentStep
                             currentStepName={currentStepName}
                             handleInputChange={this.handleInputChange}
+                            handleAddData={this.handleAddData}
                             formValues={this.state[currentStepName]}
+                            currentStepDataKey={currentStepData}
+                            data={this.state[currentStepData]}
                         />
                     </div>
+                    <div className="bottom-actions">
+                        {
+                            currentStepIndex !== 0 ?
+                                <>
+                                    <Button variant="contained" onClick={this.handlePreviousStep} label={'Previous'}>
+                                        Back : {prevStepName}
+                                    </Button>
+                                    <Button variant="contained" onClick={this.handleNextStep} label={'Next'}
+                                            color='primary'>
+                                        {nextStepName !== null ? 'Next step: ' + nextStepName : 'Save'}
+                                    </Button>
+                                </>
+                                :
+                                <>
+                                    <Button variant="contained" onClick={handleCreateModalToggle}
+                                            label={'Cancel'}>Cancel </Button>
+                                    <Button variant="contained" onClick={this.handleNextStep} label={'Next'}>
+                                        {nextStepName !== null ? 'Next step: ' + nextStepName : 'Save Tour'}
+                                    </Button>
+                                </>
 
-                    {
-                        currentStepIndex !== 0 ?
-                            <div>
-                                <Button variant="contained" onClick={this.handlePreviousStep} label={'Previous'}>
-                                    Back : {prevStepName}
-                                </Button>
-                                <Button variant="contained" onClick={this.handleNextStep} label={'Next'} color='primary'>
-                                    {nextStepName !== null ? 'Next step: ' + nextStepName : 'Save'}
-                                </Button>
-                            </div>
-                            :
-                            <div>
-                                <Button variant="contained" onClick={handleCreateModalToggle}
-                                        label={'Cancel'}>Cancel </Button>
-                                <Button variant="contained" onClick={this.handleNextStep} label={'Next'}>
-                                    {nextStepName !== null ? 'Next step: ' + nextStepName : 'Save Tour'}
-                                </Button>
-                            </div>
-
-                    }
+                        }
+                    </div>
                 </div>
             </Modal>
         );

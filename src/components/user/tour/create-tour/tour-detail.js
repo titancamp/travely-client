@@ -69,7 +69,7 @@ export default class TourDetail extends Component {
                         </div>
 
 
-                        <div>
+                        <div className="date-fields">
                             <TextField id="pickupTime"
                                        label="Pick-up"
                                        name="pickup"
@@ -90,7 +90,7 @@ export default class TourDetail extends Component {
                                        onChange={(e) => handleInputChange(currentStepName, e)}/>
                         </div>
 
-                        <div>
+                        <div className="date-fields">
                             <TextField id="dropoffTime"
                                        label="Drop-off"
                                        name="dropoff"
@@ -125,7 +125,7 @@ export default class TourDetail extends Component {
                     </div>
                 </div>
 
-                <div>
+                <div className="notes">
                     <TextField id="notes-id"
                                name='notes'
                                label="Notes"
