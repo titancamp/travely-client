@@ -19,7 +19,7 @@ export default class SearchPlugin extends React.Component{
         <TextField
             id="searchInput"
             style={{margin: 8}}
-            placeholder="Search hotels by name, contact or address"
+            placeholder={this.props.placeholder}
             fullWidth
             margin="normal"
             InputProps={{

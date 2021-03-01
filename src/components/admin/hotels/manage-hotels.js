@@ -45,7 +45,10 @@ class ManageHotels extends React.Component {
                     addNewItem={() => console.log('Added new item.')}/>
                 :
                 <div>
-                    <SearchPlugin filter={this.filterList}/>
+                    <SearchPlugin
+                        filter={this.filterList}
+                        placeholder={'Search hotels by name, contact or address'}
+                    />
                     <div style={{height: 500, width: '100%'}}>
                         <DataGrid
                             rows={this.state.filteredList}
