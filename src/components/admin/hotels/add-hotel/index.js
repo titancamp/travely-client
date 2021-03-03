@@ -14,6 +14,8 @@ import ManageAttachments from './manage-attachments';
 
 import './add-hotel.css'
 import { FormControl } from '@material-ui/core';
+import FileClient from '../../../../api/file-client';
+import HotelClient from '../../../../api/hotel-client';
 
 export default class AddHotel extends React.Component {
     constructor(props) {
@@ -28,9 +30,9 @@ export default class AddHotel extends React.Component {
             phone: '',
             website: '',
             attachments: [
-                { id: 1, name: "description.docx", url: "localhost/cdn/description.docx" },
-                { id: 2, name: "Promotion.pdf", url: "localhost/cdn/promotion.pdf" }
-            ]
+                { id: 1, name: "description.docx" },
+                { id: 2, name: "Promotion.pdf" }
+            ],
         };
 
         this.resetForm = this.resetForm.bind(this);
@@ -72,37 +74,44 @@ export default class AddHotel extends React.Component {
         });
     }
 
-    handleHotelAdd() {
-        console.log('new hotel added');
-        console.table(this.state);
+    async handleHotelAdd() {
+        const response = await HotelClient.addHotel({
+            name: this.state.name,
+            stars: this.state.stars,
+            address: this.state.address,
+            contactName: this.state.contactName,
+            email: this.state.email,
+            phone: this.state.phone,
+            website: this.state.website,
+            attachments: this.state.attachments
+        });
 
-        this.resetForm();
+        if (!response.errcode) {
+            this.resetForm();
+        }
     }
 
-    handleAttachmentRemove(attachmentId) {
-        console.log("attachment removed");
+    async handleAttachmentRemove(attachmentId) {
+        await FileClient.deleteFileById(attachmentId);
         this.setState(state => ({
             attachments: state.attachments.filter(item => item.id !== attachmentId)
         }));
     }
 
-    handleAttachmentAdd(event) {
+    async handleAttachmentAdd(event) {
         const files = event.target.files;
 
         if (!files.length) {
             return;
         }
 
-        var file = files[0];
-
-        console.log('file uploaded');
-
-        var fileName = file.name;
-        var addedFile = {
-            id: this.state.attachments.length + 1,
-            name: fileName,
-            url: 'localhost/cdn/' + fileName.toLowerCase(),
+        const file = files[0];
+        const response = await FileClient.uploadFiles(file);
+        const { id, name, url } = response.data;
+        const addedFile = {
+            id, name, url,
         };
+
         this.setState(state => ({
             attachments: [...state.attachments, addedFile]
         }));
