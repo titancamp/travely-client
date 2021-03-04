@@ -1,0 +1,9 @@
+.contained-button-file-input {
+    display: none;
+}
+
+.list-paper {
+    margin-top: 3px;
+    height: 300px;
+    overflow: auto;
+}

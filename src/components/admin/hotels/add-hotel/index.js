@@ -1,27 +1,47 @@
 import React from 'react';
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Typography from '@material-ui/core/Typography';
-import Button from "@material-ui/core/Button";
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Rating from 'material-ui-rating';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import {
+    Button,
+    Box,
+    Container,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    FormControl,
+    Grid,
+    TextField,
+    Typography,
+} from '@material-ui/core';
+import { Rating } from '@material-ui/lab';
+import HotelIcon from '@material-ui/icons/Hotel';
 
 import ManageAttachments from './manage-attachments';
-
-import './add-hotel.css'
-import { FormControl } from '@material-ui/core';
-import FileClient from '../../../../api/file-client';
 import HotelClient from '../../../../api/hotel-client';
 
-export default class AddHotel extends React.Component {
-    constructor(props) {
-        super(props);
+import './add-hotel.css'
 
-        this.state = {
+const validationSchema = yup.object({
+    name: yup
+        .string('Enter hotel name')
+        .required('Hotel name is required'),
+    address: yup
+        .string('Enter address'),
+    contactName: yup
+        .string('Enter contact name'),
+    email: yup
+        .string('Enter email')
+        .email('Enter a valid email'),
+    phone: yup
+        .string('Enter phone'),
+    website: yup
+        .string('Enter website'),
+});
+
+const AddHotelForm = ({ isOpen, handleAddHotelModalToggle }) => {
+    const formik = useFormik({
+        initialValues: {
             name: '',
             stars: 0,
             address: '',
@@ -29,163 +49,154 @@ export default class AddHotel extends React.Component {
             email: '',
             phone: '',
             website: '',
-            attachments: [
-                { id: 1, name: "description.docx" },
-                { id: 2, name: "Promotion.pdf" }
-            ],
-        };
+            attachments: [],
+        },
+        validationSchema: validationSchema,
+        onSubmit: async (model, formikHelper) => {
+            const newHotel = await HotelClient.addHotel(model);
+            if (newHotel) {
+                formikHelper.resetForm();
+            }
+        },
+        onReset: () => {
+            handleAddHotelModalToggle();
+        }
+    });
 
-        this.resetForm = this.resetForm.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleStarsChange = this.handleStarsChange.bind(this);
-        this.handleHotelAdd = this.handleHotelAdd.bind(this);
-        this.handleAttachmentRemove = this.handleAttachmentRemove.bind(this);
-        this.handleAttachmentAdd = this.handleAttachmentAdd.bind(this);
+    function handleFileAdd(file) {
+        formik.setFieldValue('attachments', [...formik.values.attachments, { name: file.name, blob: file }]);
     }
 
-    resetForm() {
-        this.setState({
-            name: '',
-            stars: 0,
-            address: '',
-            contactName: '',
-            email: '',
-            phone: '',
-            website: '',
-            attachments: []
-        });
-
-        this.props.handleAddHotelModalToggle();
-    }
-
-    handleInputChange(event) {
-        const target = event.target;
-        const name = target.name;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-
-        this.setState({
-            [name]: value
-        });
-    }
-
-    handleStarsChange(value) {
-        this.setState({
-            stars: value
-        });
-    }
-
-    async handleHotelAdd() {
-        const response = await HotelClient.addHotel({
-            name: this.state.name,
-            stars: this.state.stars,
-            address: this.state.address,
-            contactName: this.state.contactName,
-            email: this.state.email,
-            phone: this.state.phone,
-            website: this.state.website,
-            attachments: this.state.attachments
-        });
-
-        if (!response.errcode) {
-            this.resetForm();
+    function handleAttachmentRemove(attachment) {
+        const attachments = formik.values.attachments;
+        const index = formik.values.attachments.indexOf(attachment);
+        if (index > -1) {
+            attachments.splice(index, 1);
+            formik.setFieldValue('attachments', attachments);
         }
     }
 
-    async handleAttachmentRemove(attachmentId) {
-        await FileClient.deleteFileById(attachmentId);
-        this.setState(state => ({
-            attachments: state.attachments.filter(item => item.id !== attachmentId)
-        }));
-    }
-
-    async handleAttachmentAdd(event) {
-        const files = event.target.files;
-
-        if (!files.length) {
-            return;
-        }
-
-        const file = files[0];
-        const response = await FileClient.uploadFiles(file);
-        const { id, name, url } = response.data;
-        const addedFile = {
-            id, name, url,
-        };
-
-        this.setState(state => ({
-            attachments: [...state.attachments, addedFile]
-        }));
-    }
-
-    renderInputField(name, label, type) {
-        return (
-            <TextField onChange={this.handleInputChange}
-                value={this.state[name]}
-                helperText={null}
-                error={false}
-                id={name}
-                name={name}
-                placeholder={label}
-                aria-describedby={label}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                autoComplete="no"
-                variant="outlined"
-                size="small"
-                type={type} />
-        );
-    }
-
-    render() {
-        const { isOpen } = this.props;
-
-        return (
-            <Dialog open={isOpen} onClose={() => null} aria-labelledby="form-dialog-title" maxWidth="md">
-                <DialogTitle id="form-dialog-title">Add new hotel</DialogTitle>
-                <DialogContent>
-                    <Container>
-                        <form noValidate autoComplete="off">
-                            <Grid container direction="row" justify="center" alignItems="flex-start" spacing={3}>
-                                <Grid item xs={6}>
-                                    {this.renderInputField('name', 'Name', 'text')}
-                                    <FormControl>
-                                        <Rating
-                                            id="stars"
-                                            name="stars"
-                                            value={this.state.stars}
-                                            max={5}
-                                            onChange={this.handleStarsChange}
-                                        />
-                                    </FormControl>
-                                    {this.renderInputField('address', 'Address', 'text')}
-                                    {this.renderInputField('contactName', 'ContactName', 'text')}
-                                    {this.renderInputField('email', 'Email', 'text')}
-                                    {this.renderInputField('phone', 'Phone', 'text')}
-                                    {this.renderInputField('website', 'Website', 'text')}
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Typography>
-                                        Attachments:
-                                    </Typography>
-
-                                    <ManageAttachments attachments={this.state.attachments}
-                                        onAttachmentAdd={this.handleAttachmentAdd}
-                                        onAttachmentRemove={this.handleAttachmentRemove} />
-                                </Grid>
+    return (
+        <Dialog open={isOpen} maxWidth="md">
+            <DialogTitle><HotelIcon/> Add new hotel</DialogTitle>
+            <DialogContent>
+                <Container>
+                    <form onSubmit={formik.handleSubmit} noValidate autoComplete="off">
+                        <Grid container direction="row" justify="center" alignItems="flex-start" spacing={3}>
+                            <Grid item xs={6}>
+                                <TextField
+                                    fullWidth
+                                    id="name"
+                                    name="name"
+                                    placeholder="Name"
+                                    value={formik.values.name}
+                                    onChange={formik.handleChange}
+                                    error={formik.touched.name && Boolean(formik.errors.name)}
+                                    helperText={formik.touched.name && formik.errors.name}
+                                    variant="outlined"
+                                    size="small"
+                                />
+                                <FormControl className="rating-form-control" fullWidth>
+                                    <span className="rating-form-control-label">Hotel stars: </span>
+                                    <Rating
+                                        id="stars"
+                                        name="stars"
+                                        value={formik.values.stars}
+                                        max={5}
+                                        onChange={formik.handleChange}
+                                    />
+                                </FormControl>
+                                <TextField
+                                    fullWidth
+                                    id="address"
+                                    name="address"
+                                    placeholder="Address"
+                                    value={formik.values.address}
+                                    onChange={formik.handleChange}
+                                    error={formik.touched.address && Boolean(formik.errors.address)}
+                                    helperText={formik.touched.address && formik.errors.address}
+                                    variant="outlined"
+                                    size="small"
+                                />
+                                <TextField
+                                    fullWidth
+                                    id="contactName"
+                                    name="contactName"
+                                    placeholder="Contact name"
+                                    value={formik.values.contactName}
+                                    onChange={formik.handleChange}
+                                    error={formik.touched.contactName && Boolean(formik.errors.contactName)}
+                                    helperText={formik.touched.contactName && formik.errors.contactName}
+                                    variant="outlined"
+                                    size="small"
+                                />
+                                <TextField
+                                    fullWidth
+                                    id="email"
+                                    name="email"
+                                    placeholder="Email"
+                                    value={formik.values.email}
+                                    onChange={formik.handleChange}
+                                    error={formik.touched.email && Boolean(formik.errors.email)}
+                                    helperText={formik.touched.email && formik.errors.email}
+                                    variant="outlined"
+                                    size="small"
+                                />
+                                <TextField
+                                    fullWidth
+                                    id="phone"
+                                    name="phone"
+                                    placeholder="Phone"
+                                    value={formik.values.phone}
+                                    onChange={formik.handleChange}
+                                    error={formik.touched.phone && Boolean(formik.errors.phone)}
+                                    helperText={formik.touched.phone && formik.errors.phone}
+                                    variant="outlined"
+                                    size="small"
+                                />
+                                <TextField
+                                    fullWidth
+                                    id="website"
+                                    name="website"
+                                    placeholder="Website"
+                                    value={formik.values.website}
+                                    onChange={formik.handleChange}
+                                    error={formik.touched.website && Boolean(formik.errors.website)}
+                                    helperText={formik.touched.website && formik.errors.website}
+                                    variant="outlined"
+                                    size="small"
+                                />
                             </Grid>
-                        </form>
-                    </Container>
-                </DialogContent>
-                <DialogActions>
-                    <Button type="submit" variant="contained" color="primary" justify="center" onClick={this.handleHotelAdd}>
-                        Add hotel
-                    </Button>
-                    <Button type="reset" variant="contained" color="primary" justify="center" onClick={this.resetForm}>
-                        Cancel
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        );
-    }
-}
+                            <Grid item xs={6}>
+                                <Typography>
+                                    Attachments:
+                                </Typography>
+
+                                <ManageAttachments 
+                                    attachments={formik.values.attachments}
+                                    onFileAdd={handleFileAdd}
+                                    onAttachmentRemove={handleAttachmentRemove} />
+                            </Grid>
+                        </Grid>
+                    </form>
+                </Container>
+            </DialogContent>
+            <DialogActions>
+                <Grid container direction="column" justify="center" alignItems="center">
+                    <Box width="25%" m="5px">
+                        <Button type="submit" onClick={formik.handleSubmit} variant="contained" color="primary" size="small" fullWidth>
+                            Add hotel
+                        </Button>
+                    </Box>
+                    <Box width="25%">
+                        <Button type="reset" onClick={formik.handleReset} variant="contained" color="default" justify="center" size="small" fullWidth>
+                            Cancel
+                        </Button>
+                    </Box>
+                </Grid>
+            </DialogActions>
+        </Dialog>
+    );
+};
+
+export default AddHotelForm;

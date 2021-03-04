@@ -1,3 +1,6 @@
 .MuiFormControl-root {
-    margin-bottom: 5px;
+    margin-bottom: 5px !important;
+}
+.rating-form-control {
+    display: inline !important;
 }
