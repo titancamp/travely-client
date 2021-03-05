@@ -1,7 +1,7 @@
-import Stars from "../../common/stars";
-import Address from "../../common/address";
-import Attachments from "../../common/attachements";
 import React from "react";
+import AddressColumn from "./address-column";
+import AttachmentsColumn from "./attachments-column";
+import RatingColumn from "./rating-column";
 
 export const seedData = [
     {
@@ -9,8 +9,8 @@ export const seedData = [
         name: 'Aaaa',
         stars: 5,
         address: 'address1',
-        latitude: '',
-        longitude: '',
+        latitude: '40.185711',
+        longitude: '44.4723169',
         contactName: 'contactName1',
         email: 'email',
         phone: 'phone',
@@ -32,8 +32,8 @@ export const seedData = [
         name: 'Eeee',
         stars: 0,
         address: 'address4',
-        latitude: '',
-        longitude: '',
+        latitude: '40.1973245',
+        longitude: '44.5207219',
         contactName: 'contactName5',
         email: 'email',
         phone: 'phone',
@@ -54,8 +54,8 @@ export const seedData = [
         name: 'Eeee',
         stars: 1,
         address: 'address4',
-        latitude: '',
-        longitude: '',
+        latitude: '44.5202219',
+        longitude: '44.5211219',
         contactName: 'contactName5',
         email: 'email',
         phone: 'phone',
@@ -85,7 +85,7 @@ export const seedData = [
         }]
     },
     {
-        id: 5,
+        id: 577,
         name: 'Aaaa',
         stars: 5,
         address: 'address1',
@@ -108,8 +108,8 @@ export const seedData = [
             {name: 'photo', extension: 'jpg', filePath: 'http://www.africau.edu/images/default/sample.pdf'}]
     },
     {
-        id: 6,
-        name: 'Eeee',
+        id: 3433,
+        name: 'OPoasd',
         stars: 0,
         address: 'address4',
         latitude: '',
@@ -131,8 +131,8 @@ export const seedData = [
             {name: 'photo', extension: 'jpg', filePath: 'http://www.africau.edu/images/default/sample.pdf'}]
     },
     {
-        id: 7,
-        name: 'Eeee',
+        id: 3454,
+        name: 'Rfsdfd',
         stars: 2,
         address: 'address4',
         latitude: '',
@@ -154,8 +154,8 @@ export const seedData = [
             {name: 'photo', extension: 'jpg', filePath: 'http://www.africau.edu/images/default/sample.pdf'}]
     },
     {
-        id: 8,
-        name: 'Vijuani',
+        id: 786,
+        name: 'KIAJSJd',
         stars: 3,
         address: 'address10',
         latitude: '',
@@ -175,35 +175,93 @@ export const seedData = [
                 filePath: 'http://www.africau.edu/images/default/sample.pdf'
             },
             {name: 'photo', extension: 'jpg', filePath: 'http://www.africau.edu/images/default/sample.pdf'}]
+    },
+    {
+        id: 43,
+        name: 'MNAsjbda',
+        stars: 3,
+        address: 'address10',
+        latitude: '',
+        longitude: '',
+        contactName: 'contactName13',
+        email: 'email',
+        phone: 'phone',
+        website: 'website.com',
+        attachments: [{
+            name: 'Pro',
+            extension: 'pdf',
+            filePath: 'http://www.africau.edu/images/default/sample.pdf'
+        },
+            {
+                name: 'Description',
+                extension: 'docx',
+                filePath: 'http://www.africau.edu/images/default/sample.pdf'
+            },
+            {name: 'photo', extension: 'jpg', filePath: 'http://www.africau.edu/images/default/sample.pdf'}]
+    },
+    {
+        id: 345,
+        name: 'UHbuhb',
+        stars: 3,
+        address: 'f_address',
+        latitude: '',
+        longitude: '',
+        contactName: 'name of contact',
+        email: 'email',
+        phone: 'phone',
+        website: 'website.com',
+        attachments: [{
+            name: 'Pro',
+            extension: 'pdf',
+            filePath: 'http://www.africau.edu/images/default/sample.pdf'
+        },
+            {
+                name: 'Description',
+                extension: 'docx',
+                filePath: 'http://www.africau.edu/images/default/sample.pdf'
+            },
+            {name: 'photo', extension: 'jpg', filePath: 'http://www.africau.edu/images/default/sample.pdf'}]
     }
 ];
 export const columns = [
-    {field: 'name', headerName: 'Name'},
     {
-        field: 'stars', headerName: 'Stars',
-        renderCell: count => <Stars count={count.value}/>,
+        field: 'name',
+        headerName: 'Name'
+    },
+    {
+        field: 'stars',
+        headerName: 'Stars',
+        renderCell: RatingColumn,
         width: 150
     },
     {
         field: 'address',
         headerName: 'Address',
-        renderCell: address =>
-            <Address
-                address={address.value}
-                latitude={address.row.latitude}
-                longitude={address.row.longitude}
-            />
-        ,
-        width: 190
+        renderCell: AddressColumn,
+        flex: 0.5
     },
-    {field: 'contactName', headerName: 'Contact Name'},
-    {field: 'email', headerName: 'Email'},
-    {field: 'phone', headerName: 'Phone'},
-    {field: 'website', headerName: 'Website'},
+    {
+        field: 'contactName',
+        headerName: 'Contact Name',
+        flex: 0.25
+    },
+    {
+        field: 'email',
+        headerName: 'Email'
+    },
+    {
+        field: 'phone',
+        headerName: 'Phone'
+    },
+    {
+        field: 'website',
+        headerName: 'Website',
+        flex: 0.25
+    },
     {
         field: 'attachments',
         headerName: 'Attachments',
-        renderCell: attachments => <Attachments attachments={attachments.value}/>,
-        width: 'auto'
+        renderCell: AttachmentsColumn,
+        flex: 0.5
     }
 ];

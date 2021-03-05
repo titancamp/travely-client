@@ -5,10 +5,15 @@ import ShowOnMap from "./show-on-map";
 const Address = (props) => {
     return (
         <Box
-            display={'flex'}
-            alignItems={'center'}>
+            display='flex'
+            alignItems='center'
+        >
             <span>{props.address}</span>
-            <ShowOnMap latitude={props.latitude} longitude={props.longitude}/>
+            <ShowOnMap
+                latitude={props.latitude}
+                longitude={props.longitude}
+                address={props.address}
+            />
         </Box>
     );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import PictureAsPdf from "@material-ui/icons/PictureAsPdf";
 import PhotoIcon from "@material-ui/icons/Photo";
 import DescriptionIcon from "@material-ui/icons/Description";
+import Link from "react-router-dom/modules/Link";
 import Box from "@material-ui/core/Box";
 
 const Attachment = (props) => {
@@ -24,16 +25,19 @@ const Attachment = (props) => {
     }
 
     return (
-        <Box target={'_blank'}
-             href={props.filePath}
-             style={{color: color, textDecoration: 'none'}}
-             component={'a'}
-             display={'flex'}
-             alignItems={'center'}
-        >
-            {icon}
-            <span>{props.name}</span>
+        <Box>
+            <Link
+                target='_blank'
+                to={props.filePath}
+                style={{color: color, textDecoration: 'none'}}
+            >
+                {icon}
+                <span>
+                    {props.name}
+                </span>
+            </Link>
         </Box>
     );
-}
+};
+
 export default Attachment;

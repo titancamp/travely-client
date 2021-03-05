@@ -36,26 +36,36 @@ class ManageHotels extends React.Component {
         this.setState({filteredList});
     };
 
+    addNewItem=()=>{
+        console.log('Added new item.')
+    };
+
     render() {
         return (
             this.state.hotelsRows.length === 0 ?
                 <NoItem
-                    singularItemName={'hotel'}
-                    pluralItemName={'hotels'}
-                    addNewItem={() => console.log('Added new item.')}/>
+                    singularItemName='hotel'
+                    pluralItemName='hotels'
+                    addNewItem={this.addNewItem}
+                />
                 :
                 <div>
                     <SearchPlugin
                         filter={this.filterList}
                         placeholder={'Search hotels by name, contact or address'}
                     />
-                    <div style={{height: 500, width: '100%'}}>
-                        <DataGrid
-                            rows={this.state.filteredList}
-                            columns={columns}
-                            pageSize={7}
-                            fullwidth
-                        />
+                    <div>
+                        <div>
+                            <DataGrid
+                                disableColumnResize={true}
+                                rows={this.state.filteredList}
+                                columns={columns}
+                                pageSize={9}
+                                fullwidth
+                                autoHeight
+                                autoWidth
+                            />
+                        </div>
                     </div>
                 </div>
         );
