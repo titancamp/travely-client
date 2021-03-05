@@ -6,9 +6,14 @@ const Address = (props) => {
     return (
         <Box
             display={'flex'}
-            alignItems={'center'}>
+            alignItems={'center'}
+        >
             <span>{props.address}</span>
-            <ShowOnMap latitude={props.latitude} longitude={props.longitude}/>
+            <ShowOnMap
+                latitude={props.latitude}
+                longitude={props.longitude}
+                address={props.address}
+            />
         </Box>
     );
 };
