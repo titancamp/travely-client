@@ -2,9 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { DataGrid } from '@material-ui/data-grid';
 import { TOUR_ROWS, TOUR_COLUMNS } from './utils/constants';
-import CreateTour from "./create-tour";
-import AddIcon from '@material-ui/icons/Add';
-import "./tour.css"
+import CreateTour from "./create-tour/CreateTour";
 
 export default class Tour extends React.Component {
   constructor(props) {
@@ -14,6 +12,7 @@ export default class Tour extends React.Component {
       isCreateModalOpen: false
     };
     this.handleCreateModalToggle = this.handleCreateModalToggle.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   getData(){
@@ -26,6 +25,12 @@ export default class Tour extends React.Component {
     }))
   }
 
+  handleClose() {
+    this.setState({
+      isCreateModalOpen: false
+    })
+  }
+
   componentDidMount () {
     this.getData();
   };
@@ -34,12 +39,12 @@ export default class Tour extends React.Component {
     return (
         <>
           <div className="create-tour-button">
-            <AddIcon className="create-tour-icon" onClick={this.handleCreateModalToggle}/>
             <Button variant="contained" color="primary" onClick={this.handleCreateModalToggle}> Create Tour </Button>
           </div>
 
           <DataGrid rows={this.state.tourData} columns={TOUR_COLUMNS} autoHeight autoPageSize />
-          <CreateTour isOpen={this.state.isCreateModalOpen} handleCreateModalToggle={this.handleCreateModalToggle}/>
+          <CreateTour isOpen={this.state.isCreateModalOpen} handleCreateModalToggle={this.handleCreateModalToggle}
+                      handleClose={this.handleClose}/>
         </>
     );
   };
