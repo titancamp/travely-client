@@ -8,7 +8,7 @@ const PdfAttachment = (props) => {
         <Box>
             <Link
                 target='_blank'
-                to={props.filePath}
+                href={props.filePath}
                 style={{textDecoration: 'none', color: 'red'}}
             >
                 <PictureAsPdf/>
