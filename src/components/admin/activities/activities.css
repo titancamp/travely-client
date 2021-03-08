@@ -1,0 +1,9 @@
+#search_bar {
+    display: flex;
+  }
+
+ #search
+{
+    margin-left: 10px;
+    width: 100%;
+}
