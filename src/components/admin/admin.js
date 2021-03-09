@@ -48,6 +48,8 @@ const pages = [
 ];
 
 export default function Admin() {
+  console.log("test")
+
   return (
     <React.Fragment>
       <Sidebar pages={pages} />

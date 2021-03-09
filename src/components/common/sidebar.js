@@ -2,7 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import Box from "@material-ui/core/Box";
-import AirplanemodeActiveIcon from "@material-ui/icons/AirplanemodeActive";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
@@ -11,6 +10,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Drawer from "@material-ui/core/Drawer";
 import { makeStyles } from "@material-ui/core/styles";
+import Logo from "./logo";
 
 import { DRAWER_WIDTH } from "../../utility";
 
@@ -31,7 +31,7 @@ export const Sidebar = ({ pages }) => {
         display="flex"
         alignItems="center"
       >
-        <AirplanemodeActiveIcon className={classes.logo} />
+        <Logo />
         <Typography variant="h5">Travelly</Typography>
       </Box>
       <Divider />
@@ -55,15 +55,6 @@ export const Sidebar = ({ pages }) => {
 
 // styles
 const useStyles = makeStyles((theme) => ({
-  logo: {
-    fontSize: "32px",
-    transform: "rotate(45deg)",
-    display: "inline-block",
-    "-webkit-transform": "rotate(45deg)",
-    "-moz-transform": "rotate(45deg)",
-    "-ms-transform": "rotate(45deg)",
-    "-o-transform": "rotate(45deg)",
-  },
   toolbar: theme.mixins.toolbar,
   drawer: {
     width: DRAWER_WIDTH,

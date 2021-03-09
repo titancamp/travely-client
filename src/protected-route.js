@@ -3,6 +3,8 @@ import { Route, Redirect } from "react-router-dom";
 import { AuthContext } from "./context";
 
 export const ProtectedRoute = ({ component: Component, ...rest }) => {
+  console.log("test")
+
   return (
     <AuthContext.Consumer>
       {({ isLoggedIn }) => {
