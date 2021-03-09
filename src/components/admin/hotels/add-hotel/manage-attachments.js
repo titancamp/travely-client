@@ -36,7 +36,7 @@ function ManageAttachments({ attachments, onFileAdd, onAttachmentRemove }) {
                 <label htmlFor="contained-button-file">
                     <Button variant="contained" color="default" component="span" fullWidth startIcon={<InsertDriveFileIcon />}>
                         Browse and add files
-                </Button>
+                    </Button>
                 </label>
             </FormControl>
             <Paper className="list-paper">
@@ -52,7 +52,7 @@ function ManageAttachments({ attachments, onFileAdd, onAttachmentRemove }) {
                             <ListItemSecondaryAction>
                                 <Button edge="end" aria-label="remove" size="small" onClick={() => onAttachmentRemove(item)}>
                                     Remove
-                            </Button>
+                                </Button>
                             </ListItemSecondaryAction>
                         </ListItem>
                     ))}
