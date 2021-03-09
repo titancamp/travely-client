@@ -101,7 +101,7 @@ export default function Tourists() {
 
         setFilterFn({
             fn: items => {
-                if (target.value == "")
+                if (target.value === "")
                     return items;
                 else
                     return items.filter(x => (x.firstName + x.lastName).toUpperCase().includes(target.value.replace(/\s+/g, "").toUpperCase()));
@@ -109,12 +109,11 @@ export default function Tourists() {
         });
     };
 
-    const addOrEdit = (tourist, resetForm) => {
-        if (tourist.id == 0)
+    const addOrEdit = (tourist) => {
+        if (tourist.id === 0)
             touristService.insertTourist(tourist);
         else
             touristService.updateTourist(tourist);
-        resetForm();
         setRecordForEdit(null);
         setPopupState({
             ...popupState,
