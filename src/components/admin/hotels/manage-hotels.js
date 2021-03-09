@@ -3,30 +3,30 @@ import React from 'react';
 import HotelIcon from '@material-ui/icons/Hotel';
 import Button from '@material-ui/core/Button';
 
-import AddHotel from './add-hotel';
+import SaveHotel from './save-hotel';
 
 export default class ManageHotels extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isAddHotelModalOpen: false,
+      isSaveHotelModalOpen: false,
     };
 
-    this.handleAddHotelModalToggle = this.handleAddHotelModalToggle.bind(this);
+    this.handleSaveHotelModalToggle = this.handleSaveHotelModalToggle.bind(this);
   }
 
-  handleAddHotelModalToggle() {
+  handleSaveHotelModalToggle() {
     this.setState(state => ({
-      isAddHotelModalOpen: !state.isAddHotelModalOpen
+      isSaveHotelModalOpen: !state.isSaveHotelModalOpen
     }));
   }
 
   render() {
     return (
       <div>
-        <Button variant="outlined" startIcon={<HotelIcon />} onClick={this.handleAddHotelModalToggle}>Add new hotel</Button>
-        <AddHotel isOpen={this.state.isAddHotelModalOpen} handleAddHotelModalToggle={this.handleAddHotelModalToggle} />
+        <Button variant="outlined" startIcon={<HotelIcon />} onClick={this.handleSaveHotelModalToggle}>Add new hotel</Button>
+        <SaveHotel isOpen={this.state.isSaveHotelModalOpen} handleSaveHotelModalToggle={this.handleSaveHotelModalToggle} />
       </div>
     );
   }
