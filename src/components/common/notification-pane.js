@@ -5,27 +5,36 @@ import {NotificationContext} from "../../store/notificationContext";
 
 
 export default function NotificationPane() {
-    const {enqueueSnackbar} = useSnackbar();
-    const handleClickVariant = (data) => {
-        enqueueSnackbar(data, {
-            variant: 'warning',
+    const {enqueueSnackbar, closeSnackbar} = useSnackbar();
+    //Todo use notification id
+    let key = 1;
+    const handleReceiveMessage = (data) => {
+        enqueueSnackbar(data.message, {
+            variant: 'success',
             autoHideDuration: null,
             anchorOrigin: {vertical: "top", horizontal: "right"},
+            key,
             action: (
-                <Button color="primary" size="small" onClick={console.log(data)}>
+                <Button color="primary" size="small" onClick={() => handleButtonClick(data, key)}>
                     View
                 </Button>
             )
         });
+        key++;
     };
 
+    const handleButtonClick = (data, key) => {
+        //todo navigation specified module
+        console.log(data);
+        closeSnackbar(key);
+    }
     return (
         <React.Fragment>
             <NotificationContext.Consumer>
                 {(notifyService) => {
                     notifyService.connect()
                     notifyService.registerOnClose(console.log)
-                    notifyService.registerNotificationReceived(handleClickVariant)
+                    notifyService.registerNotificationReceived(handleReceiveMessage)
                 }}
             </NotificationContext.Consumer>
         </React.Fragment>

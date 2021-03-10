@@ -4,7 +4,7 @@ import {createContext} from "react";
 export const NotificationContext = createContext({
     connection: new HubConnectionBuilder()
         .withUrl("https://localhost:5001/notification", {
-            accessTokenFactory: sessionStorage.getItem('token')
+            accessTokenFactory: () => sessionStorage.getItem('token')
         })
         .withAutomaticReconnect()
         .build(),
