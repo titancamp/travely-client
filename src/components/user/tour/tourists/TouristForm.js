@@ -79,7 +79,26 @@ export default function TouristForm(props) {
                   handleChange,
                   handleSubmit,
                   resetForm
-              }) => (
+              },
+              resetAll = () => {
+                  resetForm({
+                      values: {
+                          id: values['id'],
+                          firstName: "",
+                          lastName: "",
+                          email: "",
+                          phone: "",
+                          placeBirth: "",
+                          birthDate: convertMonthFormat(new Date()),
+                          issueDate: convertMonthFormat(new Date()),
+                          expireDate: convertMonthFormat(new Date()),
+                          passportNum: "",
+                          issuedBy: "",
+                          notes: ""
+                      }
+                  })
+              }
+            ) => (
 
                 <form className={classes.root} onSubmit={handleSubmit} autoComplete="off">
 
@@ -187,24 +206,7 @@ export default function TouristForm(props) {
                                 >Submit</Button>
                                 <Button
                                     color="default"
-                                    onClick={() => resetForm(
-                                        {
-                                            values: {
-                                                id: values['id'],
-                                                firstName: "",
-                                                lastName: "",
-                                                email: "",
-                                                phone: "",
-                                                placeBirth: "",
-                                                birthDate: convertMonthFormat(new Date()),
-                                                issueDate: convertMonthFormat(new Date()),
-                                                expireDate: convertMonthFormat(new Date()),
-                                                passportNum: "",
-                                                issuedBy: "",
-                                                notes: ""
-                                            }
-                                        }
-                                    )}
+                                    onClick={resetAll}
                                     variant="contained"
                                 >Reset</Button>
                             </div>
