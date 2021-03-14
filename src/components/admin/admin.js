@@ -14,7 +14,6 @@ import ChangePassword from "./account/change-password";
 import {ContentArea} from "../common/content-area";
 import {Sidebar} from "../common/sidebar";
 import NotificationPane from "../common/notification-pane";
-import {SnackbarProvider} from "notistack";
 
 const pages = [
     {
@@ -50,13 +49,15 @@ const pages = [
 ];
 
 export default function Admin() {
+    const [openNotificationPane, setOpenNotificationPane] = React.useState(false);
+    const toggleNotificationPane = () => setOpenNotificationPane(!openNotificationPane);
     return (
         <React.Fragment>
-            <SnackbarProvider maxSnack={1000}>
-                <NotificationPane/>
-                <Sidebar pages={pages}/>
-                <ContentArea pages={pages}/>
-            </SnackbarProvider>
+            <NotificationPane open={openNotificationPane}/>
+            <Sidebar pages={pages}/>
+            <ContentArea pages={pages}
+                         toggleNotificationPane={toggleNotificationPane}
+                         openNotificationPane={openNotificationPane}/>
         </React.Fragment>
     );
 }
