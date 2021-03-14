@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import {
@@ -66,18 +66,20 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel }) => {
         }
     });
 
-    function handleFileAdd(file) {
-        formik.setFieldValue('attachments', [...formik.values.attachments, { name: file.name, blob: file }]);
-    }
+    const handleFileAdd = useCallback(
+        (file) => formik.setFieldValue('attachments', [...formik.values.attachments, { name: file.name, blob: file }]),
+        [formik]);
 
-    function handleAttachmentRemove(attachment) {
-        const attachments = formik.values.attachments;
-        const index = formik.values.attachments.indexOf(attachment);
-        if (index > -1) {
-            attachments.splice(index, 1);
-            formik.setFieldValue('attachments', attachments);
-        }
-    }
+    const handleAttachmentRemove = useCallback(
+        (attachment) => {
+            const attachments = formik.values.attachments;
+            const index = formik.values.attachments.indexOf(attachment);
+            if (index > -1) {
+                attachments.splice(index, 1);
+                formik.setFieldValue('attachments', attachments);
+            }
+        },
+        [formik]);
 
     const inputMb = 1;
     const dialogTitle = isEditForm ? 'Edit new hotel' : 'Add new hotel';
@@ -88,7 +90,7 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel }) => {
             <DialogContent>
                 <Container>
                     <form onSubmit={formik.handleSubmit} noValidate autoComplete="off">
-                        <Grid container direction="row" justify="center" alignItems="flex-start" spacing={3}>
+                        <Grid container spacing={3}>
                             <Grid item xs={6}>
                                 <Box mb={inputMb}>
                                     <TextField
@@ -104,8 +106,8 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel }) => {
                                         size="small"
                                     />
                                 </Box>
-                                <FormControl className="rating-form-control" fullWidth>
-                                    <Grid container direction="row" justify="center" alignItems="flex-start">
+                                <FormControl fullWidth>
+                                    <Grid container>
                                         <Grid item xs={5}>
                                             <Typography>Hotel stars:</Typography>
                                         </Grid>
@@ -128,7 +130,7 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel }) => {
                                         placeholder="Address"
                                         value={formik.values.address}
                                         onChange={formik.handleChange}
-                                        error={formik.touched.address && Boolean(formik.errors.address)}
+                                        error={formik.touched.address && !!formik.errors.address}
                                         helperText={formik.touched.address && formik.errors.address}
                                         variant="outlined"
                                         size="small"
@@ -142,7 +144,7 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel }) => {
                                         placeholder="Contact name"
                                         value={formik.values.contactName}
                                         onChange={formik.handleChange}
-                                        error={formik.touched.contactName && Boolean(formik.errors.contactName)}
+                                        error={formik.touched.contactName && !!formik.errors.contactName}
                                         helperText={formik.touched.contactName && formik.errors.contactName}
                                         variant="outlined"
                                         size="small"
@@ -156,7 +158,7 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel }) => {
                                         placeholder="Email"
                                         value={formik.values.email}
                                         onChange={formik.handleChange}
-                                        error={formik.touched.email && Boolean(formik.errors.email)}
+                                        error={formik.touched.email && !!formik.errors.email}
                                         helperText={formik.touched.email && formik.errors.email}
                                         variant="outlined"
                                         size="small"
@@ -170,7 +172,7 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel }) => {
                                         placeholder="Phone"
                                         value={formik.values.phone}
                                         onChange={formik.handleChange}
-                                        error={formik.touched.phone && Boolean(formik.errors.phone)}
+                                        error={formik.touched.phone && !!formik.errors.phone}
                                         helperText={formik.touched.phone && formik.errors.phone}
                                         variant="outlined"
                                         size="small"
@@ -183,7 +185,7 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel }) => {
                                         placeholder="Website"
                                         value={formik.values.website}
                                         onChange={formik.handleChange}
-                                        error={formik.touched.website && Boolean(formik.errors.website)}
+                                        error={formik.touched.website && !!formik.errors.website}
                                         helperText={formik.touched.website && formik.errors.website}
                                         variant="outlined"
                                         size="small"
@@ -194,7 +196,7 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel }) => {
                                 <Box mb={inputMb}>
                                     <Typography>
                                         Attachments:
-                                </Typography>
+                                    </Typography>
                                 </Box>
                                 <Box mb={inputMb}>
                                     <ManageAttachments
@@ -208,17 +210,17 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel }) => {
                 </Container>
             </DialogContent>
             <DialogActions>
-                <Grid container direction="column" justify="center" alignItems="center">
-                    <Box width="25%" mb={inputMb}>
+                <Grid container direction="column" alignItems="center">
+                    <Grid item xs={3}>
                         <Button type="submit" onClick={formik.handleSubmit} variant="contained" color="primary" size="small" fullWidth>
                             Add hotel
                         </Button>
-                    </Box>
-                    <Box width="25%">
-                        <Button type="reset" onClick={formik.handleReset} variant="text" justify="center" size="small" fullWidth>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Button type="reset" onClick={formik.handleReset} variant="text" size="small" fullWidth>
                             Cancel
                         </Button>
-                    </Box>
+                    </Grid>
                 </Grid>
             </DialogActions>
         </Dialog>

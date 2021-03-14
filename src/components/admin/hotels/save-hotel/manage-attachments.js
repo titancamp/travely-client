@@ -1,31 +1,26 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
     Box,
     Button,
     FormControl,
     Grid,
     List,
-    ListItem,
-    ListItemIcon,
-    ListItemSecondaryAction,
-    ListItemText,
     Paper
 } from '@material-ui/core';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFileOutlined';
-import AttachmentIcon from '@material-ui/icons/Attachment';
-
-import { Link } from 'react-router-dom';
-
-import './manage-attachments.css';
+import AttachmentListItem from './attachment-list-item';
 
 function ManageAttachments({ attachments, onFileAdd, onAttachmentRemove }) {
 
-    function handleFileChange(e) {
-        const files = e.target.files;
-        if (files.length) {
-            onFileAdd(files[0]);
-        }
-    }
+    const handleFileChange = useCallback(
+        (e) => {
+            const files = e.target.files;
+            if (files.length) {
+                onFileAdd(files[0]);
+            }
+        },
+        [onFileAdd]
+    );
 
     return (
         <Grid container direction="column" justify="center" alignItems="stretch">
@@ -42,7 +37,7 @@ function ManageAttachments({ attachments, onFileAdd, onAttachmentRemove }) {
                         <label htmlFor="contained-button-file">
                             <Button variant="contained" size="small" color="default" component="span" fullWidth startIcon={<InsertDriveFileIcon />}>
                                 Browse and add files
-                                </Button>
+                            </Button>
                         </label>
                     </FormControl>
                 </Box>
@@ -51,17 +46,7 @@ function ManageAttachments({ attachments, onFileAdd, onAttachmentRemove }) {
                 <Paper className="list-paper" variant="outlined">
                     <List dense={true}>
                         {attachments.map(item => (
-                            <ListItem button key={item.name}>
-                                <ListItemIcon>
-                                    <AttachmentIcon fontSizeSmall />
-                                </ListItemIcon>
-                                <ListItemText primary={item.name} />
-                                <ListItemSecondaryAction>
-                                    <Link edge="end" aria-label="remove" size="small" onClick={() => onAttachmentRemove(item)}>
-                                        Remove
-                                            </Link>
-                                </ListItemSecondaryAction>
-                            </ListItem>
+                            <AttachmentListItem attachment={item} onAttachmentRemove={onAttachmentRemove} />
                         ))}
                     </List>
                 </Paper>

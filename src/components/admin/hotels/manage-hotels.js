@@ -3,7 +3,7 @@ import React from 'react';
 import HotelIcon from '@material-ui/icons/Hotel';
 import Button from '@material-ui/core/Button';
 
-import SaveHotel from './save-hotel';
+import SaveHotel from './save-hotel/save-hotel';
 
 export default class ManageHotels extends React.Component {
   constructor(props) {
