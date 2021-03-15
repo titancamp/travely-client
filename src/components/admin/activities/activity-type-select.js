@@ -1,14 +1,7 @@
 import React from "react";
 import {Select, InputLabel, FormControl, MenuItem } from "@material-ui/core";
 import { dummyData } from './activities-const'
-import { withStyles } from '@material-ui/styles';
-
-
-const useStyles = theme => ({
-    activityselect: {
-       minWidth: 120,
-     },
-});
+import Grid from '@material-ui/core/Grid';
 
 
 class ActivityTypeSelect extends React.Component {
@@ -38,21 +31,26 @@ class ActivityTypeSelect extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
         return (
-            <FormControl className={classes.activityselect}>
+
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <FormControl fullWidth>
                 <InputLabel id="activity-type">Activity type</InputLabel>
-                <Select onChange={this.handleChange} >
+                <Select defaultValue='' onChange={this.handleChange} >
+                        <MenuItem key={''} value={''}>{'All'}</MenuItem>
                     {this.state.activityTypes.map(activityType =>
                         <MenuItem key={activityType} value={activityType}>{activityType}</MenuItem>
                     )}
                 </Select>
             </FormControl>
+          </Grid>       
+        </Grid>  
         );
     }
 }
 
-export default withStyles(useStyles)(ActivityTypeSelect)
+export default ActivityTypeSelect
 
 
 

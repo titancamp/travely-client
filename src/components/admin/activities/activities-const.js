@@ -69,7 +69,7 @@ export const dummyData = [
     },
     {
         id: 7,
-        type: "Histrocal",
+        type: "Historical",
         name: "Garni Tample",
         address: "Garni village",
         contactName: "Artur Petrosyan ",
