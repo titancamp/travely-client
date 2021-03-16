@@ -50,7 +50,7 @@ class ManageActivities extends React.Component {
     this.filterList(this.state.searchTerm, term);
   }
 
-  filterList = (searchTerm, searchByTypeterm) => {
+  filterList(searchTerm, searchByTypeterm) {
     const filteredActivities = this.state.activityRows.filter(e =>
         (searchTerm === ''
           || e.name.toLowerCase().includes(searchTerm.toLowerCase()) 
