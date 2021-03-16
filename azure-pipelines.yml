@@ -9,4 +9,6 @@ steps:
     command: 'buildAndPush'
     Dockerfile: 'Dockerfile'
     buildContext: '.'
-    tags: '$(Build.BuildId), latest'
+    tags: |
+      $(Build.BuildId)
+      latest
