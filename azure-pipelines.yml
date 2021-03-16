@@ -3,6 +3,7 @@ trigger:
 
 steps:
 - task: Docker@2
+  displayName: 'Build and push to docker hub with latest tag.'
   inputs:
     containerRegistry: 'DockerHub'
     repository: 'titancamp/travely-client'
