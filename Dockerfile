@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:14.16.0-buster
 USER node
 
 ARG APP=app
