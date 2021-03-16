@@ -8,6 +8,7 @@ ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH=$PATH:$HOME/.npm-global/bin
 
 #build
+RUN mkdir -p $HOME/$APP
 WORKDIR $HOME/$APP
 COPY --chown=node:node . .
 RUN  npm install
