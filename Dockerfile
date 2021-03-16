@@ -10,6 +10,7 @@ ENV PATH=$PATH:$HOME/.npm-global/bin
 #build
 WORKDIR $HOME/$APP
 COPY --chown=node:node . .
+RUN  npm install
 RUN  npm run build
 
 #cleanup
