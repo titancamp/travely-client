@@ -5,9 +5,9 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'DockerHub'
-    repository: 'travely-client:latest'
+    repository: 'travely-client'
     command: 'buildAndPush'
     Dockerfile: 'Dockerfile'
     buildContext: '.'
-    tags: 'travely-client-$(Build.BuildId)'
+    tags: '$(Build.BuildId), latest'
   
