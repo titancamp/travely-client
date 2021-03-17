@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useCallback, useContext} from 'react';
 import Button from '@material-ui/core/Button';
 import {NotificationContext} from "../../store/notificationContext";
 import {Card, Drawer} from "@material-ui/core";
@@ -30,6 +30,24 @@ const useStyles = makeStyles(() => ({
 }));
 
 
+const Notification = ({notification, classes, handleButtonClick}) => {
+    const clickHandler = useCallback(() => handleButtonClick(notification), [handleButtonClick, notification])
+    return (
+        <Card elevation={3} className={classes.notification}
+              key={`${notification.resourceId}-${notification.module}`}>
+            <div className={classes.notificationContent}>
+                <p>{notification.message}</p>
+                <Button className={classes.viewButton}
+                        key={`${notification.resourceId} - ${notification.module}`}
+                        onClick={clickHandler}
+                        color='inherit'>
+                    View
+                </Button>
+            </div>
+        </Card>
+    )
+}
+
 export default function NotificationPane({open}) {
     const classes = useStyles();
     const notificationService = useContext(NotificationContext)
@@ -37,22 +55,6 @@ export default function NotificationPane({open}) {
         console.log(notification);
     }
 
-    const Notification = (notification) => {
-        return (
-            <Card elevation={3} className={classes.notification}
-                  key={`${notification.resourceId}-${notification.module}`}>
-                <div className={classes.notificationContent}>
-                    <p>{notification.message}</p>
-                    <Button className={classes.viewButton}
-                            key={`${notification.resourceId} - ${notification.module}`}
-                            onClick={() => handleButtonClick(notification)}
-                            color='inherit'>
-                        View
-                    </Button>
-                </div>
-            </Card>
-        )
-    }
     // notificationService.connect();
 
     return (
@@ -65,7 +67,11 @@ export default function NotificationPane({open}) {
                 classes={{
                     paper: classes.drawerPaper,
                 }}>
-                {notificationService.notifications.map(notification => Notification(notification))}
+                {notificationService.notifications.map(notification =>
+                    <Notification classes={classes}
+                                  handleButtonClick={handleButtonClick}
+                                  notification={notification}/>)
+                }
             </Drawer>
         </React.Fragment>
     )
