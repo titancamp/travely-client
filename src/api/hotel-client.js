@@ -1,14 +1,14 @@
 const HotelClient = {
-    addHotel: async function (data) {
-        return await setTimeout(() => {
-            return data;
-        }, 0);
-    },
-    editHotel: async function (data) {
-        return await setTimeout(() => {
-            return data;
-        }, 0);
-    },
+  addHotel: async function (data) {
+    return await setTimeout(() => {
+      return data;
+    }, 0);
+  },
+  editHotel: async function (data) {
+    return await setTimeout(() => {
+      return data;
+    }, 0);
+  },
 };
 
 export default HotelClient;

@@ -16,10 +16,10 @@ spec:
         app: travely-client
     spec:
       containers:
-      - name: travely-client
-        image: titancamp/travely-client:latest
-        ports:
-        - containerPort: 5000
+        - name: travely-client
+          image: titancamp/travely-client:latest
+          ports:
+            - containerPort: 5000
 ---
 kind: Service
 apiVersion: v1
@@ -43,32 +43,32 @@ metadata:
   name: name-virtual-host-ingress-no-third-host
 spec:
   rules:
-  - host: travely.am
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: travely-client-service
-            port:
-              number: 80
-  - host: www.travely.am
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: travely-client-service
-            port:
-              number: 80
-  - http: 
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: travely-client-service
-            port:
-              number: 80
+    - host: travely.am
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: travely-client-service
+                port:
+                  number: 80
+    - host: www.travely.am
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: travely-client-service
+                port:
+                  number: 80
+    - http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: travely-client-service
+                port:
+                  number: 80
