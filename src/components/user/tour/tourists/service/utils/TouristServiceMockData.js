@@ -11,7 +11,7 @@ let touristsMockData = [
     notes: "Good",
     passportNum: "45ad555666",
     phone: "09387875050",
-    placeBirth: "Gyumri"
+    placeBirth: "Gyumri",
   },
   {
     birthDate: "Jun 13, 96",
@@ -25,7 +25,7 @@ let touristsMockData = [
     notes: "better",
     passportNum: "44er44",
     phone: "111112223333332",
-    placeBirth: "Gyumri"
+    placeBirth: "Gyumri",
   },
   {
     birthDate: "Jul 16, 93",
@@ -39,7 +39,7 @@ let touristsMockData = [
     notes: "like",
     passportNum: "55ghg555",
     phone: "6999654782226",
-    placeBirth: "Goris"
+    placeBirth: "Goris",
   },
   {
     birthDate: "Jul 16, 99",
@@ -53,7 +53,7 @@ let touristsMockData = [
     notes: "love",
     passportNum: "88rt888",
     phone: "2233366655588899",
-    placeBirth: "Yerevan"
+    placeBirth: "Yerevan",
   },
   {
     birthDate: "Feb 16, 91",
@@ -67,9 +67,8 @@ let touristsMockData = [
     notes: "hi",
     passportNum: "8sds66",
     phone: "2233366655588899",
-    placeBirth: "Yerevan"
-  }
-
+    placeBirth: "Yerevan",
+  },
 ];
 
 export default touristsMockData;
