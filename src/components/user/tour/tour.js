@@ -1,14 +1,8 @@
 import React from "react";
-import Tourists from "./tourists/Tourists";
-
 import Button from "@material-ui/core/Button";
 import { DataGrid } from '@material-ui/data-grid';
 import { TOUR_ROWS, TOUR_COLUMNS } from './utils/constants';
 import CreateTour from "./create-tour/CreateTour";
-
-// export default function Tour() {
-//   return <Tourists />;
-// }
 
 export default class Tour extends React.Component {
   constructor(props) {
