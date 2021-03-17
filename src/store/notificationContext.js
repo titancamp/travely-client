@@ -12,14 +12,14 @@ export const NotificationContext = createContext({
     connect: function () {
         if (!this.isConnected)
             return this.connection.start()
-                .then(() => console.log('Connection started'))
-                .then(() => this.isConnected = true)
+                .then(() => {
+                    console.log('Connection started')
+                    this.isConnected = true;
+                    this.connection.on('receiveNotification', notification => {
+                        this.notifications.push(notification)
+                    })
+                })
                 .catch(console.log)
     },
-    registerOnClose: function (fn) {
-        this.connection.onclose(fn)
-    },
-    registerNotificationReceived: function (fn) {
-        this.connection.on('receiveNotification', fn)
-    }
+    notifications: [{resourceId: 1, module: 'Property', message: 'Simple notification message'}]
 })
