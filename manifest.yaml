@@ -63,21 +63,23 @@ spec:
             name: travely-client-service
             port:
               number: 80
-  - http: notification.travely.am 
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: schedulermanager-api-service
-            port:
-              number: 80
-  - http: api.travely.am 
+  - host: api.travely.am
+    http:
       paths:
       - pathType: Prefix
         path: "/"
         backend:
           service:
             name: tourmanager-api-service
+            port:
+              number: 80
+  - host: notification.travely.am
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: schedulermanager-api-service
             port:
               number: 80
