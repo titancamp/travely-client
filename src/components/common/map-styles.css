@@ -1,11 +1,13 @@
 @import "https://unpkg.com/leaflet@1.7.1/dist/leaflet.css";
 
-h1, h2, p {
-    text-align: center;
+h1,
+h2,
+p {
+  text-align: center;
 }
 
 .leaflet-container {
-    height: 500px;
-    width: 80%;
-    margin: 0 auto;
+  height: 500px;
+  width: 80%;
+  margin: 0 auto;
 }
