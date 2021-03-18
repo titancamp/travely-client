@@ -6,15 +6,15 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            isLoggedIn: false,
-            login: () => {
-                this.setState({
-                    isLoggedIn: true,
-                });
-            }
-        };
-    }
+    this.state = {
+      isLoggedIn: false,
+      login: () => {
+        this.setState({
+          isLoggedIn: true,
+        });
+      },
+    };
+  }
 
     render() {
         return (

@@ -22,14 +22,14 @@ export default class Home extends React.Component {
   };
   render() {
     return (
-      <div>    
+      <div>
         <Typography variant="h6">
           <ReportTwoToneIcon style={{fontSize:'25px'}}/>
           Bookings with approaching cancellation deadlines
-        </Typography> 
+        </Typography>
 
-        <DataGrid rows={this.state.homeData} columns={GRID_COLUMNS} autoHeight autoPageSize /> 
-      </div>       
+        <DataGrid rows={this.state.homeData} columns={GRID_COLUMNS} autoHeight autoPageSize />
+      </div>
     );
   };
 }
