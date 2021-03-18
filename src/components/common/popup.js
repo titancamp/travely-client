@@ -3,7 +3,7 @@ import {Dialog, DialogTitle, DialogContent} from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import {CloseIcon} from "@material-ui/data-grid";
+import CloseIcon from "@material-ui/icons/Close";
 
 const useStyles = makeStyles(theme => ({
     dialogWrapper: {

@@ -19,4 +19,3 @@ export function getActionName(pageName) {
       return "";
   }
 }
-

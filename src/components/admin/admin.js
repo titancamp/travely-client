@@ -11,47 +11,53 @@ import ManageStaff from "./staff/manage-staff";
 import ManageHotels from "./hotels/manage-hotels";
 import ManageActivities from "./activities/manage-activities";
 import ChangePassword from "./account/change-password";
-import { ContentArea } from "../common/content-area";
-import { Sidebar } from "../common/sidebar";
+import {ContentArea} from "../common/content-area";
+import {Sidebar} from "../common/sidebar";
+import NotificationPane from "../common/notification-pane";
 
 const pages = [
-  {
-    title: "Agency Profile",
-    path: "/admin/profile",
-    icon: <ApartmentIcon />,
-    component: AgencyProfile,
-  },
-  {
-    title: "Manage Staff",
-    path: "/admin/staff",
-    icon: <GroupIcon />,
-    component: ManageStaff,
-  },
-  {
-    title: "Manage Hotels",
-    path: "/admin/hotels",
-    icon: <HotelIcon />,
-    component: ManageHotels,
-  },
-  {
-    title: "Manage Activities",
-    path: "/admin/activities",
-    icon: <PublicIcon />,
-    component: ManageActivities,
-  },
-  {
-    title: "Change Password",
-    path: "/admin/password",
-    icon: <LockIcon />,
-    component: ChangePassword,
-  },
+    {
+        title: "Agency Profile",
+        path: "/admin/profile",
+        icon: <ApartmentIcon/>,
+        component: AgencyProfile,
+    },
+    {
+        title: "Manage Staff",
+        path: "/admin/staff",
+        icon: <GroupIcon/>,
+        component: ManageStaff,
+    },
+    {
+        title: "Manage Hotels",
+        path: "/admin/hotels",
+        icon: <HotelIcon/>,
+        component: ManageHotels,
+    },
+    {
+        title: "Manage Activities",
+        path: "/admin/activities",
+        icon: <PublicIcon/>,
+        component: ManageActivities,
+    },
+    {
+        title: "Change Password",
+        path: "/admin/password",
+        icon: <LockIcon/>,
+        component: ChangePassword,
+    },
 ];
 
 export default function Admin() {
-  return (
-    <React.Fragment>
-      <Sidebar pages={pages} />
-      <ContentArea pages={pages} />
-    </React.Fragment>
-  );
+    const [openNotificationPane, setOpenNotificationPane] = React.useState(false);
+    const toggleNotificationPane = () => setOpenNotificationPane(!openNotificationPane);
+    return (
+        <React.Fragment>
+            <NotificationPane open={openNotificationPane}/>
+            <Sidebar pages={pages}/>
+            <ContentArea pages={pages}
+                         toggleNotificationPane={toggleNotificationPane}
+                         openNotificationPane={openNotificationPane}/>
+        </React.Fragment>
+    );
 }
