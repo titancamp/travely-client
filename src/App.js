@@ -1,10 +1,10 @@
 import React from "react";
 import AppRouting from "./app-routing";
-import {AuthContext} from "./store/context";
+import { AuthContext } from "./store/context";
 
 export default class App extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
     this.state = {
       isLoggedIn: false,
@@ -16,11 +16,11 @@ export default class App extends React.Component {
     };
   }
 
-    render() {
-        return (
-            <AuthContext.Provider value={this.state}>
-                <AppRouting/>
-            </AuthContext.Provider>
-        );
-    }
+  render() {
+    return (
+      <AuthContext.Provider value={this.state}>
+        <AppRouting />
+      </AuthContext.Provider>
+    );
+  }
 }
