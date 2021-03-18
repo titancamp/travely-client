@@ -1,4 +1,3 @@
-import React from "react";
 import AddressColumn from "./address-column";
 import AttachmentsColumn from "./attachments-column";
 import RatingColumn from "./rating-column";
