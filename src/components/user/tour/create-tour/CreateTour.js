@@ -6,7 +6,17 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TourDetail from "./TourDetail";
 import Guest from "./Guests";
-import {GUESTS_ROWS} from "../utils/constants";
+import {
+    ACTIVITIES_ROWS,
+    ASSIGN_TOUR_GUIDE_ROWS,
+    GUESTS_ROWS,
+    HOTEL_ROWS,
+    TRANSPORTATION_ROWS
+} from "../utils/constants";
+import Hotel from "./Hotel";
+import Activity from "./Activity";
+import Transportation from "./Transportation";
+import AssignTourGuide from "./AssignTourGuide";
 
 const CREATE_TOUR_STEPS = [
     {
@@ -20,9 +30,24 @@ const CREATE_TOUR_STEPS = [
         formName: 'guestsData'
     },
     {
-        component: () => null,
-        dialogTitle: 'aa',
-        formName: 'aaa'
+        component: Hotel,
+        dialogTitle: 'Hotels',
+        formName: 'hotels'
+    },
+    {
+        component: Activity,
+        dialogTitle: 'Activities',
+        formName: 'activities'
+    },
+    {
+        component: Transportation,
+        dialogTitle: 'Transportation',
+        formName: 'transportation'
+    },
+    {
+        component: AssignTourGuide,
+        dialogTitle: 'Assign Tour Guide',
+        formName: 'assignTourGuide'
     },
 ];
 
@@ -34,6 +59,10 @@ class CreateTour extends Component {
             currentStepIndex: 0,
             tourDetailData: null,
             guestsData: GUESTS_ROWS,
+            hotels: HOTEL_ROWS,
+            activities: ACTIVITIES_ROWS,
+            transportation: TRANSPORTATION_ROWS,
+            assignTourGuide: ASSIGN_TOUR_GUIDE_ROWS
         };
         this.handleNextStep = this.handleNextStep.bind(this);
         this.handlePreviousStep = this.handlePreviousStep.bind(this);
@@ -79,6 +108,7 @@ class CreateTour extends Component {
         const {isOpen, handleClose} = this.props;
 
         const currentStep = CREATE_TOUR_STEPS[currentStepIndex];
+        console.log(currentStepIndex);
         const CurrentStepComponent = currentStep.component;
         const currentStepTitle = currentStep.dialogTitle;
         const currentStepFormName = currentStep.formName;
