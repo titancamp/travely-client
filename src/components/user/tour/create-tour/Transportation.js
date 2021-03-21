@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
         width: 100,
     },
     selectItem: {
-        height: 50,
+        height: 65,
         width: "100%",
     },
     inputItem: {

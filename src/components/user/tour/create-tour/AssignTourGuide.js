@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
         width: "97%",
     },
     inputItem: {
-        height: 110,
         width: 100,
     },
     notes: {
@@ -135,12 +134,9 @@ const AssignTourGuide = ({
                                 className={classes.notes}
                             />
                         </Grid>
-                        {/*<Grid item xs={12}>*/}
-
-                        {/*</Grid>*/}
                         <Grid item xs={3}>
                             <FormikInputField
-                                label='date-label'
+                                label='Date'
                                 name='date'
                                 type='date'
                                 className={classes.inputItem}
