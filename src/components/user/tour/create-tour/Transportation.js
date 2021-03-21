@@ -120,12 +120,9 @@ const Transportation = ({
                                 className={classes.notes}
                             />
                         </Grid>
-                        {/*<Grid item xs={12}>*/}
-
-                        {/*</Grid>*/}
                         <Grid item xs={3}>
                             <FormikInputField
-                                label='startDate-label'
+                                label='Start Date'
                                 name='startDate'
                                 type='date'
                                 className={classes.inputItem}
@@ -136,7 +133,7 @@ const Transportation = ({
                         </Grid>
                         <Grid item xs={3}>
                             <FormikInputField
-                                label='endDate-label'
+                                label='End Date'
                                 name='endDate'
                                 type='date'
                                 className={classes.inputItem}
