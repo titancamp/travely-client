@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import { Box } from "@material-ui/core";
 import { useStyles } from './auth-style';
 
-import { AuthContext } from "../../context";
+import { AuthContext } from "../../store/context";
 
 const Login = () => {
   const classes = useStyles();

@@ -1,10 +1,8 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { AuthContext } from "./context";
+import { AuthContext } from "./store/context";
 
 export const ProtectedRoute = ({ component: Component, ...rest }) => {
-  console.log("test")
-
   return (
     <AuthContext.Consumer>
       {({ isLoggedIn }) => {
