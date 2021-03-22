@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 const ApiClient = axios.create({
-  baseURL: "https://api.example.com",
+  baseURL: SERVER_URL,
   headers: {
     // Authorization: "Bearer " + jwtToken,
     // "Content-Type": "application/json",

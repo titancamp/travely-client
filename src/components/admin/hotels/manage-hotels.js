@@ -4,10 +4,11 @@ import HotelIcon from "@material-ui/icons/Hotel";
 import Button from "@material-ui/core/Button";
 
 import SaveHotel from "./save-hotel/save-hotel";
-import { columns, seedData } from "./manage-hotels-constants";
+import { columns } from "./manage-hotels-constants";
 import NoItem from "../../common/no-item";
 import SearchPlugin from "../../common/search-plugin";
 import { DataGrid } from "@material-ui/data-grid";
+import HotelClient from "../../../api/hotel-client";
 
 export default class ManageHotels extends React.Component {
   constructor(props) {
@@ -26,13 +27,13 @@ export default class ManageHotels extends React.Component {
   }
 
   componentDidMount() {
-    // getting data from API
-    const hotelsRows = seedData;
-
-    this.setState({
-      hotelsRows: hotelsRows,
-      filteredList: hotelsRows,
-    });
+    HotelClient.getHotels()
+      .then(hotels => {
+        this.setState({
+          hotelsRows: hotels,
+          filteredList: hotels,
+        });
+      });
   }
 
   filterList = (searchTherm) => {
