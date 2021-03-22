@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 import LoginLayout from "../common/login-layout";
 
 import TextField from '@material-ui/core/TextField';
@@ -7,11 +8,13 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import { Box } from "@material-ui/core";
 import { useStyles } from './auth-style';
+import FormikInputField from "../UI/FormikComponents/FormikInputField";
 
 import { AuthContext } from "../../store/context";
 
 const Login = () => {
   const classes = useStyles();
+  const history = useHistory();
   const [componentState, setComponentState] = useState({
     email: '',
     password: '',
@@ -20,6 +23,11 @@ const Login = () => {
   const handleChange = (prop) => (event) => {
     setComponentState({ [prop]: event.target.value });
   };
+
+  const handleClick = (login) => {
+    login(true, "string", "a@a.a");
+    history.push('/admin/');
+  }
 
   return (
     <AuthContext.Consumer>
@@ -39,8 +47,7 @@ const Login = () => {
                   </Link>
                 </Grid>
               </Grid>
-              <TextField
-                variant="outlined"
+              <FormikInputField
                 margin="normal"
                 required
                 fullWidth
@@ -51,8 +58,7 @@ const Login = () => {
                 autoFocus
                 onChange={handleChange("email")}
               />
-              <TextField
-                variant="outlined"
+              <FormikInputField
                 margin="normal"
                 required
                 fullWidth
@@ -69,6 +75,7 @@ const Login = () => {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                onClick={() => { handleClick(login) }}
               >
                 Sign In
               </Button>
