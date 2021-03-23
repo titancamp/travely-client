@@ -1,4 +1,5 @@
 import React from "react";
+import FileClient from "../../../api/file-client";
 
 export default class LogoUpload extends React.Component {
   constructor(props) {
@@ -6,6 +7,9 @@ export default class LogoUpload extends React.Component {
     this.state = {
       logo: undefined,
     };
+    console.log("logo-upload:", props);
+    this.downloadLogo = this.downloadLogo.bind(this);
+    this.downloadLogo(props);
   }
 
   componentDidUpdate(prevProps) {
@@ -18,6 +22,22 @@ export default class LogoUpload extends React.Component {
         };
 
         reader.readAsDataURL(this.props.file);
+      });
+    }
+  }
+
+  async downloadLogo(props){
+    if(props.agencyId && props.logoId){ 
+      await FileClient.download(props.agencyId, props.logoId)
+      .then((response)=>{
+        if(response.data.status){
+          const logo = new Blob([response.data.data], {type: "base64"});
+          console.log("blob: ", logo);
+          this.setState({logo});
+        }
+      })
+      .catch((error)=>{
+        // TODO: Add error message
       });
     }
   }
