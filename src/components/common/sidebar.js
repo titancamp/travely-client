@@ -54,21 +54,7 @@ export const Sidebar = ({ pages }) => {
         </List>
       </div>
 
-      <div style={{height: "50%"}}>
-        <Divider />
-        <Box
-            className={classes.toolbar}
-            px={2}
-            display="flex"
-            alignItems="end"
-        >
-          <AccessTimeIcon className={classes.logo} />
-          <Typography variant="h5"> Recent Tours</Typography>
-        </Box>
-        <Divider />
-
       <RecentTours/>
-      </div>
     </Drawer>
   );
 };

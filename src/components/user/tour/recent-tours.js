@@ -8,12 +8,27 @@ import List from "@material-ui/core/List";
 import {makeStyles} from "@material-ui/core/styles";
 import {DRAWER_WIDTH} from "../../../utility";
 import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import Box from "@material-ui/core/Box";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
 
 
 export const RecentTours = ({}) => {
     const classes = useStyles();
 
     return (
+        <div>
+            <Divider />
+            <Box
+                className={classes.toolbar}
+                px={2}
+                display="flex"
+                alignItems="end"
+            >
+                <AccessTimeIcon className={classes.logo} />
+                <Typography variant="h5"> Recent Tours</Typography>
+            </Box>
+            <Divider />
         <List>
             {RECENT_TOURS.map(({id, title, path}, index) => (
                 <ListItem
@@ -28,6 +43,7 @@ export const RecentTours = ({}) => {
                 </ListItem>
             ))}
         </List>
+        </div>
     );
 
 };
