@@ -58,16 +58,19 @@ const Login = (props) => {
                         accessToken: result.data.access_token,
                         refreshToken: result.data.refresh_token,
                         expiresIn,
+                        ownerId: null,
                         email: values.username,
                         role: null,
                       }
                       // TODO: make identity server to return role
                       AgencyClient.get(data.accessToken).then((result) => {
                         if (result.status === 200) {
+                          data.ownerId = result.data.ownerId;
                           UserClient.get(data.accessToken, result.data.ownerId).then((result) => {
                             if (result.status === 200) {
                               data.role = result.data.role;
                               login(data);
+                              localStorage.setItem("AuthContext", JSON.stringify(data));
                               history.push(`/${data.role}/`);
                             }
                             else {

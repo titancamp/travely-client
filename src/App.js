@@ -11,6 +11,7 @@ export default class App extends React.Component {
       accessToken: null,
       refreshToken: null,
       expiresIn: null,
+      ownerId: null,
       email: null,
       role: null,
       login: (data) => {
@@ -19,6 +20,7 @@ export default class App extends React.Component {
           accessToken: data.accessToken,
           refreshToken: data.refreshToken,
           expiresIn: data.expiresIn,
+          ownerId: data.ownerId,
           email: data.email,
           role: data.role,
         });
