@@ -65,7 +65,8 @@ const Login = (props) => {
                       // TODO: make identity server to return role
                       AgencyClient.get(data.accessToken).then((result) => {
                         if (result.status === 200) {
-                          data.ownerId = result.data.ownerId;
+                          data.agencyId = result.data.id;
+                          data.userId = result.data.ownerId;
                           UserClient.get(data.accessToken, result.data.ownerId).then((result) => {
                             if (result.status === 200) {
                               data.role = result.data.role;
