@@ -30,6 +30,22 @@ const AuthClient = {
   resetPassword: function (formData) {
     return ApiClient.post("/api/account/password/reset", formData);
   },
+  updateAgencyProfile: function (jwtToken, formData){
+    return ApiClient.patch("/api/agency", formData, {
+    headers: {  
+        Authorization: "Bearer " + jwtToken,
+      "Content-Type": "application/json",
+    }
+    });
+  },
+  getAgencyProfile: function (jwtToken){
+    return ApiClient.get("/api/agency", {
+    headers: {  
+        Authorization: "Bearer " + jwtToken,
+      "Content-Type": "application/json",
+    }
+    });
+  },
 };
 
 export default AuthClient;
