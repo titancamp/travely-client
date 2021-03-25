@@ -8,13 +8,19 @@ export default class App extends React.Component {
 
     this.state = {
       isLoggedIn: false,
-      jwt: "",
-      email: "",
-      login: (isLoggedIn, jwt, email) => {
+      accessToken: null,
+      refreshToken: null,
+      expiresIn: null,
+      email: null,
+      role: null,
+      login: (data) => {
         this.setState({
-          isLoggedIn,
-          jwt,
-          email,
+          isLoggedIn: data.loggedIn,
+          accessToken: data.accessToken,
+          refreshToken: data.refreshToken,
+          expiresIn: data.expiresIn,
+          email: data.email,
+          role: data.role,
         });
       },
     };

@@ -1,45 +1,118 @@
 import React, { useState } from "react";
-import LoginLayout from "../common/login-layout";
 
-import TextField from '@material-ui/core/TextField';
+import { Formik } from "formik";
+import * as yup from "yup";
+
 import Button from "@material-ui/core/Button";
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
+import Box from "@material-ui/core/Box";
+
+import LoginLayout from "../common/login-layout";
+import AuthClient from "../../api/auth-client"
 import { useStyles } from './auth-style';
+
+import FormikInputField from "../UI/FormikComponents/FormikInputField"
+
+const ForgotPasswordSchema = yup.object().shape({
+  email: yup.string().email("Enter a valid email").required("Email is required"),
+});
 
 const ForgotPassword = () => {
   const classes = useStyles();
-  const [email, setEmail] = useState(null);
+  const [message, setMessage] = useState("");
 
-  const handleChange = (event) => {
-    setEmail(event.target.value);
-  };
+  const getFormikHtml = () => {
+    return (<Formik
+        initialValues={{ email: "", message: "" }}
+        validationSchema={ForgotPasswordSchema}
+        onSubmit={(values, { setSubmitting, setErrors }) => {
+          AuthClient.forgetPassword({ email: values.email })
+            .then((result) => {
+              if (result.response && result.response.status === 200) {
+                setMessage("Chech your inbox for instructions to reset your password");
+              }
+              else {
+                setErrors({
+                  message: "There was error during forgot password",
+                })
+              }
+            })
+            .catch((error) => {
+              if (error.response && error.response.status) {
+                setErrors({
+                  message: "There was error during forgot password",
+                })
+              }
+              else {
+                setErrors({
+                  message: "Server is unreachable",
+                })
+              }
+            })
+            .finally(() => {
+              setSubmitting(false);
+            });
+        }}
+      >
+      {({
+        values,
+        errors,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting,
+      }) => (
+        <form className={classes.form} onSubmit={handleSubmit}>
+            <FormikInputField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              value={values.email}
+              autoComplete="email"
+              autoFocus
+              onBlur={handleBlur}
+              onChange={handleChange}
+            />
+            <Box display={values.message ? "none" : ""} color="error.main">
+              {errors.message && errors.message}
+            </Box>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              disabled={isSubmitting}
+            >
+              Reset Password
+            </Button>
+          </form>
+      )}
+      </Formik>)
+  }
+
+  const getMessageHtml = () => {
+    return (<div className={classes.form}>
+      <Box color="text.primary">
+        <h2>{message}</h2>
+      </Box>
+      <Button
+        fullWidth
+        variant="contained"
+        color="primary"
+        className={classes.submit}
+        href="/login"
+      >
+        Navigate to login page
+      </Button>
+    </div>)
+  }
 
   return (
     <LoginLayout>
-      <form className={classes.form} noValidate>
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          autoComplete="email"
-          autoFocus
-          onChange={handleChange}
-        />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={classes.submit}
-        >
-          Reset Password
-        </Button>
-      </form>
+      { message === "" ? getFormikHtml() : getMessageHtml() }
     </LoginLayout>
   );
 }
