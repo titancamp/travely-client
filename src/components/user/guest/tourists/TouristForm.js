@@ -1,12 +1,13 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import DateMonthPicker from "./component/DateMonthPicker";
-import { convertMonthFormat } from "./component/DateFormats";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Button from "@material-ui/core/es/Button/Button";
 import TextField from "@material-ui/core/TextField";
 import { Formik } from "formik";
 import * as yup from "yup";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/es/FormControlLabel/FormControlLabel";
 
 const TouristsValidationSchema = yup.object().shape({
   firstName: yup
@@ -21,23 +22,29 @@ const TouristsValidationSchema = yup.object().shape({
     .max(50, "Too Long!")
     .required("This field is required"),
 
-  phone: yup
+  phoneNumber: yup
     .string()
     .required("This field is required")
     .matches(
       /^[+]{1}374{1}[0-9]{8}$/,
       "Country calling code is +374 followed by 8 digits."
     ),
-  email: yup.string().email("Email is not valid"),
+  email: yup.string().email("Email is not valid").required("This field is required"),
+
+  notes: yup.string().required("This field is required")
 });
 
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiInputBase-root": {
-      width: "40",
-      margin: theme.spacing(1),
-    },
+      width: "350",
+      margin: theme.spacing(1)
+    }
   },
+  checkboxLabel: {
+    color: theme.palette.grey[600],
+    margin: theme.spacing(1)
+  }
 }));
 
 export default function TouristForm(props) {
@@ -50,19 +57,20 @@ export default function TouristForm(props) {
         recordForEdit != null
           ? recordForEdit
           : {
-              id: 0,
-              firstName: "",
-              lastName: "",
-              email: "",
-              phone: "",
-              placeBirth: "",
-              birthDate: convertMonthFormat(new Date()),
-              issueDate: convertMonthFormat(new Date()),
-              expireDate: convertMonthFormat(new Date()),
-              passportNum: "",
-              issuedBy: "",
-              notes: "",
-            }
+            id: 0,
+            firstName: "",
+            lastName: "",
+            email: "",
+            phoneNumber: "",
+            placeOfBirth: "",
+            dateOfBirth: new Date(),
+            issuedDate: new Date(),
+            expireDate: new Date(),
+            passportNumber: "",
+            issuedBy: "",
+            notes: "",
+            isMain: false
+          }
       }
       validationSchema={TouristsValidationSchema}
       onSubmit={(values, { setSubmitting }) => {
@@ -79,15 +87,16 @@ export default function TouristForm(props) {
               firstName: "",
               lastName: "",
               email: "",
-              phone: "",
-              placeBirth: "",
-              birthDate: convertMonthFormat(new Date()),
-              issueDate: convertMonthFormat(new Date()),
-              expireDate: convertMonthFormat(new Date()),
-              passportNum: "",
+              phoneNumber: "",
+              placeOfBirth: "",
+              dateOfBirth: new Date(),
+              issuedDate: new Date(),
+              expireDate: new Date(),
+              passportNumber: "",
               issuedBy: "",
               notes: "",
-            },
+              isMain: false
+            }
           });
         }
       ) => (
@@ -109,33 +118,33 @@ export default function TouristForm(props) {
               />
 
               <TextField
-                name="phone"
+                name="phoneNumber"
                 label="Phone"
                 variant="outlined"
-                value={values.phone}
+                value={values.phoneNumber}
                 onChange={handleChange}
-                error={!!errors.phone}
-                helperText={errors.phone}
+                error={!!errors.phoneNumber}
+                helperText={errors.phoneNumber}
               />
 
               <DateMonthPicker
-                name="birthDate"
+                name="dateOfBirth"
                 label="Date of birth"
-                value={values.birthDate}
+                value={values.dateOfBirth}
                 onChange={handleChange}
                 disableFuture="true"
               />
               <TextField
-                name="passportNum"
+                name="passportNumber"
                 label="Passport Number"
                 variant="outlined"
-                value={values.passportNum}
+                value={values.passportNumber}
                 onChange={handleChange}
               />
               <DateMonthPicker
-                name="issueDate"
+                name="issuedDate"
                 label="Issue Date"
-                value={values.issueDate}
+                value={values.issuedDate}
                 onChange={handleChange}
                 disableFuture={false}
               />
@@ -145,6 +154,8 @@ export default function TouristForm(props) {
                 variant="outlined"
                 value={values.notes}
                 onChange={handleChange}
+                error={!!errors.notes}
+                helperText={errors.notes}
               />
             </Grid>
             <Grid item xs={6}>
@@ -168,12 +179,13 @@ export default function TouristForm(props) {
               />
 
               <TextField
-                name="placeBirth"
+                name="placeOfBirth"
                 label="Place of birth"
                 variant="outlined"
-                value={values.placeBirth}
+                value={values.placeOfBirth}
                 onChange={handleChange}
               />
+
               <TextField
                 name="issuedBy"
                 label="Issued by"
@@ -181,12 +193,25 @@ export default function TouristForm(props) {
                 value={values.issuedBy}
                 onChange={handleChange}
               />
+
               <DateMonthPicker
                 name="expireDate"
                 label="Expire Date"
                 value={values.expireDate}
                 onChange={handleChange}
                 disableFuture={false}
+              />
+              <FormControlLabel className={classes.checkboxLabel}
+                                control={
+                                  <Checkbox
+                                    checked={values.isMain}
+                                    onChange={handleChange}
+                                    name="isMain"
+                                    color="primary"
+                                  />
+                                }
+                                label="Main Contact"
+                                labelPlacement="start"
               />
 
               <div>

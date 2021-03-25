@@ -10,14 +10,16 @@ const Months = [
   "Sep",
   "Oct",
   "Nov",
-  "Dec",
+  "Dec"
 ];
 
-export function convertMonthFormat(date) {
+export function convertMonthFormat(formatDate) {
+
+  let date = new Date(formatDate);
   let day = date.getDate();
   let monthIndex = date.getMonth();
   let monthName = Months[monthIndex];
   let year = date.getFullYear();
 
-  return `${monthName} ${day}, ${year % 100}`;
+  return `${monthName} ${day}, ${year}`;
 }
