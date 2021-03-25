@@ -36,7 +36,6 @@ const Registration = () => {
             password: values.password,
           })
             .then((result) => {
-              console.log(result);
               if (result.status === 200) {
                 history.push({
                   pathname: '/login',
@@ -51,7 +50,6 @@ const Registration = () => {
               }
             })
             .catch((error) => {
-              console.log(error);
               if (error.response && error.response.status) {
                 setErrors({
                   message: "There was error during registration",

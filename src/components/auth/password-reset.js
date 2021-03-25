@@ -35,11 +35,9 @@ const PasswordReset = () => {
             conformPassword: values.conformPassword,
           })
             .then((result) => {
-              console.log(result);
               history.push('/login');
             })
             .catch((error) => {
-              console.log(error);
               if (error.response && error.response.status) {
                 setErrors({
                   message: "There was error on password reset",

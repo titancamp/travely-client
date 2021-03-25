@@ -24,7 +24,6 @@ const LoginSchema = yup.object().shape({
 });
 
 const Login = (props) => {
-  console.log('props:', props);
   const classes = useStyles();
   const history = useHistory();
 
