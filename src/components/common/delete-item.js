@@ -19,7 +19,10 @@ const DeleteItem = (props) => {
         title: "",
     });
     const classes = useStyles();
-    const onDelete = () => {
+
+    const onDelete = (deleteHandler, itemId) => {
+        deleteHandler(itemId);
+
         setConfirmDialog({
             ...confirmDialog,
             isOpen: false,
@@ -39,10 +42,7 @@ const DeleteItem = (props) => {
                                         setConfirmDialog({
                                             isOpen: true,
                                             title: "Are you sure to delete this item",
-                                            onConfirm: () => {
-                                                deleteHandler(itemId);
-                                                onDelete();
-                                            },
+                                            onConfirm: () => onDelete(deleteHandler, itemId),
                                         });
                                     }}
                                 >

@@ -32,13 +32,11 @@ export default class ManageHotels extends React.Component {
 
         HotelClient.getHotels()
             .then((result) => {
-                if (result.status === 200) {
-                    this.setState({
-                        hotelsRows: result.data,
-                        filteredList: result.data,
-                        isLoading: false,
-                    });
-                }
+                this.setState({
+                    hotelsRows: result.data,
+                    filteredList: result.data,
+                    isLoading: false,
+                });
             });
     }
 
@@ -74,15 +72,13 @@ export default class ManageHotels extends React.Component {
 
         HotelClient.deleteHotel(id)
             .then((result) => {
-                if (result.status === 204) {
-                    const hotelsRows = this.state.hotelsRows.filter(hotel => hotel.id !== id);
-                    this.setState({
-                        hotelsRows: hotelsRows,
-                        filteredList: hotelsRows,
-                        searchTerm: "",
-                        isLoading: false,
-                    });
-                }
+                const hotelsRows = this.state.hotelsRows.filter(hotel => hotel.id !== id);
+                this.setState({
+                    hotelsRows: hotelsRows,
+                    filteredList: hotelsRows,
+                    searchTerm: "",
+                    isLoading: false,
+                });
             });
     }
 
