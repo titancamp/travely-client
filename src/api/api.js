@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const ApiClient = axios.create({
-  baseURL: "https://localhost:44387/api/v1.0",
+  baseURL: "https://api.example.com",
   headers: {
     // Authorization: "Bearer " + jwtToken,
     // "Content-Type": "application/json",
