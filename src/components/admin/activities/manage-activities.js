@@ -6,6 +6,7 @@ import ActivityTypeSelect from "./activity-type-select";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import AddEditActivity from "./add-edit-activity";
+import ActivityClient from "../../../api/activity-client";
 
 class ManageActivities extends React.Component {
   constructor(props) {
@@ -26,12 +27,22 @@ class ManageActivities extends React.Component {
   }
 
   componentDidMount() {
-    const activityRows = dummyData;
+    // For offline testing with test data
+    //--------------------------------------
+    // const activityRows = dummyData;
+    // this.setState({
+    //   activityRows: activityRows,
+    //   filteredActivities: activityRows,
+    // });
+    //--------------------------------------
 
-    this.setState({
-      activityRows: activityRows,
-      filteredActivities: activityRows,
-    });
+    ActivityClient.getActivities()
+      .then(activities => {
+        this.setState({
+          activityRows: activities,
+          filteredActivities: activities,
+        });
+      });
   }
 
   filterBySearch(term) {
