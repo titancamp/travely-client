@@ -40,6 +40,45 @@ const Login = (props) => {
     }
   };
 
+  const onSubmit = (values, login, setSubmitting, setErrors) => {
+    AuthClient.login(values.username, values.password)
+      .then((result) => {
+        const expiresIn = new Date(Date.now() + (result.data.expires_in * 1000));
+        const data = {
+          loggedIn: true,
+          accessToken: result.data.access_token,
+          refreshToken: result.data.refresh_token,
+          expiresIn,
+          ownerId: null,
+          email: values.username,
+          role: null,
+        }
+
+        AgencyClient.get().then((result) => {
+          data.agencyId = result.data.id;
+          data.userId = result.data.ownerId;
+          UserClient.get(result.data.ownerId).then((result) => {
+            data.role = result.data.role;
+            login(data);
+            localStorage.setItem("AuthContext", JSON.stringify(data));
+            history.push(`/${data.role}/`);
+          })
+          .catch((error) => {
+            setError(error, setErrors);
+          });
+        })
+        .catch((error) => {
+          setError(error, setErrors);
+        });
+      })
+      .catch((error) => {
+        setError(error, setErrors);
+      })
+      .finally(() => {
+        setSubmitting(false);
+      });
+  };
+
   return (
     <AuthContext.Consumer>
       {({ login }) => {
@@ -48,59 +87,7 @@ const Login = (props) => {
             <Formik
               initialValues={{ username: "", password: "", message: "" }}
               validationSchema={LoginSchema}
-              onSubmit={(values, { setSubmitting, setErrors }) => {
-                AuthClient.login(values.username, values.password)
-                  .then((result) => {
-                    if (result.status === 200) {
-                      const expiresIn = new Date(Date.now() + (result.data.expires_in * 1000));
-                      const data = {
-                        loggedIn: true,
-                        accessToken: result.data.access_token,
-                        refreshToken: result.data.refresh_token,
-                        expiresIn,
-                        ownerId: null,
-                        email: values.username,
-                        role: null,
-                      }
-                      // TODO: make identity server to return role
-                      AgencyClient.get(data.accessToken).then((result) => {
-                        if (result.status === 200) {
-                          data.agencyId = result.data.id;
-                          data.userId = result.data.ownerId;
-                          UserClient.get(data.accessToken, result.data.ownerId).then((result) => {
-                            if (result.status === 200) {
-                              data.role = result.data.role;
-                              login(data);
-                              localStorage.setItem("AuthContext", JSON.stringify(data));
-                              history.push(`/${data.role}/`);
-                            }
-                            else {
-                              setErrors({ message: "Email or password are incorrect" })
-                            }
-                          })
-                          .catch((error) => {
-                            setError(error, setErrors);
-                          });
-                        }
-                        else {
-                          setErrors({ message: "Email or password are incorrect" })
-                        }
-                      })
-                      .catch((error) => {
-                        setError(error, setErrors);
-                      });
-                    }
-                    else {
-                      setErrors({ message: "Email or password are incorrect" })
-                    }
-                  })
-                  .catch((error) => {
-                    setError(error, setErrors);
-                  })
-                  .finally(() => {
-                    setSubmitting(false);
-                  });
-              }}
+              onSubmit={(values, { setSubmitting, setErrors }) => { onSubmit(values, login, setSubmitting, setErrors) }}
             >
             {({
               values,

@@ -20,38 +20,34 @@ const ForgotPassword = () => {
   const classes = useStyles();
   const [message, setMessage] = useState("");
 
+  const onSubmit = (values, { setSubmitting, setErrors }) => {
+    AuthClient.forgetPassword({ email: values.email })
+      .then((result) => {
+        setMessage("Check your inbox for instructions to reset your password");
+      })
+      .catch((error) => {
+        if (error.response && error.response.status) {
+          setErrors({
+            message: "There was error during forgot password",
+          })
+        }
+        else {
+          setErrors({
+            message: "Server is unreachable",
+          })
+        }
+      })
+      .finally(() => {
+        setSubmitting(false);
+      });
+  };
+
   const getFormikHtml = () => {
-    return (<Formik
+    return (
+      <Formik
         initialValues={{ email: "", message: "" }}
         validationSchema={ForgotPasswordSchema}
-        onSubmit={(values, { setSubmitting, setErrors }) => {
-          AuthClient.forgetPassword({ email: values.email })
-            .then((result) => {
-              if (result.response && result.response.status === 200) {
-                setMessage("Chech your inbox for instructions to reset your password");
-              }
-              else {
-                setErrors({
-                  message: "There was error during forgot password",
-                })
-              }
-            })
-            .catch((error) => {
-              if (error.response && error.response.status) {
-                setErrors({
-                  message: "There was error during forgot password",
-                })
-              }
-              else {
-                setErrors({
-                  message: "Server is unreachable",
-                })
-              }
-            })
-            .finally(() => {
-              setSubmitting(false);
-            });
-        }}
+        onSubmit={onSubmit}
       >
       {({
         values,
@@ -94,20 +90,22 @@ const ForgotPassword = () => {
   }
 
   const getMessageHtml = () => {
-    return (<div className={classes.form}>
-      <Box color="text.primary">
-        <h2>{message}</h2>
-      </Box>
-      <Button
-        fullWidth
-        variant="contained"
-        color="primary"
-        className={classes.submit}
-        href="/login"
-      >
-        Navigate to login page
-      </Button>
-    </div>)
+    return (
+      <div className={classes.form}>
+        <Box color="text.primary">
+          <h2>{message}</h2>
+        </Box>
+        <Button
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+          href="/login"
+        >
+          Navigate to login page
+        </Button>
+      </div>
+    );
   }
 
   return (

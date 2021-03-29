@@ -7,7 +7,6 @@ const FileClient = {
     return ApiClient.post(`/api/file/upload?companyId=${companyId}`, formData,
       {
         headers: {
-        // Authorization: "Bearer " + jwtToken,
         'Content-Type': 'multipart/form-data'
       }
     });
@@ -17,7 +16,6 @@ const FileClient = {
       {
         responseType: 'arraybuffer',
         headers: {
-        // Authorization: "Bearer " + jwtToken,
         'Content-Type': 'multipart/form-data'
       }
     });

@@ -18,6 +18,21 @@ const AuthClient = {
       },
     });
   },
+  refresh: function (refreshToken) {
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("grant_type", "refresh_token");
+    urlencoded.append("client_id", "resourceOwner");
+    urlencoded.append("client_secret", "secret");
+    urlencoded.append("refresh_token", refreshToken);
+
+    return ApiClient.post("/connect/token",
+    urlencoded,
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+  },
   register: function (formData) {
     return ApiClient.post("/api/account/register", formData);
   },
@@ -29,22 +44,6 @@ const AuthClient = {
   },
   resetPassword: function (formData) {
     return ApiClient.post("/api/account/password/reset", formData);
-  },
-  updateAgencyProfile: function (jwtToken, formData){
-    return ApiClient.patch("/api/agency", formData, {
-    headers: {  
-        Authorization: "Bearer " + jwtToken,
-      "Content-Type": "application/json",
-    }
-    });
-  },
-  getAgencyProfile: function (jwtToken){
-    return ApiClient.get("/api/agency", {
-    headers: {  
-        Authorization: "Bearer " + jwtToken,
-      "Content-Type": "application/json",
-    }
-    });
   },
 };
 

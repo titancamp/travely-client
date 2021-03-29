@@ -5,7 +5,7 @@ import * as yup from "yup";
 
 import { Grid, TextField, Button, Box, Divider, CircularProgress, Backdrop } from "@material-ui/core";
 
-import AuthClient from "../../../api/auth-client";
+import AgencyClient from "../../../api/agency-client";
 import FileClient from "../../../api/file-client";
 
 import { AuthContext } from "../../../store/context";
@@ -35,19 +35,14 @@ export default function AgencyProfileForm() {
 
   useEffect(() => { 
     const getAgency = async () => {
-      await AuthClient.getAgencyProfile(authContext.accessToken).then((response) => {
-        if(response.status === 200){
-          const data = response.data;
-          formik.current.setValues({
-            phoneNumber: data.phoneNumber,
-            address: data.address,
-            logoFile: data.logoFile,
-            id: data.id,
-          })
-        }
-        else{
-          // TODO: Add error message
-        }
+      await AgencyClient.get().then((response) => {
+        const data = response.data;
+        formik.current.setValues({
+          phoneNumber: data.phoneNumber,
+          address: data.address,
+          logoFile: data.logoFile,
+          id: data.id,
+        })
       })
       .catch((error)=>{
         // TODO: Add error message
@@ -58,7 +53,7 @@ export default function AgencyProfileForm() {
     };
     setLoading(true);
     getAgency();
-  }, [authContext.accessToken]);
+  }, []);
 
   const handleBrowseLogoClick = () => {
     logoInput.current.click();
@@ -108,31 +103,21 @@ export default function AgencyProfileForm() {
     ]
   };
 
-  const onFormSubmit = async (values, accessToken, ownerId) => {
+  const onFormSubmit = async (values, ownerId) => {
     const formData = new FormData();
     formData.append("file", logoFormik.current.file);
     let fileId = "";
 
     await FileClient.upload(ownerId, formData).then((response) => {
-      if(response.status === 200){
-        fileId = response.data.data;
-      }
-      else{
-        // TODO: Add error message
-      }
+      fileId = response.data.data;
     })
     .catch((error) => {
       console.log("error", error)
     }); // TODO: Add error message
 
-    AuthClient.updateAgencyProfile(accessToken, getAgencyProfileSubmitData(values, fileId))
+    AgencyClient.update(getAgencyProfileSubmitData(values, fileId))
       .then((result) => {
-        if (result.status === 200) {
-          alert("Agency profile is successfully updated!");
-        }
-        else {
-          alert("An error occured during Agency profile update!");
-        }
+        alert("Agency profile is successfully updated!");
       })
       .catch(() => {
         alert("An error occured during Agency profile update!");
@@ -152,7 +137,7 @@ export default function AgencyProfileForm() {
       </Backdrop>
       
       <AuthContext.Consumer>
-        {({ accessToken, ownerId }) => {
+        {({ ownerId }) => {
           return(
             <Formik
               innerRef={ (ref) => (formik.current = ref) }
@@ -164,7 +149,7 @@ export default function AgencyProfileForm() {
               }}
               validationSchema={ AgencyProfileSchema }
               onSubmit={ async (values, { setSubmitting }) => {
-                onFormSubmit(values, accessToken, ownerId)
+                onFormSubmit(values, ownerId)
                   .finally(() => {
                     setSubmitting();
                   });

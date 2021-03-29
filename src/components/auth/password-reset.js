@@ -23,34 +23,36 @@ const PasswordReset = () => {
   const history = useHistory();
   const token = new URLSearchParams(history.location.search).get("token");
 
+  const onSubmit = (values, { setSubmitting, setErrors }) => {
+    AuthClient.resetPassword({
+      token,
+      password: values.password,
+      conformPassword: values.conformPassword,
+    })
+      .then((result) => {
+        history.push('/login');
+      })
+      .catch((error) => {
+        if (error.response && error.response.status) {
+          setErrors({
+            message: "There was error on password reset",
+          })
+        }
+        else {
+          setErrors({
+            message: "Server is unreachable",
+          })
+        }
+        setSubmitting(false);
+      });
+  };
+
   return (
     <LoginLayout>
       <Formik
         initialValues={{ password: "", conformPassword: "", message: "" }}
         validationSchema={PasswordResetSchema}
-        onSubmit={(values, { setSubmitting, setErrors }) => {
-          AuthClient.resetPassword({
-            token,
-            password: values.password,
-            conformPassword: values.conformPassword,
-          })
-            .then((result) => {
-              history.push('/login');
-            })
-            .catch((error) => {
-              if (error.response && error.response.status) {
-                setErrors({
-                  message: "There was error on password reset",
-                })
-              }
-              else {
-                setErrors({
-                  message: "Server is unreachable",
-                })
-              }
-              setSubmitting(false);
-            })
-        }}
+        onSubmit={onSubmit}
       >
       {({
         values,

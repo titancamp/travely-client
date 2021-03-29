@@ -5,16 +5,17 @@ import { AuthContext } from "./store/context";
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    const authContext = JSON.parse(localStorage.getItem("AuthContext")) || {};
 
     this.state = {
-      isLoggedIn: false,
-      accessToken: null,
-      refreshToken: null,
-      expiresIn: null,
-      agencyId: null,
-      userId: null,
-      email: null,
-      role: null,
+      isLoggedIn: authContext.loggedIn || false,
+      accessToken: authContext.accessToken || null,
+      refreshToken: authContext.refreshToken || null,
+      expiresIn: authContext.expiresIn || null,
+      agencyId: authContext.agencyId || null,
+      userId: authContext.userId || null,
+      email: authContext.email || null,
+      role: authContext.role || null,
       login: (data) => {
         this.setState({
           isLoggedIn: data.loggedIn,
@@ -31,6 +32,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    console.log("main.state", this.state);
     return (
       <AuthContext.Provider value={this.state}>
         <AppRouting />

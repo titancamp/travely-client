@@ -24,45 +24,47 @@ const Registration = () => {
   const classes = useStyles();
   const history = useHistory();
 
+  const onSubmit = (values, { setSubmitting, setErrors }) => {
+    AuthClient.register({
+      agencyName: values.agencyName,
+      email: values.email,
+      password: values.password,
+    })
+      .then((result) => {
+        if (result.status === 200) {
+          history.push({
+            pathname: '/login',
+            message: 'Agency has been successfully registered',
+          });
+        }
+        else {
+          setErrors({
+            message: "There was error during registration",
+          })
+          setSubmitting(false);
+        }
+      })
+      .catch((error) => {
+        if (error.response && error.response.status) {
+          setErrors({
+            message: "There was error during registration",
+          })
+        }
+        else {
+          setErrors({
+            message: "Server is unreachable",
+          })
+        }
+        setSubmitting(false);
+      });
+  };
+  
   return (
     <LoginLayout>
       <Formik
         initialValues={{ agencyName: "", email: "", password: "", conformPassword: "", message: "" }}
         validationSchema={RegisterSchema}
-        onSubmit={(values, { setSubmitting, setErrors }) => {
-          AuthClient.register({
-            agencyName: values.agencyName,
-            email: values.email,
-            password: values.password,
-          })
-            .then((result) => {
-              if (result.status === 200) {
-                history.push({
-                  pathname: '/login',
-                  message: 'Agency has been successfully registered',
-                });
-              }
-              else {
-                setErrors({
-                  message: "There was error during registration",
-                })
-                setSubmitting(false);
-              }
-            })
-            .catch((error) => {
-              if (error.response && error.response.status) {
-                setErrors({
-                  message: "There was error during registration",
-                })
-              }
-              else {
-                setErrors({
-                  message: "Server is unreachable",
-                })
-              }
-              setSubmitting(false);
-            })
-        }}
+        onSubmit={onSubmit}
       >
       {({
         values,
