@@ -1,8 +1,6 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
+import AgencyProfileForm from "../agency/agency-profile-form";
 
 export default function AgencyProfile() {
-  return (
-    <Typography paragraph>The 'Agency Profile' Page comming soon...</Typography>
-  );
+  return <AgencyProfileForm />;
 }
