@@ -11,3 +11,7 @@ export const AuthContext = createContext({
   role: null,
   login: () => {},
 });
+
+export const ManageHotelContext = createContext({
+  deleteHandler: () => console.log('Row deleted')
+});
