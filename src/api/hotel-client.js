@@ -1,4 +1,4 @@
-import ApiClient from './api';
+import ApiClient from "./api";
 
 const HotelClient = {
   addHotel: async function (data) {

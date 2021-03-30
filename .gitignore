@@ -26,5 +26,3 @@ yarn-error.log*
 
 /.idea
 /.vs
-package-lock.json
-.eslintcache
