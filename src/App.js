@@ -32,7 +32,6 @@ export default class App extends React.Component {
   }
 
   render() {
-    console.log("main.state", this.state);
     return (
       <AuthContext.Provider value={this.state}>
         <AppRouting />

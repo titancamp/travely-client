@@ -1,83 +1,148 @@
-// import React from "react";
-// import { DataGrid } from '@material-ui/data-grid';
-// import { dummyData, columns } from './manage-staff-const'
-// import './manage-staff.css'
+import React from "react";
 
-// class ManageStaff extends React.Component {
-//     constructor(props) {
-//       super(props);
+import { DataGrid } from "@material-ui/data-grid";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import GroupIcon from "@material-ui/icons/Group";
+import StaffForm from './manage-staff-form';
 
-//       this.state = {
-//           staffRows: [],
-//           filteredStaff: [],
-//           searchTerm: '',
-//       };
+import { ManageHotelContext } from "../../../store/context";
+import NoItem from "../../common/no-item";
+import Loading from "../../common/loading";
+import SearchPlugin from "../../common/search-plugin";
 
-//       this.filetBySearch = this.filetBySearch.bind(this);
-//       this.filetByType = this.filetByType.bind(this);
-//       this.filterList = this.filterList.bind(this);
-//   }
+import { columns } from "./manage-staff-config";
 
-//     componentDidMount() {
-//       const activityRows = dummyData;
+import StaffClient from '../../../api/staff-client';
+export default class ManageHotels extends React.Component {
+  constructor(props) {
+    super(props);
 
-//       this.setState({
-//         activityRows: activityRows,
-//         filteredActivities: activityRows
-//       });
-//   }
+    this.state = {
+      isStaffModalOpen: false,
+      isLoading: false,
+      searchTerm: "",
+      staffRows: [],
+      filteredList: [],
+    };
 
-//   filetBySearch =(term) => {
-//     this.setState({
-//       searchTerm: term
-//     });
-//     this.filterList(term, this.state.typeSeatchTerm);
-//   }
+    this.handleModalToggle = this.handleModalToggle.bind(this);
+  }
 
-//   filterList = (searchTerm, searchByTypeterm) => {
-//     const filteredActivities = this.state.activityRows.filter(e =>
-//         (searchTerm === ''
-//           || e.name.toLowerCase().includes(searchTerm.toLowerCase()) 
-//           || e.address.toLowerCase().includes(searchTerm.toLowerCase())  
-//         )
-//         && 
-//         (searchByTypeterm ==='' 
-//           || e.type.toLowerCase().includes(searchByTypeterm.toLowerCase()) 
-//         )
-//       );
-//     this.setState({filteredActivities});
-//   };
+  componentDidMount() {
+    this.setState({
+      isLoading: true,
+    });
 
-//   render(){
-//     return (
-//       <div>
-//         <div id="search_bar">
-//           {/* <div id="search">
-//             <SearchActivities 
-//               filter={this.filetBySearch} />
-//           </div> */}
-//         </div>
+    StaffClient.getAll()
+      .then((result) => {
+        this.setState({
+          staffRows: result.data,
+          filteredList: result.data,
+          isLoading: false,
+        });
+      });
+  }
 
-//         <DataGrid rows={this.state.filteredStaff} 
-//                   columns={columns}  
-//                   pageSize={10}
-//                   fullwidth
-//                   autoHeight
-//                   autoWidth/>
-//       </div>
-//     );
-//   }
-// };
+  updateSearchTerm = (newValue) => {
+    const searchTerm = newValue;
+    this.setState({
+      searchTerm
+    });
 
-// export default ManageStaff;
+    this.filterList(searchTerm);
+  };
 
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
+  filterList = (searchTerm) => {
+    const term = searchTerm.toLowerCase();
+    this.setState({
+      searchTerm: term
+    });
 
-export default function ManageStaff() {
-  return (
-    <Typography paragraph>
-      The 'Manage Staff' Page comming soon...
-    </Typography>
-  );
-}
+    const filteredList = this.state.staffRows.filter(
+      (e) =>
+        e.name?.toLowerCase().includes(term) ||
+        e.email?.toLowerCase().includes(term) ||
+        e.title?.toLowerCase().includes(term)
+    );
+
+    this.setState({ filteredList });
+  };
+
+  deleteRow = (id) => {
+    this.setState({
+      isLoading: true,
+    });
+
+    StaffClient.delete(id)
+      .then((result) => {
+        const staffRows = this.state.staffRows.filter(item => item.id !== id);
+        this.setState({
+          staffRows,
+          filteredList: staffRows,
+          isLoading: false,
+        });
+      });
+  }
+
+  handleModalToggle() {
+    this.setState((state) => ({
+      isStaffModalOpen: !state.isStaffModalOpen,
+    }));
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.isLoading
+          ? <Loading />
+          : this.state.staffRows.length === 0
+            ? (<div>
+              <NoItem
+                singularItemName="staff"
+                addNewItem={this.addNewItem}
+              />
+            </div>
+            )
+            : (<div>
+              <Grid container spacing={2}>
+                <Grid item xs={9}>
+                  <SearchPlugin
+                    searchTerm={this.state.searchTerm}
+                    updateSearchTerm={this.updateSearchTerm}
+                    placeholder={"Search staff by name, title or email"}
+                  />
+                </Grid>
+                <Grid container alignItems="center" item xs={3}>
+                  <Button
+                    variant="outlined"
+                    startIcon={<GroupIcon />}
+                    onClick={this.handleModalToggle}
+                  >
+                    Add staff member
+                  </Button>
+                  <StaffForm
+                    isOpen={this.state.isStaffModalOpen}
+                    handleModalToggle={this.handleModalToggle}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <ManageHotelContext.Provider value={{ deleteHandler: this.deleteRow }}>
+                    <DataGrid
+                      disableColumnResize={true}
+                      rows={this.state.filteredList}
+                      columns={columns}
+                      pageSize={10}
+                      fullwidth
+                      autoHeight
+                      autoWidth
+                    />
+                  </ManageHotelContext.Provider>
+                </Grid>
+              </Grid>
+            </div>)
+        }
+      </div>
+    );
+  };
+};
