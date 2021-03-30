@@ -1,31 +1,26 @@
-import touristsMockData from "./utils/TouristServiceMockData";
-
-let tourists = touristsMockData;
+import TouristClient from "../../../../../api/tourist-client";
 
 export function getAllTourists() {
-  if (tourists.length == null) tourists = [];
 
-  return tourists;
+  return TouristClient.getAllTourists();
+
 }
 
 export function insertTourist(data) {
-  data["id"] = generateTouristId();
-  tourists.push(data);
+
+  return TouristClient.insertTourist(data);
+
 }
 
 export function updateTourist(data) {
-  let recordIndex = tourists.findIndex((x) => x.id === data.id);
-  tourists[recordIndex] = { ...data };
+
+  return TouristClient.updateTourist(data);
+
 }
 
 export function deleteTourist(id) {
-  tourists = tourists.filter((x) => x.id !== id);
+
+  return TouristClient.deleteTourist(id);
+
 }
 
-export function generateTouristId() {
-  if (tourists.id == null) tourists.id = 0;
-
-  let id = Math.max(...tourists.map((tourist) => tourist.id));
-
-  return ++id;
-}
