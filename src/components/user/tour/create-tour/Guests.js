@@ -1,11 +1,11 @@
 import React from "react";
-import {Formik, Form} from 'formik';
+import { Formik, Form } from "formik";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import FormikInputField from "../../../UI/FormikComponents/FormikInputField";
 import FormikCheckbox from "../../../UI/FormikComponents/FormikCheckbox";
-import {DataGrid} from "@material-ui/data-grid";
-import {GUESTS_COLUMNS} from "../utils/constants";
+import { DataGrid } from "@material-ui/data-grid";
+import { GUESTS_COLUMNS } from "../utils/constants";
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
 

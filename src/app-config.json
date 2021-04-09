@@ -1,0 +1,4 @@
+{
+    "baseURL": "https://api.example.com",
+    "authURL": "http://localhost:5000"
+}

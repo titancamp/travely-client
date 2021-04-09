@@ -1,6 +1,6 @@
-import React from 'react';
-import {Formik, Form} from 'formik';
-import Box from '@material-ui/core/Box';
+import React from "react";
+import { Formik, Form } from "formik";
+import Box from "@material-ui/core/Box";
 import FormikInputField from "../../../UI/FormikComponents/FormikInputField";
 import Grid from "@material-ui/core/Grid";
 import FormikSelect from "../../../UI/FormikComponents/FormikSelect";
@@ -251,19 +251,19 @@ const TourDetail = ({
                 {/*    </Box>*/}
                 {/*</Box>*/}
 
-                <Box component="div" p={1} display="flex" justifyContent="space-between">
-                    <Box component='span' width='100%' clone>
-                        <FormikInputField
-                            label='Notes'
-                            name='notes'
-                            multiline
-                            rows={4}
-                        />
-                    </Box>
-                </Box>
-            </Form>
-        </Formik>
-    )
+        <Box
+          component="div"
+          p={1}
+          display="flex"
+          justifyContent="space-between"
+        >
+          <Box component="span" width="100%" clone>
+            <FormikInputField label="Notes" name="notes" multiline rows={4} />
+          </Box>
+        </Box>
+      </Form>
+    </Formik>
+  );
 };
 
 export default TourDetail;

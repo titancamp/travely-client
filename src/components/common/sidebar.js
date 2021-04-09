@@ -75,15 +75,6 @@ export const Sidebar = ({ pages }) => {
 
 // styles
 const useStyles = makeStyles((theme) => ({
-  logo: {
-    fontSize: "32px",
-    transform: "rotate(45deg)",
-    display: "inline-block",
-    "-webkit-transform": "rotate(45deg)",
-    "-moz-transform": "rotate(45deg)",
-    "-ms-transform": "rotate(45deg)",
-    "-o-transform": "rotate(45deg)",
-  },
   toolbar: theme.mixins.toolbar,
   drawer: {
     width: DRAWER_WIDTH,
