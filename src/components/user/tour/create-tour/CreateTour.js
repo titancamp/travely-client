@@ -6,39 +6,68 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TourDetail from "./TourDetail";
 import Guest from "./Guests";
-import { GUESTS_ROWS } from "../utils/constants";
+import {
+    ACTIVITIES_ROWS,
+    ASSIGN_TOUR_GUIDE_ROWS,
+    GUESTS_ROWS,
+    HOTEL_ROWS,
+    TRANSPORTATION_ROWS
+} from "../utils/constants";
+import Hotel from "./Hotel";
+import Activity from "./Activity";
+import Transportation from "./Transportation";
+import AssignTourGuide from "./AssignTourGuide";
 
 const CREATE_TOUR_STEPS = [
-  {
-    component: TourDetail,
-    dialogTitle: "Tour Details",
-    formName: "tourDetailData",
-  },
-  {
-    component: Guest,
-    dialogTitle: "Guests",
-    formName: "guestsData",
-  },
-  {
-    component: () => null,
-    dialogTitle: "aa",
-    formName: "aaa",
-  },
+    {
+        component: TourDetail,
+        dialogTitle: 'Tour Details',
+        formName: 'tourDetailData'
+    },
+    {
+        component: Guest,
+        dialogTitle: 'Guests',
+        formName: 'guestsData'
+    },
+    {
+        component: Hotel,
+        dialogTitle: 'Hotels',
+        formName: 'hotels'
+    },
+    {
+        component: Activity,
+        dialogTitle: 'Activities',
+        formName: 'activities'
+    },
+    {
+        component: Transportation,
+        dialogTitle: 'Transportation',
+        formName: 'transportation'
+    },
+    {
+        component: AssignTourGuide,
+        dialogTitle: 'Assign Tour Guide',
+        formName: 'assignTourGuide'
+    },
 ];
 
 class CreateTour extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      currentStepIndex: 0,
-      tourDetailData: null,
-      guestsData: GUESTS_ROWS,
-    };
-    this.handleNextStep = this.handleNextStep.bind(this);
-    this.handlePreviousStep = this.handlePreviousStep.bind(this);
-    this.handleSaveTour = this.handleSaveTour.bind(this);
-    this.setFormValues = this.setFormValues.bind(this);
+        this.state = {
+            currentStepIndex: 0,
+            tourDetailData: null,
+            guestsData: GUESTS_ROWS,
+            hotels: HOTEL_ROWS,
+            activities: ACTIVITIES_ROWS,
+            transportation: TRANSPORTATION_ROWS,
+            assignTourGuide: ASSIGN_TOUR_GUIDE_ROWS
+        };
+        this.handleNextStep = this.handleNextStep.bind(this);
+        this.handlePreviousStep = this.handlePreviousStep.bind(this);
+        this.handleSaveTour = this.handleSaveTour.bind(this);
+        this.setFormValues = this.setFormValues.bind(this);
 
     this.currentStepFormRef = React.createRef();
   }
