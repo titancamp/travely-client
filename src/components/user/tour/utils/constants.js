@@ -1,3 +1,6 @@
+import {makeStyles} from "@material-ui/core/styles";
+import {DRAWER_WIDTH} from "../../../../utility";
+
 export const TOUR_COLUMNS = [
     { field: 'status', headerName: 'Status'},
     { field: 'name', headerName: 'Name', width: 150 },
@@ -49,6 +52,26 @@ export const TOUR_ROWS = [
     },
 ];
 
+
+
+export const RECENT_TOURS = [
+    {
+        id: 1,
+        title: 'Bellinis in Armenia',
+        path: "/user/tour"
+    },
+    {
+        id: 2,
+        title: 'John Smith Family Armenia',
+        path: "/user/tour"
+    },
+    {
+        id: 3,
+        title: 'Gambini Family Armenia History',
+        path: "/user/tour"
+    }
+];
+
 export const GUESTS_COLUMNS = [
     { field: 'firstName', headerName: 'First name'},
     { field: 'lastName', headerName: 'Last name'},
@@ -93,6 +116,7 @@ export const GUESTS_ROWS = [
         notes: 'ascasc',
     },
 ];
+
 
 export const ACTIVITIES_COLUMNS = [
     { field: 'destinations', headerName: 'Destinations'},
