@@ -10,7 +10,7 @@ import {DRAWER_WIDTH} from "../../../utility";
 import Typography from "@material-ui/core/Typography";
 
 
-export const RecentTours = ({}) => {
+export const RecentTours = () => {
     const classes = useStyles();
 
     return (

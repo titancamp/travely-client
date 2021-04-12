@@ -68,12 +68,8 @@ const Activity = ({
                       currentStepFormName
                   }) => {
     const classes = useStyles();
-    const [activity, setActivity] = React.useState('');
 
-    const handleActivityChange = (event) => {
-        setActivity(event.target.value);
-    };
-
+   
     return (
         <div>
             <Formik

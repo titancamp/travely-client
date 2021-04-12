@@ -10,7 +10,7 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
           <Route
             {...rest}
             render={(props) => {
-              if (isLoggedIn) {
+              if (!isLoggedIn) {
                 return <Component {...props} />;
               } else {
                 return (
