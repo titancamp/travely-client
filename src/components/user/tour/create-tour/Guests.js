@@ -1,214 +1,318 @@
 import React from "react";
-import { Formik, Form } from "formik";
-import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import FormikInputField from "../../../UI/FormikComponents/FormikInputField";
-import FormikCheckbox from "../../../UI/FormikComponents/FormikCheckbox";
+import { makeStyles } from "@material-ui/core/styles";
+import { useFormik } from "formik";
 import { DataGrid } from "@material-ui/data-grid";
-import { GUESTS_COLUMNS } from "../utils/constants";
+import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
-import {makeStyles} from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import Divider from "@material-ui/core/Divider";
+import Typography from "@material-ui/core/Typography";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from "@material-ui/core/Checkbox";
+import { GUESTS_ROWS, GUESTS_COLUMNS } from "../utils/constants";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
+const useStyles = makeStyles({
+    form: {
+        marginTop: 15,
+        paddingLeft: 400
     },
-    button: {
-        margin: 10
+    label: {
+        fontSize: "0.75em"
     },
-    selectItem: {
-        width: "97%",
-    },
-    inputItem: {
-        height: 65
-    },
-    inputSearch: {
-        width: 505,
-        height: 65
-    },
-    notes: {
-        height: 100,
-        width: 505,
-    },
-}));
-const Guests = ({
-                    initialValues,
-                    currentStepFormRef,
-                    setFormValues,
-                    currentStepFormName
-                }) => {
+    submit: {
+        position: "relative",
+        top: "77%"
+    }
+});
 
+const validate = values => {
+    const errors = {};
+
+    if (!values.firstName) {
+        errors.firstName = "Required";
+    }
+
+    if (!values.lastName) {
+        errors.lastName = "Required";
+    }
+
+    if (!values.phone) {
+        errors.phone = "Required";
+    } else if (!(/^(?:[+\d].*\d|\d)$/).test(values.phone)) {
+        errors.phone = "Numbers only";
+    }
+
+    if (!values.email) {
+        errors.email = "Required";
+    } else if (!(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(values.email)) {
+        errors.email = "Not valid email";
+    }
+
+    if (!values.dateOfBirth) {
+        errors.dateOfBirth = "Required";
+    }
+
+    if (!values.placeOfBirth) {
+        errors.placeOfBirth = "Required";
+    }
+
+    if (!values.passportNumber) {
+        errors.passportNumber = "Required";
+    } else if (!(/^[0-9\b]+$/).test(values.passportNumber)) {
+        errors.passportNumber = "Numbers only";
+    }
+
+    if (!values.issuedBy) {
+        errors.issuedBy = "Required";
+    }
+
+    if (!values.issueDate) {
+        errors.issueDate = "Required";
+    }
+
+    if (!values.expireDate) {
+        errors.expireDate = "Required";
+    }
+
+    return errors;
+};
+
+
+const Guests = (props) => {
     const classes = useStyles();
+    const formik = useFormik({
+        initialValues: props.state,
+        validate,
+        onSubmit: values => {
+            props.onNext("guests", values);
+        }
+    });
 
     return (
-        <div>
-            <Formik
-                initialValues={{
-                    firstName: '',
-                    lastName: '',
-                    phone: '',
-                    email: '',
-                    dateOfBirth: '',
-                    placeOfBirth: '',
-                    passportNumber: '',
-                    issuedBy: '',
-                    issueDate: '',
-                    expireDate: '',
-                    notes: '',
-                    mainContact: false
-                }}
-                innerRef={currentStepFormRef}
-                onSubmit={(values, {setSubmitting}) => {
-                    const lastItem = initialValues[initialValues.length - 1];
-                    const item = {
-                        ...values,
-                        id: lastItem ? lastItem.id + 1 : 1
-                    };
-                    setFormValues(currentStepFormName, initialValues.concat(item));
-                }}
-            >
-                <Form>
-                    <h2>Add Guest</h2>
-                    <Grid container spacing={1} >
-                        <Grid container spacing={2} >
-                            <Grid item xs={12} >
-                                <FormikInputField
-                                    placeholder='Search by FirstName, lastname, email...'
-                                    name='searchGuest'
-                                    className={classes.inputSearch}
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                />
-                            </Grid>
-                        </Grid>
-
+        <React.Fragment>
+            <Grid item xs={12}>
+                <Typography variant="h5">Create new tour - Step 2 - Guests</Typography>
+                <Divider variant="fullWidth" />
+            </Grid>
+            <Grid container spacing={3}>
+                <Grid item xs={8}>
+                    <form className={classes.form}>
                         <Grid container spacing={1}>
+                            <Grid item xs={12}>
+                                <Typography variant="h6">Add Guest</Typography>
+                            </Grid>
                             <Grid item xs={6}>
-                                <FormikInputField
-                                    label='First Name'
-                                    name='firstName'
-                                    className={classes.inputItem}
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    size="small"
+                                    id="firstName"
+                                    name="firstName"
+                                    label="First name"
+                                    error={formik.errors.firstName ? true : false}
+                                    helperText={formik.errors.firstName ? formik.errors.firstName : ""}
+                                    value={formik.values.firstName}
+                                    onChange={formik.handleChange}
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                                <FormikInputField
-                                    label='Last Name'
-                                    name='lastName'
-                                    className={classes.inputItem}
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                />
-                            </Grid>
-                        </Grid>
-
-                        <Grid container spacing={1}>
-                            <Grid item xs={6}>
-                                <FormikInputField
-                                    label='Phone'
-                                    name='phone'
-                                    className={classes.inputItem}
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    size="small"
+                                    id="lastName"
+                                    name="lastName"
+                                    label="Last name"
+                                    error={formik.errors.lastName ? true : false}
+                                    helperText={formik.errors.lastName ? formik.errors.lastName : ""}
+                                    value={formik.values.lastName}
+                                    onChange={formik.handleChange}
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                                <FormikInputField
-                                    label='email'
-                                    name='email'
-                                    className={classes.inputItem}
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    size="small"
+                                    id="phone"
+                                    name="phone"
+                                    label="Phone"
+                                    error={formik.errors.phone ? true : false}
+                                    helperText={formik.errors.phone ? formik.errors.phone : ""}
+                                    value={formik.values.phone}
+                                    onChange={formik.handleChange}
                                 />
                             </Grid>
-                        </Grid>
-
-                        <Grid container spacing={1}>
                             <Grid item xs={6}>
-                                <FormikInputField
-                                    label='Date of birth'
-                                    name='dateOfBirth'
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    size="small"
+                                    id="email"
+                                    name="email"
+                                    label="Email"
+                                    error={formik.errors.email ? true : false}
+                                    helperText={formik.errors.email ? formik.errors.email : ""}
+                                    value={formik.values.email}
+                                    onChange={formik.handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <InputLabel className={classes.label} id="endLbl">Date of birth</InputLabel>
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    size="small"
+                                    id="dateOfBirth"
+                                    name="dateOfBirth"
                                     type="date"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
+                                    error={formik.errors.dateOfBirth ? true : false}
+                                    helperText={formik.errors.dateOfBirth ? formik.errors.dateOfBirth : ""}
+                                    value={formik.values.dateOfBirth}
+                                    onChange={formik.handleChange}
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                                <FormikInputField
-                                    label='Place of birth'
-                                    name='placeOfBirth'
-                                    className={classes.inputItem}
+                                <InputLabel className={classes.label}>Place of birth</InputLabel>
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    size="small"
+                                    id="placeOfBirth"
+                                    name="placeOfBirth"
+                                    error={formik.errors.placeOfBirth ? true : false}
+                                    helperText={formik.errors.placeOfBirth ? formik.errors.placeOfBirth : ""}
+                                    value={formik.values.placeOfBirth}
+                                    onChange={formik.handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    size="small"
+                                    id="passportNumber"
+                                    name="passportNumber"
+                                    label="Passport number"
+                                    error={formik.errors.passportNumber ? true : false}
+                                    helperText={formik.errors.passportNumber ? formik.errors.passportNumber : ""}
+                                    value={formik.values.passportNumber}
+                                    onChange={formik.handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    size="small"
+                                    id="issuedBy"
+                                    name="issuedBy"
+                                    label="Issued by"
+                                    error={formik.errors.issuedBy ? true : false}
+                                    helperText={formik.errors.issuedBy ? formik.errors.issuedBy : ""}
+                                    value={formik.values.issuedBy}
+                                    onChange={formik.handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    size="small"
+                                    id="issueDate"
+                                    name="issueDate"
+                                    label="Issue date"
+                                    error={formik.errors.issueDate ? true : false}
+                                    helperText={formik.errors.issueDate ? formik.errors.issueDate : ""}
+                                    value={formik.values.issueDate}
+                                    onChange={formik.handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    size="small"
+                                    id="expireDate"
+                                    name="expireDate"
+                                    label="Expire date"
+                                    error={formik.errors.expireDate ? true : false}
+                                    helperText={formik.errors.expireDate ? formik.errors.expireDate : ""}
+                                    value={formik.values.expireDate}
+                                    onChange={formik.handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    multiline
+                                    variant="outlined"
+                                    id="notes"
+                                    name="notes"
+                                    label="Notes"
+                                    value={formik.values.notes}
+                                    onChange={formik.handleChange}
                                 />
                             </Grid>
                         </Grid>
-                        <Grid container spacing={1}>
-                            <Grid item xs={6}>
-                                <FormikInputField
-                                    label='Passport number'
-                                    name='passportNumber'
-                                    className={classes.inputItem}
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <FormikInputField
-                                    label='Issued by'
-                                    name='issuedBy'
-                                    className={classes.inputItem}
-                                />
-                            </Grid>
-                        </Grid>
-
-                        <Grid container spacing={1}>
-                            <Grid item xs={6}>
-                                <FormikInputField
-                                    label='Issue date'
-                                    name='issueDate'
-                                    className={classes.inputItem}
-                                />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <FormikInputField
-                                    label='Expire date'
-                                    name='expireDate'
-                                    className={classes.inputItem}
-                                />
-                            </Grid>
-                        </Grid>
-
+                    </form>
+                </Grid>
+                <Grid item xs={4}>
+                    <div className={classes.submit}>
                         <Grid item xs={12}>
-                            <FormikInputField
-                                label='Notes'
-                                name='notes'
-                                className={classes.notes}
-                                multiline={true}
-                                rows={4}
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        id="mainContact"
+                                        name="mainContact"
+                                        color="primary"
+                                        checked={formik.values.mainContact}
+                                        onChange={formik.handleChange}
+                                    />
+                                }
+                                label="Main contact"
                             />
                         </Grid>
-                        <Grid item xs={2}>
-                            <FormikCheckbox
-                                label='Main contact'
-                                name='mainContact'
-                                className={classes.inputItem}
-                            />
+                        <Button variant="contained"
+                            color="primary"
+                        >
+                            Save
+                        </Button>
+                    </div>
+                </Grid>
+                <Grid item xs={12}>
+                    <DataGrid
+                        rows={GUESTS_ROWS}
+                        columns={GUESTS_COLUMNS}
+                        autoHeight
+                        pageSize={5}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <br /><br /><br />
+                    <Grid container spacing={7} justify="space-between" alignItems="flex-end">
+                        <Grid item xs={10}>
+                            <Button variant="contained"
+                                color="default"
+                                onClick={() => props.onBack("guests", formik.values)}
+                            >
+                                Back: Tour Details
+                            </Button>
                         </Grid>
-                        <Grid item xs={2}>
-                            <Button type={'submit'}
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.button}>
-                                Save
+                        <Grid item xs={2} >
+                            <Button variant="contained" fullWidth
+                                color="primary"
+                                onClick={formik.handleSubmit}
+                            >
+                                Next: Add hotels
                             </Button>
                         </Grid>
                     </Grid>
-
-                </Form>
-            </Formik>
-            <Box component="div" display="flex" justifyContent="space-between" p={1}>
-                <DataGrid rows={initialValues} columns={GUESTS_COLUMNS} autoHeight/>
-            </Box>
-        </div>
-    )
-};
+                </Grid>
+            </Grid>
+        </React.Fragment>
+    );
+}
 
 export default Guests;

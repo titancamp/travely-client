@@ -50,7 +50,6 @@ ApiClient.interceptors.request.use(async function (config) {
     }
   }
 
-  console.log("axios.interceptors.request.config", config);
   return config;
 }, function (error) {
   return Promise.reject(error);

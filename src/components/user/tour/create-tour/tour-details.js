@@ -21,10 +21,13 @@ const useStyles = makeStyles({
     },
     divider: {
         position: "absolute",
-        height: "45vh",
+        height: "42vh",
         left: 0,
         right: 0,
         margin: "auto"
+    },
+    label: {
+        fontSize: "0.75em"
     }
 });
 
@@ -61,20 +64,10 @@ const validate = values => {
 const TourDetail = (props) => {
     const classes = useStyles();
     const formik = useFormik({
-        initialValues: {
-            tourName: "",
-            origin: "",
-            startDate: "",
-            endDate: "",
-            pickTime: "",
-            pickDetails: "",
-            dropTime: "",
-            dropDetails: "",
-            notes: ""
-        },
+        initialValues: props.state,
         validate,
         onSubmit: values => {
-            props.handleNext();
+            props.onNext("tourDetails", values);
         },
     });
 
@@ -124,9 +117,9 @@ const TourDetail = (props) => {
                                         <MenuItem value="">
                                             <em>None</em>
                                         </MenuItem>
-                                        <MenuItem value={10}>Ten</MenuItem>
-                                        <MenuItem value={20}>Twenty</MenuItem>
-                                        <MenuItem value={30}>Thirty</MenuItem>
+                                        <MenuItem value={10}>Origin1</MenuItem>
+                                        <MenuItem value={20}>Origin2</MenuItem>
+                                        <MenuItem value={30}>Origin3</MenuItem>
                                     </Select>
                                     {formik.errors.origin &&
                                         <Typography className={classes.error} variant="caption" display="block" gutterBottom color="error">
@@ -136,7 +129,7 @@ const TourDetail = (props) => {
                                 </FormControl>
                             </Grid>
                             <Grid item xs={6}>
-                                <InputLabel id="startLbl">Start Date</InputLabel>
+                                <InputLabel className={classes.label}>Start Date</InputLabel>
                                 <TextField
                                     fullWidth
                                     variant="outlined"
@@ -151,7 +144,7 @@ const TourDetail = (props) => {
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                                <InputLabel id="endLbl">End Date</InputLabel>
+                                <InputLabel className={classes.label}>End Date</InputLabel>
                                 <TextField
                                     fullWidth
                                     variant="outlined"
@@ -169,13 +162,13 @@ const TourDetail = (props) => {
                                 <Typography variant="h6">Pick-up</Typography>
                             </Grid>
                             <Grid item xs={4}>
+                                <InputLabel className={classes.label}>Time</InputLabel>
                                 <TextField
                                     fullWidth
                                     variant="outlined"
                                     size="small"
                                     id="pickTime"
                                     name="pickTime"
-                                    label="Time"
                                     type="time"
                                     error={formik.errors.pickTime ? true : false}
                                     helperText={formik.errors.pickTime ? formik.errors.pickTime : ""}
@@ -184,13 +177,13 @@ const TourDetail = (props) => {
                                 />
                             </Grid>
                             <Grid item xs={8}>
+                                <InputLabel className={classes.label}>Details</InputLabel>
                                 <TextField
                                     fullWidth
                                     variant="outlined"
                                     size="small"
                                     id="pickDetails"
                                     name="pickDetails"
-                                    label="Details"
                                     value={formik.values.pickDetails}
                                     onChange={formik.handleChange}
                                 />
@@ -199,13 +192,13 @@ const TourDetail = (props) => {
                                 <Typography variant="h6">Drop-off</Typography>
                             </Grid>
                             <Grid item xs={4}>
+                                <InputLabel className={classes.label}>Time</InputLabel>
                                 <TextField
                                     fullWidth
                                     variant="outlined"
                                     size="small"
                                     id="dropTime"
                                     name="dropTime"
-                                    label="Time"
                                     type="time"
                                     error={formik.errors.dropTime ? true : false}
                                     helperText={formik.errors.dropTime ? formik.errors.dropTime : ""}
@@ -214,13 +207,13 @@ const TourDetail = (props) => {
                                 />
                             </Grid>
                             <Grid item xs={8}>
+                            <InputLabel className={classes.label}>Details</InputLabel>
                                 <TextField
                                     fullWidth
                                     variant="outlined"
                                     size="small"
                                     id="dropDetails"
                                     name="dropDetails"
-                                    label="Details"
                                     value={formik.values.dropDetails}
                                     onChange={formik.handleChange}
                                 />
@@ -247,6 +240,7 @@ const TourDetail = (props) => {
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
+                    <Divider variant="fullWidth" />
                     <Typography variant="h6">Notes</Typography>
                 </Grid>
                 <Grid item xs={12}>

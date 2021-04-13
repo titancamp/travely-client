@@ -43,34 +43,26 @@ const validate = values => {
         errors.destination = "Required";
     }
 
-    if (!values.companyName) {
-        errors.companyName = "Required";
+    if (!values.activityName) {
+        errors.activityName = "Required";
     }
 
-    if (!values.startDate) {
-        errors.startDate = "Required";
+    if (!values.date) {
+        errors.date = "Required";
     }
 
-    if (!values.endDate) {
-        errors.endDate = "Required";
+    if (!values.guideName) {
+        errors.guideName = "Required";
     }
 
     if (!values.hotelName) {
         errors.hotelName = "Required";
     }
 
-    if (!values.driverName) {
-        errors.driverName = "Required";
-    }
-    
-    if (!values.carModel) {
-        errors.carModel = "Required";
-    }
-    
     if (!values.roomType) {
         errors.roomType = "Required";
     }
-    
+
     if (!values.roomCount) {
         errors.roomCount = "Required";
     }
@@ -78,20 +70,20 @@ const validate = values => {
     return errors;
 };
 
-const Transportation = (props) => {
+const TourGuide = (props) => {
     const classes = useStyles();
     const formik = useFormik({
         initialValues: props.state,
         validate,
         onSubmit: values => {
-            props.onNext("transportation", values)
+            props.onNext("tourGuide", values)
         },
     });
-
+ 
     return (
         <React.Fragment>
             <Grid item xs={12}>
-                <Typography variant="h5">Create new tour - Step 5 - Transportation</Typography>
+                <Typography variant="h5">Create new tour - Step 6 - Assign Tour Guide</Typography>
                 <Divider variant="fullWidth" />
             </Grid>
             <Grid container spacing={3}>
@@ -99,10 +91,10 @@ const Transportation = (props) => {
                     <form className={classes.form}>
                         <Grid container spacing={4}>
                             <Grid item xs={12}>
-                                <Typography variant="h6">Transportation Arrangement</Typography>
+                                <Typography variant="h6">Assign Tour Guide</Typography>
                             </Grid>
                             <Grid item xs={6}>
-                                <Grid container spacing={1}>
+                                <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <FormControl fullWidth
                                             size="small"
@@ -134,88 +126,74 @@ const Transportation = (props) => {
                                         </FormControl>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <TextField
-                                            fullWidth
-                                            variant="outlined"
+                                        <FormControl fullWidth
                                             size="small"
-                                            id="companyName"
-                                            name="companyName"
-                                            label="Company Name"
-                                            error={formik.errors.companyName ? true : false}
-                                            helperText={formik.errors.companyName ? formik.errors.companyName : ""}
-                                            value={formik.values.companyName}
-                                            onChange={formik.handleChange}
-                                        />
+                                            variant="outlined"
+                                            error={formik.errors.activityName ? true : false}
+                                        >
+                                            <InputLabel id="activityNameLbl">Activities</InputLabel>
+                                            <Select
+                                                variant="outlined"
+                                                id="activityName"
+                                                name="activityName"
+                                                label="Activities"
+                                                labelId="activityNameLbl"
+                                                value={formik.values.activityName}
+                                                onChange={formik.handleChange}
+                                            >
+                                                <MenuItem value="">
+                                                    <em>None</em>
+                                                </MenuItem>
+                                                <MenuItem value={10}>Activity1</MenuItem>
+                                                <MenuItem value={20}>Activity2</MenuItem>
+                                                <MenuItem value={30}>Activity3</MenuItem>
+                                            </Select>
+                                            {formik.errors.activityName &&
+                                                <Typography className={classes.error} variant="caption" display="block" gutterBottom color="error">
+                                                    {formik.errors.activityName}
+                                                </Typography>
+                                            }
+                                        </FormControl>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <InputLabel className={classes.label}>Start Date</InputLabel>
+                                        <InputLabel className={classes.label}>Date</InputLabel>
                                         <TextField
                                             fullWidth
                                             variant="outlined"
                                             size="small"
-                                            id="startDate"
-                                            name="startDate"
+                                            id="date"
+                                            name="date"
                                             type="date"
-                                            error={formik.errors.startDate ? true : false}
-                                            helperText={formik.errors.startDate ? formik.errors.startDate : ""}
-                                            value={formik.values.startDate}
+                                            error={formik.errors.date ? true : false}
+                                            helperText={formik.errors.date ? formik.errors.date : ""}
+                                            value={formik.values.date}
                                             onChange={formik.handleChange}
                                         />
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <InputLabel className={classes.label}>End Date</InputLabel>
+                                        <InputLabel className={classes.label}>Tour Guide Name</InputLabel>
                                         <TextField
                                             fullWidth
                                             variant="outlined"
                                             size="small"
-                                            id="endDate"
-                                            name="endDate"
-                                            type="date"
-                                            error={formik.errors.endDate ? true : false}
-                                            helperText={formik.errors.endDate ? formik.errors.endDate : ""}
-                                            value={formik.values.endDate}
-                                            onChange={formik.handleChange}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <TextField
-                                            fullWidth
-                                            variant="outlined"
-                                            size="small"
-                                            id="driverName"
-                                            name="driverName"
-                                            label="Driver Name"
-                                            error={formik.errors.driverName ? true : false}
-                                            helperText={formik.errors.driverName ? formik.errors.driverName : ""}
-                                            value={formik.values.driverName}
-                                            onChange={formik.handleChange}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <TextField
-                                            fullWidth
-                                            variant="outlined"
-                                            size="small"
-                                            id="carModel"
-                                            name="carModel"
-                                            label="Car Type/Model"
-                                            error={formik.errors.carModel ? true : false}
-                                            helperText={formik.errors.carModel ? formik.errors.carModel : ""}
-                                            value={formik.values.carModel}
+                                            id="guideName"
+                                            name="guideName"
+                                            error={formik.errors.guideName ? true : false}
+                                            helperText={formik.errors.guideName ? formik.errors.guideName : ""}
+                                            value={formik.values.guideName}
                                             onChange={formik.handleChange}
                                         />
                                     </Grid>
                                 </Grid>
                             </Grid>
                             <Grid item xs={6}>
-                                <Grid container spacing={3}>
+                                <Grid container spacing={1}>
                                     <Grid item xs={12}>
                                         <TextField
                                             fullWidth
                                             multiline
                                             variant="outlined"
                                             id="notes"
-                                            label="Notes"
                                             name="notes"
                                             value={formik.values.notes}
                                             onChange={formik.handleChange}
@@ -301,7 +279,7 @@ const Transportation = (props) => {
                                     <Grid item xs={8} >
                                         <Grid container direction="column" alignItems="flex-end">
                                             <Button variant="contained"
-                                                color="primary"                                                
+                                                color="primary"
                                             >
                                                 Add
                                             </Button>
@@ -326,9 +304,9 @@ const Transportation = (props) => {
                         <Grid item xs={10}>
                             <Button variant="contained"
                                 color="default"
-                                onClick={() => props.onBack("transportation", formik.values)}
+                                onClick={() => props.onBack("tourGuide", formik.values)}
                             >
-                                Back: Activities
+                                Back: Transportation
                             </Button>
                         </Grid>
                         <Grid item xs={2} >
@@ -336,7 +314,7 @@ const Transportation = (props) => {
                                 color="primary"
                                 onClick={formik.handleSubmit}
                             >
-                                Next: Assign Tour Guide
+                                Save Tour
                             </Button>
                         </Grid>
                     </Grid>
@@ -346,4 +324,4 @@ const Transportation = (props) => {
     );
 }
 
-export default Transportation;
+export default TourGuide;
