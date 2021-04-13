@@ -279,7 +279,7 @@ export const columns = [
     {
         field: "name",
         headerName: "Name",
-        flex: 0.11,
+        flex: 0.30,
     },
     {
         field: "stars",
@@ -291,7 +291,7 @@ export const columns = [
         field: "address",
         headerName: "Address",
         renderCell: Address,
-        width: 300,
+        width: 150,
     },
     {
         field: "contactName",
@@ -323,6 +323,7 @@ export const columns = [
         field: ' ',
         headerName: ' ',
         flex: 0.1,
-        renderCell: DeleteItem,
+        // renderCell: DeleteItem,
+        renderCell: () => { }, //todo: fix the react issue
     }
 ];

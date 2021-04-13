@@ -19,6 +19,7 @@ import HotelIcon from "@material-ui/icons/Hotel";
 
 import ManageAttachments from "./manage-attachments";
 import HotelClient from "../../../../api/hotel-client";
+import FileClient from "../../../../api/file-client";
 
 const validationSchema = yup.object({
   name: yup.string("Enter hotel name").required("Hotel name is required"),
@@ -29,7 +30,7 @@ const validationSchema = yup.object({
   website: yup.string("Enter website"),
 });
 
-const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel }) => {
+const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel, agencyId }) => {
   const isEditForm = Boolean(hotelModel && hotelModel.id);
   const initialValues = hotelModel || {
     name: "",
@@ -45,12 +46,36 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel }) => {
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: async (model, formikHelper) => {
-      const newHotel = isEditForm
-        ? await HotelClient.editHotel(model)
-        : await HotelClient.addHotel(model);
+      try {
+        if (model.attachments) {
+          for (let attachment of model.attachments) {
+            const fileFormData = new FormData();
+            fileFormData.append('file', attachment.blob);
 
-      if (newHotel) {
-        formikHelper.resetForm();
+            const fileId = await FileClient.upload(agencyId, fileFormData);
+
+            attachment.fileId = fileId;
+            delete attachment.blob;
+          }
+        }
+
+        const newHotel = isEditForm
+          ? await HotelClient.editHotel(model)
+          : await HotelClient.addHotel(model);
+
+        if (newHotel) {
+          formikHelper.resetForm();
+        }
+      } catch (error) {
+        console.error(error);
+
+        for (let attachment of model.attachments) {
+          if (!attachment.fileId) {
+            continue;
+          }
+
+          await FileClient.deleteFile(agencyId, attachment.fileId);
+        }
       }
     },
     onReset: () => {
