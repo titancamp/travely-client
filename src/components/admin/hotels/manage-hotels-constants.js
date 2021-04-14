@@ -1,7 +1,7 @@
 import RatingColumn from "./rating-column";
 import Attachments from "../../common/attachments";
 import Address from "../../common/address";
-import DeleteItem from "../../common/delete-item";
+import DataGridCellActions from "../../common/datagrid-cell-actions";
 
 export const seedData = [
     {
@@ -322,8 +322,7 @@ export const columns = [
     {
         field: ' ',
         headerName: ' ',
-        flex: 0.1,
-        // renderCell: DeleteItem,
-        renderCell: () => { }, //todo: fix the react issue
+        width: 150,
+        renderCell: DataGridCellActions
     }
 ];

@@ -3,12 +3,14 @@ import Button from "@material-ui/core/Button";
 import HotelIcon from "@material-ui/icons/Hotel";
 import { DataGrid } from "@material-ui/data-grid";
 import { AuthContext, ManageHotelContext } from "../../../store/context";
+import ACTION_TYPES from "../../../utils/datatable-row-action-types";
 import NoItem from "../../common/no-item";
 import Loading from "../../common/loading";
 import SearchPlugin from "../../common/search-plugin";
 import { columns } from "./manage-hotels-constants";
 import HotelClient from '../../../api/hotel-client';
 import SaveHotel from './save-hotel/save-hotel';
+import ConfirmDialog from "../../user/guest/tourists/component/ConfirmDialog";
 
 export default class ManageHotels extends React.Component {
     constructor(props) {
@@ -23,6 +25,8 @@ export default class ManageHotels extends React.Component {
         };
 
         this.handleSaveHotelModalToggle = this.handleSaveHotelModalToggle.bind(this);
+        this.deleteRow = this.deleteRow.bind(this);
+        this.resetDeleteRowDialog = this.resetDeleteRowDialog.bind(this);
     }
 
     componentDidMount() {
@@ -54,6 +58,20 @@ export default class ManageHotels extends React.Component {
         this.setState({ filteredList });
     };
 
+    handleRowAction = (actionType, rowData) => {
+        switch (actionType) {
+            case ACTION_TYPES.EDIT:
+                this.editRow(rowData.id);
+                break;
+            case ACTION_TYPES.DELETE:
+                this.confirmDeleteRow(rowData.id);
+                break;
+            default:
+                console.log("Implementation missing for action type " + actionType);
+                break;
+        }
+    }
+
     editRow = (hotelId) => {
         this.setState({
             isLoading: true,
@@ -72,20 +90,34 @@ export default class ManageHotels extends React.Component {
             }));
     };
 
-    deleteRow = (id) => {
+    confirmDeleteRow = (id) => {
+        this.setState({
+            isConfirmDialogOpen: true,
+            hotelIdToDelete: id
+        });
+    }
+
+    deleteRow = () => {
         this.setState({
             isLoading: true,
         });
 
-        HotelClient.deleteHotel(id)
-            .then((result) => {
+        HotelClient.deleteHotel(this.state.hotelIdToDelete)
+            .finally(() => {
                 this.setState({
                     searchTerm: "",
                     isLoading: false,
                 });
-
+                this.resetDeleteRowDialog();
                 this.updateHotelsGrid();
             });
+    }
+
+    resetDeleteRowDialog = () => {
+        this.setState({
+            isConfirmDialogOpen: false,
+            hotelIdToDelete: null
+        });
     }
 
     handleSaveHotelModalToggle() {
@@ -148,7 +180,7 @@ export default class ManageHotels extends React.Component {
                                         />
                                         <div>
                                             <div>
-                                                <ManageHotelContext.Provider value={{ deleteHandler: this.deleteRow }}>
+                                                <ManageHotelContext.Provider value={{ onRowAction: this.handleRowAction }}>
                                                     <DataGrid
                                                         disableColumnResize={true}
                                                         rows={this.state.filteredList}
@@ -164,6 +196,10 @@ export default class ManageHotels extends React.Component {
                                     </div>
                                     )
                             }
+                            <ConfirmDialog title={"Are you sure you want to delete the hotel"}
+                                isOpen={this.state.isConfirmDialogOpen}
+                                onConfirm={this.deleteRow}
+                                onCancel={this.resetDeleteRowDialog} />
                         </div>
                     )
                 }

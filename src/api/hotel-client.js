@@ -9,6 +9,10 @@ const HotelClient = {
     return await ApiClient.put('/api/v1/properties', data)
       .then(response => response.data);
   },
+  deleteHotel: async function (id) {
+    return await ApiClient.delete(`/api/v1/properties/${id}`)
+      .then(response => response.data);
+  },
   getHotelById: async function (id) {
     return await ApiClient.get(`/api/v1/properties/${id}`)
       .then(response => response.data);

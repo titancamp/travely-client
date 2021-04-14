@@ -17,21 +17,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ConfirmDialog(props) {
-  const { confirmDialog, setConfirmDialog } = props;
+export default function ConfirmDialog({ title, isOpen, onConfirm, onCancel }) {
   const classes = useStyles();
-  const isConfirm = () => setConfirmDialog({ ...confirmDialog, isOpen: false });
+
 
   return (
-    <Dialog open={confirmDialog.isOpen} classes={{ paper: classes.dialog }}>
+    <Dialog open={isOpen} classes={{ paper: classes.dialog }}>
       <DialogContent>
-        <Typography>{confirmDialog.title}</Typography>
+        <Typography>{title}</Typography>
       </DialogContent>
       <DialogActions className={classes.dialogActions}>
-        <Button variant="contained" onClick={confirmDialog.onConfirm}>
+        <Button variant="contained" onClick={onConfirm}>
           Yes
         </Button>
-        <Button variant="contained" onClick={isConfirm}>
+        <Button variant="contained" onClick={onCancel}>
           No
         </Button>
       </DialogActions>
