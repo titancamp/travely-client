@@ -6,7 +6,7 @@ const HotelClient = {
       .then(response => response.data);
   },
   editHotel: async function (data) {
-    return await ApiClient.put('/api/v1/properties', data)
+    return await ApiClient.put(`/api/v1/properties/${data.id}`, data)
       .then(response => response.data);
   },
   deleteHotel: async function (id) {

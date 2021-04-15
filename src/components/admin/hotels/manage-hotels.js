@@ -172,6 +172,7 @@ export default class ManageHotels extends React.Component {
                                             isOpen={this.state.isSaveHotelModalOpen}
                                             handleSaveHotelModalToggle={this.handleSaveHotelModalToggle}
                                             agencyId={agencyId}
+                                            hotelModel={this.state.hotelToEdit}
                                         />
                                         <SearchPlugin
                                             searchTerm={this.state.searchTerm}

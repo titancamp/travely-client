@@ -30,6 +30,20 @@ const validationSchema = yup.object({
   website: yup.string("Enter website"),
 });
 
+const uploadNewAttachments = async (agencyId, attachments) => {
+  for (let attachment of attachments) {
+    if (!attachment.blob) {
+      continue;
+    }
+    const fileFormData = new FormData();
+    fileFormData.append('file', attachment.blob);
+
+    const fileId = await FileClient.upload(agencyId, fileFormData);
+
+    attachment.fileId = fileId;
+  }
+}
+
 const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel, agencyId }) => {
   const isEditForm = Boolean(hotelModel && hotelModel.id);
   const initialValues = hotelModel || {
@@ -48,15 +62,9 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel, agencyI
     onSubmit: async (model, formikHelper) => {
       try {
         if (model.attachments) {
-          for (let attachment of model.attachments) {
-            const fileFormData = new FormData();
-            fileFormData.append('file', attachment.blob);
+          const newAttachments = model.attachments.filter(item => !!item.blob);
 
-            const fileId = await FileClient.upload(agencyId, fileFormData);
-
-            attachment.fileId = fileId;
-            delete attachment.blob;
-          }
+          await uploadNewAttachments(agencyId, newAttachments);
         }
 
         const newHotel = isEditForm
@@ -70,11 +78,9 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel, agencyI
         console.error(error);
 
         for (let attachment of model.attachments) {
-          if (!attachment.fileId) {
-            continue;
+          if (attachment.blob && attachment.fileId) {
+            await FileClient.deleteFile(agencyId, attachment.fileId);
           }
-
-          await FileClient.deleteFile(agencyId, attachment.fileId);
         }
       }
     },
@@ -106,6 +112,7 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel, agencyI
 
   const inputMb = 1;
   const dialogTitle = isEditForm ? "Edit new hotel" : "Add new hotel";
+  const saveButtonText = isEditForm ? "Edit hotel" : "Add hotel";
 
   return (
     <Dialog open={isOpen} maxWidth="lg">
@@ -250,7 +257,7 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel, agencyI
               size="small"
               fullWidth
             >
-              Add hotel
+              {saveButtonText}
             </Button>
           </Grid>
           <Grid item xs={3}>
