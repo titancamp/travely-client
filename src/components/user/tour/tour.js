@@ -1,66 +1,31 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
+import React, { useState, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
+import Grid from "@material-ui/core/Grid";
 import { TOUR_ROWS, TOUR_COLUMNS } from "./utils/constants";
-import CreateTour from "./create-tour/CreateTour";
+import CreateTour from "./create-tour/create-tour";
 
-export default class Tour extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tourData: [],
-      isCreateModalOpen: false,
-    };
-    this.handleCreateModalToggle = this.handleCreateModalToggle.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-  }
+const Tour = () => {
+  const [tourData, setTourData] = useState([]);
 
-  getData() {
-    this.setState({ tourData: TOUR_ROWS });
-  }
+  useEffect(() => {
+    setTourData(TOUR_ROWS);
+  }, []);
 
-  handleCreateModalToggle() {
-    this.setState((state) => ({
-      isCreateModalOpen: !state.isCreateModalOpen,
-    }));
-  }
-
-  handleClose() {
-    this.setState({
-      isCreateModalOpen: false,
-    });
-  }
-
-  componentDidMount() {
-    this.getData();
-  }
-
-  render() {
-    return (
-      <>
-        <div className="create-tour-button">
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.handleCreateModalToggle}
-          >
-            {" "}
-            Create Tour{" "}
-          </Button>
-        </div>
-
+  return (
+    <Grid container spacing={4}>
+      <Grid item xs={12}>
+        <CreateTour />
+      </Grid>
+      <Grid item xs={12}>
         <DataGrid
-          rows={this.state.tourData}
+          rows={tourData}
           columns={TOUR_COLUMNS}
           autoHeight
           autoPageSize
         />
-        <CreateTour
-          isOpen={this.state.isCreateModalOpen}
-          handleCreateModalToggle={this.handleCreateModalToggle}
-          handleClose={this.handleClose}
-        />
-      </>
-    );
-  }
+      </Grid>
+    </Grid>
+  );
 }
+
+export default Tour;

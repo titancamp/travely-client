@@ -58,7 +58,6 @@ export default function NotificationPane({ open }) {
   const classes = useStyles();
   const notificationService = useContext(NotificationContext);
   const handleButtonClick = (notification) => {
-    console.log(notification);
   };
 
   // notificationService.connect();

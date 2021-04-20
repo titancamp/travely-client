@@ -7,7 +7,6 @@ export default class LogoUpload extends React.Component {
     this.state = {
       logo: undefined,
     };
-    console.log("logo-upload:", props);
     this.downloadLogo = this.downloadLogo.bind(this);
     this.downloadLogo(props);
   }

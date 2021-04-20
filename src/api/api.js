@@ -5,7 +5,7 @@ import AuthClient from "./auth-client";
 
 import appConfig from '../app-config.json';
 
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+//const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const ApiClient = axios.create({
   baseURL: appConfig.authURL,
@@ -50,7 +50,6 @@ ApiClient.interceptors.request.use(async function (config) {
     }
   }
 
-  console.log("axios.interceptors.request.config", config);
   return config;
 }, function (error) {
   return Promise.reject(error);
