@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import ConfirmDialog from "../user/guest/tourists/component/ConfirmDialog";
-import {Close as CloseIcon} from "@material-ui/icons";
+import { Close as CloseIcon } from "@material-ui/icons";
 import Button from "@material-ui/core/Button";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import {ManageHotelContext} from "../../store/context";
+import { ManageHotelContext } from "../../store/context";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -20,20 +20,20 @@ const DeleteItem = (props) => {
     });
     const classes = useStyles();
 
-    const onDelete = (deleteHandler, itemId) => {
+    const onDelete = useCallback((deleteHandler, itemId) => {
         deleteHandler(itemId);
 
         setConfirmDialog({
             ...confirmDialog,
             isOpen: false,
         });
-    };
+    }, [confirmDialog, setConfirmDialog]);
 
     return (
         <div>
             <ManageHotelContext.Consumer>
                 {
-                    ({deleteHandler}) => {
+                    ({ deleteHandler }) => {
                         return (
                             <div>
                                 <Button
@@ -46,7 +46,7 @@ const DeleteItem = (props) => {
                                         });
                                     }}
                                 >
-                                    <CloseIcon fontSize="small"/>
+                                    <CloseIcon fontSize="small" />
                                 </Button>
                                 <ConfirmDialog
                                     confirmDialog={confirmDialog}

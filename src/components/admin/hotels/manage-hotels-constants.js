@@ -1,7 +1,7 @@
 import RatingColumn from "./rating-column";
 import Attachments from "../../common/attachments";
 import Address from "../../common/address";
-import DeleteItem from "../../common/delete-item";
+import DataGridCellActions from "../../common/datagrid-cell-actions";
 
 export const seedData = [
     {
@@ -279,7 +279,7 @@ export const columns = [
     {
         field: "name",
         headerName: "Name",
-        flex: 0.11,
+        flex: 0.30,
     },
     {
         field: "stars",
@@ -291,7 +291,7 @@ export const columns = [
         field: "address",
         headerName: "Address",
         renderCell: Address,
-        width: 300,
+        width: 150,
     },
     {
         field: "contactName",
@@ -322,7 +322,7 @@ export const columns = [
     {
         field: ' ',
         headerName: ' ',
-        flex: 0.1,
-        renderCell: DeleteItem,
+        width: 150,
+        renderCell: DataGridCellActions
     }
 ];
