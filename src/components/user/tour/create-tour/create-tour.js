@@ -4,12 +4,12 @@ import Container from "@material-ui/core/Container";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
-import TourDetails from "./tour-details";
-import Guests from "./guests";
-import Hotels from "./hotels";
-import Activities from "./activities";
-import Transportation from "./transportation";
-import TourGuide from "./tourGuide";
+import TourDetails from "./tour-details-step";
+import Guests from "./guests-step";
+import Hotels from "./hotels-step";
+import Activities from "./activities-step";
+import Transportation from "./transportation-step";
+import TourGuide from "./tour-guide-step";
 
 
 const useStyles = makeStyles({
