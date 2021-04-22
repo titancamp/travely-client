@@ -8,7 +8,7 @@ import appConfig from '../app-config.json';
 //const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const ApiClient = axios.create({
-  baseURL: appConfig.authURL,
+  baseURL: appConfig.baseURL,
   headers: {
     "Content-Type": "application/json",
   },

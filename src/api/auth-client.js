@@ -1,4 +1,5 @@
 import ApiClient from "./api";
+import appConfig from '../app-config.json';
 
 const AuthClient = {
   login: function (email, password) {
@@ -13,6 +14,7 @@ const AuthClient = {
     return ApiClient.post("/connect/token",
     urlencoded,
     {
+      baseURL: appConfig.authURL,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
