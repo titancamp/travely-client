@@ -45,7 +45,8 @@ const AddEditActivity = ({
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: async (model, formikHelper) => {
-      model.type = {
+      const data = { ...model };
+      data.type = {
         name: model.type,
         agencyId: +localStorage.getItem("agencyId"),
       };
