@@ -156,7 +156,8 @@ export default class ManageHotels extends React.Component {
                                         <NoItem
                                             singularItemName="hotel"
                                             pluralItemName="hotels"
-                                            addNewItem={this.addNewItem}
+                                            startIcon={HotelIcon}
+                                            onAddNewItem={this.handleSaveHotelModalToggle}
                                         />
                                     </div>
                                     )
@@ -167,13 +168,7 @@ export default class ManageHotels extends React.Component {
                                             onClick={this.handleSaveHotelModalToggle}
                                         >
                                             Add new hotel
-                                </Button>
-                                        <SaveHotel
-                                            isOpen={this.state.isSaveHotelModalOpen}
-                                            handleSaveHotelModalToggle={this.handleSaveHotelModalToggle}
-                                            agencyId={agencyId}
-                                            hotelModel={this.state.hotelToEdit}
-                                        />
+                                        </Button>
                                         <SearchPlugin
                                             searchTerm={this.state.searchTerm}
                                             updateSearchTerm={this.updateSearchTerm}
@@ -197,6 +192,12 @@ export default class ManageHotels extends React.Component {
                                     </div>
                                     )
                             }
+                            <SaveHotel
+                                isOpen={this.state.isSaveHotelModalOpen}
+                                handleSaveHotelModalToggle={this.handleSaveHotelModalToggle}
+                                agencyId={agencyId}
+                                hotelModel={this.state.hotelToEdit}
+                            />
                             <ConfirmDialog title={"Are you sure you want to delete the hotel"}
                                 isOpen={this.state.isConfirmDialogOpen}
                                 onConfirm={this.deleteRow}
