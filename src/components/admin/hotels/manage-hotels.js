@@ -24,9 +24,7 @@ export default class ManageHotels extends React.Component {
             filteredList: [],
         };
 
-        this.handleSaveHotelModalToggle = this.handleSaveHotelModalToggle.bind(
-            this
-        );
+        this.handleSaveHotelModalToggle = this.handleSaveHotelModalToggle.bind(this);
         this.deleteRow = this.deleteRow.bind(this);
         this.resetDeleteRowDialog = this.resetDeleteRowDialog.bind(this);
     }
