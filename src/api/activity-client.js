@@ -12,7 +12,7 @@ const ActivityClient = {
       .then(response => response.data);
   },
   deleteActivity: async function (id) {
-    return await ApiClient.delete(`/api/v1/service${id}`)
+    return await ApiClient.delete(`/api/v1/service/${id}`)
       .then(response => response.data);
   },
   getActivityTypes: async function (nameSearch) {
