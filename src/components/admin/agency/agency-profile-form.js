@@ -112,7 +112,6 @@ export default function AgencyProfileForm() {
       fileId = response.data.data;
     })
     .catch((error) => {
-      console.log("error", error)
     }); // TODO: Add error message
 
     AgencyClient.update(getAgencyProfileSubmitData(values, fileId))

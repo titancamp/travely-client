@@ -7,7 +7,8 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import { DRAWER_WIDTH } from "../../utility";
-import { Badge, IconButton } from "@material-ui/core";
+import Badge from "@material-ui/core/Badge";
+import IconButton from "@material-ui/core/IconButton";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import { NotificationContext } from "../../store/notificationContext";
 
@@ -36,6 +37,7 @@ export const ContentArea = ({
 }) => {
   const classes = useStyles();
   const notificationService = useContext(NotificationContext);
+
   return (
     <div className={classes.contentArea}>
       <Switch>
@@ -60,7 +62,8 @@ export const ContentArea = ({
                 </IconButton>
               </Toolbar>
             </AppBar>
-            <Container>
+            <br /><br />
+            <Container maxWidth="xl">
               <Component />
             </Container>
           </Route>
