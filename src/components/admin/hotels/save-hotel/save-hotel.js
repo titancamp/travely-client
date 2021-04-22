@@ -36,15 +36,20 @@ const uploadNewAttachments = async (agencyId, attachments) => {
       continue;
     }
     const fileFormData = new FormData();
-    fileFormData.append('file', attachment.blob);
+    fileFormData.append("file", attachment.blob);
 
     const fileId = await FileClient.upload(agencyId, fileFormData);
 
     attachment.fileId = fileId;
   }
-}
+};
 
-const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel, agencyId }) => {
+const SaveHotelForm = ({
+  isOpen,
+  handleSaveHotelModalToggle,
+  hotelModel,
+  agencyId,
+}) => {
   const isEditForm = Boolean(hotelModel && hotelModel.id);
   const initialValues = hotelModel || {
     name: "",
@@ -62,7 +67,9 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel, agencyI
     onSubmit: async (model, formikHelper) => {
       try {
         if (model.attachments) {
-          const newAttachments = model.attachments.filter(item => !!item.blob);
+          const newAttachments = model.attachments.filter(
+            (item) => !!item.blob
+          );
 
           await uploadNewAttachments(agencyId, newAttachments);
         }
@@ -113,6 +120,8 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel, agencyI
   const inputMb = 1;
   const dialogTitle = isEditForm ? "Edit new hotel" : "Add new hotel";
   const saveButtonText = isEditForm ? "Edit hotel" : "Add hotel";
+
+  console.log(isOpen);
 
   return (
     <Dialog open={isOpen} maxWidth="lg">
