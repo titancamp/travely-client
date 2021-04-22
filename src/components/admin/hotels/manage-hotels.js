@@ -123,6 +123,7 @@ export default class ManageHotels extends React.Component {
     handleSaveHotelModalToggle() {
         this.setState((state) => ({
             isSaveHotelModalOpen: !state.isSaveHotelModalOpen,
+            hotelToEdit: state.isSaveHotelModalOpen ? null : state.hotelToEdit
         }));
 
         this.updateHotelsGrid();
@@ -192,12 +193,14 @@ export default class ManageHotels extends React.Component {
                                     </div>
                                     )
                             }
-                            <SaveHotel
-                                isOpen={this.state.isSaveHotelModalOpen}
-                                handleSaveHotelModalToggle={this.handleSaveHotelModalToggle}
-                                agencyId={agencyId}
-                                hotelModel={this.state.hotelToEdit}
-                            />
+                            {this.state.isSaveHotelModalOpen
+                                ? <SaveHotel
+                                    isOpen={this.state.isSaveHotelModalOpen}
+                                    handleSaveHotelModalToggle={this.handleSaveHotelModalToggle}
+                                    agencyId={agencyId || 0}
+                                    hotelModel={this.state.hotelToEdit}
+                                />
+                                : null}
                             <ConfirmDialog title={"Are you sure you want to delete the hotel"}
                                 isOpen={this.state.isConfirmDialogOpen}
                                 onConfirm={this.deleteRow}
