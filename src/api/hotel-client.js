@@ -17,8 +17,12 @@ const HotelClient = {
     return await ApiClient.get(`/api/v1/properties/${id}`)
       .then(response => response.data);
   },
-  getHotels: async function (filter) {
+  getHotels: async function () {
     return await ApiClient.get('/api/v1/properties')
+      .then(response => response.data);
+  },
+  getRoomTypes: async function () {
+    return await ApiClient.get('/api/v1/properties/roomtypes')
       .then(response => response.data);
   }
 };

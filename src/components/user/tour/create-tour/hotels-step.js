@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik, FieldArray, FormikProvider } from "formik";
@@ -13,6 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import FormControl from '@material-ui/core/FormControl';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import HotelClient from "../../../../api/hotel-client";
+import BOOKING_STATUSES from '../../../../utils/booking-statuses';
 import { GUESTS_ROWS, GUESTS_COLUMNS } from "../utils/constants";
 
 const useStyles = makeStyles({
@@ -66,9 +68,32 @@ const validate = values => {
     return errors;
 };
 
-
 const Hotels = (props) => {
     const classes = useStyles();
+
+    const [hotels, setHotels] = useState([]);
+    const [roomTypes, setRoomTypes] = useState([]);
+
+    async function fetchHotels() {
+        const res = await HotelClient.getHotels();
+        res.unshift({
+            id: '', name: 'None'
+        })
+        setHotels(res);
+    }
+
+    async function fetchRoomTypes() {
+        const res = await HotelClient.getRoomTypes();
+        res.unshift({
+            id: '', name: 'None'
+        })
+        setRoomTypes(res);
+    }
+
+    useEffect(() => {
+        fetchHotels();
+        fetchRoomTypes();
+    }, []);
 
     const formik = useFormik({
         initialValues: props.state,
@@ -108,13 +133,10 @@ const Hotels = (props) => {
                                                 labelId="hotelNameLbl"
                                                 value={formik.values.hotelName}
                                                 onChange={formik.handleChange}
+
                                             >
-                                                <MenuItem value="">
-                                                    <em>None</em>
-                                                </MenuItem>
-                                                <MenuItem value={10}>Hotel1</MenuItem>
-                                                <MenuItem value={20}>Hotel2</MenuItem>
-                                                <MenuItem value={30}>Hotel3</MenuItem>
+                                                {hotels.map(item =>
+                                                    <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>)}
                                             </Select>
                                             {formik.errors.hotelName &&
                                                 <Typography className={classes.error} variant="caption" display="block" gutterBottom color="error">
@@ -169,12 +191,8 @@ const Hotels = (props) => {
                                                 value={formik.values.bookingState}
                                                 onChange={formik.handleChange}
                                             >
-                                                <MenuItem value="">
-                                                    <em>None</em>
-                                                </MenuItem>
-                                                <MenuItem value={10}>State1</MenuItem>
-                                                <MenuItem value={20}>State2</MenuItem>
-                                                <MenuItem value={30}>State3</MenuItem>
+                                                {Object.keys(BOOKING_STATUSES.properties).map(key =>
+                                                    <MenuItem key={key} value={key}>{BOOKING_STATUSES.properties[key]}</MenuItem>)}
                                             </Select>
                                             {formik.errors.bookingState &&
                                                 <Typography className={classes.error} variant="caption" display="block" gutterBottom color="error">
@@ -195,14 +213,31 @@ const Hotels = (props) => {
                                                         formik.values.rooms.map((room, index) => (
                                                             <React.Fragment key={index}>
                                                                 <Grid item xs={4}>
-                                                                    <TextField
-                                                                        fullWidth
-                                                                        variant="outlined"
+                                                                    <FormControl fullWidth
                                                                         size="small"
-                                                                        name={`rooms.${index}.roomType`}
-                                                                        label="Room Type"
-                                                                        onChange={formik.handleChange}
-                                                                    />
+                                                                        variant="outlined"
+                                                                        error={formik.errors.roomType ? true : false}
+                                                                    >
+                                                                        <InputLabel id="roomTypeLbl">Room Type</InputLabel>
+                                                                        <Select
+                                                                            variant="outlined"
+                                                                            name={`rooms.${index}.roomType`}
+                                                                            label="Room Type"
+                                                                            labelId="roomTypeLbl"
+                                                                            value={formik.values.roomType}
+                                                                            onChange={formik.handleChange}
+
+                                                                        >
+                                                                            {roomTypes.map(item =>
+                                                                                <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>)}
+                                                                        </Select>
+                                                                        {formik.errors.hotelName &&
+                                                                            <Typography className={classes.error} variant="caption" display="block" gutterBottom color="error">
+                                                                                {formik.errors.roomType}
+                                                                            </Typography>
+                                                                        }
+                                                                    </FormControl>
+
                                                                 </Grid>
                                                                 <Grid item xs={3}>
                                                                     <TextField
