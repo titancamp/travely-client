@@ -1,11 +1,12 @@
 import React from "react";
 import { DataGrid } from "@material-ui/data-grid";
-import { dummyData, columns } from "./activities-const";
+import { columns } from "./activities-const";
 import SearchActivities from "./search-activities";
 import ActivityTypeSelect from "./activity-type-select";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import AddEditActivity from "./add-edit-activity";
+import ActivityClient from '../../../api/activity-client';
 
 class ManageActivities extends React.Component {
   constructor(props) {
@@ -26,11 +27,12 @@ class ManageActivities extends React.Component {
   }
 
   componentDidMount() {
-    const activityRows = dummyData;
-
-    this.setState({
-      activityRows: activityRows,
-      filteredActivities: activityRows,
+    const agencyId = localStorage.getItem('agencyId');
+    ActivityClient.getActivities(agencyId).then(({data}) => {
+      this.setState({
+        activityRows: data,
+        filteredActivities: data,
+      });
     });
   }
 
