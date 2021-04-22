@@ -8,8 +8,8 @@ import NoItem from "../../common/no-item";
 import Loading from "../../common/loading";
 import SearchPlugin from "../../common/search-plugin";
 import { columns } from "./manage-hotels-constants";
-import HotelClient from '../../../api/hotel-client';
-import SaveHotel from './save-hotel/save-hotel';
+import HotelClient from "../../../api/hotel-client";
+import SaveHotel from "./save-hotel/save-hotel";
 import ConfirmDialog from "../../user/guest/tourists/component/ConfirmDialog";
 
 export default class ManageHotels extends React.Component {
@@ -24,7 +24,9 @@ export default class ManageHotels extends React.Component {
             filteredList: [],
         };
 
-        this.handleSaveHotelModalToggle = this.handleSaveHotelModalToggle.bind(this);
+        this.handleSaveHotelModalToggle = this.handleSaveHotelModalToggle.bind(
+            this
+        );
         this.deleteRow = this.deleteRow.bind(this);
         this.resetDeleteRowDialog = this.resetDeleteRowDialog.bind(this);
     }
@@ -36,7 +38,7 @@ export default class ManageHotels extends React.Component {
     updateSearchTerm = (newValue) => {
         const searchTerm = newValue;
         this.setState({
-            searchTerm
+            searchTerm,
         });
 
         this.filterList(searchTerm);
@@ -45,7 +47,7 @@ export default class ManageHotels extends React.Component {
     filterList = (searchTerm) => {
         const term = searchTerm.toLowerCase();
         this.setState({
-            searchTerm: term
+            searchTerm: term,
         });
 
         const filteredList = this.state.hotelsRows.filter(
@@ -70,7 +72,7 @@ export default class ManageHotels extends React.Component {
                 console.log("Implementation missing for action type " + actionType);
                 break;
         }
-    }
+    };
 
     editRow = (hotelId) => {
         this.setState({
@@ -78,16 +80,17 @@ export default class ManageHotels extends React.Component {
         });
 
         HotelClient.getHotelById(hotelId)
-            .then(hotel => {
+            .then((hotel) => {
                 this.setState({
                     isLoading: false,
                     isSaveHotelModalOpen: true,
-                    hotelToEdit: hotel
+                    hotelToEdit: hotel,
                 });
             })
-            .catch(err => this.setState({
-                isLoading: false,
-            }));
+            .catch((err) =>
+                this.setState({
+                    isLoading: true
+                }));
     };
 
     confirmDeleteRow = (id) => {
@@ -212,5 +215,4 @@ export default class ManageHotels extends React.Component {
             </AuthContext.Consumer>
         );
     }
-
 }

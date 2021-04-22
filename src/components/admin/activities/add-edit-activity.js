@@ -45,7 +45,11 @@ const AddEditActivity = ({
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: async (model, formikHelper) => {
-      model.type = +model.type;
+      const data = { ...model };
+      data.type = {
+        name: model.type,
+        agencyId: +localStorage.getItem("agencyId"),
+      };
       const newActivity = isEditForm
         ? await ActivityClient.editActivity(model)
         : await ActivityClient.addActivity(model);
