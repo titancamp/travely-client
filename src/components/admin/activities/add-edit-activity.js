@@ -24,6 +24,7 @@ const validationSchema = yup.object({
   email: yup.string("Enter email").email("Enter a valid email"),
   phone: yup.string("Enter phone"),
   website: yup.string("Enter website"),
+  price: yup.number("Enter only numbers"),
 });
 
 const AddEditActivity = ({
@@ -40,13 +41,14 @@ const AddEditActivity = ({
     email: "",
     phone: "",
     website: "",
+    price: null,
   };
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: async (model, formikHelper) => {
       const data = { ...model };
-      data.price = 123;
+      data.price = +data.price;
       data.type = {
         activityName: model.type,
         agencyId: +localStorage.getItem("agencyId"),
@@ -161,6 +163,20 @@ const AddEditActivity = ({
                     onChange={formik.handleChange}
                     error={formik.touched.phone && !!formik.errors.phone}
                     helperText={formik.touched.phone && formik.errors.phone}
+                    variant="outlined"
+                    size="small"
+                  />
+                </Box>
+                <Box mb={inputMb}>
+                  <TextField
+                    fullWidth
+                    id="price"
+                    name="price"
+                    placeholder="Price"
+                    value={formik.values.price}
+                    onChange={formik.handleChange}
+                    error={formik.touched.phone && !!formik.errors.price}
+                    helperText={formik.touched.price && formik.errors.price}
                     variant="outlined"
                     size="small"
                   />

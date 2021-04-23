@@ -57,8 +57,7 @@ const Notification = ({ notification, classes, handleButtonClick }) => {
 export default function NotificationPane({ open }) {
   const classes = useStyles();
   const notificationService = useContext(NotificationContext);
-  const handleButtonClick = (notification) => {
-  };
+  const handleButtonClick = (notification) => {};
 
   // notificationService.connect();
 
@@ -75,6 +74,7 @@ export default function NotificationPane({ open }) {
       >
         {notificationService.notifications.map((notification) => (
           <Notification
+            key={notification.resourceId}
             classes={classes}
             handleButtonClick={handleButtonClick}
             notification={notification}
