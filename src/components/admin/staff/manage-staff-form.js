@@ -40,11 +40,11 @@ const StaffForm = ({ isOpen, handleModalToggle, staffModel }) => {
   };
 
   const onSubmit = async (model, formikHelper) => {
-    const newHotel = isEditForm
+    const isNew = isEditForm
       ? await StaffClient.update(model.id, model)
       : await StaffClient.create(model);
 
-    if (newHotel) {
+    if (isNew) {
       formikHelper.resetForm();
     }
   };

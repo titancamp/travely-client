@@ -6,7 +6,6 @@ import Grid from "@material-ui/core/Grid";
 import GroupIcon from "@material-ui/icons/Group";
 import StaffForm from './manage-staff-form';
 
-import { ManageHotelContext } from "../../../store/context";
 import NoItem from "../../common/no-item";
 import Loading from "../../common/loading";
 import SearchPlugin from "../../common/search-plugin";
@@ -14,7 +13,7 @@ import SearchPlugin from "../../common/search-plugin";
 import { columns } from "./manage-staff-config";
 
 import StaffClient from '../../../api/staff-client';
-export default class ManageHotels extends React.Component {
+export default class ManageStaff extends React.Component {
   constructor(props) {
     super(props);
 
@@ -127,17 +126,15 @@ export default class ManageHotels extends React.Component {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <ManageHotelContext.Provider value={{ deleteHandler: this.deleteRow }}>
-                    <DataGrid
-                      disableColumnResize={true}
-                      rows={this.state.filteredList}
-                      columns={columns}
-                      pageSize={10}
-                      fullwidth
-                      autoHeight
-                      autoWidth
-                    />
-                  </ManageHotelContext.Provider>
+                  <DataGrid
+                    disableColumnResize={true}
+                    rows={this.state.filteredList}
+                    columns={columns}
+                    pageSize={10}
+                    fullwidth
+                    autoHeight
+                    autoWidth
+                  />
                 </Grid>
               </Grid>
             </div>)
