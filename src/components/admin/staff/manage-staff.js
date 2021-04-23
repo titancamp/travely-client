@@ -60,7 +60,8 @@ export default class ManageStaff extends React.Component {
 
     const filteredList = this.state.staffRows.filter(
       (e) =>
-        e.name?.toLowerCase().includes(term) ||
+        e.firstName?.toLowerCase().includes(term) ||
+        e.lastName?.toLowerCase().includes(term) ||
         e.email?.toLowerCase().includes(term) ||
         e.title?.toLowerCase().includes(term)
     );
