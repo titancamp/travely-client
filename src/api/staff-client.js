@@ -1,33 +1,31 @@
 import ApiClient from "./api";
+import appConfig from '../app-config.json';
 
 const StaffClient = {
   get: function (id) {
-    // returns Promise
-    return ApiClient.get(`/api/users/${id}`);
+    return ApiClient.get(`/api/users/${id}`, {
+      baseURL: appConfig.authURL
+    });
   },
   create: function (formData) {
-    // returns Promise
     return ApiClient.put(`/api/users`, formData, {
-      headers: {
-        "Content-Type": "application/json",
-      }
+      baseURL: appConfig.authURL
     });
   },
   update: function (id, formData) {
-    // returns Promise
     return ApiClient.put(`/api/users/${id}`, formData, {
-      headers: {
-        "Content-Type": "application/json",
-      }
+      baseURL: appConfig.authURL
     });
   },
   delete: function (id) {
-    // returns Promise
-    return ApiClient.delete(`/api/users/${id}`);
+    return ApiClient.delete(`/api/users/${id}`, {
+      baseURL: appConfig.authURL
+    });
   },
-  getAll: function (formData) {
-    // returns Promise
-    return ApiClient.get("/api/users");
+  getAll: function () {
+    return ApiClient.get("/api/users", {
+      baseURL: appConfig.authURL
+    });
   },
 };
 
