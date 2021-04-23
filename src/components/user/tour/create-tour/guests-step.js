@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
@@ -10,7 +10,7 @@ import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from "@material-ui/core/Checkbox";
-import { GUESTS_ROWS, GUESTS_COLUMNS } from "../utils/constants";
+import { GUESTS_COLUMNS } from "../utils/constants";
 
 const useStyles = makeStyles({
     form: {
@@ -81,13 +81,36 @@ const validate = values => {
 
 const Guests = (props) => {
     const classes = useStyles();
+    const onNext = props.onNext;
+    const [guests, setGuests] = useState(props.state);
+    const initialState = {
+        firstName: "",
+        lastName: "",
+        phone: "",
+        email: "",
+        dateOfBirth: "",
+        placeOfBirth: "",
+        passportNumber: "",
+        issuedBy: "",
+        issueDate: "",
+        expireDate: "",
+        notes: "",
+        mainContact: false
+    };
     const formik = useFormik({
-        initialValues: props.state,
+        initialValues: initialState,
         validate,
-        onSubmit: values => {
-            props.onNext("guests", values);
+        onSubmit: newGuest => {
+            const guest = guests.reduce((prev, curr) => prev.id < curr.id ? prev : curr, {});
+            newGuest.id = guest && !isNaN(guest.id) ? guest.id - 1 : 0;
+            setGuests([...guests, newGuest]);
+            formik.resetForm(initialState);
         }
     });
+
+    const navigateToNextStep = useCallback(() => {
+        onNext('guests', guests);
+    }, [onNext, guests]);
 
     return (
         <React.Fragment>
@@ -223,6 +246,7 @@ const Guests = (props) => {
                                     id="issueDate"
                                     name="issueDate"
                                     label="Issue date"
+                                    type="date"
                                     error={formik.errors.issueDate ? true : false}
                                     helperText={formik.errors.issueDate ? formik.errors.issueDate : ""}
                                     value={formik.values.issueDate}
@@ -237,6 +261,7 @@ const Guests = (props) => {
                                     id="expireDate"
                                     name="expireDate"
                                     label="Expire date"
+                                    type="date"
                                     error={formik.errors.expireDate ? true : false}
                                     helperText={formik.errors.expireDate ? formik.errors.expireDate : ""}
                                     value={formik.values.expireDate}
@@ -276,6 +301,7 @@ const Guests = (props) => {
                         </Grid>
                         <Button variant="contained"
                             color="primary"
+                            onClick={formik.handleSubmit}
                         >
                             Save
                         </Button>
@@ -283,7 +309,7 @@ const Guests = (props) => {
                 </Grid>
                 <Grid item xs={12}>
                     <DataGrid
-                        rows={GUESTS_ROWS}
+                        rows={guests}
                         columns={GUESTS_COLUMNS}
                         autoHeight
                         pageSize={5}
@@ -303,7 +329,7 @@ const Guests = (props) => {
                         <Grid item xs={2} >
                             <Button variant="contained" fullWidth
                                 color="primary"
-                                onClick={formik.handleSubmit}
+                                onClick={navigateToNextStep}
                             >
                                 Next: Add hotels
                             </Button>

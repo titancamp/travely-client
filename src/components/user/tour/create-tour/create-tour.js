@@ -33,20 +33,7 @@ const initialTourState = {
     dropDetails: "",
     notes: ""
   },
-  guests: {
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    dateOfBirth: "",
-    placeOfBirth: "",
-    passportNumber: "",
-    issuedBy: "",
-    issueDate: "",
-    expireDate: "",
-    notes: "",
-    mainContact: false
-  },
+  guests: [],
   hotels: {
     hotelName: "",
     checkinDate: "",
@@ -150,7 +137,7 @@ const CreateTour = () => {
         >Close</Button>;
     }
   }
-  
+
   return (
     <React.Fragment>
       <Button variant="contained"
