@@ -9,9 +9,15 @@ export const AuthContext = createContext({
   userId: null,
   email: null,
   role: null,
-  login: () => { },
+  login: () => {},
 });
 
 export const ManageHotelContext = createContext({
-  onRowAction: (actionType, rowData) => console.log(`Row action ${actionType} executed`)
+  onRowAction: (actionType, rowData) =>
+    console.log(`Row action ${actionType} executed`),
+});
+
+export const ManageStaffContext = createContext({
+  onRowAction: (actionType, rowData) =>
+    console.log(`Row action ${actionType} executed`),
 });
