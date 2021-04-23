@@ -9,9 +9,9 @@ export const AuthContext = createContext({
   userId: null,
   email: null,
   role: null,
-  login: () => {},
+  login: () => { },
 });
 
 export const ManageHotelContext = createContext({
-  deleteHandler: () => console.log('Row deleted')
+  onRowAction: (actionType, rowData) => console.log(`Row action ${actionType} executed`)
 });

@@ -19,6 +19,7 @@ import HotelIcon from "@material-ui/icons/Hotel";
 
 import ManageAttachments from "./manage-attachments";
 import HotelClient from "../../../../api/hotel-client";
+import FileClient from "../../../../api/file-client";
 
 const validationSchema = yup.object({
   name: yup.string("Enter hotel name").required("Hotel name is required"),
@@ -29,7 +30,26 @@ const validationSchema = yup.object({
   website: yup.string("Enter website"),
 });
 
-const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel }) => {
+const uploadNewAttachments = async (agencyId, attachments) => {
+  for (let attachment of attachments) {
+    if (!attachment.blob) {
+      continue;
+    }
+    const fileFormData = new FormData();
+    fileFormData.append("file", attachment.blob);
+
+    const fileId = await FileClient.upload(agencyId, fileFormData);
+
+    attachment.fileId = fileId;
+  }
+};
+
+const SaveHotelForm = ({
+  isOpen,
+  handleSaveHotelModalToggle,
+  hotelModel,
+  agencyId,
+}) => {
   const isEditForm = Boolean(hotelModel && hotelModel.id);
   const initialValues = hotelModel || {
     name: "",
@@ -45,12 +65,30 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel }) => {
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: async (model, formikHelper) => {
-      const newHotel = isEditForm
-        ? await HotelClient.editHotel(model)
-        : await HotelClient.addHotel(model);
+      try {
+        if (model.attachments) {
+          const newAttachments = model.attachments.filter(
+            (item) => !!item.blob
+          );
 
-      if (newHotel) {
-        formikHelper.resetForm();
+          await uploadNewAttachments(agencyId, newAttachments);
+        }
+
+        const newHotel = isEditForm
+          ? await HotelClient.editHotel(model)
+          : await HotelClient.addHotel(model);
+
+        if (newHotel) {
+          formikHelper.resetForm();
+        }
+      } catch (error) {
+        console.error(error);
+
+        for (let attachment of model.attachments) {
+          if (attachment.blob && attachment.fileId) {
+            await FileClient.deleteFile(agencyId, attachment.fileId);
+          }
+        }
       }
     },
     onReset: () => {
@@ -81,6 +119,9 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel }) => {
 
   const inputMb = 1;
   const dialogTitle = isEditForm ? "Edit new hotel" : "Add new hotel";
+  const saveButtonText = isEditForm ? "Edit hotel" : "Add hotel";
+
+  console.log(isOpen);
 
   return (
     <Dialog open={isOpen} maxWidth="lg">
@@ -225,7 +266,7 @@ const SaveHotelForm = ({ isOpen, handleSaveHotelModalToggle, hotelModel }) => {
               size="small"
               fullWidth
             >
-              Add hotel
+              {saveButtonText}
             </Button>
           </Grid>
           <Grid item xs={3}>

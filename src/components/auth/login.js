@@ -53,14 +53,15 @@ const Login = (props) => {
           email: values.username,
           role: null,
         }
+        localStorage.setItem("AuthContext", JSON.stringify(data));
 
         AgencyClient.get().then((result) => {
+          localStorage.setItem("agencyId", result.data.id);
           data.agencyId = result.data.id;
           data.userId = result.data.ownerId;
           UserClient.get(result.data.ownerId).then((result) => {
             data.role = result.data.role;
             login(data);
-            localStorage.setItem("AuthContext", JSON.stringify(data));
             history.push(`/${data.role}/`);
           })
           .catch((error) => {
