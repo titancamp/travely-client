@@ -7,6 +7,7 @@ import GroupIcon from "@material-ui/icons/Group";
 import StaffForm from "./manage-staff-form";
 import PeopleIcon from "@material-ui/icons/People";
 
+import ACTION_TYPES from "../../../utils/datatable-row-action-types";
 import NoItem from "../../common/no-item";
 import Loading from "../../common/loading";
 import SearchPlugin from "../../common/search-plugin";
@@ -14,6 +15,8 @@ import SearchPlugin from "../../common/search-plugin";
 import { columns } from "./manage-staff-config";
 
 import StaffClient from "../../../api/staff-client";
+import { ManageHotelContext, ManageStaffContext } from "../../../store/context";
+
 export default class ManageStaff extends React.Component {
   constructor(props) {
     super(props);
@@ -42,6 +45,21 @@ export default class ManageStaff extends React.Component {
       });
     });
   }
+
+  handleRowAction = (actionType, rowData) => {
+    console.log(actionType);
+    switch (actionType) {
+      case ACTION_TYPES.EDIT:
+        this.editRow(rowData.id);
+        break;
+      case ACTION_TYPES.DELETE:
+        this.deleteRow(rowData.id);
+        break;
+      default:
+        console.log("Implementation missing for action type " + actionType);
+        break;
+    }
+  };
 
   updateSearchTerm = (newValue) => {
     const searchTerm = newValue;
@@ -140,15 +158,19 @@ export default class ManageStaff extends React.Component {
                 />
               </Grid>
               <Grid item xs={12}>
-                <DataGrid
-                  disableColumnResize={true}
-                  rows={this.state.filteredList}
-                  columns={columns}
-                  pageSize={10}
-                  fullwidth
-                  autoHeight
-                  autoWidth
-                />
+                <ManageStaffContext.Provider
+                  value={{ onRowAction: this.handleRowAction }}
+                >
+                  <DataGrid
+                    disableColumnResize={true}
+                    rows={this.state.filteredList}
+                    columns={columns}
+                    pageSize={10}
+                    fullwidth
+                    autoHeight
+                    autoWidth
+                  />
+                </ManageStaffContext.Provider>
               </Grid>
             </Grid>
           </div>

@@ -1,3 +1,5 @@
+import StaffActions from "./staff-actions";
+
 export const columns = [
   {
     field: "firstName",
@@ -23,5 +25,11 @@ export const columns = [
     field: "phoneNumber",
     headerName: "Phone",
     flex: 0.2,
+  },
+  {
+    field: " ",
+    headerName: "Actions",
+    width: 150,
+    renderCell: StaffActions,
   },
 ];
