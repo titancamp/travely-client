@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
@@ -13,7 +13,8 @@ import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import { TRANSPORTATION_ROWS, TRANSPORTATION_COLUMNS } from "../utils/constants";
+import { TRANSPORTATION_COLUMNS } from "../utils/constants";
+import HotelClient from "../../../../api/hotel-client";
 
 const useStyles = makeStyles({
     form: {
@@ -55,22 +56,22 @@ const validate = values => {
         errors.endDate = "Required";
     }
 
-    if (!values.hotelName) {
-        errors.hotelName = "Required";
+    if (!values.hotelId) {
+        errors.hotelId = "Required";
     }
 
     if (!values.driverName) {
         errors.driverName = "Required";
     }
-    
+
     if (!values.carModel) {
         errors.carModel = "Required";
     }
-    
+
     if (!values.roomType) {
         errors.roomType = "Required";
     }
-    
+
     if (!values.roomCount) {
         errors.roomCount = "Required";
     }
@@ -80,13 +81,57 @@ const validate = values => {
 
 const Transportation = (props) => {
     const classes = useStyles();
+    const onNext = props.onNext;
+    const destinations = [...props.destinations];
+    destinations.unshift('None');
+    const [transportationBookings, setTransportationBookings] = useState([]);
+    const initialState = {
+        destination: "",
+        companyName: "",
+        startDate: "",
+        endDate: "",
+        driverName: "",
+        carModel: "",
+        hotelId: "",
+        roomType: "",
+        roomCount: "",
+        notes: "",
+        accomodation: false
+    };
+    const [allHotels, setAllHotels] = useState([]);
     const formik = useFormik({
-        initialValues: props.state,
+        initialValues: initialState,
         validate,
-        onSubmit: values => {
-            props.onNext("transportation", values)
+        onSubmit: bookingToAdd => {
+            const booking = transportationBookings.reduce((prev, curr) => prev.id > curr.id ? prev : curr, {});
+            bookingToAdd.id = booking && !isNaN(booking.id) ? booking.id + 1 : 1;
+
+            const selectedHotel = allHotels.find(hotel => hotel.id === bookingToAdd.hotelId);
+
+            if (selectedHotel) {
+                bookingToAdd.hotelName = selectedHotel.name;
+                bookingToAdd.destination = selectedHotel.address;
+            }
+
+            setTransportationBookings([...transportationBookings, bookingToAdd]);
+            formik.resetForm(initialState);
         },
     });
+
+    const navigateToNextStep = useCallback(() => {
+        onNext('transportation', transportationBookings);
+    }, [onNext, transportationBookings]);
+
+    async function fetchHotels() {
+        const data = await HotelClient.getHotels();
+
+        data.unshift({ id: '', name: 'None' });
+        setAllHotels(data);
+    }
+
+    useEffect(() => {
+        fetchHotels();
+    }, []);
 
     return (
         <React.Fragment>
@@ -119,12 +164,7 @@ const Transportation = (props) => {
                                                 value={formik.values.destination}
                                                 onChange={formik.handleChange}
                                             >
-                                                <MenuItem value="">
-                                                    <em>None</em>
-                                                </MenuItem>
-                                                <MenuItem value={10}>Destination1</MenuItem>
-                                                <MenuItem value={20}>Destination2</MenuItem>
-                                                <MenuItem value={30}>Destination3</MenuItem>
+                                                {destinations.map(item => <MenuItem value={item}>{item}</MenuItem>)}
                                             </Select>
                                             {formik.errors.destination &&
                                                 <Typography className={classes.error} variant="caption" display="block" gutterBottom color="error">
@@ -227,22 +267,17 @@ const Transportation = (props) => {
                                             variant="outlined"
                                             error={formik.errors.hotelName ? true : false}
                                         >
-                                            <InputLabel id="hotelNameLbl">Hotel Name</InputLabel>
+                                            <InputLabel id="hotelIdLbl">Hotel Name</InputLabel>
                                             <Select
                                                 variant="outlined"
-                                                id="hotelName"
-                                                name="hotelName"
+                                                id="hotelId"
+                                                name="hotelId"
                                                 label="Hotel Name"
-                                                labelId="hotelNameLbl"
+                                                labelId="hotelIdLbl"
                                                 value={formik.values.hotelName}
                                                 onChange={formik.handleChange}
                                             >
-                                                <MenuItem value="">
-                                                    <em>None</em>
-                                                </MenuItem>
-                                                <MenuItem value={10}>Hotel1</MenuItem>
-                                                <MenuItem value={20}>Hotel2</MenuItem>
-                                                <MenuItem value={30}>Hotel3</MenuItem>
+                                                {allHotels.map(hotel => <MenuItem key={hotel.id} value={hotel.id}>{hotel.name}</MenuItem>)}
                                             </Select>
                                             {formik.errors.hotelName &&
                                                 <Typography className={classes.error} variant="caption" display="block" gutterBottom color="error">
@@ -301,7 +336,8 @@ const Transportation = (props) => {
                                     <Grid item xs={8} >
                                         <Grid container direction="column" alignItems="flex-end">
                                             <Button variant="contained"
-                                                color="primary"                                                
+                                                color="primary"
+                                                onClick={formik.handleSubmit}
                                             >
                                                 Add
                                             </Button>
@@ -314,7 +350,7 @@ const Transportation = (props) => {
                 </Grid>
                 <Grid item xs={12}>
                     <DataGrid
-                        rows={TRANSPORTATION_ROWS}
+                        rows={transportationBookings}
                         columns={TRANSPORTATION_COLUMNS}
                         autoHeight
                         pageSize={5}
@@ -334,7 +370,7 @@ const Transportation = (props) => {
                         <Grid item xs={2} >
                             <Button variant="contained" fullWidth
                                 color="primary"
-                                onClick={formik.handleSubmit}
+                                onClick={navigateToNextStep}
                             >
                                 Next: Assign Tour Guide
                             </Button>

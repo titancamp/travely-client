@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik, FieldArray, FormikProvider } from "formik";
@@ -15,7 +15,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import HotelClient from "../../../../api/hotel-client";
 import BOOKING_STATUSES from '../../../../utils/booking-statuses';
-import { GUESTS_ROWS, GUESTS_COLUMNS } from "../utils/constants";
+import { HOTEL_COLUMNS } from "../utils/constants";
 
 const useStyles = makeStyles({
     form: {
@@ -45,8 +45,8 @@ const useStyles = makeStyles({
 const validate = values => {
     const errors = {};
 
-    if (!values.hotelName) {
-        errors.hotelName = "Required";
+    if (!values.hotelId) {
+        errors.hotelId = "Required";
     }
 
     if (!values.checkinDate) {
@@ -70,9 +70,26 @@ const validate = values => {
 
 const Hotels = (props) => {
     const classes = useStyles();
-
+    const [hotelBookings, setHotelBookings] = useState([]);
     const [hotels, setHotels] = useState([]);
     const [roomTypes, setRoomTypes] = useState([]);
+    const initialState = {
+        hotelId: "",
+        checkinDate: "",
+        checkoutDate: "",
+        bookingState: "",
+        cancellationDate: "",
+        notes: "",
+        rooms: [
+            {
+                roomType: "",
+                roomCount: 0,
+                roomGuests: []
+            }
+        ]
+    };
+    const onNext = props.onNext;
+    const guests = props.guests;
 
     async function fetchHotels() {
         const res = await HotelClient.getHotels();
@@ -90,16 +107,31 @@ const Hotels = (props) => {
         setRoomTypes(res);
     }
 
+    const navigateToNextStep = useCallback(() => {
+        onNext('hotels', hotelBookings);
+    }, [onNext, hotelBookings]);
+
     useEffect(() => {
         fetchHotels();
         fetchRoomTypes();
     }, []);
 
     const formik = useFormik({
-        initialValues: props.state,
+        initialValues: initialState,
         validate,
-        onSubmit: values => {
-            props.onNext("hotels", values)
+        onSubmit: bookingToAdd => {
+            const booking = hotelBookings.reduce((prev, curr) => prev.id > curr.id ? prev : curr, {});
+            bookingToAdd.id = booking && !isNaN(booking.id) ? booking.id + 1 : 1;
+
+            const selectedHotel = hotels.find(hotel => hotel.id === bookingToAdd.hotelId);
+
+            if (selectedHotel) {
+                bookingToAdd.hotelName = selectedHotel.name;
+                bookingToAdd.destination = selectedHotel.address;
+            }
+
+            setHotelBookings([...hotelBookings, bookingToAdd]);
+            formik.resetForm(initialState);
         }
     });
 
@@ -122,25 +154,25 @@ const Hotels = (props) => {
                                         <FormControl fullWidth
                                             size="small"
                                             variant="outlined"
-                                            error={formik.errors.hotelName ? true : false}
+                                            error={formik.errors.hotelId ? true : false}
                                         >
-                                            <InputLabel id="hotelNameLbl">Hotel Name</InputLabel>
+                                            <InputLabel id="hotelIdLbl">Hotel Name</InputLabel>
                                             <Select
                                                 variant="outlined"
-                                                id="hotelName"
-                                                name="hotelName"
+                                                id="hotelId"
+                                                name="hotelId"
                                                 label="Hotel Name"
-                                                labelId="hotelNameLbl"
-                                                value={formik.values.hotelName}
+                                                labelId="hotelIdLbl"
+                                                value={formik.values.hotelId}
                                                 onChange={formik.handleChange}
 
                                             >
                                                 {hotels.map(item =>
                                                     <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>)}
                                             </Select>
-                                            {formik.errors.hotelName &&
+                                            {formik.errors.hotelId &&
                                                 <Typography className={classes.error} variant="caption" display="block" gutterBottom color="error">
-                                                    {formik.errors.hotelName}
+                                                    {formik.errors.hotelId}
                                                 </Typography>
                                             }
                                         </FormControl>
@@ -231,7 +263,7 @@ const Hotels = (props) => {
                                                                             {roomTypes.map(item =>
                                                                                 <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>)}
                                                                         </Select>
-                                                                        {formik.errors.hotelName &&
+                                                                        {formik.errors.roomType &&
                                                                             <Typography className={classes.error} variant="caption" display="block" gutterBottom color="error">
                                                                                 {formik.errors.roomType}
                                                                             </Typography>
@@ -266,13 +298,14 @@ const Hotels = (props) => {
                                                                             <MenuItem value="">
                                                                                 <em>None</em>
                                                                             </MenuItem>
-                                                                            <MenuItem value={10}>RoomGuest1</MenuItem>
-                                                                            <MenuItem value={20}>RoomGuest2</MenuItem>
-                                                                            <MenuItem value={30}>RoomGuest3</MenuItem>
+                                                                            {guests.map(guest =>
+                                                                                <MenuItem value={guest.id}>
+                                                                                    {`${guest.firstName} ${guest.lastName}`}
+                                                                                </MenuItem>)}
                                                                         </Select>
-                                                                        {formik.errors.hotelName &&
+                                                                        {formik.errors.roomGuests &&
                                                                             <Typography className={classes.error} variant="caption" display="block" gutterBottom color="error">
-                                                                                {formik.errors.hotelName}
+                                                                                {formik.errors.roomGuests}
                                                                             </Typography>
                                                                         }
                                                                     </FormControl>
@@ -335,6 +368,7 @@ const Hotels = (props) => {
                                 <Grid container direction="column" alignItems="flex-end">
                                     <Button variant="contained"
                                         color="primary"
+                                        onClick={formik.handleSubmit}
                                     >
                                         Add
                                     </Button>
@@ -345,8 +379,8 @@ const Hotels = (props) => {
                 </Grid>
                 <Grid item xs={12}>
                     <DataGrid
-                        rows={GUESTS_ROWS}
-                        columns={GUESTS_COLUMNS}
+                        rows={hotelBookings}
+                        columns={HOTEL_COLUMNS}
                         autoHeight
                         pageSize={5}
                     />
@@ -365,7 +399,7 @@ const Hotels = (props) => {
                         <Grid item xs={2} >
                             <Button variant="contained" fullWidth
                                 color="primary"
-                                onClick={formik.handleSubmit}
+                                onClick={navigateToNextStep}
                             >
                                 Next: Add Activities
                             </Button>

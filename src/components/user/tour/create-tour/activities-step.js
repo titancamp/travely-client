@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
@@ -11,7 +11,9 @@ import Grid from "@material-ui/core/Grid";
 import InputLabel from "@material-ui/core/InputLabel";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
-import { ACTIVITIES_ROWS, ACTIVITIES_COLUMNS } from "../utils/constants";
+import { ACTIVITIES_COLUMNS } from "../utils/constants";
+import ActivityClient from "../../../../api/activity-client";
+import BOOKING_STATUSES from "../../../../utils/booking-statuses";
 
 const useStyles = makeStyles({
     form: {
@@ -30,8 +32,8 @@ const useStyles = makeStyles({
 const validate = values => {
     const errors = {};
 
-    if (!values.activityName) {
-        errors.activityName = "Required";
+    if (!values.activityId) {
+        errors.activityId = "Required";
     }
 
     if (!values.date) {
@@ -56,13 +58,55 @@ const validate = values => {
 
 const Activities = (props) => {
     const classes = useStyles();
+    const onNext = props.onNext;
+    const [allActivities, setAllActivities] = useState([]);
+    const [activityBookings, setActivityBookings] = useState([]);
+    const initialValues = {
+        activityId: "",
+        date: "",
+        time: "",
+        numberOfGuests: "",
+        status: "",
+        notes: ""
+    };
     const formik = useFormik({
-        initialValues: props.state,
+        initialValues: initialValues,
         validate,
-        onSubmit: values => {
-            props.onNext("activities", values)
+        onSubmit: activityBookingToAdd => {
+            const activityBooking = activityBookings.reduce((prev, curr) => prev.id > curr.id ? prev.id : curr.id, {});
+            const maxId = activityBooking && activityBooking.id ? activityBooking.id : 1;
+            activityBookingToAdd.id = maxId + 1;
+
+            const activity = allActivities.find(item => item.id === activityBookingToAdd.id);
+
+            if (activity) {
+                activityBookingToAdd.activityName = activity.name;
+                activityBookingToAdd.destinations = activity.address;
+            }
+
+            setActivityBookings([...activityBookings, activityBookingToAdd]);
+
+            formik.resetForm(initialValues);
         }
     });
+
+    async function fetchAllActivities() {
+        const activitiesResponse = await ActivityClient.getActivities();
+        const data = activitiesResponse.data;
+        data.unshift({
+            id: "",
+            name: "None",
+        });
+        setAllActivities(data);
+    }
+
+    useEffect(() => {
+        fetchAllActivities();
+    }, []);
+
+    const navigateToNextStep = useCallback(() => {
+        onNext("activities", activityBookings)
+    }, [onNext, activityBookings]);
 
     return (
         <React.Fragment>
@@ -71,7 +115,7 @@ const Activities = (props) => {
                 <Divider variant="fullWidth" />
             </Grid>
             <Grid container spacing={3} justify="center">
-                <Grid item xs={8}>
+                <Grid item xs={10}>
                     <form className={classes.form}>
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
@@ -81,28 +125,23 @@ const Activities = (props) => {
                                 <FormControl fullWidth
                                     size="small"
                                     variant="outlined"
-                                    error={formik.errors.activityName ? true : false}
+                                    error={formik.errors.activityId ? true : false}
                                 >
-                                    <InputLabel id="activityNameLbl">Activities</InputLabel>
+                                    <InputLabel id="activityIdLbl">Activities</InputLabel>
                                     <Select
                                         variant="outlined"
-                                        id="activityName"
-                                        name="activityName"
+                                        id="activityId"
+                                        name="activityId"
                                         label="Activities"
-                                        labelId="activityNameLbl"
-                                        value={formik.values.activityName}
+                                        labelId="activityIdLbl"
+                                        value={formik.values.activityId}
                                         onChange={formik.handleChange}
                                     >
-                                        <MenuItem value="">
-                                            <em>None</em>
-                                        </MenuItem>
-                                        <MenuItem value={10}>Activity1</MenuItem>
-                                        <MenuItem value={20}>Activity2</MenuItem>
-                                        <MenuItem value={30}>Activity3</MenuItem>
+                                        {allActivities.map(item => <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>)}
                                     </Select>
-                                    {formik.errors.activityName &&
+                                    {formik.errors.activityId &&
                                         <Typography className={classes.error} variant="caption" display="block" gutterBottom color="error">
-                                            {formik.errors.activityName}
+                                            {formik.errors.activityId}
                                         </Typography>
                                     }
                                 </FormControl>
@@ -166,12 +205,8 @@ const Activities = (props) => {
                                         value={formik.values.status}
                                         onChange={formik.handleChange}
                                     >
-                                        <MenuItem value="">
-                                            <em>None</em>
-                                        </MenuItem>
-                                        <MenuItem value={10}>status1</MenuItem>
-                                        <MenuItem value={20}>status2</MenuItem>
-                                        <MenuItem value={30}>status3</MenuItem>
+                                        {Object.keys(BOOKING_STATUSES.properties).map(key =>
+                                            <MenuItem key={key} value={key}>{BOOKING_STATUSES.properties[key]}</MenuItem>)}
                                     </Select>
                                     {formik.errors.status &&
                                         <Typography className={classes.error} variant="caption" display="block" gutterBottom color="error">
@@ -195,10 +230,11 @@ const Activities = (props) => {
                         </Grid>
                     </form>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={2}>
                     <div className={classes.submit}>
                         <Button variant="contained"
                             color="primary"
+                            onClick={formik.handleSubmit}
                         >
                             Add
                         </Button>
@@ -206,7 +242,7 @@ const Activities = (props) => {
                 </Grid>
                 <Grid item xs={12}>
                     <DataGrid
-                        rows={ACTIVITIES_ROWS}
+                        rows={activityBookings}
                         columns={ACTIVITIES_COLUMNS}
                         autoHeight
                         pageSize={5}
@@ -226,7 +262,7 @@ const Activities = (props) => {
                         <Grid item xs={2} >
                             <Button variant="contained" fullWidth
                                 color="primary"
-                                onClick={formik.handleSubmit}
+                                onClick={navigateToNextStep}
                             >
                                 Next: Add Transportation
                             </Button>
@@ -234,7 +270,7 @@ const Activities = (props) => {
                     </Grid>
                 </Grid>
             </Grid>
-        </React.Fragment>
+        </React.Fragment >
     );
 }
 

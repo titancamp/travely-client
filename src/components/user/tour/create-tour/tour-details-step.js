@@ -117,9 +117,9 @@ const TourDetail = (props) => {
                                         <MenuItem value="">
                                             <em>None</em>
                                         </MenuItem>
-                                        <MenuItem value={10}>Origin1</MenuItem>
-                                        <MenuItem value={20}>Origin2</MenuItem>
-                                        <MenuItem value={30}>Origin3</MenuItem>
+                                        <MenuItem value={"10"}>Origin1</MenuItem>
+                                        <MenuItem value={"20"}>Origin2</MenuItem>
+                                        <MenuItem value={"30"}>Origin3</MenuItem>
                                     </Select>
                                     {formik.errors.origin &&
                                         <Typography className={classes.error} variant="caption" display="block" gutterBottom color="error">
@@ -207,7 +207,7 @@ const TourDetail = (props) => {
                                 />
                             </Grid>
                             <Grid item xs={8}>
-                            <InputLabel className={classes.label}>Details</InputLabel>
+                                <InputLabel className={classes.label}>Details</InputLabel>
                                 <TextField
                                     fullWidth
                                     variant="outlined"

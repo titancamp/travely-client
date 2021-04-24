@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
+import Hidden from "@material-ui/core/Hidden";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
 import { DataGrid } from "@material-ui/data-grid";
@@ -10,7 +11,9 @@ import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from "@material-ui/core/Checkbox";
+import { Autocomplete } from "@material-ui/lab";
 import { GUESTS_COLUMNS } from "../utils/constants";
+import TouristClient from "../../../../api/tourist-client";
 
 const useStyles = makeStyles({
     form: {
@@ -37,10 +40,10 @@ const validate = values => {
         errors.lastName = "Required";
     }
 
-    if (!values.phone) {
-        errors.phone = "Required";
-    } else if (!(/^(?:[+\d].*\d|\d)$/).test(values.phone)) {
-        errors.phone = "Numbers only";
+    if (!values.phoneNumber) {
+        errors.phoneNumber = "Required";
+    } else if (!(/^(?:[+\d].*\d|\d)$/).test(values.phoneNumber)) {
+        errors.phoneNumber = "Numbers only";
     }
 
     if (!values.email) {
@@ -67,8 +70,8 @@ const validate = values => {
         errors.issuedBy = "Required";
     }
 
-    if (!values.issueDate) {
-        errors.issueDate = "Required";
+    if (!values.issuedDate) {
+        errors.issuedDate = "Required";
     }
 
     if (!values.expireDate) {
@@ -78,21 +81,30 @@ const validate = values => {
     return errors;
 };
 
+async function createUpdateTourist(model) {
+    const response = model.id
+        ? await TouristClient.updateTourist(model)
+        : await TouristClient.insertTourist(model);
+
+    return response.data;
+}
 
 const Guests = (props) => {
     const classes = useStyles();
     const onNext = props.onNext;
+    const [allGuests, setAllGuests] = useState([]);
     const [guests, setGuests] = useState(props.state);
     const initialState = {
+        id: "",
         firstName: "",
         lastName: "",
-        phone: "",
+        phoneNumber: "",
         email: "",
         dateOfBirth: "",
         placeOfBirth: "",
         passportNumber: "",
         issuedBy: "",
-        issueDate: "",
+        issuedDate: "",
         expireDate: "",
         notes: "",
         mainContact: false
@@ -100,10 +112,11 @@ const Guests = (props) => {
     const formik = useFormik({
         initialValues: initialState,
         validate,
-        onSubmit: newGuest => {
-            const guest = guests.reduce((prev, curr) => prev.id < curr.id ? prev : curr, {});
-            newGuest.id = guest && !isNaN(guest.id) ? guest.id - 1 : 0;
-            setGuests([...guests, newGuest]);
+        onSubmit: async guestToCreate => {
+            const savedGuest = await createUpdateTourist(guestToCreate);
+
+            setGuests([...guests, savedGuest]);
+            fetchAllGuests();
             formik.resetForm(initialState);
         }
     });
@@ -111,6 +124,25 @@ const Guests = (props) => {
     const navigateToNextStep = useCallback(() => {
         onNext('guests', guests);
     }, [onNext, guests]);
+
+    const handleSearchGuestChange = useCallback((event, selectedGuest) => {
+        if (selectedGuest) {
+            formik.setValues({
+                ...selectedGuest,
+                mainContact: selectedGuest.isMain,
+                selectedGuest: selectedGuest
+            });
+        }
+    }, [formik]);
+
+    async function fetchAllGuests() {
+        const response = await TouristClient.getAllTourists()
+        setAllGuests(response.data);
+    }
+
+    useEffect(() => {
+        fetchAllGuests();
+    }, []);
 
     return (
         <React.Fragment>
@@ -125,7 +157,36 @@ const Guests = (props) => {
                             <Grid item xs={12}>
                                 <Typography variant="h6">Add Guest</Typography>
                             </Grid>
+                            <Grid item xs={12}>
+                                <Autocomplete
+                                    id="searchGuest"
+                                    style={{ width: 300 }}
+                                    options={allGuests}
+                                    name="selectedGuest"
+                                    value={formik.values.selectedGuest}
+                                    getOptionLabel={(option) =>
+                                        option && `${option.firstName} ${option.lastName} ${option.email} ${option.passportNumber}`}
+                                    renderInput={(params) => {
+                                        return <TextField
+                                            {...params}
+                                            label="search by First Name, Last Name, Email, Passport No"
+                                            variant="outlined"
+                                            inputProps={{
+                                                ...params.inputProps,
+                                                autoComplete: 'new-password', // disable autocomplete and autofill
+                                            }}
+                                        />
+                                    }}
+                                    onChange={handleSearchGuestChange}
+                                />
+                            </Grid>
                             <Grid item xs={6}>
+                                <Hidden
+                                    xsUp
+                                    id="id"
+                                    name="id"
+                                    value={formik.values.id}
+                                    onChange={formik.handleChange} />
                                 <TextField
                                     fullWidth
                                     variant="outlined"
@@ -158,12 +219,12 @@ const Guests = (props) => {
                                     fullWidth
                                     variant="outlined"
                                     size="small"
-                                    id="phone"
-                                    name="phone"
+                                    id="phoneNumber"
+                                    name="phoneNumber"
                                     label="Phone"
-                                    error={formik.errors.phone ? true : false}
-                                    helperText={formik.errors.phone ? formik.errors.phone : ""}
-                                    value={formik.values.phone}
+                                    error={formik.errors.phoneNumber ? true : false}
+                                    helperText={formik.errors.phoneNumber ? formik.errors.phoneNumber : ""}
+                                    value={formik.values.phoneNumber}
                                     onChange={formik.handleChange}
                                 />
                             </Grid>
@@ -243,13 +304,13 @@ const Guests = (props) => {
                                     fullWidth
                                     variant="outlined"
                                     size="small"
-                                    id="issueDate"
-                                    name="issueDate"
+                                    id="issuedDate"
+                                    name="issuedDate"
                                     label="Issue date"
                                     type="date"
-                                    error={formik.errors.issueDate ? true : false}
-                                    helperText={formik.errors.issueDate ? formik.errors.issueDate : ""}
-                                    value={formik.values.issueDate}
+                                    error={formik.errors.issuedDate ? true : false}
+                                    helperText={formik.errors.issuedDate ? formik.errors.issuedDate : ""}
+                                    value={formik.values.issuedDate}
                                     onChange={formik.handleChange}
                                 />
                             </Grid>
