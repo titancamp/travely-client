@@ -1,8 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Paper from "@material-ui/core/Paper";
 import * as touristService from "./service/TouristService";
 import { deleteTourist, getAllTourists } from "./service/TouristService";
-import { Add as AddIcon, Close as CloseIcon, Edit as EditIcon, Search } from "@material-ui/icons";
+import {
+  Add as AddIcon,
+  Close as CloseIcon,
+  Edit as EditIcon,
+  Search,
+} from "@material-ui/icons";
 import TouristForm from "./TouristForm";
 import Popup from "./component/Popup";
 import TextField from "@material-ui/core/TextField";
@@ -27,46 +32,45 @@ const useStyles = makeStyles((theme) => ({
   pageContent: {
     margin: theme.spacing(1),
     padding: theme.spacing(1),
-    width: "100%"
+    width: "100%",
   },
   container: {
     maxHeight: 550,
     maxWidth: "100%",
-    whiteSpace: "nowrap"
+    whiteSpace: "nowrap",
   },
   searchInput: {
     margin: theme.spacing(1),
-    width: "15%"
+    width: "15%",
   },
   newButton: {
     position: "absolute",
     top: "20px",
     right: "10px",
-    color: theme.palette.grey[500]
+    color: theme.palette.grey[500],
   },
   table: {
     "& thead th": {
-      color: theme.palette.grey[500]
-    }
+      color: theme.palette.grey[500],
+    },
   },
   closeButton: {
     position: "absolute",
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: theme.palette.grey[700]
+    color: theme.palette.grey[700],
   },
   editButton: {
-    color: theme.palette.grey[700]
+    color: theme.palette.grey[700],
   },
   circularProgress: {
     margin: theme.spacing(25),
     display: "flex",
-    justifyContent: "center"
-
+    justifyContent: "center",
   },
   snackBar: {
-    top: theme.spacing(8)
-  }
+    top: theme.spacing(8),
+  },
 }));
 
 const headCells = [
@@ -81,7 +85,7 @@ const headCells = [
   { id: "expireDate", label: "Expire Date" },
   { id: "notes", label: "Notes" },
   { id: "isMain", label: "Main Contact" },
-  { id: "actions", label: "" }
+  { id: "actions", label: "" },
 ];
 
 export default function Tourists() {
@@ -90,7 +94,7 @@ export default function Tourists() {
   const [filterFn, setFilterFn] = useState({
     fn: (items) => {
       return items ? items : [];
-    }
+    },
   });
   const pages = useRef([5, 10, 15]);
   const [page, setPage] = useState(0);
@@ -99,20 +103,25 @@ export default function Tourists() {
   const classes = useStyles();
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
-    title: ""
+    title: "",
   });
   const [isData, setIsData] = useState(false);
-  const [notify, setNotify] = useState({ isOpen: false, message: "", type: "" });
-
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
 
   useEffect(() => {
     setIsData(false);
-    getAllTourists().then(res => {
-      setRecords(res.data);
-      setIsData(true);
-    }).catch(e => {
-      console.log(e);
-    });
+    getAllTourists()
+      .then((res) => {
+        setRecords(res.data);
+        setIsData(true);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }, []);
 
   const handleChangePage = (event, newPage) => {
@@ -142,79 +151,111 @@ export default function Tourists() {
               .includes(target.value.replace(/\s+/g, "").toUpperCase())
           );
         }
-      }
+      },
     });
   };
 
   const handleClose = (event, reason) => {
     setNotify({
-      ...notify, isOpen: false
+      ...notify,
+      isOpen: false,
     });
   };
 
   const addOrEdit = (tourist) => {
     setIsData(false);
     if (tourist["id"] === 0) {
-      touristService.insertTourist(tourist).then(() => {
-        getAllTourists().then(res => {
-          setRecords(res.data);
-          setIsData(true);
-          setNotify({ isOpen: true, message: "Added Successfully", type: "success" });
+      touristService
+        .insertTourist(tourist)
+        .then(() => {
+          getAllTourists()
+            .then((res) => {
+              setRecords(res.data);
+              setIsData(true);
+              setNotify({
+                isOpen: true,
+                message: "Added Successfully",
+                type: "success",
+              });
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        })
+        .catch((e) => {
+          setNotify({ isOpen: true, message: "Not Added", type: "error" });
 
-        }).catch(e => {
           console.log(e);
         });
-      }).catch(e => {
-        setNotify({ isOpen: true, message: "Not Added", type: "error" });
-
-        console.log(e);
-      });
-    }
-    else {
-      touristService.updateTourist(tourist).then(() => {
-        getAllTourists().then(res => {
-          setRecords(res.data);
-          setIsData(true);
-          setNotify({ isOpen: true, message: "Updated Successfully", type: "success" });
-        }).catch(e => {
+    } else {
+      touristService
+        .updateTourist(tourist)
+        .then(() => {
+          getAllTourists()
+            .then((res) => {
+              setRecords(res.data);
+              setIsData(true);
+              setNotify({
+                isOpen: true,
+                message: "Updated Successfully",
+                type: "success",
+              });
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        })
+        .catch((e) => {
+          setNotify({ isOpen: true, message: "Not Updated", type: "error" });
           console.log(e);
         });
-      }).catch(e => {
-        setNotify({ isOpen: true, message: "Not Updated", type: "error" });
-        console.log(e);
-      });
     }
     setRecordForEdit(null);
     setPopupState({
       ...popupState,
-      isOpen: false
+      isOpen: false,
     });
   };
 
   const onDelete = (id) => {
     setConfirmDialog({
       ...confirmDialog,
-      isOpen: false
+      isOpen: false,
     });
     setIsData(false);
-    deleteTourist(id).then(() => {
-      getAllTourists().then(res => {
-        setRecords(res.data);
-        setIsData(true);
-        setNotify({ isOpen: true, message: "Deleted Successfully", type: "success" });
-      }).catch(e => {
+    deleteTourist(id)
+      .then(() => {
+        getAllTourists()
+          .then((res) => {
+            setRecords(res.data);
+            setIsData(true);
+            setNotify({
+              isOpen: true,
+              message: "Deleted Successfully",
+              type: "success",
+            });
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      })
+      .catch((e) => {
+        setNotify({ isOpen: true, message: "Not Deleted", type: "error" });
+
         console.log(e);
       });
-    }).catch(e => {
-      setNotify({ isOpen: true, message: "Not Deleted", type: "error" });
-
-      console.log(e);
-    });
   };
+
+  const handleCloseConfirm = useCallback(() => {
+    setConfirmDialog({
+      isOpen: false,
+    });
+  }, []);
+
   return (
     <>
-      {isData ?
-        (<Paper className={classes.pageContent}>
+      {isData ? (
+        <Paper className={classes.pageContent}>
           <Toolbar>
             <TextField
               variant="outlined"
@@ -223,9 +264,9 @@ export default function Tourists() {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <Search/>
+                    <Search />
                   </InputAdornment>
-                )
+                ),
               }}
               onChange={handleSearch}
             />
@@ -233,12 +274,12 @@ export default function Tourists() {
               className={classes.newButton}
               variant="outlined"
               size="large"
-              startIcon={<AddIcon/>}
+              startIcon={<AddIcon />}
               onClick={() => {
                 setPopupState({
                   ...popupState,
                   isOpen: true,
-                  title: "Add Guest"
+                  title: "Add Guest",
                 });
                 setRecordForEdit(null);
               }}
@@ -247,8 +288,6 @@ export default function Tourists() {
             </Button>
           </Toolbar>
           <TableContainer className={classes.container}>
-
-
             <Table className={classes.table}>
               <TableHead>
                 <TableRow>
@@ -261,10 +300,14 @@ export default function Tourists() {
               <TableBody>
                 {recordsAfterPagingAndSorting().map((item) => (
                   <TableRow key={item.id}>
-                    <TableCell>{item.firstName + " " + item.lastName}</TableCell>
+                    <TableCell>
+                      {item.firstName + " " + item.lastName}
+                    </TableCell>
                     <TableCell>{item.phoneNumber}</TableCell>
                     <TableCell>{item.email}</TableCell>
-                    <TableCell>{convertMonthFormat(item.dateOfBirth)}</TableCell>
+                    <TableCell>
+                      {convertMonthFormat(item.dateOfBirth)}
+                    </TableCell>
                     <TableCell>{item.placeOfBirth}</TableCell>
                     <TableCell>{item.passportNumber}</TableCell>
                     <TableCell>{item.issuedBy}</TableCell>
@@ -280,7 +323,7 @@ export default function Tourists() {
                           setPopupState({
                             ...popupState,
                             isOpen: true,
-                            title: "Edit Guest"
+                            title: "Edit Guest",
                           });
                         }}
                       >
@@ -295,7 +338,7 @@ export default function Tourists() {
                             title: "Are you sure to delete this item",
                             onConfirm: () => {
                               onDelete(item.id);
-                            }
+                            },
                           });
                         }}
                       >
@@ -316,8 +359,12 @@ export default function Tourists() {
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
           />
-        </Paper>) : (<div className={classes.circularProgress}><CircularProgress/></div>)
-      }
+        </Paper>
+      ) : (
+        <div className={classes.circularProgress}>
+          <CircularProgress />
+        </div>
+      )}
 
       <Popup popupState={popupState} setPopupState={setPopupState}>
         <TouristForm
@@ -326,19 +373,19 @@ export default function Tourists() {
         ></TouristForm>
       </Popup>
       <ConfirmDialog
-        confirmDialog={confirmDialog}
-        setConfirmDialog={setConfirmDialog}
+        title={confirmDialog.title}
+        isOpen={confirmDialog.isOpen}
+        onConfirm={confirmDialog.onConfirm}
+        onCancel={handleCloseConfirm}
       />
-      <Snackbar className={classes.snackBar}
-                open={notify.isOpen}
-                autoHideDuration={2000}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
-                onClose={handleClose}
+      <Snackbar
+        className={classes.snackBar}
+        open={notify.isOpen}
+        autoHideDuration={2000}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        onClose={handleClose}
       >
-        <Alert
-          onClose={handleClose}
-          severity={notify.type}
-        >
+        <Alert onClose={handleClose} severity={notify.type}>
           {notify.message}
         </Alert>
       </Snackbar>
