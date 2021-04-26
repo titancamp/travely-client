@@ -3,7 +3,7 @@ import { Close as CloseIcon, Edit as EditIcon } from "@material-ui/icons";
 import Button from "@material-ui/core/Button";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import ACTION_TYPES from "../../utils/datatable-row-action-types";
-import { ManageHotelContext } from "../../store/context";
+import { ManageActivitiesContext } from "../../store/context";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -23,13 +23,13 @@ const ActionItem = ({ content, actionType, classes, onRowAction, rowData }) => {
   );
 };
 
-const DataGridCellActions = (props) => {
+const ActivitiesDatagridCellActions = (props) => {
   const rowData = props.row;
   const classes = useStyles();
 
   return (
     <div>
-      <ManageHotelContext.Consumer>
+      <ManageActivitiesContext.Consumer>
         {({ onRowAction }) => {
           return (
             <div>
@@ -50,9 +50,9 @@ const DataGridCellActions = (props) => {
             </div>
           );
         }}
-      </ManageHotelContext.Consumer>
+      </ManageActivitiesContext.Consumer>
     </div>
   );
 };
 
-export default DataGridCellActions;
+export default ActivitiesDatagridCellActions;

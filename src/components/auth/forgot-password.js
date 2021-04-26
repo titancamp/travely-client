@@ -7,13 +7,16 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 
 import LoginLayout from "../common/login-layout";
-import AuthClient from "../../api/auth-client"
-import { useStyles } from './auth-style';
+import AuthClient from "../../api/auth-client";
+import { useStyles } from "./auth-style";
 
-import FormikInputField from "../UI/FormikComponents/FormikInputField"
+import FormikInputField from "../UI/FormikComponents/FormikInputField";
 
 const ForgotPasswordSchema = yup.object().shape({
-  email: yup.string().email("Enter a valid email").required("Email is required"),
+  email: yup
+    .string()
+    .email("Enter a valid email")
+    .required("Email is required"),
 });
 
 const ForgotPassword = () => {
@@ -29,12 +32,11 @@ const ForgotPassword = () => {
         if (error.response && error.response.status) {
           setErrors({
             message: "There was error during forgot password",
-          })
-        }
-        else {
+          });
+        } else {
           setErrors({
             message: "Server is unreachable",
-          })
+          });
         }
       })
       .finally(() => {
@@ -49,15 +51,15 @@ const ForgotPassword = () => {
         validationSchema={ForgotPasswordSchema}
         onSubmit={onSubmit}
       >
-      {({
-        values,
-        errors,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting,
-      }) => (
-        <form className={classes.form} onSubmit={handleSubmit}>
+        {({
+          values,
+          errors,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+        }) => (
+          <form className={classes.form} onSubmit={handleSubmit}>
             <FormikInputField
               margin="normal"
               required
@@ -85,9 +87,10 @@ const ForgotPassword = () => {
               Reset Password
             </Button>
           </form>
-      )}
-      </Formik>)
-  }
+        )}
+      </Formik>
+    );
+  };
 
   const getMessageHtml = () => {
     return (
@@ -106,13 +109,13 @@ const ForgotPassword = () => {
         </Button>
       </div>
     );
-  }
+  };
 
   return (
     <LoginLayout>
-      { message === "" ? getFormikHtml() : getMessageHtml() }
+      {message === "" ? getFormikHtml() : getMessageHtml()}
     </LoginLayout>
   );
-}
+};
 
 export default ForgotPassword;

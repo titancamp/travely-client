@@ -5,7 +5,7 @@ import Box from "@material-ui/core/Box";
 
 const FormikInputField = ({ variant = "outlined", ...props }) => {
   const [field, meta] = useField(props);
-  const id = `input-${props.name || 'outlined-basic'}`;
+  const id = `input-${props.name || "outlined-basic"}`;
   return (
     <>
       <TextField {...field} {...props} id={id} variant={variant} />

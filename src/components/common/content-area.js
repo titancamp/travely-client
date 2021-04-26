@@ -62,7 +62,8 @@ export const ContentArea = ({
                 </IconButton>
               </Toolbar>
             </AppBar>
-            <br /><br />
+            <br />
+            <br />
             <Container maxWidth="xl">
               <Component />
             </Container>

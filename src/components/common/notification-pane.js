@@ -61,6 +61,7 @@ export default function NotificationPane({ open }) {
 
   useEffect(() => {
     notificationService.connect();
+    // eslint-disable-next-line
   }, []);
 
   return (

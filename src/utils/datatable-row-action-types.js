@@ -1,6 +1,6 @@
 const ACTION_TYPES = {
-    EDIT: "EDIT",
-    DELETE: "DELETE"
+  EDIT: "EDIT",
+  DELETE: "DELETE",
 };
 
 Object.freeze(ACTION_TYPES);

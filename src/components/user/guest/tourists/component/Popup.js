@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: theme.palette.grey[500]
-  }
+    color: theme.palette.grey[500],
+  },
 }));
 
 export default function Popup(props) {
@@ -31,11 +31,11 @@ export default function Popup(props) {
             onClick={() => {
               setPopupState({
                 ...popupState,
-                isOpen: false
+                isOpen: false,
               });
             }}
           >
-            <CloseIcon/>
+            <CloseIcon />
           </Button>
         </div>
       </DialogTitle>

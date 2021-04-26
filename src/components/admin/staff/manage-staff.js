@@ -15,7 +15,7 @@ import SearchPlugin from "../../common/search-plugin";
 import { columns } from "./manage-staff-config";
 
 import StaffClient from "../../../api/staff-client";
-import { ManageHotelContext, ManageStaffContext } from "../../../store/context";
+import { ManageStaffContext } from "../../../store/context";
 
 export default class ManageStaff extends React.Component {
   constructor(props) {
@@ -47,7 +47,6 @@ export default class ManageStaff extends React.Component {
   }
 
   handleRowAction = (actionType, rowData) => {
-    console.log(actionType);
     switch (actionType) {
       case ACTION_TYPES.EDIT:
         this.editRow(rowData.id);

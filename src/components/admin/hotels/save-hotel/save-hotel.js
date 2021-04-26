@@ -121,8 +121,6 @@ const SaveHotelForm = ({
   const dialogTitle = isEditForm ? "Edit new hotel" : "Add new hotel";
   const saveButtonText = isEditForm ? "Edit hotel" : "Add hotel";
 
-  console.log(isOpen);
-
   return (
     <Dialog open={isOpen} maxWidth="lg">
       <DialogTitle>

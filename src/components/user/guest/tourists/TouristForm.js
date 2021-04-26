@@ -29,22 +29,25 @@ const TouristsValidationSchema = yup.object().shape({
       /^[+]{1}374{1}[0-9]{8}$/,
       "Country calling code is +374 followed by 8 digits."
     ),
-  email: yup.string().email("Email is not valid").required("This field is required"),
+  email: yup
+    .string()
+    .email("Email is not valid")
+    .required("This field is required"),
 
-  notes: yup.string().required("This field is required")
+  notes: yup.string().required("This field is required"),
 });
 
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiInputBase-root": {
       width: "350",
-      margin: theme.spacing(1)
-    }
+      margin: theme.spacing(1),
+    },
   },
   checkboxLabel: {
     color: theme.palette.grey[600],
-    margin: theme.spacing(1)
-  }
+    margin: theme.spacing(1),
+  },
 }));
 
 export default function TouristForm(props) {
@@ -57,20 +60,20 @@ export default function TouristForm(props) {
         recordForEdit != null
           ? recordForEdit
           : {
-            id: 0,
-            firstName: "",
-            lastName: "",
-            email: "",
-            phoneNumber: "",
-            placeOfBirth: "",
-            dateOfBirth: new Date(),
-            issuedDate: new Date(),
-            expireDate: new Date(),
-            passportNumber: "",
-            issuedBy: "",
-            notes: "",
-            isMain: false
-          }
+              id: 0,
+              firstName: "",
+              lastName: "",
+              email: "",
+              phoneNumber: "",
+              placeOfBirth: "",
+              dateOfBirth: new Date(),
+              issuedDate: new Date(),
+              expireDate: new Date(),
+              passportNumber: "",
+              issuedBy: "",
+              notes: "",
+              isMain: false,
+            }
       }
       validationSchema={TouristsValidationSchema}
       onSubmit={(values, { setSubmitting }) => {
@@ -95,8 +98,8 @@ export default function TouristForm(props) {
               passportNumber: "",
               issuedBy: "",
               notes: "",
-              isMain: false
-            }
+              isMain: false,
+            },
           });
         }
       ) => (
@@ -201,17 +204,18 @@ export default function TouristForm(props) {
                 onChange={handleChange}
                 disableFuture={false}
               />
-              <FormControlLabel className={classes.checkboxLabel}
-                                control={
-                                  <Checkbox
-                                    checked={values.isMain}
-                                    onChange={handleChange}
-                                    name="isMain"
-                                    color="primary"
-                                  />
-                                }
-                                label="Main Contact"
-                                labelPlacement="start"
+              <FormControlLabel
+                className={classes.checkboxLabel}
+                control={
+                  <Checkbox
+                    checked={values.isMain}
+                    onChange={handleChange}
+                    name="isMain"
+                    color="primary"
+                  />
+                }
+                label="Main Contact"
+                labelPlacement="start"
               />
 
               <div>

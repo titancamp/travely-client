@@ -134,10 +134,10 @@ export default function AgencyProfileForm() {
 
     AgencyClient.update(getAgencyProfileSubmitData(values, fileId))
       .then((result) => {
-        alert("Agency profile is successfully updated!");
+        console.log("Agency profile is successfully updated!");
       })
       .catch(() => {
-        alert("An error occured during Agency profile update!");
+        console.log("An error occured during Agency profile update!");
       });
   };
 

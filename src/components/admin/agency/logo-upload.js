@@ -25,18 +25,18 @@ export default class LogoUpload extends React.Component {
     }
   }
 
-  async downloadLogo(props){
-    if(props.agencyId && props.logoId) { 
+  async downloadLogo(props) {
+    if (props.agencyId && props.logoId) {
       await FileClient.download(props.agencyId, props.logoId)
-      .then((response) => {
-        if(response.data.status){
-          const logo = new Blob([response.data.data], {type: "base64"});
-          this.setState({ logo });
-        }
-      })
-      .catch((error)=>{
-        // TODO: Add error message
-      });
+        .then((response) => {
+          if (response.data.status) {
+            const logo = new Blob([response.data.data], { type: "base64" });
+            this.setState({ logo });
+          }
+        })
+        .catch((error) => {
+          // TODO: Add error message
+        });
     }
   }
 

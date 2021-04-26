@@ -7,12 +7,11 @@ export default function DateMonthPicker(props) {
   const convertToDefEventPara = (name, value) => ({
     target: {
       name,
-      value
-    }
+      value,
+    },
   });
 
-  const handleOnChange = (date) =>
-    onChange(convertToDefEventPara(name, date));
+  const handleOnChange = (date) => onChange(convertToDefEventPara(name, date));
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>

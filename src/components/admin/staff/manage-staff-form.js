@@ -37,7 +37,7 @@ const StaffForm = ({ isOpen, handleModalToggle, staffModel }) => {
     title: "",
     email: "",
     phoneNumber: "",
-    password: ""
+    password: "",
   };
 
   const handleClose = () => {
@@ -133,17 +133,17 @@ const StaffForm = ({ isOpen, handleModalToggle, staffModel }) => {
                   onChange={handleChange}
                 />
                 <FormikInputField
-                    type="password"
-                    margin="dense"
-                    required
-                    fullWidth
-                    id="password"
-                    name="password"
-                    label="Password"
-                    value={values.password}
-                    autoFocus
-                    onBlur={handleBlur}
-                    onChange={handleChange}
+                  type="password"
+                  margin="dense"
+                  required
+                  fullWidth
+                  id="password"
+                  name="password"
+                  label="Password"
+                  value={values.password}
+                  autoFocus
+                  onBlur={handleBlur}
+                  onChange={handleChange}
                 />
                 <FormikInputField
                   margin="dense"

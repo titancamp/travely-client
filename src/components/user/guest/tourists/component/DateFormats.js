@@ -10,11 +10,10 @@ const Months = [
   "Sep",
   "Oct",
   "Nov",
-  "Dec"
+  "Dec",
 ];
 
 export function convertMonthFormat(formatDate) {
-
   let date = new Date(formatDate);
   let day = date.getDate();
   let monthIndex = date.getMonth();

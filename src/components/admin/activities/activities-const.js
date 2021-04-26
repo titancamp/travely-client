@@ -1,3 +1,5 @@
+import ActivitiesDatagridCellActions from "../../common/activities-datagrid-cell-actions";
+
 export const dummyData = [
   {
     id: 1,
@@ -150,6 +152,7 @@ export const columns = [
     field: "type",
     headerName: "Type",
     flex: 0.25,
+    renderCell: ({ value: { activityName } }) => activityName,
   },
   {
     field: "name",
@@ -184,5 +187,11 @@ export const columns = [
   {
     field: "price",
     headerName: "Price",
+  },
+  {
+    field: "actions",
+    headerName: "Actions",
+    width: 150,
+    renderCell: ActivitiesDatagridCellActions,
   },
 ];

@@ -26,6 +26,6 @@ const Tour = () => {
       </Grid>
     </Grid>
   );
-}
+};
 
 export default Tour;

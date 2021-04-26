@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
 export default function ConfirmDialog({ title, isOpen, onConfirm, onCancel }) {
   const classes = useStyles();
 
-
   return (
     <Dialog open={isOpen} classes={{ paper: classes.dialog }}>
       <DialogContent>

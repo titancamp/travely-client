@@ -1,4 +1,3 @@
-
 export const TOUR_COLUMNS = [
   { field: "status", headerName: "Status" },
   { field: "name", headerName: "Name", width: 150 },
@@ -50,24 +49,22 @@ export const TOUR_ROWS = [
   },
 ];
 
-
-
 export const RECENT_TOURS = [
   {
     id: 1,
-    title: 'Bellinis in Armenia',
-    path: "/user/tour"
+    title: "Bellinis in Armenia",
+    path: "/user/tour",
   },
   {
     id: 2,
-    title: 'John Smith Family Armenia',
-    path: "/user/tour"
+    title: "John Smith Family Armenia",
+    path: "/user/tour",
   },
   {
     id: 3,
-    title: 'Gambini Family Armenia History',
-    path: "/user/tour"
-  }
+    title: "Gambini Family Armenia History",
+    path: "/user/tour",
+  },
 ];
 
 export const GUESTS_COLUMNS = [
@@ -115,98 +112,96 @@ export const GUESTS_ROWS = [
   },
 ];
 
-
 export const ACTIVITIES_COLUMNS = [
-  { field: 'destinations', headerName: 'Destinations' },
-  { field: 'activityName', headerName: 'Activity name' },
-  { field: 'date', headerName: 'Date' },
-  { field: 'time', headerName: 'Time' },
-  { field: 'numberOfGuests', headerName: 'Number of guests' },
-  { field: 'status', headerName: 'Status' },
-  { field: 'notes', headerName: 'Notes' }
+  { field: "destinations", headerName: "Destinations" },
+  { field: "activityName", headerName: "Activity name" },
+  { field: "date", headerName: "Date" },
+  { field: "time", headerName: "Time" },
+  { field: "numberOfGuests", headerName: "Number of guests" },
+  { field: "status", headerName: "Status" },
+  { field: "notes", headerName: "Notes" },
 ];
 
 export const ACTIVITIES_ROWS = [
   {
     id: 1,
-    destinations: 'Dilijan',
-    activityName: 'Kchuch',
-    date: '05/02/2021',
-    time: '14:14',
-    numberOfGuests: '14',
-    status: 'Booked',
-    notes: 'order has been placed',
+    destinations: "Dilijan",
+    activityName: "Kchuch",
+    date: "05/02/2021",
+    time: "14:14",
+    numberOfGuests: "14",
+    status: "Booked",
+    notes: "order has been placed",
   },
 ];
 
 export const TRANSPORTATION_COLUMNS = [
-  { field: 'destination', headerName: 'Destination' },
-  { field: 'companyName', headerName: 'Company name' },
-  { field: 'startDate', headerName: 'Start Date' },
-  { field: 'endDate', headerName: 'End Date' },
-  { field: 'hotelName', headerName: 'Hotel Information' },
-  { field: 'driverName', headerName: 'Driver Name' },
-  { field: 'carModel', headerName: 'Car Type/Model' }
+  { field: "destination", headerName: "Destination" },
+  { field: "companyName", headerName: "Company name" },
+  { field: "startDate", headerName: "Start Date" },
+  { field: "endDate", headerName: "End Date" },
+  { field: "hotelName", headerName: "Hotel Information" },
+  { field: "driverName", headerName: "Driver Name" },
+  { field: "carModel", headerName: "Car Type/Model" },
 ];
 
 export const TRANSPORTATION_ROWS = [
   {
     id: 1,
-    destination: 'Dilijan',
-    companyName: 'Art tour',
-    startDate: '05/02/2021',
-    endDate: '05/12/2021',
-    hotelName: 'Ararat resort',
-    driverName: 'Ashot',
-    carModel: 'Mercedes',
+    destination: "Dilijan",
+    companyName: "Art tour",
+    startDate: "05/02/2021",
+    endDate: "05/12/2021",
+    hotelName: "Ararat resort",
+    driverName: "Ashot",
+    carModel: "Mercedes",
   },
 ];
 
 export const ASSIGN_TOUR_GUIDE_COLUMNS = [
-  { field: 'destination', headerName: 'Destination' },
-  { field: 'activityName', headerName: 'Activity name' },
-  { field: 'date', headerName: 'Date' },
-  { field: 'tourGuideName', headerName: 'Tour Guide Name' },
-  { field: 'hotelName', headerName: 'Hotel Information' },
-  { field: 'notes', headerName: 'Notes' }
+  { field: "destination", headerName: "Destination" },
+  { field: "activityName", headerName: "Activity name" },
+  { field: "date", headerName: "Date" },
+  { field: "tourGuideName", headerName: "Tour Guide Name" },
+  { field: "hotelName", headerName: "Hotel Information" },
+  { field: "notes", headerName: "Notes" },
 ];
 
 export const ASSIGN_TOUR_GUIDE_ROWS = [
   {
     id: 1,
-    destination: 'Dilijan',
-    activityName: 'lavash baking',
-    date: '05/02/2021',
-    tourGuideName: 'Armenuhi Voskanyan',
-    hotelName: 'Ararat resort',
-    notes: 'some notes',
+    destination: "Dilijan",
+    activityName: "lavash baking",
+    date: "05/02/2021",
+    tourGuideName: "Armenuhi Voskanyan",
+    hotelName: "Ararat resort",
+    notes: "some notes",
   },
 ];
 
 export const HOTEL_COLUMNS = [
-  { field: 'destination', headerName: 'Destination' },
-  { field: 'hotelName', headerName: 'Hotel name' },
-  { field: 'checkinDate', headerName: 'Checkin Date' },
-  { field: 'checkoutDate', headerName: 'Checkout Date' },
-  { field: 'cancellationDate', headerName: 'Cancellation Date' },
-  { field: 'address', headerName: 'Adress' },
-  { field: 'rooms', headerName: 'Room Type - Number of Rooms' },
-  { field: 'bookingState', headerName: 'Booking State' },
-  { field: 'contactPerson', headerName: 'Contact Person' },
-
+  { field: "destination", headerName: "Destination" },
+  { field: "hotelName", headerName: "Hotel name" },
+  { field: "checkinDate", headerName: "Checkin Date" },
+  { field: "checkoutDate", headerName: "Checkout Date" },
+  { field: "cancellationDate", headerName: "Cancellation Date" },
+  { field: "address", headerName: "Adress" },
+  { field: "rooms", headerName: "Room Type - Number of Rooms" },
+  { field: "bookingState", headerName: "Booking State" },
+  { field: "contactPerson", headerName: "Contact Person" },
 ];
 
 export const HOTEL_ROWS = [
   {
     id: 1,
-    destination: 'Dilijan',
-    hotelName: 'Ibis Yerevan',
-    checkinDate: '05/02/2021',
-    checkoutDate: '05/12/2021',
-    cancellationDate: '05/12/2021',
-    address: 'North Avenue',
-    rooms: 'Double - 1',
-    bookingState: 'booked',
-    contactPerson: 'Armenuhi Voskanyan'
+    destination: "Dilijan",
+    hotelName: "Ibis Yerevan",
+    checkinDate: "05/02/2021",
+    checkoutDate: "05/12/2021",
+    cancellationDate: "05/12/2021",
+    address: "North Avenue",
+    rooms: "Double - 1",
+    bookingState: "booked",
+    contactPerson: "Armenuhi Voskanyan",
   },
 ];

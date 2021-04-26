@@ -13,14 +13,13 @@ import TourGuide from "./tour-guide-step";
 import TourClient from "../../../../api/tour-client";
 import BOOKING_TYPES from "../../../../utils/booking-types";
 
-
 const useStyles = makeStyles({
   container: {
     maxWidth: "none",
     height: "auto",
     padding: 35,
-    paddingTop: 15
-  }
+    paddingTop: 15,
+  },
 });
 
 const initialTourState = {
@@ -33,7 +32,7 @@ const initialTourState = {
     pickDetails: "",
     dropTime: "",
     dropDetails: "",
-    notes: ""
+    notes: "",
   },
   guests: [],
   hotels: [],
@@ -49,7 +48,7 @@ const initialTourState = {
     roomType: "",
     roomCount: "",
     notes: "",
-    accomodation: false
+    accomodation: false,
   },
   tourGuide: {
     destination: "",
@@ -60,13 +59,13 @@ const initialTourState = {
     roomType: "",
     roomCount: "",
     notes: "",
-    accomodation: false
+    accomodation: false,
   },
-  destinations: []
-}
+  destinations: [],
+};
 
 const mapTourCreateModel = (tour) => {
-  const hotelBookings = tour.hotels.map(hotel => ({
+  const hotelBookings = tour.hotels.map((hotel) => ({
     type: BOOKING_TYPES.HOTEL,
     status: hotel.bookingState,
     notes: hotel.notes,
@@ -81,17 +80,21 @@ const mapTourCreateModel = (tour) => {
       arrivalFlightNumber: hotel.arrivalFlightNumber,
       departureTime: hotel.departureTime,
       departureFlightNumber: hotel.departureFlightNumber,
-      bookingPropertyRooms: Array.isArray(hotel.rooms) ? hotel.rooms.map(room => ({
-        roomTypeId: room.roomType,
-        roomCount: room.roomCount,
-        bookingRoomGuests: Array.isArray(room.guests) ? room.guests.map(guestId => ({
-          clientId: guestId
-        })) : []
-      })) : []
-    }
+      bookingPropertyRooms: Array.isArray(hotel.rooms)
+        ? hotel.rooms.map((room) => ({
+            roomTypeId: room.roomType,
+            roomCount: room.roomCount,
+            bookingRoomGuests: Array.isArray(room.guests)
+              ? room.guests.map((guestId) => ({
+                  clientId: guestId,
+                }))
+              : [],
+          }))
+        : [],
+    },
   }));
 
-  const activityBookings = tour.activities.map(activity => ({
+  const activityBookings = tour.activities.map((activity) => ({
     type: BOOKING_TYPES.ACTIVITY,
     status: activity.status,
     notes: activity.notes,
@@ -99,10 +102,10 @@ const mapTourCreateModel = (tour) => {
       checkInDate: activity.date,
       arrivalTime: activity.time,
       guestsCount: activity.numberOfGuests,
-    }
+    },
   }));
 
-  const transportationBookings = tour.transportation.map(transportation => ({
+  const transportationBookings = tour.transportation.map((transportation) => ({
     type: BOOKING_TYPES.TRANSPORTATION,
     status: transportation.status,
     notes: transportation.notes,
@@ -116,8 +119,8 @@ const mapTourCreateModel = (tour) => {
       propertyId: transportation.hotelId,
       roomType: transportation.roomType,
       roomCount: transportation.roomCount,
-      accomodation: transportation.accomodation
-    }
+      accomodation: transportation.accomodation,
+    },
   }));
 
   return {
@@ -132,14 +135,16 @@ const mapTourCreateModel = (tour) => {
     dropOffTime: tour.tourDetails.dropTime,
     dropOffDetails: tour.tourDetails.dropDetails,
     notes: tour.tourDetails.notes,
-    clientIds: tour.guests.map(guest => guest.id),
-    bookings: hotelBookings.concat(activityBookings).concat(transportationBookings),
+    clientIds: tour.guests.map((guest) => guest.id),
+    bookings: hotelBookings
+      .concat(activityBookings)
+      .concat(transportationBookings),
   };
-}
+};
 
 const saveTour = async (tourModel) => {
   await TourClient.createTour(mapTourCreateModel(tourModel));
-}
+};
 
 const CreateTour = () => {
   const classes = useStyles();
@@ -159,14 +164,26 @@ const CreateTour = () => {
   };
 
   const handleNext = (currStep, data) => {
-    const destinations = [...new Set(tour.hotels.map(hotel => hotel.destination).concat(tour.activities.map(activity => activity.destinations)))];
+    const destinations = [
+      ...new Set(
+        tour.hotels
+          .map((hotel) => hotel.destination)
+          .concat(tour.activities.map((activity) => activity.destinations))
+      ),
+    ];
 
     setTour({ ...tour, [currStep]: data, destinations });
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = (currStep, data) => {
-    const destinations = [...new Set(tour.hotels.map(hotel => hotel.destination).concat(tour.activities.map(activity => activity.destinations)))];
+    const destinations = [
+      ...new Set(
+        tour.hotels
+          .map((hotel) => hotel.destination)
+          .concat(tour.activities.map((activity) => activity.destinations))
+      ),
+    ];
 
     setTour({ ...tour, [currStep]: data, destinations });
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -184,41 +201,83 @@ const CreateTour = () => {
   function getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return <TourDetails state={tour.tourDetails} onClose={handleClose} onNext={handleNext} />;
+        return (
+          <TourDetails
+            state={tour.tourDetails}
+            onClose={handleClose}
+            onNext={handleNext}
+          />
+        );
       case 1:
-        return <Guests state={tour.guests} onBack={handleBack} onNext={handleNext} />;
+        return (
+          <Guests state={tour.guests} onBack={handleBack} onNext={handleNext} />
+        );
       case 2:
-        return <Hotels state={tour.hotels} guests={tour.guests} onBack={handleBack} onNext={handleNext} />;
+        return (
+          <Hotels
+            state={tour.hotels}
+            guests={tour.guests}
+            onBack={handleBack}
+            onNext={handleNext}
+          />
+        );
       case 3:
-        return <Activities state={tour.activities} onBack={handleBack} onNext={handleNext} />;
+        return (
+          <Activities
+            state={tour.activities}
+            onBack={handleBack}
+            onNext={handleNext}
+          />
+        );
       case 4:
-        return <Transportation state={tour.transportation} destinations={tour.destinations} onBack={handleBack} onNext={handleNext} />;
+        return (
+          <Transportation
+            state={tour.transportation}
+            destinations={tour.destinations}
+            onBack={handleBack}
+            onNext={handleNext}
+          />
+        );
       case 5:
-        return <TourGuide state={tour.tourGuide} onBack={handleBack} onNext={handleFinish} />;
+        return (
+          <TourGuide
+            state={tour.tourGuide}
+            onBack={handleBack}
+            onNext={handleFinish}
+          />
+        );
       default:
-        return <Button variant="contained"
-          color="primary"
-          onClick={handleClose}
-        >Close</Button>;
+        return (
+          <Button variant="contained" color="primary" onClick={handleClose}>
+            Close
+          </Button>
+        );
     }
   }
 
   return (
     <React.Fragment>
-      <Button variant="contained"
+      <Button
+        variant="contained"
         color="primary"
         startIcon={<AddIcon />}
         onClick={handleClickOpen}
       >
         Create Tour
       </Button>
-      <Dialog maxWidth="xl" disableBackdropClick onClose={handleClose} aria-labelledby="dialog-title" open={open}>
+      <Dialog
+        maxWidth="xl"
+        disableBackdropClick
+        onClose={handleClose}
+        aria-labelledby="dialog-title"
+        open={open}
+      >
         <Container className={classes.container}>
           {getStepContent(activeStep)}
         </Container>
       </Dialog>
     </React.Fragment>
   );
-}
+};
 
 export default CreateTour;

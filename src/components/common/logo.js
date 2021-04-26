@@ -6,9 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const Logo = ({ pages }) => {
   const classes = useStyles();
 
-  return (
-    <AirplanemodeActiveIcon className={classes.logo} />
-  );
+  return <AirplanemodeActiveIcon className={classes.logo} />;
 };
 
 // styles
@@ -24,4 +22,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default Logo
+export default Logo;

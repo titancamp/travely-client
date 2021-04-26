@@ -21,3 +21,8 @@ export const ManageStaffContext = createContext({
   onRowAction: (actionType, rowData) =>
     console.log(`Row action ${actionType} executed`),
 });
+
+export const ManageActivitiesContext = createContext({
+  onRowAction: (actionType, rowData) =>
+    console.log(`Row action ${actionType} executed`),
+});

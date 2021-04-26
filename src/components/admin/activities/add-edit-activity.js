@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import {
@@ -31,6 +31,8 @@ const AddEditActivity = ({
   isOpen,
   handleSaveActivityToggle,
   activityModel,
+  onClose,
+  onSave,
 }) => {
   const isEditForm = Boolean(activityModel && activityModel.id);
   const initialValues = activityModel || {
@@ -47,6 +49,7 @@ const AddEditActivity = ({
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: async (model, formikHelper) => {
+      console.log(initialValues);
       const data = { ...model };
       data.price = +data.price;
       data.type = {
@@ -60,6 +63,7 @@ const AddEditActivity = ({
       if (newActivity) {
         formikHelper.resetForm();
       }
+      onSave && onSave();
     },
     onReset: () => {
       handleSaveActivityToggle();
@@ -68,6 +72,11 @@ const AddEditActivity = ({
 
   const inputMb = 1;
   const dialogTitle = isEditForm ? "Edit activity" : "Add new activity";
+
+  const handleClose = useCallback(() => {
+    formik.handleReset();
+    onClose();
+  }, [onClose, formik]);
 
   return (
     <Dialog open={isOpen} maxWidth="lg">
@@ -222,7 +231,7 @@ const AddEditActivity = ({
           <Grid item xs={3}>
             <Button
               type="reset"
-              onClick={formik.handleReset}
+              onClick={handleClose}
               variant="text"
               size="small"
               fullWidth
