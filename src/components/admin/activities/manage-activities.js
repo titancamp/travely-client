@@ -27,8 +27,7 @@ class ManageActivities extends React.Component {
   }
 
   componentDidMount() {
-    const agencyId = localStorage.getItem('agencyId');
-    ActivityClient.getActivities(agencyId).then(({data}) => {
+    ActivityClient.getActivities().then(({ data }) => {
       this.setState({
         activityRows: data,
         filteredActivities: data,

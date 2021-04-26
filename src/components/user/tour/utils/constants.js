@@ -146,7 +146,7 @@ export const TRANSPORTATION_COLUMNS = [
   { field: 'endDate', headerName: 'End Date' },
   { field: 'hotelName', headerName: 'Hotel Information' },
   { field: 'driverName', headerName: 'Driver Name' },
-  { field: 'model', headerName: 'Car Type/Model' }
+  { field: 'carModel', headerName: 'Car Type/Model' }
 ];
 
 export const TRANSPORTATION_ROWS = [
@@ -158,7 +158,7 @@ export const TRANSPORTATION_ROWS = [
     endDate: '05/12/2021',
     hotelName: 'Ararat resort',
     driverName: 'Ashot',
-    model: 'Mercedes',
+    carModel: 'Mercedes',
   },
 ];
 
@@ -190,7 +190,7 @@ export const HOTEL_COLUMNS = [
   { field: 'checkoutDate', headerName: 'Checkout Date' },
   { field: 'cancellationDate', headerName: 'Cancellation Date' },
   { field: 'address', headerName: 'Adress' },
-  { field: 'roomType', headerName: 'Room Type - Number of Rooms' },
+  { field: 'rooms', headerName: 'Room Type - Number of Rooms' },
   { field: 'bookingState', headerName: 'Booking State' },
   { field: 'contactPerson', headerName: 'Contact Person' },
 
@@ -205,7 +205,7 @@ export const HOTEL_ROWS = [
     checkoutDate: '05/12/2021',
     cancellationDate: '05/12/2021',
     address: 'North Avenue',
-    roomType: 'Double - 1',
+    rooms: 'Double - 1',
     bookingState: 'booked',
     contactPerson: 'Armenuhi Voskanyan'
   },

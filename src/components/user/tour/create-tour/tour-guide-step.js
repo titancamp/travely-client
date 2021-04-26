@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
@@ -13,7 +13,7 @@ import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import { TRANSPORTATION_ROWS, TRANSPORTATION_COLUMNS } from "../utils/constants";
+import { ASSIGN_TOUR_GUIDE_COLUMNS } from "../utils/constants";
 
 const useStyles = makeStyles({
     form: {
@@ -72,14 +72,24 @@ const validate = values => {
 
 const TourGuide = (props) => {
     const classes = useStyles();
+    const onNext = props.onNext;
+    const [tourGuides, setTourGuides] = useState([]);
+
     const formik = useFormik({
         initialValues: props.state,
         validate,
-        onSubmit: values => {
-            props.onNext("tourGuide", values)
+        onSubmit: tourGuideToAdd => {
+            const tourGuide = tourGuides.reduce((prev, curr) => prev.id < curr.id ? prev : curr, {});
+            tourGuideToAdd.id = tourGuide && !isNaN(tourGuide.id) ? tourGuide.id - 1 : 0;
+
+            setTourGuides([...tourGuides, tourGuideToAdd]);
         },
     });
- 
+
+    const navigateToNextStep = useCallback(() => {
+        onNext("tourGuide", tourGuides)
+    }, [onNext, tourGuides]);
+
     return (
         <React.Fragment>
             <Grid item xs={12}>
@@ -280,6 +290,7 @@ const TourGuide = (props) => {
                                         <Grid container direction="column" alignItems="flex-end">
                                             <Button variant="contained"
                                                 color="primary"
+                                                onClick={formik.handleSubmit}
                                             >
                                                 Add
                                             </Button>
@@ -292,8 +303,8 @@ const TourGuide = (props) => {
                 </Grid>
                 <Grid item xs={12}>
                     <DataGrid
-                        rows={TRANSPORTATION_ROWS}
-                        columns={TRANSPORTATION_COLUMNS}
+                        rows={tourGuides}
+                        columns={ASSIGN_TOUR_GUIDE_COLUMNS}
                         autoHeight
                         pageSize={5}
                     />
@@ -312,7 +323,7 @@ const TourGuide = (props) => {
                         <Grid item xs={2} >
                             <Button variant="contained" fullWidth
                                 color="primary"
-                                onClick={formik.handleSubmit}
+                                onClick={navigateToNextStep}
                             >
                                 Save Tour
                             </Button>
