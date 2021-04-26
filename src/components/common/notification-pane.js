@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import { NotificationContext } from "../../store/notificationContext";
 import { Card, Drawer } from "@material-ui/core";
@@ -59,7 +59,9 @@ export default function NotificationPane({ open }) {
   const notificationService = useContext(NotificationContext);
   const handleButtonClick = (notification) => {};
 
-  // notificationService.connect();
+  useEffect(() => {
+    notificationService.connect();
+  }, []);
 
   return (
     <React.Fragment>

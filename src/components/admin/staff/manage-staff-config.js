@@ -12,7 +12,7 @@ export const columns = [
     flex: 0.25,
   },
   {
-    field: "title",
+    field: "jobTitle",
     headerName: "Title",
     flex: 0.25,
   },

@@ -1,10 +1,14 @@
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { createContext } from "react";
+import appConfig from "../app-config.json";
 
 export const NotificationContext = createContext({
   connection: new HubConnectionBuilder()
-    .withUrl("https://localhost:5001/notification", {
-      accessTokenFactory: () => sessionStorage.getItem("token"),
+    .withUrl(appConfig.notificationURL, {
+      accessTokenFactory: () => {
+        const authContext = JSON.parse(localStorage.getItem("AuthContext"));
+        return authContext.accessToken;
+      },
     })
     .withAutomaticReconnect()
     .build(),
