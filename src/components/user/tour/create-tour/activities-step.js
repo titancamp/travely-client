@@ -72,16 +72,9 @@ const Activities = (props) => {
     initialValues: initialValues,
     validate,
     onSubmit: (activityBookingToAdd) => {
-      const activityBooking = activityBookings.reduce(
-        (prev, curr) => (prev.id > curr.id ? prev.id : curr.id),
-        {}
-      );
-      const maxId =
-        activityBooking && activityBooking.id ? activityBooking.id : 1;
-      activityBookingToAdd.id = maxId + 1;
-
+      activityBookingToAdd.id = activityBookingToAdd.activityId;
       const activity = allActivities.find(
-        (item) => item.id === activityBookingToAdd.id
+        (item) => item.id === activityBookingToAdd.activityId
       );
 
       if (activity) {
@@ -309,7 +302,7 @@ const Activities = (props) => {
                 color="primary"
                 onClick={navigateToNextStep}
               >
-                Next: Add Transportation
+                Next: Assign Tour Guide
               </Button>
             </Grid>
           </Grid>

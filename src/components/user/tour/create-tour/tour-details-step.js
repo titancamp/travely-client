@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
@@ -10,6 +10,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Divider from "@material-ui/core/Divider";
 import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
+import { countries } from "countries-list";
 
 const useStyles = makeStyles({
   form: {
@@ -71,6 +72,12 @@ const TourDetail = (props) => {
     },
   });
 
+  const countriesList = useMemo(() => {
+    return Object.keys(countries).map((c) => {
+      return countries[c].name;
+    });
+  }, []);
+
   return (
     <React.Fragment>
       <Grid item xs={12}>
@@ -122,9 +129,13 @@ const TourDetail = (props) => {
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value={"10"}>Origin1</MenuItem>
-                    <MenuItem value={"20"}>Origin2</MenuItem>
-                    <MenuItem value={"30"}>Origin3</MenuItem>
+                    {countriesList.map((c) => {
+                      return (
+                        <MenuItem key={c} value={c}>
+                          {c}
+                        </MenuItem>
+                      );
+                    })}
                   </Select>
                   {formik.errors.origin && (
                     <Typography

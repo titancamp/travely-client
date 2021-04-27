@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import { Formik } from "formik";
 import * as yup from "yup";
 
 import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -28,25 +29,43 @@ const validationSchema = yup.object({
   phone: yup.string("Enter phone"),
 });
 
-const StaffForm = ({ isOpen, handleModalToggle, staffModel }) => {
+const StaffForm = ({
+  isOpen,
+  handleModalToggle,
+  staffModel,
+  onClose,
+  onSave,
+}) => {
   const isEditForm = Boolean(staffModel && staffModel.id);
   const dialogTitle = isEditForm ? "Edit staff" : "Add new staff";
-  const initialValues = staffModel || {
-    firstName: "",
-    lastName: "",
-    title: "",
-    email: "",
-    phoneNumber: "",
-    password: "",
-  };
 
-  const handleClose = () => {
-    handleModalToggle();
-  };
+  let initialValues;
 
-  const onReset = () => {
+  if (staffModel) {
+    initialValues = {
+      ...staffModel,
+      title: staffModel.jobTitle,
+    };
+  } else {
+    initialValues = {
+      firstName: "",
+      lastName: "",
+      title: "",
+      email: "",
+      phoneNumber: "",
+      password: "",
+    };
+  }
+
+  const handleClose = useCallback(() => {
     handleModalToggle();
-  };
+    onClose && onClose();
+  }, [handleModalToggle, onClose]);
+
+  const onReset = useCallback(() => {
+    handleModalToggle();
+    onClose && onClose();
+  }, [handleModalToggle, onClose]);
 
   const onSubmit = async (model, formikHelper) => {
     isEditForm
@@ -56,34 +75,37 @@ const StaffForm = ({ isOpen, handleModalToggle, staffModel }) => {
     if (!isEditForm) {
       formikHelper.resetForm();
     }
-    StaffClient.getAll();
+    // StaffClient.getAll();
+    onSave();
   };
 
   return (
-    <div>
-      <Dialog
-        open={isOpen}
-        onClose={handleClose}
-        maxWidth="sm"
-        aria-labelledby="alert-dialog-title"
-      >
-        <DialogTitle id="alert-dialog-title">{dialogTitle}</DialogTitle>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={onSubmit}
-          onReset={onReset}
-        >
-          {({
-            values,
-            errors,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            handleReset,
-            isSubmitting,
-          }) => (
-            <form onSubmit={handleSubmit} noValidate autoComplete="off">
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={onSubmit}
+      onReset={onReset}
+    >
+      {({
+        values,
+        errors,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        handleReset,
+        isSubmitting,
+      }) => {
+
+        return (
+          <form onSubmit={handleSubmit} noValidate autoComplete="off">
+            <Dialog
+              open={isOpen}
+              onClose={handleClose}
+              fullWidth
+              maxWidth="xs"
+              aria-labelledby="alert-dialog-title"
+            >
+              <DialogTitle id="alert-dialog-title">{dialogTitle}</DialogTitle>
               <DialogContent>
                 <FormikInputField
                   margin="dense"
@@ -132,19 +154,21 @@ const StaffForm = ({ isOpen, handleModalToggle, staffModel }) => {
                   onBlur={handleBlur}
                   onChange={handleChange}
                 />
-                <FormikInputField
-                  type="password"
-                  margin="dense"
-                  required
-                  fullWidth
-                  id="password"
-                  name="password"
-                  label="Password"
-                  value={values.password}
-                  autoFocus
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                />
+                {!isEditForm && (
+                  <FormikInputField
+                    type="password"
+                    margin="dense"
+                    required
+                    fullWidth
+                    id="password"
+                    name="password"
+                    label="Password"
+                    value={values.password}
+                    autoFocus
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                  />
+                )}
                 <FormikInputField
                   margin="dense"
                   fullWidth
@@ -158,33 +182,31 @@ const StaffForm = ({ isOpen, handleModalToggle, staffModel }) => {
                 />
               </DialogContent>
               <DialogActions>
-                <Button
-                  type="submit"
-                  onClick={handleSubmit}
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  fullWidth
-                  disabled={isSubmitting}
-                >
-                  Save
-                </Button>
-                <Button
-                  type="reset"
-                  onClick={handleReset}
-                  variant="text"
-                  size="small"
-                  fullWidth
-                  disabled={isSubmitting}
-                >
-                  Cancel
-                </Button>
+                <ButtonGroup fullWidth>
+                  <Button
+                    type="submit"
+                    onClick={handleSubmit}
+                    variant="contained"
+                    color="primary"
+                    disabled={isSubmitting}
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    type="reset"
+                    onClick={handleReset}
+                    disabled={isSubmitting}
+                    variant="outlined"
+                  >
+                    Cancel
+                  </Button>
+                </ButtonGroup>
               </DialogActions>
-            </form>
-          )}
-        </Formik>
-      </Dialog>
-    </div>
+            </Dialog>
+          </form>
+        );
+      }}
+    </Formik>
   );
 };
 

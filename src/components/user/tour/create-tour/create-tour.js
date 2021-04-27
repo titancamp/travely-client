@@ -8,11 +8,9 @@ import TourDetails from "./tour-details-step";
 import Guests from "./guests-step";
 import Hotels from "./hotels-step";
 import Activities from "./activities-step";
-import Transportation from "./transportation-step";
 import TourGuide from "./tour-guide-step";
 import TourClient from "../../../../api/tour-client";
 import BOOKING_TYPES from "../../../../utils/booking-types";
-import BOOKING_STATUSES from "../../../../utils/booking-statuses";
 
 const useStyles = makeStyles({
   container: {
@@ -38,27 +36,11 @@ const initialTourState = {
   guests: [],
   hotels: [],
   activities: [],
-  transportation: {
-    destination: "",
-    companyName: "",
-    startDate: "",
-    endDate: "",
-    driverName: "",
-    carModel: "",
-    hotelName: "",
-    roomType: "",
-    roomCount: "",
-    notes: "",
-    accomodation: false,
-  },
   tourGuide: {
     destination: "",
     activityName: "",
     date: "",
     guideName: "",
-    hotelName: "",
-    roomType: "",
-    roomCount: "",
     notes: "",
     accomodation: false,
   },
@@ -91,23 +73,6 @@ const mapTourCreateModel = (tour) => {
     },
   }));
 
-  const transportationBookings = tour.transportation.map((transportation) => ({
-    type: BOOKING_TYPES.TRANSPORTATION,
-    status: BOOKING_STATUSES.NONE,
-    notes: transportation.notes,
-    name: transportation.companyName,
-    checkInDate: transportation.startDate,
-    checkOutDate: transportation.endDate,
-    destination: transportation.destination,
-
-    driverName: transportation.driverName,
-    carModel: transportation.carModel,
-    propertyId: transportation.hotelId,
-    roomType: transportation.roomType,
-    roomCount: transportation.roomCount,
-    accomodation: transportation.accomodation,
-  }));
-
   return {
     isPackage: false,
     name: tour.tourDetails.tourName,
@@ -121,9 +86,7 @@ const mapTourCreateModel = (tour) => {
     dropOffDetails: tour.tourDetails.dropDetails,
     notes: tour.tourDetails.notes,
     clients: tour.guests,
-    bookings: hotelBookings
-      .concat(activityBookings)
-      .concat(transportationBookings),
+    bookings: hotelBookings.concat(activityBookings),
   };
 };
 
@@ -216,17 +179,9 @@ const CreateTour = () => {
         );
       case 4:
         return (
-          <Transportation
-            state={tour.transportation}
-            destinations={tour.destinations}
-            onBack={handleBack}
-            onNext={handleNext}
-          />
-        );
-      case 5:
-        return (
           <TourGuide
             state={tour.tourGuide}
+            activities={tour.activities}
             onBack={handleBack}
             onNext={handleFinish}
           />

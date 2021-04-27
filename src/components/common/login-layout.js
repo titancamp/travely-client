@@ -8,7 +8,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Logo from "./logo";
 
 import Container from "@material-ui/core/Container";
-// import { ReactComponent as Logo } from "../../logo.svg";
 
 const LoginLayout = (props) => {
   const classes = useStyles();
@@ -21,7 +20,7 @@ const LoginLayout = (props) => {
           <Logo />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Travelly
+          Travely
         </Typography>
         {props.children}
       </div>

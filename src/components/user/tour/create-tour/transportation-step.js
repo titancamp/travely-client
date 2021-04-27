@@ -15,6 +15,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { TRANSPORTATION_COLUMNS } from "../utils/constants";
 import HotelClient from "../../../../api/hotel-client";
+import RoomTypes from "../../../../utils/room-types";
 
 const useStyles = makeStyles({
   form: {
@@ -291,6 +292,9 @@ const Transportation = (props) => {
                         value={formik.values.hotelName}
                         onChange={formik.handleChange}
                       >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
                         {allHotels.map((hotel) => (
                           <MenuItem key={hotel.id} value={hotel.id}>
                             {hotel.name}
@@ -309,39 +313,6 @@ const Transportation = (props) => {
                         </Typography>
                       )}
                     </FormControl>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      fullWidth
-                      variant="outlined"
-                      size="small"
-                      id="roomType"
-                      name="roomType"
-                      label="Room Type"
-                      error={formik.errors.roomType ? true : false}
-                      helperText={
-                        formik.errors.roomType ? formik.errors.roomType : ""
-                      }
-                      value={formik.values.roomType}
-                      onChange={formik.handleChange}
-                    />
-                  </Grid>
-                  <Grid item xs={2}>
-                    <TextField
-                      fullWidth
-                      variant="outlined"
-                      size="small"
-                      id="roomCount"
-                      name="roomCount"
-                      type="number"
-                      label="Rooms count"
-                      error={formik.errors.roomCount ? true : false}
-                      helperText={
-                        formik.errors.roomCount ? formik.errors.roomCount : ""
-                      }
-                      value={formik.values.roomCount}
-                      onChange={formik.handleChange}
-                    />
                   </Grid>
                 </Grid>
               </Grid>
