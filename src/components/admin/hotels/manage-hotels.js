@@ -11,6 +11,7 @@ import { columns } from "./manage-hotels-constants";
 import HotelClient from "../../../api/hotel-client";
 import SaveHotel from "./save-hotel/save-hotel";
 import ConfirmDialog from "../../user/guest/tourists/component/ConfirmDialog";
+import Grid from "@material-ui/core/Grid";
 
 export default class ManageHotels extends React.Component {
   constructor(props) {
@@ -164,37 +165,41 @@ export default class ManageHotels extends React.Component {
                   />
                 </div>
               ) : (
-                <div>
-                  <Button
-                    variant="outlined"
-                    startIcon={<HotelIcon />}
-                    onClick={this.handleSaveHotelModalToggle}
-                  >
-                    Add new hotel
-                  </Button>
-                  <SearchPlugin
-                    searchTerm={this.state.searchTerm}
-                    updateSearchTerm={this.updateSearchTerm}
-                    placeholder={"Search hotels by name, contact or address"}
-                  />
-                  <div>
-                    <div>
-                      <ManageHotelContext.Provider
-                        value={{ onRowAction: this.handleRowAction }}
-                      >
-                        <DataGrid
-                          disableColumnResize={true}
-                          rows={this.state.filteredList}
-                          columns={columns}
-                          pageSize={9}
-                          fullwidth
-                          autoHeight
-                          autoWidth
-                        />
-                      </ManageHotelContext.Provider>
-                    </div>
-                  </div>
-                </div>
+                <Grid container spacing={2}>
+                  <Grid item xs={10}>
+                    <SearchPlugin
+                      searchTerm={this.state.searchTerm}
+                      updateSearchTerm={this.updateSearchTerm}
+                      placeholder={"Search hotels by name, contact or address"}
+                    />
+                  </Grid>
+                  <Grid container alignItems="center" item xs={2}>
+                    <Button
+                      variant="contained"
+                      fullWidth
+                      color="primary"
+                      startIcon={<HotelIcon />}
+                      onClick={this.handleSaveHotelModalToggle}
+                    >
+                      Add new hotel
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <ManageHotelContext.Provider
+                      value={{ onRowAction: this.handleRowAction }}
+                    >
+                      <DataGrid
+                        disableColumnResize={true}
+                        rows={this.state.filteredList}
+                        columns={columns}
+                        pageSize={9}
+                        fullwidth
+                        autoHeight
+                        autoWidth
+                      />
+                    </ManageHotelContext.Provider>
+                  </Grid>
+                </Grid>
               )}
               {this.state.isSaveHotelModalOpen ? (
                 <SaveHotel

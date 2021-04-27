@@ -2,7 +2,6 @@ import React from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import { columns } from "./activities-const";
 import SearchActivities from "./search-activities";
-import ActivityTypeSelect from "./activity-type-select";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import AddEditActivity from "./add-edit-activity";
@@ -10,6 +9,7 @@ import ActivityClient from "../../../api/activity-client";
 import { ManageActivitiesContext } from "../../../store/context";
 import ACTION_TYPES from "../../../utils/datatable-row-action-types";
 import ConfirmDialog from "../../user/guest/tourists/component/ConfirmDialog";
+import PublicIcon from "@material-ui/icons/Public";
 
 class ManageActivities extends React.Component {
   constructor(props) {
@@ -49,7 +49,7 @@ class ManageActivities extends React.Component {
             ...i,
           };
         });
-        console.log(result);
+
         this.setState({
           activityRows: result,
           filteredActivities: result,
@@ -146,15 +146,18 @@ class ManageActivities extends React.Component {
     return (
       <div>
         <Grid container spacing={2}>
-          <Grid item xs={2}>
-            <ActivityTypeSelect filterByType={this.filterByType} />
-          </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={10}>
             <SearchActivities filter={this.filterBySearch} />
           </Grid>
-          <Grid container alignItems="center" item xs={1}>
-            <Button variant="contained" onClick={this.handleSaveActivityToggle}>
-              New
+          <Grid container alignItems="center" item xs={2}>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={this.handleSaveActivityToggle}
+              startIcon={<PublicIcon />}
+            >
+              Add activity
             </Button>
           </Grid>
           <Grid item xs={12}>

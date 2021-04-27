@@ -27,6 +27,7 @@ export default class ManageStaff extends React.Component {
       searchTerm: "",
       staffRows: [],
       filteredList: [],
+      editingStaffMember: null,
     };
 
     this.handleModalToggle = this.handleModalToggle.bind(this);
@@ -101,6 +102,22 @@ export default class ManageStaff extends React.Component {
     });
   };
 
+  editRow = (id) => {
+    const editingStaffMember = this.state.staffRows.find((s) => s.id === id);
+    this.setState({
+      editingStaffMember,
+      isStaffModalOpen: true,
+    });
+  };
+
+  onEditModalClose = () => {
+    console.log("onEditModalClose");
+    this.setState({
+      editingStaffMember: null,
+      isStaffModalOpen: false,
+    });
+  };
+
   handleModalToggle() {
     if (this.state.isStaffModalOpen) {
       this.setState({
@@ -136,25 +153,23 @@ export default class ManageStaff extends React.Component {
         ) : (
           <div>
             <Grid container spacing={2}>
-              <Grid item xs={9}>
+              <Grid item xs={10}>
                 <SearchPlugin
                   searchTerm={this.state.searchTerm}
                   updateSearchTerm={this.updateSearchTerm}
                   placeholder={"Search staff by name, title or email"}
                 />
               </Grid>
-              <Grid container alignItems="center" item xs={3}>
+              <Grid container alignItems="center" item xs={2}>
                 <Button
-                  variant="outlined"
+                  fullWidth
+                  color="primary"
+                  variant="contained"
                   startIcon={<GroupIcon />}
                   onClick={this.handleModalToggle}
                 >
                   Add staff member
                 </Button>
-                <StaffForm
-                  isOpen={this.state.isStaffModalOpen}
-                  handleModalToggle={this.handleModalToggle}
-                />
               </Grid>
               <Grid item xs={12}>
                 <ManageStaffContext.Provider
@@ -172,6 +187,12 @@ export default class ManageStaff extends React.Component {
                 </ManageStaffContext.Provider>
               </Grid>
             </Grid>
+            <StaffForm
+              isOpen={this.state.isStaffModalOpen}
+              handleModalToggle={this.handleModalToggle}
+              staffModel={this.state.editingStaffMember}
+              onClose={this.onEditModalClose}
+            />
           </div>
         )}
       </div>
