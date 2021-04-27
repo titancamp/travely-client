@@ -75,7 +75,8 @@ const StaffForm = ({
     if (!isEditForm) {
       formikHelper.resetForm();
     }
-    StaffClient.getAll();
+    // StaffClient.getAll();
+    onSave();
   };
 
   return (
