@@ -41,6 +41,10 @@ export default class ManageStaff extends React.Component {
       isLoading: true,
     });
 
+    this.init();
+  }
+
+  init = () => {
     StaffClient.getAll().then((result) => {
       this.setState({
         staffRows: result.data,
@@ -114,12 +118,19 @@ export default class ManageStaff extends React.Component {
   };
 
   onEditModalClose = () => {
-    console.log("onEditModalClose");
     this.setState({
       editingStaffMember: null,
       isStaffModalOpen: false,
     });
   };
+
+  onSaveHandler = () => {
+    this.init();
+    this.setState({
+      editingStaffMember: null,
+      isStaffModalOpen: false,
+    });
+  }
 
   handleModalToggle() {
     if (this.state.isStaffModalOpen) {
@@ -191,12 +202,15 @@ export default class ManageStaff extends React.Component {
                   </ManageStaffContext.Provider>
                 </Grid>
               </Grid>
-              <StaffForm
-                isOpen={this.state.isStaffModalOpen}
-                handleModalToggle={this.handleModalToggle}
-                staffModel={this.state.editingStaffMember}
-                onClose={this.onEditModalClose}
-              />
+              {this.state.isStaffModalOpen && (
+                <StaffForm
+                  isOpen
+                  handleModalToggle={this.handleModalToggle}
+                  staffModel={this.state.editingStaffMember}
+                  onClose={this.onEditModalClose}
+                  onSave={this.onSaveHandler}
+                />
+              )}
             </div>
           )}
         </CardContent>

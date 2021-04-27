@@ -15,7 +15,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
-import HotelIcon from "@material-ui/icons/Hotel";
 
 import ManageAttachments from "./manage-attachments";
 import HotelClient from "../../../../api/hotel-client";
@@ -124,7 +123,6 @@ const SaveHotelForm = ({
   return (
     <Dialog open={isOpen} maxWidth="sm" fullWidth>
       <DialogTitle>
-        <HotelIcon />
         {dialogTitle}
       </DialogTitle>
       <DialogContent>
