@@ -69,27 +69,26 @@ const mapTourCreateModel = (tour) => {
   const hotelBookings = tour.hotels.map((hotel) => ({
     type: BOOKING_TYPES.HOTEL,
     status: +hotel.bookingState,
-    notes: hotel.notes,
-    name: hotel.name,
-    checkInDate: hotel.checkinDate,
-    checkOutDate: hotel.checkoutDate,
-    cancellationDeadline: hotel.cancellationDate,
-    origin: hotel.origin,
-    arrivalTime: hotel.arrivalTime,
-    arrivalFlightNumber: hotel.arrivalFlightNumber,
-    departureTime: hotel.departureTime,
-    departureFlightNumber: hotel.departureFlightNumber,
-    destination: hotel.destination
+    bookingProperty: {
+      propertyId: hotel.hotelId,
+      propertyName: hotel.hotelName,
+      checkInDate: hotel.checkinDate,
+      checkOutDate: hotel.checkoutDate,
+      cancellationDeadline: hotel.cancellationDate,
+      notes: hotel.notes,
+    },
   }));
 
   const activityBookings = tour.activities.map((activity) => ({
     type: BOOKING_TYPES.ACTIVITY,
     status: +activity.status,
-    notes: activity.notes,
-    checkInDate: activity.date,
-    arrivalTime: activity.time,
-    guestsCount: activity.numberOfGuests,
-    destination: activity.destinations,
+    bookingService: {
+      serviceId: activity.activityId,
+      bookingDate: activity.date,
+      bookingTime: activity.time,
+      numberOfGuests: activity.numberOfGuests,
+      notes: activity.notes
+    },
   }));
 
   const transportationBookings = tour.transportation.map((transportation) => ({
