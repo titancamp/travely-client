@@ -266,7 +266,7 @@ const Hotels = (props) => {
                 </Grid>
               </Grid>
               <Grid item xs={6}>
-                <Grid container spacing={1}>
+                {/* <Grid container spacing={1}>
                   <FormikProvider value={formik}>
                     <FieldArray name="rooms">
                       {({ insert, remove, push }) => (
@@ -397,7 +397,7 @@ const Hotels = (props) => {
                       )}
                     </FieldArray>
                   </FormikProvider>
-                </Grid>
+                </Grid> */}
               </Grid>
               <Grid item xs={6}>
                 <InputLabel className={classes.label}>

@@ -14,6 +14,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { Autocomplete } from "@material-ui/lab";
 import { GUESTS_COLUMNS } from "../utils/constants";
 import TouristClient from "../../../../api/tourist-client";
+import DateMonthPicker from "../../guest/tourists/component/DateMonthPicker";
 
 const useStyles = makeStyles({
   form: {
@@ -104,12 +105,12 @@ const Guests = (props) => {
     lastName: "",
     phoneNumber: "",
     email: "",
-    dateOfBirth: "",
-    placeOfBirth: "",
+    dateOfBirth: null,
+    placeOfBirth: null,
     passportNumber: "",
     issuedBy: "",
-    issuedDate: "",
-    expireDate: "",
+    issuedDate: null,
+    expireDate: null,
     notes: "",
     mainContact: false,
   };
@@ -261,22 +262,12 @@ const Guests = (props) => {
                 />
               </Grid>
               <Grid item xs={6}>
-                <InputLabel className={classes.label} id="endLbl">
-                  Date of birth
-                </InputLabel>
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  size="small"
-                  id="dateOfBirth"
+                <DateMonthPicker
                   name="dateOfBirth"
-                  type="date"
-                  error={formik.errors.dateOfBirth ? true : false}
-                  helperText={
-                    formik.errors.dateOfBirth ? formik.errors.dateOfBirth : ""
-                  }
+                  label="Date of birth"
                   value={formik.values.dateOfBirth}
                   onChange={formik.handleChange}
+                  disableFuture={false}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -332,37 +323,21 @@ const Guests = (props) => {
                 />
               </Grid>
               <Grid item xs={6}>
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  size="small"
-                  id="issuedDate"
+                <DateMonthPicker
                   name="issuedDate"
                   label="Issue date"
-                  type="date"
-                  error={formik.errors.issuedDate ? true : false}
-                  helperText={
-                    formik.errors.issuedDate ? formik.errors.issuedDate : ""
-                  }
                   value={formik.values.issuedDate}
                   onChange={formik.handleChange}
+                  disableFuture={false}
                 />
               </Grid>
               <Grid item xs={6}>
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  size="small"
-                  id="expireDate"
+                <DateMonthPicker
                   name="expireDate"
                   label="Expire date"
-                  type="date"
-                  error={formik.errors.expireDate ? true : false}
-                  helperText={
-                    formik.errors.expireDate ? formik.errors.expireDate : ""
-                  }
                   value={formik.values.expireDate}
                   onChange={formik.handleChange}
+                  disableFuture={false}
                 />
               </Grid>
               <Grid item xs={12}>

@@ -113,7 +113,6 @@ export const GUESTS_ROWS = [
 ];
 
 export const ACTIVITIES_COLUMNS = [
-  { field: "destinations", headerName: "Destinations" },
   { field: "activityName", headerName: "Activity name" },
   { field: "date", headerName: "Date" },
   { field: "time", headerName: "Time" },
