@@ -1,8 +1,8 @@
 import ApiClient from "./api";
 
 const ActivityClient = {
-  getActivities: async function (id) {
-    return ApiClient.get(`/api/v1/Service/${id}`);
+  getActivities: async function (agencyId) {
+    return ApiClient.get(`/api/v1/Service/${agencyId}`);
   },
   addActivity: async function (data) {
     return ApiClient.post(`/api/v1/Service`, data);

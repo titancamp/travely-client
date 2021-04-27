@@ -11,7 +11,6 @@ import ManageHotels from "./hotels/manage-hotels";
 import ManageActivities from "./activities/manage-activities";
 import { ContentArea } from "../common/content-area";
 import { Sidebar } from "../common/sidebar";
-import NotificationPane from "../common/notification-pane";
 
 const pages = [
   {
@@ -41,18 +40,10 @@ const pages = [
 ];
 
 export default function Admin() {
-  const [openNotificationPane, setOpenNotificationPane] = React.useState(false);
-  const toggleNotificationPane = () =>
-    setOpenNotificationPane(!openNotificationPane);
   return (
     <React.Fragment>
-      <NotificationPane open={openNotificationPane} />
       <Sidebar pages={pages} />
-      <ContentArea
-        pages={pages}
-        toggleNotificationPane={toggleNotificationPane}
-        openNotificationPane={openNotificationPane}
-      />
+      <ContentArea pages={pages} />
     </React.Fragment>
   );
 }
