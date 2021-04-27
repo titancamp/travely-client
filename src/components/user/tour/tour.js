@@ -3,6 +3,7 @@ import { DataGrid } from "@material-ui/data-grid";
 import Grid from "@material-ui/core/Grid";
 import { TOUR_ROWS, TOUR_COLUMNS } from "./utils/constants";
 import CreateTour from "./create-tour/create-tour";
+import { TourDetails } from "./tour-details";
 
 const Tour = () => {
   const [tourData, setTourData] = useState([]);
@@ -23,6 +24,7 @@ const Tour = () => {
           autoHeight
           autoPageSize
         />
+        <TourDetails />
       </Grid>
     </Grid>
   );
