@@ -115,7 +115,6 @@ const Transportation = (props) => {
 
       if (selectedHotel) {
         bookingToAdd.hotelName = selectedHotel.name;
-        bookingToAdd.destination = selectedHotel.address;
       }
 
       setTransportationBookings([...transportationBookings, bookingToAdd]);
@@ -156,38 +155,22 @@ const Transportation = (props) => {
               <Grid item xs={6}>
                 <Grid container spacing={1}>
                   <Grid item xs={12}>
-                    <FormControl
+                    <TextField
                       fullWidth
-                      size="small"
                       variant="outlined"
+                      size="small"
+                      id="destination"
+                      name="destination"
+                      label="Destination"
                       error={formik.errors.destination ? true : false}
-                    >
-                      <InputLabel id="destinationLbl">Destination</InputLabel>
-                      <Select
-                        variant="outlined"
-                        id="destination"
-                        name="destination"
-                        label="Destination"
-                        labelId="destinationLbl"
-                        value={formik.values.destination}
-                        onChange={formik.handleChange}
-                      >
-                        {destinations.map((item) => (
-                          <MenuItem value={item}>{item}</MenuItem>
-                        ))}
-                      </Select>
-                      {formik.errors.destination && (
-                        <Typography
-                          className={classes.error}
-                          variant="caption"
-                          display="block"
-                          gutterBottom
-                          color="error"
-                        >
-                          {formik.errors.destination}
-                        </Typography>
-                      )}
-                    </FormControl>
+                      helperText={
+                        formik.errors.destination
+                          ? formik.errors.destination
+                          : ""
+                      }
+                      value={formik.values.destination}
+                      onChange={formik.handleChange}
+                    />
                   </Grid>
                   <Grid item xs={12}>
                     <TextField

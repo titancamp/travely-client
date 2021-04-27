@@ -15,6 +15,7 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import HotelClient from "../../../../api/hotel-client";
 import BOOKING_STATUSES from "../../../../utils/booking-statuses";
+import RoomTypes from "../../../../utils/room-types";
 import { HOTEL_COLUMNS } from "../utils/constants";
 
 const useStyles = makeStyles({
@@ -72,7 +73,6 @@ const Hotels = (props) => {
   const classes = useStyles();
   const [hotelBookings, setHotelBookings] = useState([]);
   const [hotels, setHotels] = useState([]);
-  const [roomTypes, setRoomTypes] = useState([]);
   const initialState = {
     hotelId: "",
     checkinDate: "",
@@ -100,22 +100,12 @@ const Hotels = (props) => {
     setHotels(res);
   }
 
-  async function fetchRoomTypes() {
-    const res = await HotelClient.getRoomTypes();
-    res.unshift({
-      id: "",
-      name: "None",
-    });
-    setRoomTypes(res);
-  }
-
   const navigateToNextStep = useCallback(() => {
     onNext("hotels", hotelBookings);
   }, [onNext, hotelBookings]);
 
   useEffect(() => {
     fetchHotels();
-    fetchRoomTypes();
   }, []);
 
   const formik = useFormik({
@@ -304,11 +294,8 @@ const Hotels = (props) => {
                                       value={formik.values.roomType}
                                       onChange={formik.handleChange}
                                     >
-                                      {roomTypes.map((item) => (
-                                        <MenuItem key={item.id} value={item.id}>
-                                          {item.name}
-                                        </MenuItem>
-                                      ))}
+                                      <MenuItem value=""><em>None</em></MenuItem>
+                                      {RoomTypes.map(item => <MenuItem key={item} value={item}>{item}</MenuItem>)}
                                     </Select>
                                     {formik.errors.roomType && (
                                       <Typography
