@@ -4,7 +4,7 @@ import appConfig from "../app-config.json";
 
 export const NotificationContext = createContext({
   connection: new HubConnectionBuilder()
-    .withUrl(appConfig.notificationURL, {
+    .withUrl(`${appConfig.notificationURL}/notification`, {
       accessTokenFactory: () => {
         const authContext = JSON.parse(localStorage.getItem("AuthContext"));
         return authContext.accessToken;

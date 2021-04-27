@@ -99,7 +99,7 @@ const Guests = (props) => {
   const [allGuests, setAllGuests] = useState([]);
   const [guests, setGuests] = useState(props.state);
   const initialState = {
-    id: "",
+    id: 0,
     firstName: "",
     lastName: "",
     phoneNumber: "",

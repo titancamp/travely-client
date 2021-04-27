@@ -1,5 +1,5 @@
 {
   "baseURL": "https://localhost:5001",
   "authURL": "http://localhost:5710",
-  "notificationURL": "https://localhost:49812"
+  "notificationURL": "https://localhost:55258"
 }
