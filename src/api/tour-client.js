@@ -2,7 +2,7 @@ import ApiClient from "./api";
 
 const TourClient = {
   getAllTours: function () {
-    return ApiClient.get("/tour");
+    return ApiClient.get("/api/v1/tour");
   },
   createTour: function (model) {
     return ApiClient.post("/api/v1/tour", model).then(

@@ -44,20 +44,18 @@ class ManageActivities extends React.Component {
   }
 
   init() {
-    ActivityClient.getActivities(localStorage.getItem("agencyId")).then(
-      ({ data }) => {
-        const result = data.map((i) => {
-          return {
-            ...i,
-          };
-        });
+    ActivityClient.getActivities().then(({ data }) => {
+      const result = data.map((i) => {
+        return {
+          ...i,
+        };
+      });
 
-        this.setState({
-          activityRows: result,
-          filteredActivities: result,
-        });
-      }
-    );
+      this.setState({
+        activityRows: result,
+        filteredActivities: result,
+      });
+    });
   }
 
   filterBySearch(term) {
