@@ -12,6 +12,8 @@ import HotelClient from "../../../api/hotel-client";
 import SaveHotel from "./save-hotel/save-hotel";
 import ConfirmDialog from "../../user/guest/tourists/component/ConfirmDialog";
 import Grid from "@material-ui/core/Grid";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 
 export default class ManageHotels extends React.Component {
   constructor(props) {
@@ -149,76 +151,84 @@ export default class ManageHotels extends React.Component {
 
   render() {
     return (
-      <AuthContext.Consumer>
-        {({ agencyId }) => {
-          return (
-            <div>
-              {this.state.isLoading ? (
-                <Loading />
-              ) : this.state.hotelsRows.length === 0 ? (
+      <Card>
+        <CardContent>
+          <AuthContext.Consumer>
+            {({ agencyId }) => {
+              return (
                 <div>
-                  <NoItem
-                    singularItemName="hotel"
-                    pluralItemName="hotels"
-                    startIcon={HotelIcon}
-                    onAddNewItem={this.handleSaveHotelModalToggle}
+                  {this.state.isLoading ? (
+                    <Loading />
+                  ) : this.state.hotelsRows.length === 0 ? (
+                    <div>
+                      <NoItem
+                        singularItemName="hotel"
+                        pluralItemName="hotels"
+                        startIcon={HotelIcon}
+                        onAddNewItem={this.handleSaveHotelModalToggle}
+                      />
+                    </div>
+                  ) : (
+                    <Grid container spacing={2}>
+                      <Grid item xs={10}>
+                        <SearchPlugin
+                          searchTerm={this.state.searchTerm}
+                          updateSearchTerm={this.updateSearchTerm}
+                          placeholder={
+                            "Search hotels by name, contact or address"
+                          }
+                        />
+                      </Grid>
+                      <Grid container alignItems="center" item xs={2}>
+                        <Button
+                          variant="contained"
+                          fullWidth
+                          color="primary"
+                          startIcon={<HotelIcon />}
+                          onClick={this.handleSaveHotelModalToggle}
+                        >
+                          Add new hotel
+                        </Button>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <ManageHotelContext.Provider
+                          value={{ onRowAction: this.handleRowAction }}
+                        >
+                          <DataGrid
+                            disableColumnResize={true}
+                            rows={this.state.filteredList}
+                            columns={columns}
+                            pageSize={9}
+                            fullwidth
+                            autoHeight
+                            autoWidth
+                          />
+                        </ManageHotelContext.Provider>
+                      </Grid>
+                    </Grid>
+                  )}
+                  {this.state.isSaveHotelModalOpen ? (
+                    <SaveHotel
+                      isOpen={this.state.isSaveHotelModalOpen}
+                      handleSaveHotelModalToggle={
+                        this.handleSaveHotelModalToggle
+                      }
+                      agencyId={agencyId || 0}
+                      hotelModel={this.state.hotelToEdit}
+                    />
+                  ) : null}
+                  <ConfirmDialog
+                    title={"Are you sure you want to delete the hotel"}
+                    isOpen={this.state.isConfirmDialogOpen}
+                    onConfirm={this.deleteRow}
+                    onCancel={this.resetDeleteRowDialog}
                   />
                 </div>
-              ) : (
-                <Grid container spacing={2}>
-                  <Grid item xs={10}>
-                    <SearchPlugin
-                      searchTerm={this.state.searchTerm}
-                      updateSearchTerm={this.updateSearchTerm}
-                      placeholder={"Search hotels by name, contact or address"}
-                    />
-                  </Grid>
-                  <Grid container alignItems="center" item xs={2}>
-                    <Button
-                      variant="contained"
-                      fullWidth
-                      color="primary"
-                      startIcon={<HotelIcon />}
-                      onClick={this.handleSaveHotelModalToggle}
-                    >
-                      Add new hotel
-                    </Button>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <ManageHotelContext.Provider
-                      value={{ onRowAction: this.handleRowAction }}
-                    >
-                      <DataGrid
-                        disableColumnResize={true}
-                        rows={this.state.filteredList}
-                        columns={columns}
-                        pageSize={9}
-                        fullwidth
-                        autoHeight
-                        autoWidth
-                      />
-                    </ManageHotelContext.Provider>
-                  </Grid>
-                </Grid>
-              )}
-              {this.state.isSaveHotelModalOpen ? (
-                <SaveHotel
-                  isOpen={this.state.isSaveHotelModalOpen}
-                  handleSaveHotelModalToggle={this.handleSaveHotelModalToggle}
-                  agencyId={agencyId || 0}
-                  hotelModel={this.state.hotelToEdit}
-                />
-              ) : null}
-              <ConfirmDialog
-                title={"Are you sure you want to delete the hotel"}
-                isOpen={this.state.isConfirmDialogOpen}
-                onConfirm={this.deleteRow}
-                onCancel={this.resetDeleteRowDialog}
-              />
-            </div>
-          );
-        }}
-      </AuthContext.Consumer>
+              );
+            }}
+          </AuthContext.Consumer>
+        </CardContent>
+      </Card>
     );
   }
 }

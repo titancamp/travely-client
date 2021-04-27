@@ -10,6 +10,8 @@ import { ManageActivitiesContext } from "../../../store/context";
 import ACTION_TYPES from "../../../utils/datatable-row-action-types";
 import ConfirmDialog from "../../user/guest/tourists/component/ConfirmDialog";
 import PublicIcon from "@material-ui/icons/Public";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 
 class ManageActivities extends React.Component {
   constructor(props) {
@@ -144,53 +146,55 @@ class ManageActivities extends React.Component {
 
   render() {
     return (
-      <div>
-        <Grid container spacing={2}>
-          <Grid item xs={10}>
-            <SearchActivities filter={this.filterBySearch} />
+      <Card>
+        <CardContent>
+          <Grid container spacing={2}>
+            <Grid item xs={10}>
+              <SearchActivities filter={this.filterBySearch} />
+            </Grid>
+            <Grid container alignItems="center" item xs={2}>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={this.handleSaveActivityToggle}
+                startIcon={<PublicIcon />}
+              >
+                Add activity
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              <ManageActivitiesContext.Provider
+                value={{ onRowAction: this.handleRowAction }}
+              >
+                <DataGrid
+                  rows={this.state.filteredActivities}
+                  columns={columns}
+                  pageSize={10}
+                  fullwidth
+                  autoHeight
+                  autoWidth
+                />
+              </ManageActivitiesContext.Provider>
+            </Grid>
           </Grid>
-          <Grid container alignItems="center" item xs={2}>
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              onClick={this.handleSaveActivityToggle}
-              startIcon={<PublicIcon />}
-            >
-              Add activity
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <ManageActivitiesContext.Provider
-              value={{ onRowAction: this.handleRowAction }}
-            >
-              <DataGrid
-                rows={this.state.filteredActivities}
-                columns={columns}
-                pageSize={10}
-                fullwidth
-                autoHeight
-                autoWidth
-              />
-            </ManageActivitiesContext.Provider>
-          </Grid>
-        </Grid>
-        {this.state.isAddEditActivityModalOpen && (
-          <AddEditActivity
-            isOpen
-            handleSaveActivityToggle={this.handleSaveActivityToggle}
-            activityModel={this.state.editingActivity}
-            onClose={this.editModalCleanup}
-            onSave={this.init}
+          {this.state.isAddEditActivityModalOpen && (
+            <AddEditActivity
+              isOpen
+              handleSaveActivityToggle={this.handleSaveActivityToggle}
+              activityModel={this.state.editingActivity}
+              onClose={this.editModalCleanup}
+              onSave={this.init}
+            />
+          )}
+          <ConfirmDialog
+            title={"Are you sure you want to delete the activity"}
+            isOpen={this.state.deletingActivity}
+            onConfirm={this.confirmDeleteRow}
+            onCancel={this.resetDeleteRowDialog}
           />
-        )}
-        <ConfirmDialog
-          title={"Are you sure you want to delete the activity"}
-          isOpen={this.state.deletingActivity}
-          onConfirm={this.confirmDeleteRow}
-          onCancel={this.resetDeleteRowDialog}
-        />
-      </div>
+        </CardContent>
+      </Card>
     );
   }
 }

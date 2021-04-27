@@ -11,6 +11,8 @@ import {
   Divider,
   CircularProgress,
   Backdrop,
+  Card,
+  CardContent,
 } from "@material-ui/core";
 
 import AgencyClient from "../../../api/agency-client";
@@ -142,130 +144,132 @@ export default function AgencyProfileForm() {
   };
 
   return (
-    <Grid
-      container
-      spacing={0}
-      direction="row"
-      alignItems="center"
-      justify="center"
-    >
+    <Grid container justify="center">
       <Backdrop className={classes.backdrop} open={loading}>
         <CircularProgress color="inherit" />
       </Backdrop>
 
-      <AuthContext.Consumer>
-        {({ ownerId }) => {
-          return (
-            <Formik
-              innerRef={(ref) => (formik.current = ref)}
-              initialValues={{
-                name: "",
-                phoneNumber: "",
-                address: "",
-                logoFile: "",
-                id: "",
+      <Grid item xs={4}>
+        <Card>
+          <CardContent>
+            <AuthContext.Consumer>
+              {({ ownerId }) => {
+                return (
+                  <Formik
+                    innerRef={(ref) => (formik.current = ref)}
+                    initialValues={{
+                      name: "",
+                      phoneNumber: "",
+                      address: "",
+                      logoFile: "",
+                      id: "",
+                    }}
+                    validationSchema={AgencyProfileSchema}
+                    onSubmit={async (values, { setSubmitting }) => {
+                      onFormSubmit(values, ownerId).finally(() => {
+                        setSubmitting();
+                      });
+                    }}
+                  >
+                    {({
+                      values,
+                      errors,
+                      touched,
+                      handleChange,
+                      handleBlur,
+                      handleSubmit,
+                      isSubmitting,
+                    }) => (
+                      <form onSubmit={handleSubmit}>
+                        <Box m={2}>
+                          <TextField
+                            type="text"
+                            name="name"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.name}
+                            label="Name"
+                            variant="outlined"
+                            size="small"
+                            fullWidth
+                            disabled
+                          />
+                          <Box color="error.main">
+                            {errors.address &&
+                              touched.address &&
+                              errors.address}
+                          </Box>
+                        </Box>
+                        <Box m={2}>
+                          <TextField
+                            type="text"
+                            name="address"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.address}
+                            label="Address"
+                            variant="outlined"
+                            size="small"
+                            fullWidth
+                          />
+                          <Box color="error.main">
+                            {errors.address &&
+                              touched.address &&
+                              errors.address}
+                          </Box>
+                        </Box>
+
+                        <Box m={2}>
+                          <TextField
+                            type="tel"
+                            name="phoneNumber"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.phoneNumber}
+                            label="Phone"
+                            variant="outlined"
+                            size="small"
+                            fullWidth
+                          />
+                          <Box color="error.main">
+                            {errors.phoneNumber &&
+                              touched.phoneNumber &&
+                              errors.phoneNumber}
+                          </Box>
+                        </Box>
+
+                        <Box m={2}>
+                          <Formik
+                            innerRef={logoFormik}
+                            initialValues={{
+                              file: null,
+                              logoFile: values.logoFile,
+                            }}
+                          >
+                            {logoUploadMemoizedCallback}
+                          </Formik>
+                        </Box>
+
+                        <Box m={2}>
+                          <Button
+                            type="submit"
+                            disabled={isSubmitting}
+                            variant="contained"
+                            color="primary"
+                            fullWidth
+                          >
+                            Update profile
+                          </Button>
+                        </Box>
+                      </form>
+                    )}
+                  </Formik>
+                );
               }}
-              validationSchema={AgencyProfileSchema}
-              onSubmit={async (values, { setSubmitting }) => {
-                onFormSubmit(values, ownerId).finally(() => {
-                  setSubmitting();
-                });
-              }}
-            >
-              {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                isSubmitting,
-              }) => (
-                <Grid item xs={4}>
-                  <form onSubmit={handleSubmit}>
-                    <Box m={2}>
-                      <TextField
-                        type="text"
-                        name="name"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.name}
-                        label="Name"
-                        variant="outlined"
-                        size="small"
-                        fullWidth
-                        disabled
-                      />
-                      <Box color="error.main">
-                        {errors.address && touched.address && errors.address}
-                      </Box>
-                    </Box>
-                    <Box m={2}>
-                      <TextField
-                        type="text"
-                        name="address"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.address}
-                        label="Address"
-                        variant="outlined"
-                        size="small"
-                        fullWidth
-                      />
-                      <Box color="error.main">
-                        {errors.address && touched.address && errors.address}
-                      </Box>
-                    </Box>
-
-                    <Box m={2}>
-                      <TextField
-                        type="tel"
-                        name="phoneNumber"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.phoneNumber}
-                        label="Phone"
-                        variant="outlined"
-                        size="small"
-                        fullWidth
-                      />
-                      <Box color="error.main">
-                        {errors.phoneNumber &&
-                          touched.phoneNumber &&
-                          errors.phoneNumber}
-                      </Box>
-                    </Box>
-
-                    <Box m={2}>
-                      <Formik
-                        innerRef={logoFormik}
-                        initialValues={{
-                          file: null,
-                          logoFile: values.logoFile,
-                        }}
-                      >
-                        {logoUploadMemoizedCallback}
-                      </Formik>
-                    </Box>
-
-                    <Box m={2}>
-                      <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                      >
-                        Update profile
-                      </Button>
-                    </Box>
-                  </form>
-                </Grid>
-              )}
-            </Formik>
-          );
-        }}
-      </AuthContext.Consumer>
+            </AuthContext.Consumer>
+          </CardContent>
+        </Card>
+      </Grid>
     </Grid>
   );
 }

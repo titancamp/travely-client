@@ -17,6 +17,9 @@ import { columns } from "./manage-staff-config";
 import StaffClient from "../../../api/staff-client";
 import { ManageStaffContext } from "../../../store/context";
 
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+
 export default class ManageStaff extends React.Component {
   constructor(props) {
     super(props);
@@ -139,63 +142,65 @@ export default class ManageStaff extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.state.isLoading ? (
-          <Loading />
-        ) : this.state.staffRows.length === 0 ? (
-          <div>
-            <NoItem
-              startIcon={PeopleIcon}
-              singularItemName="staff"
-              addNewItem={this.handleModalToggle}
-            />
-          </div>
-        ) : (
-          <div>
-            <Grid container spacing={2}>
-              <Grid item xs={10}>
-                <SearchPlugin
-                  searchTerm={this.state.searchTerm}
-                  updateSearchTerm={this.updateSearchTerm}
-                  placeholder={"Search staff by name, title or email"}
-                />
-              </Grid>
-              <Grid container alignItems="center" item xs={2}>
-                <Button
-                  fullWidth
-                  color="primary"
-                  variant="contained"
-                  startIcon={<GroupIcon />}
-                  onClick={this.handleModalToggle}
-                >
-                  Add staff member
-                </Button>
-              </Grid>
-              <Grid item xs={12}>
-                <ManageStaffContext.Provider
-                  value={{ onRowAction: this.handleRowAction }}
-                >
-                  <DataGrid
-                    disableColumnResize={true}
-                    rows={this.state.filteredList}
-                    columns={columns}
-                    pageSize={10}
-                    fullwidth
-                    autoHeight
-                    autoWidth
+      <Card>
+        <CardContent>
+          {this.state.isLoading ? (
+            <Loading />
+          ) : this.state.staffRows.length === 0 ? (
+            <div>
+              <NoItem
+                startIcon={PeopleIcon}
+                singularItemName="staff"
+                addNewItem={this.handleModalToggle}
+              />
+            </div>
+          ) : (
+            <div>
+              <Grid container spacing={2}>
+                <Grid item xs={10}>
+                  <SearchPlugin
+                    searchTerm={this.state.searchTerm}
+                    updateSearchTerm={this.updateSearchTerm}
+                    placeholder={"Search staff by name, title or email"}
                   />
-                </ManageStaffContext.Provider>
+                </Grid>
+                <Grid container alignItems="center" item xs={2}>
+                  <Button
+                    fullWidth
+                    color="primary"
+                    variant="contained"
+                    startIcon={<GroupIcon />}
+                    onClick={this.handleModalToggle}
+                  >
+                    Add staff member
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <ManageStaffContext.Provider
+                    value={{ onRowAction: this.handleRowAction }}
+                  >
+                    <DataGrid
+                      disableColumnResize={true}
+                      rows={this.state.filteredList}
+                      columns={columns}
+                      pageSize={10}
+                      fullwidth
+                      autoHeight
+                      autoWidth
+                    />
+                  </ManageStaffContext.Provider>
+                </Grid>
               </Grid>
-            </Grid>
-            <StaffForm
-              isOpen={this.state.isStaffModalOpen}
-              handleModalToggle={this.handleModalToggle}
-              staffModel={this.state.editingStaffMember}
-              onClose={this.onEditModalClose}
-            />
-          </div>
-        )}
-      </div>
+              <StaffForm
+                isOpen={this.state.isStaffModalOpen}
+                handleModalToggle={this.handleModalToggle}
+                staffModel={this.state.editingStaffMember}
+                onClose={this.onEditModalClose}
+              />
+            </div>
+          )}
+        </CardContent>
+      </Card>
     );
   }
 }
