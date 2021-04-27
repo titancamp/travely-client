@@ -152,7 +152,10 @@ export const columns = [
     field: "type",
     headerName: "Type",
     flex: 0.25,
-    renderCell: ({ value: { activityName } }) => activityName,
+    renderCell: ({ value }) => {
+      if (!value) return null;
+      return value.activityName;
+    },
   },
   {
     field: "name",

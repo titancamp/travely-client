@@ -34,27 +34,39 @@ const AddEditActivity = ({
   onSave,
 }) => {
   const isEditForm = Boolean(activityModel && activityModel.id);
-  const initialValues = activityModel || {
-    type: "",
-    name: "",
-    address: "",
-    contactName: "",
-    email: "",
-    phone: "",
-    website: "",
-    price: null,
-  };
+  let initialValues;
+  if (activityModel) {
+    initialValues = {
+      ...activityModel,
+      type: activityModel.type.activityName,
+    };
+  } else {
+    initialValues = {
+      type: "",
+      name: "",
+      address: "",
+      contactName: "",
+      email: "",
+      phone: "",
+      website: "",
+      price: null,
+    };
+  }
+
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: async (model, formikHelper) => {
-      console.log(initialValues);
       const data = { ...model };
       data.price = +data.price;
-      data.type = {
-        activityName: model.type,
-        agencyId: +localStorage.getItem("agencyId"),
-      };
+      if (activityModel) {
+        data.type = activityModel.type;
+      } else {
+        data.type = {
+          activityName: model.type,
+          agencyId: +localStorage.getItem("agencyId"),
+        };
+      }
       const newActivity = isEditForm
         ? await ActivityClient.editActivity(data)
         : await ActivityClient.addActivity(data);
@@ -64,9 +76,7 @@ const AddEditActivity = ({
       }
       onSave && onSave();
     },
-    onReset: () => {
-      handleSaveActivityToggle();
-    },
+    onReset: handleSaveActivityToggle,
   });
 
   const inputMb = 1;
@@ -96,6 +106,7 @@ const AddEditActivity = ({
                   helperText={formik.touched.type && formik.errors.type}
                   variant="outlined"
                   size="small"
+                  disabled={isEditForm}
                 />
               </Box>
 

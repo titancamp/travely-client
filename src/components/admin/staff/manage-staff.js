@@ -191,12 +191,14 @@ export default class ManageStaff extends React.Component {
                   </ManageStaffContext.Provider>
                 </Grid>
               </Grid>
-              <StaffForm
-                isOpen={this.state.isStaffModalOpen}
-                handleModalToggle={this.handleModalToggle}
-                staffModel={this.state.editingStaffMember}
-                onClose={this.onEditModalClose}
-              />
+              {this.state.isStaffModalOpen && (
+                <StaffForm
+                  isOpen
+                  handleModalToggle={this.handleModalToggle}
+                  staffModel={this.state.editingStaffMember}
+                  onClose={this.onEditModalClose}
+                />
+              )}
             </div>
           )}
         </CardContent>
