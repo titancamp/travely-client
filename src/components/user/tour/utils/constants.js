@@ -69,17 +69,17 @@ export const RECENT_TOURS = [
 ];
 
 export const GUESTS_COLUMNS = [
-  { field: "firstName", headerName: "First name" },
-  { field: "lastName", headerName: "Last name" },
-  { field: "phoneNumber", headerName: "Phone" },
-  { field: "email", headerName: "Email" },
-  { field: "dateOfBirth", headerName: "Date of birth" },
-  { field: "placeOfBirth", headerName: "Place of birth" },
-  { field: "passportNumber", headerName: "Passport" },
-  { field: "issuedBy", headerName: "Issued by" },
-  { field: "issuedDate", headerName: "Issue date" },
-  { field: "expireDate", headerName: "Expire date" },
-  { field: "notes", headerName: "Notes" },
+  { field: "firstName", headerName: "First name", width: 150 },
+  { field: "lastName", headerName: "Last name", width: 150 },
+  { field: "phoneNumber", headerName: "Phone", width: 150 },
+  { field: "email", headerName: "Email", width: 150 },
+  { field: "dateOfBirth", headerName: "Date of birth", width: 150 },
+  { field: "placeOfBirth", headerName: "Place of birth", width: 150 },
+  { field: "passportNumber", headerName: "Passport", width: 150 },
+  { field: "issuedBy", headerName: "Issued by", width: 150 },
+  { field: "issuedDate", headerName: "Issue date", width: 150 },
+  { field: "expireDate", headerName: "Expire date", width: 150 },
+  { field: "notes", headerName: "Notes", width: 150 },
 ];
 
 export const GUESTS_ROWS = [
@@ -114,12 +114,12 @@ export const GUESTS_ROWS = [
 ];
 
 export const ACTIVITIES_COLUMNS = [
-  { field: "activityName", headerName: "Activity name" },
-  { field: "date", headerName: "Date" },
-  { field: "time", headerName: "Time" },
-  { field: "numberOfGuests", headerName: "Number of guests" },
-  { field: "status", headerName: "Status" },
-  { field: "notes", headerName: "Notes" },
+  { field: "activityName", headerName: "Activity name", width: 150 },
+  { field: "date", headerName: "Date", width: 150 },
+  { field: "time", headerName: "Time", width: 150 },
+  { field: "numberOfGuests", headerName: "Number of guests", width: 150 },
+  { field: "status", headerName: "Status", width: 150 },
+  { field: "notes", headerName: "Notes", width: 150 },
 ];
 
 export const ACTIVITIES_ROWS = [
@@ -159,12 +159,11 @@ export const TRANSPORTATION_ROWS = [
 ];
 
 export const ASSIGN_TOUR_GUIDE_COLUMNS = [
-  { field: "destination", headerName: "Destination" },
-  { field: "activityName", headerName: "Activity name" },
-  { field: "date", headerName: "Date" },
-  { field: "tourGuideName", headerName: "Tour Guide Name" },
-  { field: "hotelName", headerName: "Hotel Information" },
-  { field: "notes", headerName: "Notes" },
+  { field: "destination", headerName: "Destination", width: 150 },
+  { field: "activityName", headerName: "Activity name", width: 150 },
+  { field: "date", headerName: "Date", width: 150 },
+  { field: "guideName", headerName: "Tour Guide Name", width: 150 },
+  { field: "notes", headerName: "Notes", width: 150 },
 ];
 
 export const ASSIGN_TOUR_GUIDE_ROWS = [
@@ -180,15 +179,13 @@ export const ASSIGN_TOUR_GUIDE_ROWS = [
 ];
 
 export const HOTEL_COLUMNS = [
-  { field: "destination", headerName: "Destination" },
-  { field: "hotelName", headerName: "Hotel name" },
-  { field: "checkinDate", headerName: "Checkin Date" },
-  { field: "checkoutDate", headerName: "Checkout Date" },
-  { field: "cancellationDate", headerName: "Cancellation Date" },
-  { field: "address", headerName: "Adress" },
-  { field: "rooms", headerName: "Room Type - Number of Rooms" },
-  { field: "bookingState", headerName: "Booking State" },
-  { field: "contactPerson", headerName: "Contact Person" },
+  { field: "destination", headerName: "Destination", width: 200 },
+  { field: "hotelName", headerName: "Hotel name", width: 200 },
+  { field: "checkinDate", headerName: "Checkin Date", width: 200 },
+  { field: "checkoutDate", headerName: "Checkout Date", width: 200 },
+  { field: "cancellationDate", headerName: "Cancellation Date", width: 200 },
+  { field: "bookingState", headerName: "Booking State", width: 200 },
+  { field: "contactPerson", headerName: "Contact Person", width: 200 },
 ];
 
 export const HOTEL_ROWS = [
