@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Box from "@material-ui/core/Box";
 import AirplanemodeActiveIcon from "@material-ui/icons/AirplanemodeActive";
@@ -9,6 +10,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import Button from "@material-ui/core/Button";
 import Drawer from "@material-ui/core/Drawer";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -16,6 +18,13 @@ import { DRAWER_WIDTH } from "../../utility";
 
 export const Sidebar = ({ pages }) => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem("AuthContext");
+    localStorage.removeItem("agencyId");
+    history.push("");
+  }, []);
 
   return (
     <Drawer
@@ -49,6 +58,9 @@ export const Sidebar = ({ pages }) => {
               <ListItemText>{title}</ListItemText>
             </ListItem>
           ))}
+          <Box mt={2}>
+            <Button onClick={handleLogout}>Logout</Button>
+          </Box>
         </List>
       </div>
     </Drawer>
