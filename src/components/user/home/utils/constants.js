@@ -1,13 +1,14 @@
 export const GRID_COLUMNS = [
-  { field: "deadline", headerName: "Deadline", width: 120 },
-  { field: "type", headerName: "Type", width: 100 },
-  { field: "name", headerName: "Name", width: 150 },
-  { field: "tour", headerName: "Tour", width: 150 },
-  { field: "contact_name", headerName: "Contact Name" },
-  { field: "email", headerName: "Email", width: 150 },
-  { field: "phone", headerName: "Phone", width: 150 },
-  { field: "website", headerName: "Website", width: 150 },
-  { field: "price", headerName: "Price", width: 150 },
+  // { field: "type", headerName: "Type", width: 100 },
+  { field: "name", headerName: "Name", width: 200 },
+  { field: "tourName", headerName: "Tour", width: 200 },
+  { field: "cancellationDeadline", headerName: "Deadline", width: 200 },
+  // { field: "tour", headerName: "Tour", width: 150 },
+  // { field: "contact_name", headerName: "Contact Name" },
+  // { field: "email", headerName: "Email", width: 150 },
+  // { field: "phone", headerName: "Phone", width: 150 },
+  // { field: "website", headerName: "Website", width: 150 },
+  // { field: "price", headerName: "Price", width: 150 },
 ];
 
 export const GRID_ROWS = [

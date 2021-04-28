@@ -11,17 +11,53 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import BeachAccessIcon from "@material-ui/icons/BeachAccess";
+import TourClient from "../../../api/tour-client";
+import BookingClient from "../../../api/booking-client";
+
+function formatDate(date) {
+  const tempDate = new Date(date);
+  return `${tempDate.getDate()}/${tempDate.getMonth()}/${tempDate.getFullYear()}`;
+}
 
 export default class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      homeData: [],
+      upcomingTours: [],
+      activeTours: [],
+      bookings: [],
     };
   }
 
   loadData() {
-    this.setState({ homeData: GRID_ROWS });
+    TourClient.getUpcomingTours(new Date().toUTCString()).then(({ data }) => {
+      this.setState({
+        ...this.state,
+        upcomingTours: data.slice(0, 3).map((d) => {
+          d.startDate = formatDate(d.startDate);
+          return d;
+        }),
+      });
+    });
+    TourClient.getActiveTours(new Date().toUTCString()).then(({ data }) => {
+      this.setState({
+        upcomingTours: data.slice(0, 3).map((d) => {
+          d.startDate = formatDate(d.startDate);
+          return d;
+        }),
+      });
+    });
+    BookingClient.getBookingsApproaching(new Date().toUTCString()).then(
+      ({ data }) => {
+        console.log(data);
+        this.setState({
+          bookings: data.map((d) => {
+            d.cancellationDeadline = formatDate(d.cancellationDeadline);
+            return d;
+          }),
+        });
+      }
+    );
   }
 
   componentDidMount() {
@@ -35,39 +71,18 @@ export default class Home extends React.Component {
             <CardHeader title="Upcoming Tours" />
             <CardContent>
               <List>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <BeachAccessIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="John Smith Family Armenia Food Tour"
-                    secondary="Jan 9, 2014"
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <BeachAccessIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Bellinis in Armenia"
-                    secondary="Jan 7, 2014"
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <BeachAccessIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Bellinis in Armenia"
-                    secondary="July 20, 2014"
-                  />
-                </ListItem>
+                {this.state.upcomingTours.map((t) => {
+                  return (
+                    <ListItem key={t.id}>
+                      <ListItemAvatar>
+                        <Avatar>
+                          <BeachAccessIcon />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText primary={t.name} secondary={t.startDate} />
+                    </ListItem>
+                  );
+                })}
               </List>
             </CardContent>
           </Card>
@@ -77,39 +92,18 @@ export default class Home extends React.Component {
             <CardHeader title="Active Tours" />
             <CardContent>
               <List>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <BeachAccessIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="John Smith Family Armenia Food Tour"
-                    secondary="Jan 9, 2014"
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <BeachAccessIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Bellinis in Armenia"
-                    secondary="Jan 7, 2014"
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <BeachAccessIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Bellinis in Armenia"
-                    secondary="July 20, 2014"
-                  />
-                </ListItem>
+                {this.state.activeTours.map((t) => {
+                  return (
+                    <ListItem key={t.id}>
+                      <ListItemAvatar>
+                        <Avatar>
+                          <BeachAccessIcon />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText primary={t.name} secondary={t.startDate} />
+                    </ListItem>
+                  );
+                })}
               </List>
             </CardContent>
           </Card>
@@ -119,7 +113,7 @@ export default class Home extends React.Component {
             <CardHeader title="Bookings with approaching cancellation deadlines" />
             <CardContent>
               <DataGrid
-                rows={this.state.homeData}
+                rows={this.state.bookings}
                 columns={GRID_COLUMNS}
                 autoHeight
                 autoPageSize
