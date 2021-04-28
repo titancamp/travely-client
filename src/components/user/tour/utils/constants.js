@@ -71,13 +71,13 @@ export const RECENT_TOURS = [
 export const GUESTS_COLUMNS = [
   { field: "firstName", headerName: "First name" },
   { field: "lastName", headerName: "Last name" },
-  { field: "phone", headerName: "Phone" },
+  { field: "phoneNumber", headerName: "Phone" },
   { field: "email", headerName: "Email" },
   { field: "dateOfBirth", headerName: "Date of birth" },
   { field: "placeOfBirth", headerName: "Place of birth" },
-  { field: "passport", headerName: "Passport" },
+  { field: "passportNumber", headerName: "Passport" },
   { field: "issuedBy", headerName: "Issued by" },
-  { field: "issueDate", headerName: "Issue date" },
+  { field: "issuedDate", headerName: "Issue date" },
   { field: "expireDate", headerName: "Expire date" },
   { field: "notes", headerName: "Notes" },
 ];
