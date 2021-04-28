@@ -40,6 +40,9 @@ export const TourDetails = ({ id, onClose }) => {
           data.activities.push(b);
         }
       });
+      data.clients.forEach((c) => {
+        c.dateOfBirth = formatDate(c.dateOfBirth);
+      });
       setTourData(data);
     });
   }, []);
@@ -161,6 +164,42 @@ export const TourDetails = ({ id, onClose }) => {
                           <TableCell align="right">
                             {row.bookingService.notes}
                           </TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+          </Box>
+          <Box mt={2} width="100%">
+            <Grid item xs={12}>
+              <Typography variant="overline" color="textSecondary">
+                Guests
+              </Typography>
+              <TableContainer>
+                <Table aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>First name</TableCell>
+                      <TableCell>Last name</TableCell>
+                      <TableCell>Email</TableCell>
+                      <TableCell>Date of birth</TableCell>
+                      <TableCell>Place of birth</TableCell>
+                      <TableCell>Notes</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {tourData &&
+                      tourData.clients.map((row) => (
+                        <TableRow key={row.id}>
+                          <TableCell component="th" scope="row">
+                            {row.firstName}
+                          </TableCell>
+                          <TableCell>{row.lastName}</TableCell>
+                          <TableCell>{row.email}</TableCell>
+                          <TableCell>{row.dateOfBirth}</TableCell>
+                          <TableCell>{row.placeOfBirth}</TableCell>
+                          <TableCell>{row.notes}</TableCell>
                         </TableRow>
                       ))}
                   </TableBody>
