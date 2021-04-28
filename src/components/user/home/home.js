@@ -47,17 +47,15 @@ export default class Home extends React.Component {
         }),
       });
     });
-    BookingClient.getBookingsApproaching(new Date().toUTCString()).then(
-      ({ data }) => {
-        console.log(data);
-        this.setState({
-          bookings: data.map((d) => {
-            d.cancellationDeadline = formatDate(d.cancellationDeadline);
-            return d;
-          }),
-        });
-      }
-    );
+    BookingClient.getBookings(new Date().toUTCString()).then(({ data }) => {
+      console.log(data);
+      this.setState({
+        bookings: data.map((d) => {
+          d.cancellationDeadline = formatDate(d.cancellationDeadline);
+          return d;
+        }),
+      });
+    });
   }
 
   componentDidMount() {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import Grid from "@material-ui/core/Grid";
 import { TOUR_COLUMNS } from "./utils/constants";
@@ -8,6 +8,10 @@ import { TourDetails } from "./tour-details";
 
 const Tour = () => {
   const [tourData, setTourData] = useState([]);
+  const [tourDetails, setTourDetails] = useState({
+    modalOpen: false,
+    tourId: null,
+  });
 
   useEffect(() => {
     TourClient.getAllTours().then(({ data }) => {
@@ -23,6 +27,13 @@ const Tour = () => {
     });
   }, []);
 
+  const handleRowClick = useCallback(({ row }) => {
+    setTourDetails({
+      tourId: row.id,
+      modalOpen: true,
+    });
+  }, []);
+
   return (
     <Grid container spacing={4}>
       <Grid item xs={12}>
@@ -30,12 +41,13 @@ const Tour = () => {
       </Grid>
       <Grid item xs={12}>
         <DataGrid
+          onRowClick={handleRowClick}
           rows={tourData}
           columns={TOUR_COLUMNS}
           autoHeight
           autoPageSize
         />
-        <TourDetails />
+        {tourDetails.modalOpen && <TourDetails id={tourDetails.tourId} />}
       </Grid>
     </Grid>
   );

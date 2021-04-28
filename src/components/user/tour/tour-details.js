@@ -2,7 +2,7 @@ import React from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions"
+import DialogActions from "@material-ui/core/DialogActions";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -13,7 +13,8 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import Button from "@material-ui/core/Button";
 
-export const TourDetails = () => {
+export const TourDetails = ({ id }) => {
+  console.log(id);
   const [open, setOpen] = React.useState(true);
   return (
     <Dialog open={open} maxWidth="md" fullWidth>
