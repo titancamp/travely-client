@@ -66,6 +66,7 @@ const mapTourCreateModel = (tour) => {
     status: +activity.status,
     bookingService: {
       serviceId: activity.activityId,
+      serviceName: activity.activityName,
       bookingDate: activity.date,
       bookingTime: activity.time,
       numberOfGuests: activity.numberOfGuests,
