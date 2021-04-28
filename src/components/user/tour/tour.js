@@ -34,6 +34,13 @@ const Tour = () => {
     });
   }, []);
 
+  const handleCloseModal = useCallback(() => {
+    setTourDetails({
+      tourId: null,
+      modalOpen: false,
+    });
+  }, []);
+
   return (
     <Grid container spacing={4}>
       <Grid item xs={12}>
@@ -47,7 +54,9 @@ const Tour = () => {
           autoHeight
           autoPageSize
         />
-        {tourDetails.modalOpen && <TourDetails id={tourDetails.tourId} />}
+        {tourDetails.modalOpen && (
+          <TourDetails onClose={handleCloseModal} id={tourDetails.tourId} />
+        )}
       </Grid>
     </Grid>
   );

@@ -4,6 +4,9 @@ const TourClient = {
   getAllTours: function () {
     return ApiClient.get("/api/v1/tour");
   },
+  getTourById: function (id) {
+    return ApiClient.get(`/api/v1/tour/${id}`);
+  },
   getUpcomingTours: function (startDate) {
     return ApiClient.get(`/api/v1/tour?startDate=${startDate}`);
   },
