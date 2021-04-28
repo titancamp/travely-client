@@ -18,13 +18,6 @@ import { DRAWER_WIDTH } from "../../utility";
 
 export const Sidebar = ({ pages }) => {
   const classes = useStyles();
-  const history = useHistory();
-
-  const handleLogout = useCallback(() => {
-    localStorage.removeItem("AuthContext");
-    localStorage.removeItem("agencyId");
-    history.push("");
-  }, []);
 
   return (
     <Drawer
@@ -58,9 +51,6 @@ export const Sidebar = ({ pages }) => {
               <ListItemText>{title}</ListItemText>
             </ListItem>
           ))}
-          <Box mt={2}>
-            <Button onClick={handleLogout}>Logout</Button>
-          </Box>
         </List>
       </div>
     </Drawer>

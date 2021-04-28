@@ -1,16 +1,23 @@
-import React, { useContext } from "react";
-import { Route, Switch } from "react-router-dom";
+import React, { useContext, useCallback } from "react";
+import { Route, Switch, useHistory } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { DRAWER_WIDTH } from "../../utility";
 import Badge from "@material-ui/core/Badge";
 import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import { NotificationContext } from "../../store/notificationContext";
+
+const CustomButton = withStyles({
+  root: {
+    textTransform: "none",
+  },
+})(Button);
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -37,6 +44,13 @@ export const ContentArea = ({
 }) => {
   const classes = useStyles();
   const notificationService = useContext(NotificationContext);
+  const history = useHistory();
+
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem("AuthContext");
+    localStorage.removeItem("agencyId");
+    history.push("");
+  }, []);
 
   return (
     <div className={classes.contentArea}>
@@ -60,6 +74,9 @@ export const ContentArea = ({
                     <NotificationsNoneIcon />
                   </Badge>
                 </IconButton>
+                <CustomButton color="inherit" onClick={handleLogout}>
+                  Log out
+                </CustomButton>
               </Toolbar>
             </AppBar>
             <br />
