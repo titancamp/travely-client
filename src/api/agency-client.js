@@ -8,7 +8,7 @@ const AgencyClient = {
     });
   },
   update: function (formData) {
-    return ApiClient.patch("/api/agency", formData, {
+    return ApiClient.put("/api/agency", formData, {
       baseURL: appConfig.authURL,
     });
   },

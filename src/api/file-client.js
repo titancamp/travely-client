@@ -1,6 +1,6 @@
 import ApiClient from "./api";
 
-const FILE_SERVICE_URL = process.env.REACT_APP_FILE_SERVICE_URL;
+export const FILE_SERVICE_URL = process.env.REACT_APP_FILE_SERVICE_URL;
 
 const FileClient = {
   upload: function (companyId, formData) {

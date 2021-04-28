@@ -68,7 +68,7 @@ const Login = (props) => {
               .then((result) => {
                 data.role = role;
                 login(data);
-                const path = role === "Admin" ? "admin" : "user";
+                const path = role === "Admin" ? "admin/profile" : "user/home";
                 history.push(`/${path}/`);
               })
               .catch((error) => {
