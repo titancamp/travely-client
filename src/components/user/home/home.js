@@ -13,6 +13,7 @@ import Avatar from "@material-ui/core/Avatar";
 import BeachAccessIcon from "@material-ui/icons/BeachAccess";
 import TourClient from "../../../api/tour-client";
 import BookingClient from "../../../api/booking-client";
+import BOOKING_STATUSES from "../../../utils/booking-statuses";
 
 function formatDate(date) {
   const tempDate = new Date(date);
@@ -50,10 +51,25 @@ export default class Home extends React.Component {
     BookingClient.getBookings(new Date().toUTCString()).then(({ data }) => {
       console.log(data);
       this.setState({
-        bookings: data.map((d) => {
-          d.cancellationDeadline = formatDate(d.cancellationDeadline);
-          return d;
-        }),
+        bookings: data
+          .map((b) => {
+            if (b.type === 1) {
+              b.name = b.bookingProperty.propertyName;
+              b.deadline = formatDate(b.bookingProperty.cancellationDeadline);
+              b.notes = b.bookingProperty.notes;
+              b.startDate = new Date(b.bookingProperty.checkInDate);
+            } else if (b.type === 2) {
+              b.deadline = formatDate(b.bookingService.bookingDate);
+              b.notes = b.bookingService.notes;
+              b.name = b.bookingService.serviceName;
+              b.startDate = new Date(b.bookingService.bookingDate);
+            }
+            b.status = BOOKING_STATUSES.properties[b.status];
+            return b;
+          })
+          .sort((a, b) => {
+            return a.startDate.getTime() - b.startDate.getTime();
+          }),
       });
     });
   }
