@@ -19,3 +19,12 @@ export function getActionName(pageName) {
       return "";
   }
 }
+
+export function downloadFile(fileUrl){
+  const link = document.createElement('a');
+  link.target = '_blank';
+  link.href = fileUrl;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
