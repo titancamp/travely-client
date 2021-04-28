@@ -104,3 +104,14 @@ spec:
                 name: schedulermanager-api-service
                 port:
                   number: 80
+
+    - host: id.travely.am
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: identitymanager-webapi-service
+                port:
+                  number: 80
