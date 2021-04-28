@@ -70,7 +70,7 @@ const mapTourCreateModel = (tour) => {
       bookingDate: activity.date,
       bookingTime: activity.time,
       numberOfGuests: activity.numberOfGuests,
-      notes: activity.notes
+      notes: activity.notes,
     },
   }));
 
@@ -91,11 +91,12 @@ const mapTourCreateModel = (tour) => {
   };
 };
 
-const saveTour = async (tourModel) => {
+const saveTour = async (tourModel, onFinish) => {
   await TourClient.createTour(mapTourCreateModel(tourModel));
+  onFinish();
 };
 
-const CreateTour = () => {
+const CreateTour = ({ onFinish }) => {
   const classes = useStyles();
   const [tour, setTour] = useState(initialTourState);
 
@@ -142,7 +143,7 @@ const CreateTour = () => {
     setTour({ ...tour, [currStep]: data });
     console.log("your tour model: ", tour);
 
-    await saveTour(tour);
+    await saveTour(tour, onFinish);
 
     handleClose();
   };

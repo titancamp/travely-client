@@ -41,10 +41,24 @@ const Tour = () => {
     });
   }, []);
 
+  const handleFinish = useCallback(() => {
+    TourClient.getAllTours().then(({ data }) => {
+      setTourData(
+        data.map((d) => {
+          const startDate = new Date(d.startDate);
+          const endDate = new Date(d.endDate);
+          d.startDate = `${startDate.getDate()}/${startDate.getMonth()}/${startDate.getFullYear()}`;
+          d.endDate = `${endDate.getDate()}/${endDate.getMonth()}/${endDate.getFullYear()}`;
+          return d;
+        })
+      );
+    });
+  }, []);
+
   return (
     <Grid container spacing={4}>
       <Grid item xs={12}>
-        <CreateTour />
+        <CreateTour onFinish={handleFinish} />
       </Grid>
       <Grid item xs={12}>
         <DataGrid
@@ -52,7 +66,7 @@ const Tour = () => {
           rows={tourData}
           columns={TOUR_COLUMNS}
           autoHeight
-          autoPageSize
+          pageSize={10}
         />
         {tourDetails.modalOpen && (
           <TourDetails onClose={handleCloseModal} id={tourDetails.tourId} />
