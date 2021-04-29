@@ -26,6 +26,6 @@ RUN npm install -g http-server
 
 #start
 USER node
-ENTRYPOINT http-server build
+ENTRYPOINT http-server build -a 0.0.0.0
 
 
