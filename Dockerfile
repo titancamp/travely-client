@@ -22,10 +22,10 @@ RUN  rm -rf $APP
 
 #prepare
 EXPOSE 5000
-RUN npm install -g serve
+RUN npm install -g http-server
 
 #start
 USER node
-ENTRYPOINT serve -s build
+ENTRYPOINT http-server build
 
 
