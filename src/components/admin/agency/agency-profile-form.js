@@ -99,7 +99,7 @@ export default function AgencyProfileForm() {
   const getAgencyProfileSubmitData = (values) => {
     const data = {
       phoneNumber: values.phoneNumber,
-      address: values.phoneNumber,
+      address: values.address,
     };
     if (values.logoFile) {
       data.logoFile = values.logoFile;
