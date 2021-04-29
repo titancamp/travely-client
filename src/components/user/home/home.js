@@ -33,7 +33,6 @@ export default class Home extends React.Component {
   loadData() {
     TourClient.getUpcomingTours(new Date().toUTCString()).then(({ data }) => {
       this.setState({
-        ...this.state,
         upcomingTours: data.slice(0, 3).map((d) => {
           d.startDate = formatDate(d.startDate);
           return d;
@@ -42,15 +41,15 @@ export default class Home extends React.Component {
     });
     TourClient.getActiveTours(new Date().toUTCString()).then(({ data }) => {
       this.setState({
-        upcomingTours: data.slice(0, 3).map((d) => {
+        activeTours: data.slice(0, 3).map((d) => {
           d.startDate = formatDate(d.startDate);
           return d;
         }),
       });
     });
     BookingClient.getBookings(new Date().toUTCString()).then(({ data }) => {
-      console.log(data);
       this.setState({
+        ...this.state,
         bookings: data
           .map((b) => {
             if (b.type === 1) {
