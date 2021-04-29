@@ -1,5 +1,5 @@
 {
-  "baseURL": "https://localhost:8001",
-  "authURL": "http://localhost:8600",
-  "notificationURL": "https://localhost:8201"
+  "baseURL": "http://shtemaran.travely.am:8000",
+  "authURL": "http://shtemaran.travely.am:8600",
+  "notificationURL": "http://shtemaran.travely.am:8200"
 }
