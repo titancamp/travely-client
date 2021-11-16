@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: travely-dev
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: localhost:32000/travely/frontend
+        env:
+        - name: APP_BASE_URL
+          value: http://dev.travely.am/app
+        - name: APP_AUTH_URL
+          value: http://dev.travely.am/auth
+        - name: APP_NOTIFICATION_URL
+          value: http://dev.travely.am/notification
+        - name: APP_FILE_SERVICE_URL
+          value: http://dev.travely.am/files
+        ports:
+        - containerPort: 5000

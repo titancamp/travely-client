@@ -9,7 +9,8 @@ import {
 } from "@material-ui/core";
 import AttachmentIcon from "@material-ui/icons/Attachment";
 import { downloadFile } from "../../../../utility";
-const FILE_SERVICE_URL = process.env.REACT_APP_FILE_SERVICE_URL;
+import appConfig from "../../../../app-config.json";
+const FILE_SERVICE_URL = process.env.REACT_APP_FILE_SERVICE_URL || appConfig.fileServiceURL;
 
 function AttachmentListItem({ attachment, onAttachmentRemove }) {
   const handleAttachmentRemove = useCallback(

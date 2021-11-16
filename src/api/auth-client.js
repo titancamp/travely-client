@@ -1,6 +1,8 @@
 import ApiClient from "./api";
 import appConfig from "../app-config.json";
 
+const authURL = process.env.REACT_APP_AUTH_URL || appConfig.authURL;
+
 const AuthClient = {
   login: function (email, password) {
     var urlencoded = new URLSearchParams();
@@ -12,7 +14,7 @@ const AuthClient = {
     urlencoded.append("scope", "offline_access");
 
     return ApiClient.post("/connect/token", urlencoded, {
-      baseURL: appConfig.authURL,
+      baseURL: authURL,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
@@ -33,25 +35,25 @@ const AuthClient = {
   },
   register: function (formData) {
     return ApiClient.post("/api/account/register", formData, {
-      baseURL: appConfig.authURL,
+      baseURL: authURL,
     });
   },
   confirm: function (formData) {
     return ApiClient.get(
       `/api/account/confirm?email=${formData.email}&token=${formData.token}`,
       {
-        baseURL: appConfig.authURL,
+        baseURL: authURL,
       }
     );
   },
   forgetPassword: function (formData) {
     return ApiClient.post("/api/account/password/forget", formData, {
-      baseURL: appConfig.authURL,
+      baseURL: authURL,
     });
   },
   resetPassword: function (formData) {
     return ApiClient.post("/api/account/password/reset", formData, {
-      baseURL: appConfig.authURL,
+      baseURL: authURL,
     });
   },
 };

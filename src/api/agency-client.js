@@ -1,15 +1,17 @@
 import ApiClient from "./api";
 import appConfig from "../app-config.json";
 
+const authURL = process.env.REACT_APP_AUTH_URL || appConfig.authURL;
+
 const AgencyClient = {
   get: function () {
     return ApiClient.get("/api/agency", {
-      baseURL: appConfig.authURL,
+      baseURL: authURL,
     });
   },
   update: function (formData) {
     return ApiClient.put("/api/agency", formData, {
-      baseURL: appConfig.authURL,
+      baseURL: authURL,
     });
   },
 };

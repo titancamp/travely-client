@@ -5,10 +5,10 @@ import AuthClient from "./auth-client";
 
 import appConfig from "../app-config.json";
 
-//const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const baseURL = process.env.REACT_APP_BASE_URL || appConfig.baseURL;
 
 const ApiClient = axios.create({
-  baseURL: appConfig.baseURL,
+  baseURL,
   headers: {
     "Content-Type": "application/json",
   },

@@ -1,30 +1,32 @@
 import ApiClient from "./api";
 import appConfig from "../app-config.json";
 
+const authURL = process.env.REACT_APP_AUTH_URL || appConfig.authURL;
+
 const StaffClient = {
   get: function (id) {
     return ApiClient.get(`/api/users/${id}`, {
-      baseURL: appConfig.authURL,
+      baseURL: authURL,
     });
   },
   create: function (formData) {
     return ApiClient.post(`/api/users`, formData, {
-      baseURL: appConfig.authURL,
+      baseURL: authURL,
     });
   },
   update: function (id, formData) {
     return ApiClient.put(`/api/users/${id}`, formData, {
-      baseURL: appConfig.authURL,
+      baseURL: authURL,
     });
   },
   delete: function (id) {
     return ApiClient.delete(`/api/users/${id}`, {
-      baseURL: appConfig.authURL,
+      baseURL: authURL,
     });
   },
   getAll: function () {
     return ApiClient.get("/api/users", {
-      baseURL: appConfig.authURL,
+      baseURL: authURL,
     });
   },
 };
