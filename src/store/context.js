@@ -1,3 +1,8 @@
+/**
+ * Removable on the upcoming commits.
+ */
+
+/*
 import { createContext } from "react";
 
 export const AuthContext = createContext({
@@ -26,3 +31,4 @@ export const ManageActivitiesContext = createContext({
   onRowAction: (actionType, rowData) =>
     console.log(`Row action ${actionType} executed`),
 });
+*/

@@ -1,3 +1,8 @@
+/**
+ * Removable on the upcoming commits.
+ */
+
+/*
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { createContext } from "react";
 import appConfig from "../app-config.json";
@@ -36,3 +41,4 @@ export const NotificationContext = createContext({
     },
   ],
 });
+*/

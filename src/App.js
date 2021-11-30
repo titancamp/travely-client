@@ -1,6 +1,6 @@
 import React from "react";
 import AppRouting from "./app-routing";
-import { AuthContext } from "./store/context";
+// import { AuthContext } from "./store/context";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -33,9 +33,9 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <AuthContext.Provider value={this.state}>
+      // <AuthContext.Provider value={this.state}>
         <AppRouting />
-      </AuthContext.Provider>
+      // </AuthContext.Provider>
     );
   }
 }
