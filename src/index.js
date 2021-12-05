@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import CssBaseline from '@mui/material/CssBaseline';
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
