@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import CssBaseline from '@mui/material/CssBaseline';
 
-import App from "./App";
+import App from "./src_V2/app/App";
 import reportWebVitals from "./reportWebVitals";
-import store from "./store/index";
+import store from "./src_V2/store/index";
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,0 +1,159 @@
+import React, { Fragment, useCallback, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { styled } from "@mui/material/styles";
+import {
+  Fab,
+  Box,
+  List,
+  Collapse,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Drawer as MuiDrawer,
+} from "@mui/material";
+
+import {
+  ExpandLess,
+  ExpandMore,
+  ChevronLeft,
+  ChevronRight,
+} from "@mui/icons-material";
+
+import { COLORS, CONTAINER_SIZES } from "../../utils/constants";
+
+const boxStyles = {
+  display: "inline-block",
+  position: "relative",
+};
+
+const fabStyles = {
+  width: "40px",
+  height: "40px",
+  zIndex: "9999",
+  right: "-20px",
+  position: "absolute",
+  backgroundColor: COLORS.whiteColor,
+};
+
+const listStyles = (open) => ({
+  marginTop: "36px",
+  ...(!open && { display: "none" }),
+});
+
+const listItemStyles = {
+  paddingLeft: "32px",
+  backgroundColor: COLORS.lightGrayColor,
+};
+
+const openedMixin = (theme) => ({
+  width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: "hidden",
+});
+
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: "hidden",
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up("sm")]: {
+    width: `calc(${theme.spacing(4)} + 1px)`,
+  },
+  '&: hover': {
+    width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
+  }
+});
+
+const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
+  width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && {
+    ...openedMixin(theme),
+    "& .MuiDrawer-paper": openedMixin(theme),
+  }),
+  ...(!open && {
+    ...closedMixin(theme),
+    "& .MuiDrawer-paper": closedMixin(theme),
+  }),
+}));
+
+function MenuItem({ page }) {
+  return (
+    <ListItem button to={page.path} component={NavLink} key={page.title}>
+      <ListItemIcon>{page.icon}</ListItemIcon>
+      <ListItemText primary={page.title} />
+    </ListItem>
+  );
+}
+
+function ExpandableMenuItem({ page, expanded, setExpandedState }) {
+  return (
+    <Fragment key={page.title}>
+      <ListItem
+        button
+        onClick={setExpandedState.bind(null, page.collapsibleId)}
+      >
+        <ListItemIcon>{page.icon}</ListItemIcon>
+        <ListItemText primary={page.title} />
+        {expanded[page.collapsibleId] ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={expanded[page.collapsibleId]}>
+        <List component="div" disablePadding>
+          {page.subPages.map((subPage) => (
+            <ListItem button sx={listItemStyles} key={subPage.title}>
+              <ListItemText primary={subPage.title} />
+            </ListItem>
+          ))}
+        </List>
+      </Collapse>
+    </Fragment>
+  );
+}
+
+export default function Sidebar({ pageConfigs, open, setOpen }) {
+  const [expanded, setExpanded] = useState({});
+  const openCloseHandler = useCallback(() => setOpen(!open), [open, setOpen]);
+
+  const setExpandedState = useCallback(
+    (id) => {
+      if (open) {
+        setExpanded({
+          ...expanded,
+          [id]: !expanded[id],
+        });
+      }
+    },
+    [open, expanded]
+  );
+
+  return (
+    <Box style={boxStyles}>
+      <Fab onClick={openCloseHandler} color={"inherit"} sx={fabStyles}>
+        {open ? <ChevronLeft /> : <ChevronRight />}
+      </Fab>
+      <Drawer variant="permanent" anchor="left" open={open}>
+        <List style={listStyles(open)}>
+          {pageConfigs.map((page) =>
+            page.path ? (
+              <MenuItem page={page} key={page.title} />
+            ) : (
+              <ExpandableMenuItem
+                page={page}
+                key={page.title}
+                expanded={expanded}
+                setExpandedState={setExpandedState}
+              />
+            )
+          )}
+        </List>
+      </Drawer>
+    </Box>
+  );
+}
