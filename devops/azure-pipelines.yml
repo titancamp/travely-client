@@ -40,4 +40,4 @@ stages:
                 action: 'deploy'
                 kubernetesServiceConnection: 'dev-dev-travely-am-1637185039689'
                 namespace: 'dev-travely-am'
-                manifests: '$(bake.manifestsBundle)'
+                manifests: $(bake.manifestsBundle)
