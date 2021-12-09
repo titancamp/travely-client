@@ -5,6 +5,8 @@ import {
   Fab,
   Box,
   List,
+  Zoom,
+  Tooltip,
   Collapse,
   ListItem,
   ListItemIcon,
@@ -64,9 +66,12 @@ const closedMixin = (theme) => ({
   [theme.breakpoints.up("sm")]: {
     width: `calc(${theme.spacing(4)} + 1px)`,
   },
-  '&: hover': {
+  "&: hover": {
     width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
-  }
+    ul: {
+      display: "initial !important",
+    },
+  },
 });
 
 const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
@@ -93,11 +98,18 @@ function MenuItem({ page }) {
   );
 }
 
-function ExpandableMenuItem({ page, expanded, setExpandedState }) {
+function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
+  function mouseEnterHandler() {
+    if (!open && !expanded[page.collapsibleId]) {
+      setExpandedState(page.collapsibleId);
+    }
+  }
+
   return (
     <Fragment key={page.title}>
       <ListItem
         button
+        onMouseEnter={mouseEnterHandler}
         onClick={setExpandedState.bind(null, page.collapsibleId)}
       >
         <ListItemIcon>{page.icon}</ListItemIcon>
@@ -106,9 +118,9 @@ function ExpandableMenuItem({ page, expanded, setExpandedState }) {
       </ListItem>
       <Collapse in={expanded[page.collapsibleId]}>
         <List component="div" disablePadding>
-          {page.subPages.map((subPage) => (
-            <ListItem button sx={listItemStyles} key={subPage.title}>
-              <ListItemText primary={subPage.title} />
+          {page.subPages.map(({ title }) => (
+            <ListItem button sx={listItemStyles} key={title}>
+              <ListItemText primary={title} />
             </ListItem>
           ))}
         </List>
@@ -123,21 +135,25 @@ export default function Sidebar({ pageConfigs, open, setOpen }) {
 
   const setExpandedState = useCallback(
     (id) => {
-      if (open) {
-        setExpanded({
-          ...expanded,
-          [id]: !expanded[id],
-        });
-      }
+      setExpanded({
+        ...expanded,
+        [id]: !expanded[id],
+      });
     },
-    [open, expanded]
+    [expanded]
   );
 
   return (
     <Box style={boxStyles}>
-      <Fab onClick={openCloseHandler} color={"inherit"} sx={fabStyles}>
-        {open ? <ChevronLeft /> : <ChevronRight />}
-      </Fab>
+      <Tooltip
+        placement={"right"}
+        TransitionComponent={Zoom}
+        title={!open ? "Expand" : "Collapse"}
+      >
+        <Fab onClick={openCloseHandler} color={"inherit"} sx={fabStyles}>
+          {open ? <ChevronLeft /> : <ChevronRight />}
+        </Fab>
+      </Tooltip>
       <Drawer variant="permanent" anchor="left" open={open}>
         <List style={listStyles(open)}>
           {pageConfigs.map((page) =>
@@ -145,6 +161,7 @@ export default function Sidebar({ pageConfigs, open, setOpen }) {
               <MenuItem page={page} key={page.title} />
             ) : (
               <ExpandableMenuItem
+                open={open}
                 page={page}
                 key={page.title}
                 expanded={expanded}
