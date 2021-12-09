@@ -40,7 +40,7 @@ stages:
                   image.tag:$(Build.BuildId)
                   ingress.enabled:false
                   fullnameOverride:travely-front-dev
-                  
+                  serviceAccount.create:false
             - task: KubernetesManifest@0
               name: deploy
               inputs:
