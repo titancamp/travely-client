@@ -35,7 +35,12 @@ stages:
                 action: bake
                 renderType: helm
                 helmChart: "app-0.1.0.tgz"
-                overrides: "image.repository:travely/front"
+                overrides: |
+                  image.repository:travely/front
+                  image.tag:$(Build.BuildId)
+                  ingress.enabled:false
+                  fullnameOverride:travely-front-dev
+                  
             - task: KubernetesManifest@0
               name: deploy
               inputs:
