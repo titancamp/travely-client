@@ -42,9 +42,18 @@ stages:
                   fullnameOverride:travely-front-dev
                   serviceAccount.create:false
             - task: KubernetesManifest@0
+              inputs:
+                action: 'createSecret'
+                kubernetesServiceConnection: 'dev-dev-travely-am-1637185039689'
+                namespace: 'dev-travely-am'
+                secretType: 'dockerRegistry'
+                secretName: 'regcred'
+                dockerRegistryEndpoint: 'registry.travely.am'
+            - task: KubernetesManifest@0
               name: deploy
               inputs:
                 action: 'deploy'
                 kubernetesServiceConnection: 'dev-dev-travely-am-1637185039689'
                 namespace: 'dev-travely-am'
                 manifests: $(bake.manifestsBundle)
+
