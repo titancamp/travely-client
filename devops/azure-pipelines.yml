@@ -36,7 +36,7 @@ stages:
                 renderType: helm
                 helmChart: "app-0.1.0.tgz"
                 overrides: |
-                  image.repository:travely/front
+                  image.repository:registry.travely.am/travely/front
                   image.tag:$(Build.BuildId)
                   ingress.enabled:false
                   fullnameOverride:travely-front-dev
