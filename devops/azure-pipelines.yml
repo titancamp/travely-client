@@ -30,14 +30,16 @@ stages:
           steps:
             - script: "helm registry login registry.travely.am -u admin -p $(registry_travely_am_password) && helm pull oci://registry.travely.am/helm-charts/app --version 0.1.0"
             - task: KubernetesManifest@0
+              name: bake
               inputs:
                 action: bake
                 renderType: helm
                 helmChart: "app-0.1.0.tgz"
                 overrides: "image.repository:travely/front"
             - task: KubernetesManifest@0
+              name: deploy
               inputs:
                 action: 'deploy'
                 kubernetesServiceConnection: 'dev-dev-travely-am-1637185039689'
                 namespace: 'dev-travely-am'
-                manifests: $(manifestsBundle)
+                manifests: $(bake.manifestsBundle)
