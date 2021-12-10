@@ -51,7 +51,7 @@ const openedMixin = (theme) => ({
   width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
+    duration: theme.transitions.duration.standard,
   }),
   overflowX: "hidden",
 });
@@ -59,7 +59,7 @@ const openedMixin = (theme) => ({
 const closedMixin = (theme) => ({
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
+    duration: theme.transitions.duration.standard,
   }),
   overflowX: "hidden",
   width: `calc(${theme.spacing(7)} + 1px)`,
@@ -105,12 +105,16 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
     }
   }
 
+  function itemExpandingHandler(){
+    setExpandedState(page.collapsibleId);
+  }
+
   return (
-    <Fragment key={page.title}>
+    <>
       <ListItem
         button
+        onClick={itemExpandingHandler}
         onMouseEnter={mouseEnterHandler}
-        onClick={setExpandedState.bind(null, page.collapsibleId)}
       >
         <ListItemIcon>{page.icon}</ListItemIcon>
         <ListItemText primary={page.title} />
@@ -125,7 +129,7 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
           ))}
         </List>
       </Collapse>
-    </Fragment>
+    </>
   );
 }
 
