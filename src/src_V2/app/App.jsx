@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, useRoutes } from "react-router-dom";
+import { CssBaseline } from '@mui/material';
 
 import routesConfig from "./routes";
 
@@ -15,6 +16,7 @@ const AppWrapper = () => {
 
   return (
     <Router>
+      <CssBaseline />
       <App />
     </Router>
   );

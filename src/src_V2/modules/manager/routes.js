@@ -1,9 +1,11 @@
+import Todo from './todo';
 import Dashboard from './dashboard';
-import TODO from './todo';
+import Accommodation from './supplier-management/accommodation';
 
 const ROUTES = {
-  DASHBOARD: "dashboard",
   TODO: "todo",
+  DASHBOARD: "dashboard",
+  ACCOMMODATION: "accommodation",
 };
 
 /**
@@ -12,7 +14,8 @@ const ROUTES = {
 export default function routeConfigs() {
 
   return [
+    {path: ROUTES.TODO, element: <Todo />,},
     {path: ROUTES.DASHBOARD, element: <Dashboard />,},
-    {path: ROUTES.TODO, element: <TODO />,},
+    {path: ROUTES.ACCOMMODATION, element: <Accommodation />,},
   ];
 }

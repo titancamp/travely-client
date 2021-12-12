@@ -91,7 +91,7 @@ const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
 
 function MenuItem({ page }) {
   return (
-    <ListItem button to={page.path} component={NavLink} key={page.title}>
+    <ListItem button to={page.path} component={NavLink}>
       <ListItemIcon>{page.icon}</ListItemIcon>
       <ListItemText primary={page.title} />
     </ListItem>
@@ -105,7 +105,7 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
     }
   }
 
-  function itemExpandingHandler(){
+  function itemExpandingHandler() {
     setExpandedState(page.collapsibleId);
   }
 
@@ -122,8 +122,14 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
       </ListItem>
       <Collapse in={expanded[page.collapsibleId]}>
         <List component="div" disablePadding>
-          {page.subPages.map(({ title }) => (
-            <ListItem button sx={listItemStyles} key={title}>
+          {page.subPages.map(({ title, path }) => (
+            <ListItem
+              button
+              to={path}
+              key={title}
+              sx={listItemStyles}
+              component={NavLink}
+            >
               <ListItemText primary={title} />
             </ListItem>
           ))}
