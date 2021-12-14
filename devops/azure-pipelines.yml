@@ -32,16 +32,18 @@ stages:
           steps:
             - task: HelmInstaller@1
               displayName: Helm installer
-            - task: HelmDeploy@0
-              inputs:
-                connectionType: 'Kubernetes Service Connection'
-                kubernetesServiceConnection: 'dev-dev-travely-am-1639235401610'
-                namespace: 'dev-travely-am'
-                command: 'install'
-                chartType: 'Name'
-                chartName: 'oci://registry.travely.am/helm-charts/app'
-                chartVersion: '0.1.0'
-                releaseName: 'front'
+            - script: "helm install --namespace dev-travely-am --set 'image.repository=registry.travely.am/travely/front,image.tag=87,ingress.enabled=true,ingress.hosts[0].host=front.travely.am,ingress.hosts[0].paths[0].pathType=Prefix,ingress.tls[0].hosts[0].host=front.travely.am,ingress.tls[0].secretName=front-travely-am-cert,serviceAccount.create=false' front --wait oci://registry.travely.am/helm-charts/app --version 0.1.0 --dry-run"
+            
+            # - task: HelmDeploy@0
+            #   inputs:
+            #     connectionType: 'Kubernetes Service Connection'
+            #     kubernetesServiceConnection: 'dev-dev-travely-am-1639235401610'
+            #     namespace: 'dev-travely-am'
+            #     command: 'install'
+            #     chartType: 'Name'
+            #     chartName: 'oci://registry.travely.am/helm-charts/app'
+            #     chartVersion: '0.1.0'
+            #     releaseName: 'front'
                 # overrideValues: |
                 #   image.repository=registry.travely.am/travely/front
                 #   image.tag=$(Build.BuildId)
