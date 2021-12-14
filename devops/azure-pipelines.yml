@@ -51,7 +51,7 @@ stages:
                   ingress.hosts[0].host=$(HOST)
                   ingress.hosts[0].paths[0].pathType=Prefix
                   ingress.hosts[0].paths[0].path=/
-                  ingress.tls[0].hosts[0].host=$(HOST)
+                  ingress.tls[0].hosts[0]=$(HOST)
                   ingress.tls[0].secretName=front-travely-am-cert
                   serviceAccount.create=false
             # - script: "helm registry login registry.travely.am -u admin -p $(registry_travely_am_password) && helm pull oci://registry.travely.am/helm-charts/app --version 0.1.0"
