@@ -5,7 +5,7 @@ import Accommodation from './supplier-management/accommodation';
 const ROUTES = {
   TODO: "todo",
   DASHBOARD: "dashboard",
-  ACCOMMODATION: "accommodation",
+  ACCOMMODATION: "accommodation/*",
 };
 
 /**
