@@ -24,36 +24,59 @@ stages:
     variables:
     - name: HELM_EXPERIMENTAL_OCI
       value: 1
+    - name: HOST
+      value: front.travely.am
     strategy:
       runOnce:
         deploy:
           steps:
-            - script: "helm registry login registry.travely.am -u admin -p $(registry_travely_am_password) && helm pull oci://registry.travely.am/helm-charts/app --version 0.1.0"
-            - task: KubernetesManifest@0
-              name: bake
+            - task: HelmInstaller@1
+              displayName: Helm installer
+            - task: HelmDeploy@0
               inputs:
-                action: bake
-                renderType: helm
-                helmChart: "app-0.1.0.tgz"
-                overrides: |
-                  image.repository:registry.travely.am/travely/front
-                  image.tag:$(Build.BuildId)
-                  ingress.enabled:false
-                  fullnameOverride:travely-front-dev
+                connectionType: 'Kubernetes Service Connection'
+                kubernetesServiceConnection: 'dev-dev-travely-am-1639235401610'
+                namespace: 'dev-travely-am'
+                command: 'install'
+                chartType: 'Name'
+                chartName: 'oci://registry.travely.am/helm-charts/app'
+                chartVersion: '0.1.0'
+                releaseName: 'front'
+                overrideValues: |
+                  image.repository=registry.travely.am/travely/front
+                  image.tag=$(Build.BuildId)
+                  ingress.enabled=true
+                  ingress.hosts[0].host=$(HOST)
+                  ingress.hosts[0].paths[0].pathType=Prefix
+                  ingress.tls[0].hosts[0].host=$(HOST)
+                  ingress.tls[0].secretName=front-travely-am-cert
                   serviceAccount.create:false
-            - task: KubernetesManifest@0
-              inputs:
-                action: 'createSecret'
-                kubernetesServiceConnection: 'dev-dev-travely-am-1637185039689'
-                namespace: 'dev-travely-am'
-                secretType: 'dockerRegistry'
-                secretName: 'regcred'
-                dockerRegistryEndpoint: 'registry.travely.am'
-            - task: KubernetesManifest@0
-              name: deploy
-              inputs:
-                action: 'deploy'
-                kubernetesServiceConnection: 'dev-dev-travely-am-1637185039689'
-                namespace: 'dev-travely-am'
-                manifests: $(bake.manifestsBundle)
+            # - script: "helm registry login registry.travely.am -u admin -p $(registry_travely_am_password) && helm pull oci://registry.travely.am/helm-charts/app --version 0.1.0"
+            # - task: KubernetesManifest@0
+            #   name: bake
+            #   inputs:
+            #     action: bake
+            #     renderType: helm
+            #     helmChart: "app-0.1.0.tgz"
+            #     overrides: |
+            #       image.repository:registry.travely.am/travely/front
+            #       image.tag:$(Build.BuildId)
+            #       ingress.enabled:false
+            #       fullnameOverride:travely-front-dev
+            #       serviceAccount.create:false
+            # - task: KubernetesManifest@0
+            #   inputs:
+            #     action: 'createSecret'
+            #     kubernetesServiceConnection: 'dev-dev-travely-am-1637185039689'
+            #     namespace: 'dev-travely-am'
+            #     secretType: 'dockerRegistry'
+            #     secretName: 'regcred'
+            #     dockerRegistryEndpoint: 'registry.travely.am'
+            # - task: KubernetesManifest@0
+            #   name: deploy
+            #   inputs:
+            #     action: 'deploy'
+            #     kubernetesServiceConnection: 'dev-dev-travely-am-1637185039689'
+            #     namespace: 'dev-travely-am'
+            #     manifests: $(bake.manifestsBundle)
 
