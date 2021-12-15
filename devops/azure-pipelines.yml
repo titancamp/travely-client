@@ -42,7 +42,7 @@ stages:
                 command: upgrade
                 install: true
                 chartName: 'oci://registry.travely.am/helm-charts/app'
-                chartVersion: '0.1.0'
+                chartVersion: '0.1.1'
                 releaseName: 'front'
                 overrideValues: |
                   image.repository=registry.travely.am/travely/front
