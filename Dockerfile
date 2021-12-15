@@ -1,7 +1,7 @@
 FROM docker.io/node:16
 USER node
 
-ARG APP=app
+ARG APP=application
 ARG HOME=/home/node
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH=$PATH:$HOME/.npm-global/bin
