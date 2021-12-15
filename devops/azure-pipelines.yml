@@ -12,6 +12,7 @@ stages:
         containerRegistry: "registry.travely.am"
         repository: "travely/front"
         command: "buildAndPush"
+        arguments: "--build-args APP=application"
         Dockerfile: "Dockerfile"
         buildContext: "."
         tags: |
