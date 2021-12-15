@@ -12,7 +12,6 @@ stages:
         containerRegistry: "registry.travely.am"
         repository: "travely/front"
         command: "buildAndPush"
-        arguments: "--build-args APP=application"
         Dockerfile: "Dockerfile"
         buildContext: "."
         tags: |
@@ -48,6 +47,7 @@ stages:
                 overrideValues: |
                   image.repository=registry.travely.am/travely/front
                   image.tag=$(Build.BuildId)
+                  containerPort=5000
                   ingress.enabled=true
                   ingress.hosts[0].host=$(HOST)
                   ingress.hosts[0].paths[0].pathType=Prefix
