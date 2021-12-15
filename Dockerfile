@@ -5,9 +5,9 @@ ARG APP=app
 ARG HOME=/home/node
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH=$PATH:$HOME/.npm-global/bin
+ENV PORT=5000
 
 #build
-RUN mkdir -p $HOME/$APP
 WORKDIR $HOME/$APP
 COPY --chown=node:node . .
 RUN npm install
@@ -21,9 +21,9 @@ USER root
 RUN rm -rf $APP
 
 #prepare
-EXPOSE 5000
+EXPOSE $PORT
 RUN npm install -g http-server
-RUN $PORT
+
 #start
 USER node
-ENTRYPOINT http-server build -a 0.0.0.0 -p 5000
+ENTRYPOINT http-server build -a 0.0.0.0 -p ${PORT}
