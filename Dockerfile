@@ -26,4 +26,5 @@ RUN npm install -g http-server
 
 #start
 USER node
-ENTRYPOINT http-server build -a 0.0.0.0 -p ${PORT}
+ENTRYPOINT ["http-server", "build"]
+CMD ["-a", "0.0.0.0", "-p", "${PORT}"]
