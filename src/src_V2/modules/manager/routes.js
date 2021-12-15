@@ -1,5 +1,5 @@
-import Dashboard from './dashboard';
-import TODO from './todo';
+import Dashboard from "./dashboard";
+import TODO from "./todo";
 
 const ROUTES = {
   DASHBOARD: "dashboard",
@@ -10,9 +10,8 @@ const ROUTES = {
  * @description Tour Manager portal routes configs.
  */
 export default function routeConfigs() {
-
   return [
-    {path: ROUTES.DASHBOARD, element: <Dashboard />,},
-    {path: ROUTES.TODO, element: <TODO />,},
+    { path: ROUTES.DASHBOARD, element: <Dashboard /> },
+    { path: ROUTES.TODO, element: <TODO /> },
   ];
 }

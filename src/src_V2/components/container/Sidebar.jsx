@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import {
@@ -105,7 +105,7 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
     }
   }
 
-  function itemExpandingHandler(){
+  function itemExpandingHandler() {
     setExpandedState(page.collapsibleId);
   }
 

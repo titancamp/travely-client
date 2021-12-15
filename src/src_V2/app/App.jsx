@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, useRoutes } from "react-router-dom";
 
 import routesConfig from "./routes";
@@ -12,7 +11,6 @@ function App() {
 }
 
 const AppWrapper = () => {
-
   return (
     <Router>
       <App />
@@ -21,6 +19,3 @@ const AppWrapper = () => {
 };
 
 export default AppWrapper;
-
-
-

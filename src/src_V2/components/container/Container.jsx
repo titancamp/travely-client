@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 import Sidebar from "./Sidebar";
 
-import { CONTAINER_SIZES } from "../../utils/constants";
+import { CONTAINER_SIZES } from "../../utils";
 
-const {
-    DRAWER_EXPANDED_WIDTH,
-    DRAWER_COLLAPSED_WIDTH,
-    CONTENT_LEFT_MARGIN,
-} = CONTAINER_SIZES;
+const { DRAWER_EXPANDED_WIDTH, DRAWER_COLLAPSED_WIDTH, CONTENT_LEFT_MARGIN } =
+  CONTAINER_SIZES;
 
 const Main = styled("main")(({ theme, open }) => ({
   flexGrow: 1,
