@@ -14,12 +14,7 @@ import {
   Drawer as MuiDrawer,
 } from '@mui/material';
 
-import {
-  ExpandLess,
-  ExpandMore,
-  ChevronLeft,
-  ChevronRight,
-} from '@mui/icons-material';
+import { ExpandLess, ExpandMore, ChevronLeft, ChevronRight } from '@mui/icons-material';
 
 import { COLORS, CONTAINER_SIZES } from '../../utils';
 
@@ -111,11 +106,7 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
 
   return (
     <>
-      <ListItem
-        button
-        onClick={itemExpandingHandler}
-        onMouseEnter={mouseEnterHandler}
-      >
+      <ListItem button onClick={itemExpandingHandler} onMouseEnter={mouseEnterHandler}>
         <ListItemIcon>{page.icon}</ListItemIcon>
         <ListItemText primary={page.title} />
         {expanded[page.collapsibleId] ? <ExpandLess /> : <ExpandMore />}
@@ -149,11 +140,7 @@ export default function Sidebar({ pageConfigs, open, setOpen }) {
 
   return (
     <Box style={boxStyles}>
-      <Tooltip
-        placement={'right'}
-        TransitionComponent={Zoom}
-        title={!open ? 'Expand' : 'Collapse'}
-      >
+      <Tooltip placement={'right'} TransitionComponent={Zoom} title={!open ? 'Expand' : 'Collapse'}>
         <Fab onClick={openCloseHandler} color={'inherit'} sx={fabStyles}>
           {open ? <ChevronLeft /> : <ChevronRight />}
         </Fab>

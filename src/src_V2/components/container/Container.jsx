@@ -6,8 +6,7 @@ import Sidebar from './Sidebar';
 
 import { CONTAINER_SIZES } from '../../utils';
 
-const { DRAWER_EXPANDED_WIDTH, DRAWER_COLLAPSED_WIDTH, CONTENT_LEFT_MARGIN } =
-  CONTAINER_SIZES;
+const { DRAWER_EXPANDED_WIDTH, DRAWER_COLLAPSED_WIDTH, CONTENT_LEFT_MARGIN } = CONTAINER_SIZES;
 
 const Main = styled('main')(({ theme, open }) => ({
   flexGrow: 1,
@@ -42,11 +41,7 @@ export default function Enhancer({ children, managerSidebarConfig }) {
 
   return (
     <Box style={boxStyles}>
-      <Sidebar
-        pageConfigs={managerSidebarConfig}
-        open={openSidebar}
-        setOpen={setOpenSidebar}
-      />
+      <Sidebar pageConfigs={managerSidebarConfig} open={openSidebar} setOpen={setOpenSidebar} />
       <Main open={openSidebar}>{children}</Main>
     </Box>
   );
