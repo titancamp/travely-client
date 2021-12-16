@@ -5,6 +5,6 @@ export const CONTAINER_SIZES = {
 };
 
 export const COLORS = {
-  whiteColor: "#fff",
-  lightGrayColor: "#FAFAFA",
+  whiteColor: '#fff',
+  lightGrayColor: '#FAFAFA',
 };

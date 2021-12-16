@@ -1,9 +1,9 @@
-import Manager from "../modules/manager";
+import Manager from '../modules/manager';
 
 /** Global Routes */
 const ROUTES = {
-  COMPANY_OWNER: "owner/*",
-  TOUR_MANAGER: "manager/*",
+  COMPANY_OWNER: 'owner/*',
+  TOUR_MANAGER: 'manager/*',
 };
 
 /**

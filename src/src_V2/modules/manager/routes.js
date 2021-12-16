@@ -1,9 +1,9 @@
-import Dashboard from "./dashboard";
-import TODO from "./todo";
+import Dashboard from './dashboard';
+import TODO from './todo';
 
 const ROUTES = {
-  DASHBOARD: "dashboard",
-  TODO: "todo",
+  DASHBOARD: 'dashboard',
+  TODO: 'todo',
 };
 
 /**

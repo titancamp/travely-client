@@ -1,6 +1,6 @@
-import { Container } from "../../../components";
+import { Container } from '../../../components';
 
-import { managerSidebarConfig } from "../config";
+import { managerSidebarConfig } from '../config';
 
 export default function Dashboard() {
   return (

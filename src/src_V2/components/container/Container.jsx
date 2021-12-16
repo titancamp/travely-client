@@ -1,23 +1,23 @@
-import { useState } from "react";
-import { Box } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { useState } from 'react';
+import { Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
-import Sidebar from "./Sidebar";
+import Sidebar from './Sidebar';
 
-import { CONTAINER_SIZES } from "../../utils";
+import { CONTAINER_SIZES } from '../../utils';
 
 const { DRAWER_EXPANDED_WIDTH, DRAWER_COLLAPSED_WIDTH, CONTENT_LEFT_MARGIN } =
   CONTAINER_SIZES;
 
-const Main = styled("main")(({ theme, open }) => ({
+const Main = styled('main')(({ theme, open }) => ({
   flexGrow: 1,
-  transition: theme.transitions.create("margin", {
+  transition: theme.transitions.create('margin', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   marginLeft: DRAWER_COLLAPSED_WIDTH + CONTENT_LEFT_MARGIN,
   ...(open && {
-    transition: theme.transitions.create("margin", {
+    transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -26,8 +26,8 @@ const Main = styled("main")(({ theme, open }) => ({
 }));
 
 const boxStyles = {
-  display: "inline-block",
-  position: "relative",
+  display: 'inline-block',
+  position: 'relative',
 };
 
 /**
