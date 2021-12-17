@@ -26,8 +26,8 @@ import {common, grey} from '@mui/material/colors';
 import {CONTAINER_SIZES } from "../../utils/constants";
 
 const boxStyles = {
-  display: "inline-block",
   position: "relative",
+  display: "inline-block",
 };
 
 const fabStyles = {
@@ -50,6 +50,7 @@ const listItemStyles = {
 };
 
 const openedMixin = (theme) => ({
+  top: "85px",
   width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
@@ -59,6 +60,7 @@ const openedMixin = (theme) => ({
 });
 
 const closedMixin = (theme) => ({
+  top: "85px",
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.standard,
@@ -77,10 +79,10 @@ const closedMixin = (theme) => ({
 });
 
 const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
-  width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
+  width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
   ...(open && {
     ...openedMixin(theme),
     "& .MuiDrawer-paper": openedMixin(theme),
