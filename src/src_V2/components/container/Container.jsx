@@ -9,15 +9,15 @@ import { CONTAINER_SIZES } from "../../utils";
 
 const { DRAWER_EXPANDED_WIDTH, DRAWER_COLLAPSED_WIDTH } = CONTAINER_SIZES;
 
-const Main = styled("main")(({ theme, open }) => ({
+const Main = styled('main')(({ theme, open }) => ({
   flexGrow: 1,
-  transition: theme.transitions.create("margin", {
+  transition: theme.transitions.create('margin', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   marginLeft: DRAWER_COLLAPSED_WIDTH,
   ...(open && {
-    transition: theme.transitions.create("margin", {
+    transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -26,8 +26,8 @@ const Main = styled("main")(({ theme, open }) => ({
 }));
 
 const boxStyles = {
-  display: "inline-block",
-  position: "relative",
+  position: 'relative',
+  display: 'inline-block',
 };
 
 /**
