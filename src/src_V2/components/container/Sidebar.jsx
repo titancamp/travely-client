@@ -1,6 +1,6 @@
-import React, { Fragment, useCallback, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { styled } from "@mui/material/styles";
+import { useCallback, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
 import {
   Fab,
   Box,
@@ -12,82 +12,77 @@ import {
   ListItemIcon,
   ListItemText,
   Drawer as MuiDrawer,
-} from "@mui/material";
+} from '@mui/material';
 
-import {
-  ExpandLess,
-  ExpandMore,
-  ChevronLeft,
-  ChevronRight,
-} from "@mui/icons-material";
+import { ExpandLess, ExpandMore, ChevronLeft, ChevronRight } from '@mui/icons-material';
 
-import { COLORS, CONTAINER_SIZES } from "../../utils/constants";
+import { COLORS, CONTAINER_SIZES } from '../../utils/constants';
 
 const boxStyles = {
-  position: "relative",
-  display: "inline-block",
+  position: 'relative',
+  display: 'inline-block',
 };
 
 const fabStyles = {
-  width: "40px",
-  height: "40px",
-  zIndex: "9999",
-  right: "-20px",
-  position: "absolute",
+  width: '40px',
+  height: '40px',
+  zIndex: '9999',
+  right: '-20px',
+  position: 'absolute',
   backgroundColor: COLORS.whiteColor,
 };
 
 const listStyles = (open) => ({
-  marginTop: "36px",
-  ...(!open && { display: "none" }),
+  marginTop: '36px',
+  ...(!open && { display: 'none' }),
 });
 
 const listItemStyles = {
-  paddingLeft: "32px",
+  paddingLeft: '32px',
   backgroundColor: COLORS.lightGrayColor,
 };
 
 const openedMixin = (theme) => ({
-  top: "85px",
+  top: '85px',
   width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
-  transition: theme.transitions.create("width", {
+  transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.standard,
   }),
-  overflowX: "hidden",
+  overflowX: 'hidden',
 });
 
 const closedMixin = (theme) => ({
-  top: "85px",
-  transition: theme.transitions.create("width", {
+  top: '85px',
+  transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.standard,
   }),
-  overflowX: "hidden",
+  overflowX: 'hidden',
   width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up("sm")]: {
+  [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(4)} + 1px)`,
   },
-  "&: hover": {
+  '&: hover': {
     width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
     ul: {
-      display: "initial !important",
+      display: 'initial !important',
     },
   },
 });
 
 const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
   flexShrink: 0,
-  whiteSpace: "nowrap",
-  boxSizing: "border-box",
+  whiteSpace: 'nowrap',
+  boxSizing: 'border-box',
   width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
   ...(open && {
     ...openedMixin(theme),
-    "& .MuiDrawer-paper": openedMixin(theme),
+    '& .MuiDrawer-paper': openedMixin(theme),
   }),
   ...(!open && {
     ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
+    '& .MuiDrawer-paper': closedMixin(theme),
   }),
 }));
 
@@ -113,11 +108,7 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
 
   return (
     <>
-      <ListItem
-        button
-        onClick={itemExpandingHandler}
-        onMouseEnter={mouseEnterHandler}
-      >
+      <ListItem button onClick={itemExpandingHandler} onMouseEnter={mouseEnterHandler}>
         <ListItemIcon>{page.icon}</ListItemIcon>
         <ListItemText primary={page.title} />
         {expanded[page.collapsibleId] ? <ExpandLess /> : <ExpandMore />}
@@ -151,12 +142,8 @@ export default function Sidebar({ pageConfigs, open, setOpen }) {
 
   return (
     <Box style={boxStyles}>
-      <Tooltip
-        placement={"right"}
-        TransitionComponent={Zoom}
-        title={!open ? "Expand" : "Collapse"}
-      >
-        <Fab onClick={openCloseHandler} color={"inherit"} sx={fabStyles}>
+      <Tooltip placement={'right'} TransitionComponent={Zoom} title={!open ? 'Expand' : 'Collapse'}>
+        <Fab onClick={openCloseHandler} color={'inherit'} sx={fabStyles}>
           {open ? <ChevronLeft /> : <ChevronRight />}
         </Fab>
       </Tooltip>

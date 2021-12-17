@@ -3,4 +3,4 @@
  * @param {String} prefix - prefix
  * @returns {Function}
  */
-export default prefix => name => `@@APP/${prefix}/${name}`;
+export default (prefix) => (name) => `@@APP/${prefix}/${name}`;

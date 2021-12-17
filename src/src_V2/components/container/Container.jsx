@@ -1,27 +1,23 @@
-import React, { useState } from "react";
-import { Box } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { useState } from 'react';
+import { Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
-import Header from "./header/Header";
-import Sidebar from "./Sidebar";
+import Header from './header/Header';
+import Sidebar from './Sidebar';
 
-import { CONTAINER_SIZES } from "../../utils/constants";
+import { CONTAINER_SIZES } from '../../utils/constants';
 
-const {
-  DRAWER_EXPANDED_WIDTH,
-  DRAWER_COLLAPSED_WIDTH,
-  CONTENT_LEFT_MARGIN,
-} = CONTAINER_SIZES;
+const { DRAWER_EXPANDED_WIDTH, DRAWER_COLLAPSED_WIDTH, CONTENT_LEFT_MARGIN } = CONTAINER_SIZES;
 
-const Main = styled("main")(({ theme, open }) => ({
+const Main = styled('main')(({ theme, open }) => ({
   flexGrow: 1,
-  transition: theme.transitions.create("margin", {
+  transition: theme.transitions.create('margin', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   marginLeft: DRAWER_COLLAPSED_WIDTH + CONTENT_LEFT_MARGIN,
   ...(open && {
-    transition: theme.transitions.create("margin", {
+    transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -30,8 +26,8 @@ const Main = styled("main")(({ theme, open }) => ({
 }));
 
 const boxStyles = {
-  position: "relative",
-  display: "inline-block",
+  position: 'relative',
+  display: 'inline-block',
 };
 
 /**
@@ -48,11 +44,7 @@ export default function Enhancer({ children, managerSidebarConfig }) {
     <Box>
       <Header />
       <Box style={boxStyles}>
-        <Sidebar
-          pageConfigs={managerSidebarConfig}
-          open={openSidebar}
-          setOpen={setOpenSidebar}
-        />
+        <Sidebar pageConfigs={managerSidebarConfig} open={openSidebar} setOpen={setOpenSidebar} />
         <Main open={openSidebar}>{children}</Main>
       </Box>
     </Box>

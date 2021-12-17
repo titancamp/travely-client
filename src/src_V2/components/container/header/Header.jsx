@@ -1,11 +1,10 @@
-import {Link} from 'react-router-dom';
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import { Link } from 'react-router-dom';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
-import CustomizedMenus from "./NavigationMenu";
-import travelyIcon from "../../../assets/Travely.png";
-import { ROUTES } from "../../../modules/manager/routes";
-import styles from "./Header.module.css";
-
+import CustomizedMenus from './NavigationMenu';
+import travelyIcon from '../../../assets/Travely.png';
+import { ROUTES } from '../../../modules/manager/routes';
+import styles from './Header.module.css';
 
 export default function Header() {
   return (
