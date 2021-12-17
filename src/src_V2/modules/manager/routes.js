@@ -1,7 +1,7 @@
 import Dashboard from './dashboard';
 import TODO from './todo';
 
-const ROUTES = {
+export const ROUTES = {
   DASHBOARD: 'dashboard',
   TODO: 'todo',
 };

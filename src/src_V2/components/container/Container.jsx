@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+import Header from './header/Header';
 import Sidebar from './Sidebar';
 
-import { CONTAINER_SIZES } from '../../utils';
+import { CONTAINER_SIZES } from '../../utils/constants';
 
 const { DRAWER_EXPANDED_WIDTH, DRAWER_COLLAPSED_WIDTH, CONTENT_LEFT_MARGIN } = CONTAINER_SIZES;
 
@@ -25,8 +26,8 @@ const Main = styled('main')(({ theme, open }) => ({
 }));
 
 const boxStyles = {
-  display: 'inline-block',
   position: 'relative',
+  display: 'inline-block',
 };
 
 /**
@@ -40,9 +41,12 @@ export default function Enhancer({ children, managerSidebarConfig }) {
   const [openSidebar, setOpenSidebar] = useState(false);
 
   return (
-    <Box style={boxStyles}>
-      <Sidebar pageConfigs={managerSidebarConfig} open={openSidebar} setOpen={setOpenSidebar} />
-      <Main open={openSidebar}>{children}</Main>
+    <Box>
+      <Header />
+      <Box style={boxStyles}>
+        <Sidebar pageConfigs={managerSidebarConfig} open={openSidebar} setOpen={setOpenSidebar} />
+        <Main open={openSidebar}>{children}</Main>
+      </Box>
     </Box>
   );
 }
