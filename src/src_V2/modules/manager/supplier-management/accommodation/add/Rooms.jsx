@@ -1,33 +1,17 @@
-import { useState } from "react";
-import {
-  Box,
-  Card,
-  Grid,
-  Button,
-  IconButton,
-  Typography,
-  CardContent,
-} from "@mui/material";
-import { grey } from "@mui/material/colors";
-import { AddCircle } from "@mui/icons-material";
-import { Edit, Delete } from "@mui/icons-material";
+import { useState } from 'react';
+import { Box, Card, Grid, Button, IconButton, Typography, CardContent } from '@mui/material';
+import { grey } from '@mui/material/colors';
+import { AddCircle } from '@mui/icons-material';
+import { Edit, Delete } from '@mui/icons-material';
 
-import DialogManager from "../dialogs/Index";
-import styles from "./style.module.css";
-
-const tempRoomData = {
-  id: 1,
-  beds: 2,
-  quantity: 12,
-  price: 30000,
-  type: "Standard Single",
-};
+import DialogManager from '../dialogs/Index';
+import styles from './style.module.css';
 
 export default function Rooms() {
   const [temporaryData] = useState([]);
   const [dialogManagerState, onShowHideDialog] = useState({
     id: null,
-    mode: "",
+    mode: '',
     open: false,
   });
 
@@ -36,17 +20,10 @@ export default function Rooms() {
       <Grid container spacing={1}>
         <AddRoomCard onOpenDialog={onShowHideDialog} />
         {temporaryData.map((room) => (
-          <RoomInfoCard
-            room={room}
-            key={room.id}
-            onOpenDialog={onShowHideDialog}
-          />
+          <RoomInfoCard room={room} key={room.id} onOpenDialog={onShowHideDialog} />
         ))}
       </Grid>
-      <DialogManager
-        data={dialogManagerState}
-        onShowHideDialog={onShowHideDialog}
-      />
+      <DialogManager data={dialogManagerState} onShowHideDialog={onShowHideDialog} />
     </Box>
   );
 }
@@ -58,7 +35,7 @@ function RoomInfoCard({ room, onOpenDialog }) {
     onOpenDialog({
       open: true,
       id: room.id,
-      mode: "view",
+      mode: 'view',
     });
   }
 
@@ -66,15 +43,11 @@ function RoomInfoCard({ room, onOpenDialog }) {
     <Grid className={styles.gridItem} item xs={3}>
       <Card className={styles.card}>
         <CardContent>
-          <Typography className={styles.detailsInfo}>
-            Qty: {room.quantity}
-          </Typography>
+          <Typography className={styles.detailsInfo}>Qty: {room.quantity}</Typography>
           <Typography variant="h6" className={styles.title}>
             {room.type}
           </Typography>
-          <Typography className={styles.detailsInfo}>
-            Beds: {room.beds}
-          </Typography>
+          <Typography className={styles.detailsInfo}>Beds: {room.beds}</Typography>
           <Typography component="p" className={styles.price}>
             {room.price} AMD
           </Typography>
@@ -95,7 +68,7 @@ function RoomInfoCard({ room, onOpenDialog }) {
 function AddRoomCard({ onOpenDialog }) {
   function openAddCardDialog() {
     onOpenDialog({
-      mode: "add",
+      mode: 'add',
       open: true,
     });
   }

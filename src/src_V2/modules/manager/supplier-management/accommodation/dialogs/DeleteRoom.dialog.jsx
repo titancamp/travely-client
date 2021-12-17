@@ -1,11 +1,6 @@
-import {
-  Button,
-  DialogTitle,
-  DialogActions,
-  DialogContent,
-} from "@mui/material";
+import { Button, DialogTitle, DialogActions, DialogContent } from '@mui/material';
 
-export default function DeleteRoomDialog({ handleShowHideState }) {
+export default function DeleteRoomDialog() {
   return (
     <>
       <DialogTitle id="alert-dialog-title">Note</DialogTitle>
@@ -13,7 +8,7 @@ export default function DeleteRoomDialog({ handleShowHideState }) {
         Are you sure you want to delete the item? Note, it will be permanent
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => setOpen(false)}>Cancel</Button>
+        <Button onClick={() => ''}>Cancel</Button>
         <Button variant="contained">Delete</Button>
       </DialogActions>
     </>

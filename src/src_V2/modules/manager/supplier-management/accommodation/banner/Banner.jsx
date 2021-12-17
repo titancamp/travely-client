@@ -1,7 +1,7 @@
-import { Box, Tab, Tabs, Button, Typography } from "@mui/material";
-import { ArrowBack } from "@mui/icons-material";
+import { Box, Tab, Tabs, Button, Typography } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
 
-import styles from "./style.module.css";
+import styles from './style.module.css';
 
 export default function Banner({ currentTab, setCurrentTab }) {
   function handleChange(event, newValue) {
@@ -21,7 +21,7 @@ export default function Banner({ currentTab, setCurrentTab }) {
           <Button variant="contained" className={styles.cancelBtn}>
             CANCEL
           </Button>
-          <Button variant={"contained"} className={styles.addBtn} disabled>
+          <Button variant={'contained'} className={styles.addBtn}>
             ADD
           </Button>
         </Box>

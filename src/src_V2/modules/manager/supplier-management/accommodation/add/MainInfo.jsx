@@ -1,10 +1,8 @@
-import { Box, TextField, Autocomplete, Grid, Button } from "@mui/material";
-import { Map } from "@mui/icons-material";
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import { Map } from '@mui/icons-material';
+import { Box, TextField, Autocomplete, Grid, Button } from '@mui/material';
 
-import styles from "./style.module.css";
-import { AccommodationTypes, HotelServices } from "../constants";
+import styles from './style.module.css';
+import { AccommodationTypes, HotelServices } from '../constants';
 
 /**
  * TODO
@@ -13,31 +11,7 @@ import { AccommodationTypes, HotelServices } from "../constants";
  * 3. Static data get from backend?
  */
 
-const validationSchema = Yup.object({
-  email: Yup
-    .string('Enter your email')
-    .email('Enter a valid email')
-    .required('Email is required'),
-  password: Yup
-    .string('Enter your password')
-    .min(8, 'Password should be of minimum 8 characters length')
-    .required('Password is required'),
-});
-
-const WithMaterialUI = () => {
-  const formik = useFormik({
-    initialValues: {
-      email: 'foobar@example.com',
-      password: 'foobar',
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
-}
-
-export default function MainInfo({ accommodation }) {
+export default function MainInfo() {
   return (
     <Box className={styles.mainInfo}>
       <Box className={styles.mnRow}>
@@ -59,7 +33,7 @@ export default function MainInfo({ accommodation }) {
                 type="time"
                 defaultValue="00:00"
                 label="Check In Time"
-                inputProps={{step: 300}}
+                inputProps={{ step: 300 }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -69,7 +43,7 @@ export default function MainInfo({ accommodation }) {
                 defaultValue="00:00"
                 hiddenLabel={true}
                 label="Check In Time"
-                inputProps={{step: 300}}
+                inputProps={{ step: 300 }}
               />
             </Grid>
           </Grid>
@@ -79,10 +53,7 @@ export default function MainInfo({ accommodation }) {
         <label className={styles.label}>Address</label>
         <Grid container mb={3} rowSpacing={3} spacing={2}>
           <Grid item xs={12}>
-            <Button
-              startIcon={<Map color={"primary"} />}
-              className={styles.map}
-            >
+            <Button startIcon={<Map color={'primary'} />} className={styles.map}>
               PIN ON MAP
             </Button>
           </Grid>
@@ -104,9 +75,7 @@ export default function MainInfo({ accommodation }) {
             <Autocomplete
               multiple
               options={HotelServices}
-              renderInput={(params) => (
-                <TextField {...params} label="Hotel Services" />
-              )}
+              renderInput={(params) => <TextField {...params} label="Hotel Services" />}
             />
           </Grid>
         </Grid>

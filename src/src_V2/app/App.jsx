@@ -1,8 +1,7 @@
-import React from "react";
-import { BrowserRouter as Router, useRoutes } from "react-router-dom";
+import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
 
-import routesConfig from "./routes";
+import routesConfig from './routes';
 
 /**
  * @description I don't know why we need separate wrapper for useRoutes bu it didn't work as mentioned in doc.
@@ -13,7 +12,6 @@ function App() {
 }
 
 const AppWrapper = () => {
-
   return (
     <Router>
       <CssBaseline />
