@@ -1,6 +1,6 @@
 import AccommodationNoData from "./landing/AccommodationNoData";
 import AddAccommodation from "./add/Index";
-import AccommodationList from "./list";
+import AccommodationList from "./list/Index";
 
 export const ROUTES = {
   ADD: "add",
