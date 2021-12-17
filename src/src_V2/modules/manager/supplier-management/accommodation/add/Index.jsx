@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Box } from "@mui/material";
 
 import Rooms from "./Rooms";
-import Header from "../banner/Banner";
+import Banner from "../banner/Banner";
 import Contact from "./Contact";
 import MainInfo from "./MainInfo";
 import Partnership from "./Partnership";
@@ -32,7 +32,7 @@ export default function AddAccommodation() {
 
   return (
     <Container managerSidebarConfig={managerSidebarConfig}>
-      <Header currentTab={currentTab} setCurrentTab={setCurrentTab} />
+      <Banner currentTab={currentTab} setCurrentTab={setCurrentTab} />
       <Box className={styles.container}>
         <AccommodationStep
           currentTab={currentTab}

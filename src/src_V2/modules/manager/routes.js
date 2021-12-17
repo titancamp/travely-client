@@ -2,7 +2,7 @@ import Todo from './todo';
 import Dashboard from './dashboard';
 import Accommodation from './supplier-management/accommodation';
 
-const ROUTES = {
+export const ROUTES = {
   TODO: "todo",
   DASHBOARD: "dashboard",
   ACCOMMODATION: "accommodation/*",
