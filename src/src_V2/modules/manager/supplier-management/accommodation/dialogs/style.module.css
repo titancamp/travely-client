@@ -1,0 +1,13 @@
+/* Card View */
+
+.cardActions {
+    margin-bottom: 12px;
+    padding: 0 13px;
+}
+
+.cardActions.rightAligned {
+    display: flex;
+    justify-content: flex-end;
+
+}
+

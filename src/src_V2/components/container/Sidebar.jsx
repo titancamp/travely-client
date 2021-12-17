@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import {
@@ -21,7 +21,9 @@ import {
   ChevronRight,
 } from "@mui/icons-material";
 
-import { COLORS, CONTAINER_SIZES } from "../../utils/constants";
+import {common, grey} from '@mui/material/colors';
+
+import {CONTAINER_SIZES } from "../../utils/constants";
 
 const boxStyles = {
   display: "inline-block",
@@ -34,7 +36,7 @@ const fabStyles = {
   zIndex: "9999",
   right: "-20px",
   position: "absolute",
-  backgroundColor: COLORS.whiteColor,
+  backgroundColor: common['white'],
 };
 
 const listStyles = (open) => ({
@@ -44,7 +46,7 @@ const listStyles = (open) => ({
 
 const listItemStyles = {
   paddingLeft: "32px",
-  backgroundColor: COLORS.lightGrayColor,
+  backgroundColor: grey[50],
 };
 
 const openedMixin = (theme) => ({

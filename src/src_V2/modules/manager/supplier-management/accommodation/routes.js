@@ -1,5 +1,5 @@
-import EmptyResult from "./EmptyComponent";
-import AddAccommodation from "./add/AddAccommodation";
+import AccommodationNoData from "./landing/AccommodationNoData";
+import AddAccommodation from "./add/Index";
 
 export const ROUTES = {
   ADD: "add",
@@ -12,7 +12,7 @@ export const ROUTES = {
 export default function routeConfigs() {
 
   return [
-    {index: true, element: <EmptyResult />,},
+    {index: true, element: <AccommodationNoData />,},
     {path: ROUTES.LIST, element: <>ACCOMMODATION LIST</>,},
     {path: ROUTES.ADD, element: <AddAccommodation />,},
   ];

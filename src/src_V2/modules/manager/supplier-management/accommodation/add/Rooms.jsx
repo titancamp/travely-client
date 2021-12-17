@@ -1,79 +1,123 @@
+import { useState } from "react";
 import {
-  Card,
   Box,
-  CardMedia,
+  Card,
+  Grid,
+  Button,
+  IconButton,
   Typography,
   CardContent,
-  CardActions,
-  CardActionArea,
 } from "@mui/material";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { grey } from "@mui/material/colors";
+import { AddCircle } from "@mui/icons-material";
+import { Edit, Delete } from "@mui/icons-material";
 
-import { cyan, indigo } from "@mui/material/colors";
+import DialogManager from "../dialogs/Index";
+import styles from "./style.module.css";
+
+const tempRoomData = {
+  id: 1,
+  beds: 2,
+  quantity: 12,
+  price: 30000,
+  type: "Standard Single",
+};
 
 export default function Rooms() {
+  const [temporaryData] = useState([]);
+  const [dialogManagerState, onShowHideDialog] = useState({
+    id: null,
+    mode: "",
+    open: false,
+  });
+
   return (
-    <Box style={{ display: "flex" }}>
-      <AddRoomCard />
-      <InfoCard />
-      <InfoCard />
-      <InfoCard />
-      <InfoCard />
+    <Box className={styles.roomContent}>
+      <Grid container spacing={1}>
+        <AddRoomCard onOpenDialog={onShowHideDialog} />
+        {temporaryData.map((room) => (
+          <RoomInfoCard
+            room={room}
+            key={room.id}
+            onOpenDialog={onShowHideDialog}
+          />
+        ))}
+      </Grid>
+      <DialogManager
+        data={dialogManagerState}
+        onShowHideDialog={onShowHideDialog}
+      />
     </Box>
   );
 }
 
-function InfoCard() {
+//TODO cards should be reusable
+
+function RoomInfoCard({ room, onOpenDialog }) {
+  function openViewCardDialog() {
+    onOpenDialog({
+      open: true,
+      id: room.id,
+      mode: "view",
+    });
+  }
+
   return (
-    <Card
-      sx={{
-        maxWidth: 275,
-        height: 210,
-        margin: 0.5,
-        border: "1 solid black",
-      }}
-    >
-      <CardContent>
-        <Typography component='p'>Qty: {12}</Typography>
-        <Typography variant={'h6'}>{'Standart Single'}</Typography>
-        <Typography component='p'>Beds: 2 (+1)</Typography>
-      </CardContent>
-      <CardActions>
-        <Typography>ADD ROOM</Typography>
-        <AddCircleIcon style={{ color: "blue" }} />
-      </CardActions>
-    </Card>
+    <Grid className={styles.gridItem} item xs={3}>
+      <Card className={styles.card}>
+        <CardContent>
+          <Typography className={styles.detailsInfo}>
+            Qty: {room.quantity}
+          </Typography>
+          <Typography variant="h6" className={styles.title}>
+            {room.type}
+          </Typography>
+          <Typography className={styles.detailsInfo}>
+            Beds: {room.beds}
+          </Typography>
+          <Typography component="p" className={styles.price}>
+            {room.price} AMD
+          </Typography>
+        </CardContent>
+        <Box className={`${styles.cardActions} ${styles.rightAligned}`}>
+          <IconButton onClick={openViewCardDialog}>
+            <Edit style={{ color: grey[600] }} />
+          </IconButton>
+          <IconButton color="primary" onClick={openViewCardDialog}>
+            <Delete style={{ color: grey[600] }} />
+          </IconButton>
+        </Box>
+      </Card>
+    </Grid>
   );
 }
 
-function AddRoomCard() {
+function AddRoomCard({ onOpenDialog }) {
+  function openAddCardDialog() {
+    onOpenDialog({
+      mode: "add",
+      open: true,
+    });
+  }
+
   return (
-    <Card
-      sx={{
-        height: 210,
-        maxWidth: 275,
-        margin: 0.5,
-        border: "1 solid black",
-        backgroundColor: "#EAF4FC",
-      }}
-    >
-      <CardContent>
-        <Typography
-          sx={{ marginTop: 5 }}
-          gutterBottom
-          variant="h5"
-          component="div"
-        >
-          Rooms
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Add Button bellow to add rooms to your accommodation
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Typography>ADD ROOM</Typography>
-        <AddCircleIcon style={{ color: "blue" }} />
-      </CardActions>
-    </Card>
+    <Grid className={styles.gridItem} item xs={3}>
+      <Card className={`${styles.addCard} ${styles.card}`}>
+        <CardContent>
+          <Typography className={styles.title} variant="h5">
+            Rooms
+          </Typography>
+          <Typography className={styles.subTitle}>
+            Add Button bellow to add rooms to your accommodation
+          </Typography>
+        </CardContent>
+        <Box className={styles.cardActions}>
+          <Button className={styles.addButton} onClick={openAddCardDialog}>
+            ADD ROOM
+            <AddCircle />
+          </Button>
+        </Box>
+      </Card>
+    </Grid>
   );
 }
