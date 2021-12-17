@@ -11,6 +11,9 @@
     "src/src_V2/**/*.{js,jsx}": [
       "prettier --write",
       "eslint --fix"
+    ],
+    "src/src_V2/**/*.css": [
+      "prettier --write"
     ]
   },
   "dependencies": {
