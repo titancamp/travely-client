@@ -1,0 +1,21 @@
+image:
+  repository: registry.travely.am/travely/front
+image:
+  tag: $(Build.BuildId)
+containerPort: 5000
+ingress:
+  enabled: true
+  hosts:
+  - host: $(HOST)
+    paths:
+    - path: /
+      pathType: Prefix
+  tls:
+    - secretName: front-travely-am-cert
+      hosts:
+      - $(HOST)
+  annotations:
+    external-dns.alpha.kubernetes.io/target: k8s.travely.am
+    cert-manager.io/cluster-issuer: cert-manager
+serviceAccount:
+  create: false
