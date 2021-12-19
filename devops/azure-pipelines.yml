@@ -45,7 +45,7 @@ stages:
                 chartName: 'oci://registry.travely.am/helm-charts/app'
                 chartVersion: '0.1.1'
                 releaseName: 'front'
-                valueFile: values.yaml
+                valueFile: devops/values.yaml
                 # overrideValues: |
                 #   image.repository=registry.travely.am/travely/front
                 #   image.tag=$(Build.BuildId)
