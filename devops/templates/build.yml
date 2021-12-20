@@ -1,0 +1,24 @@
+parameters:
+- name: imageTag
+  type: string
+- name: imageRepository
+  type: string
+- name: containerRegistry
+  type: string
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - task: Docker@2
+      displayName: "Build and push to docker hub with latest tag."
+      inputs:
+        containerRegistry: ${{ parameters.containerRegistry }}
+        repository: ${{ parameters.imageRepository }}
+        command: "buildAndPush"
+        Dockerfile: "Dockerfile"
+        buildContext: "."
+        tags: |
+          ${{ parameters.imageTag }}
+          latest

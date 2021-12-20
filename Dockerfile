@@ -1,4 +1,5 @@
 FROM docker.io/node:16-bullseye-slim
+USER node
 
 ARG APP=app
 ARG HOME=/home/node

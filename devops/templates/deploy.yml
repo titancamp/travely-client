@@ -1,0 +1,56 @@
+parameters:
+- name: imageTag
+  type: string
+- name: imageRepository
+  type: string
+- name: containerRegistry
+  type: string
+- name: hostname
+  type: string
+
+- stage: Deploy
+  jobs:
+  - deployment: Deploy
+    environment: dev.dev-travely-am
+    variables:
+    - name: HELM_EXPERIMENTAL_OCI
+      value: 1
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: self
+            - task: KubernetesManifest@0
+              inputs:
+                action: 'createSecret'
+                kubernetesServiceConnection: 'dev-dev-travely-am-1637185039689'
+                namespace: 'dev-travely-am'
+                secretType: 'dockerRegistry'
+                secretName: 'regcred'
+                dockerRegistryEndpoint: 'registry.travely.am'
+            - task: HelmInstaller@1
+              displayName: Helm installer
+            - script: "helm registry login registry.travely.am -u admin -p $(registry_travely_am_password)"
+            - task: HelmDeploy@0
+              inputs:
+                connectionType: 'Kubernetes Service Connection'
+                kubernetesServiceConnection: 'dev-dev-travely-am-1639235401610'
+                namespace: 'dev-travely-am'
+                command: upgrade
+                install: true
+                chartName: 'oci://registry.travely.am/helm-charts/app'
+                chartVersion: '0.1.1'
+                releaseName: 'front'
+                overrideValues: |
+                  image.repository=$${{ parameters.imageRepository }}
+                  image.tag=${{ parameters.imageTag }}
+                  containerPort=5000
+                  ingress.enabled=true
+                  ingress.hosts[0].host=${{ parameters.hostname }}
+                  ingress.hosts[0].paths[0].pathType=Prefix
+                  ingress.hosts[0].paths[0].path=/
+                  ingress.tls[0].hosts[0]=${{ parameters.hostname }}
+                  ingress.tls[0].secretName=front-travely-am-cert
+                  ingress.annotations.external-dns\.alpha\.kubernetes\.io\/target=k8s.travely.am
+                  ingress.annotations.cert-manager\.io\/cluster-issuer=cert-manager
+                  serviceAccount.create=false
