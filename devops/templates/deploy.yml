@@ -32,6 +32,8 @@ parameters:
   default:
     releaseName: ''
     chartRegistry: ''
+    chartName: ''
+    chartVersion: ''
 
 stages:
 - stage: Deploy
@@ -64,8 +66,8 @@ stages:
                 namespace: ${{ parameters.kubernetesNamespace }}
                 command: upgrade
                 install: true
-                chartName: 'oci://${{ parameters.helmMetadata.chartRegistry }}/helm-charts/app'
-                chartVersion: '0.1.1'
+                chartName: oci://${{ parameters.helmMetadata.chartRegistry }}/${{ parameters.helmMetadata.chartName }}
+                chartVersion: ${{ parameters.helmMetadata.chartVersion }}
                 releaseName: ${{ parameters.helmMetadata.releaseName }}
                 overrideValues: |
                   image.repository=${{ parameters.containerRepository }}

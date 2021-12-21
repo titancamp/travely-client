@@ -33,3 +33,5 @@ stages:
     helmMetadata:
       releaseName: front
       chartRegistry: $(containerRegistryHost)
+      chartName: helm-charts/app
+      chartVersion: 0.1.1
