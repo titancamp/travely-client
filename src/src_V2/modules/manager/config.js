@@ -67,9 +67,19 @@ export const managerSidebarConfig = [
     icon: <BarChart />,
   },
   {
+    collapsibleId: 3,
     title: 'Financial Management',
-    path: '/manager/financial',
     icon: <AttachMoney />,
+    subPages: [
+      {
+        title: 'Receivables',
+        path: '/manager/receivables',
+      },
+      {
+        title: 'Payable',
+        path: '/manager/payable',
+      },
+    ],
   },
   {
     title: 'User Management',

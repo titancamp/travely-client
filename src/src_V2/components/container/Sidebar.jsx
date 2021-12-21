@@ -16,7 +16,7 @@ import {
 
 import { ExpandLess, ExpandMore, ChevronLeft, ChevronRight } from '@mui/icons-material';
 
-import { COLORS, CONTAINER_SIZES } from '../../utils/constants';
+import { COLORS, CONTAINER_SIZES } from '../../utils';
 
 const boxStyles = {
   position: 'relative',
@@ -115,8 +115,8 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
       </ListItem>
       <Collapse in={expanded[page.collapsibleId]}>
         <List component="div" disablePadding>
-          {page.subPages.map(({ title }) => (
-            <ListItem button sx={listItemStyles} key={title}>
+          {page.subPages.map(({ title, path }) => (
+            <ListItem button to={path} component={NavLink} sx={listItemStyles} key={title}>
               <ListItemText primary={title} />
             </ListItem>
           ))}
