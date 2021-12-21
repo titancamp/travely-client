@@ -10,15 +10,15 @@ stages:
 # Build stage
 - template: templates/build.yml
   parameters:
-    imageTag: $(variables.imageTag)
+    imageTag: $(imageTag)
     containerRepository: $(containerRepository)
     containerRegistry: $(containerRegistry)
 # Deploy stage
 - template: templates/deploy.yml
   parameters:
-    imageTag: $(variables.imageTag)
-    containerRepository: $(variables.containerRepository)
-    containerRegistry: registry-travely-am
+    imageTag: $(imageTag)
+    containerRepository: $(containerRepository)
+    containerRegistry: $(containerRegistry)
     containerRegistryPassword: $(registry_travely_am_password)
     containerPort: 5000
     hostname: front.travely.am
