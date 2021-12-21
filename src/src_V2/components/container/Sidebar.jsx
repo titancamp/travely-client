@@ -12,18 +12,11 @@ import {
   ListItemIcon,
   ListItemText,
   Drawer as MuiDrawer,
-} from "@mui/material";
+} from '@mui/material';
 
-import {
-  ExpandLess,
-  ExpandMore,
-  ChevronLeft,
-  ChevronRight,
-} from '@mui/icons-material';
+import { ExpandLess, ExpandMore, ChevronLeft, ChevronRight } from '@mui/icons-material';
 
-import {common, grey} from '@mui/material/colors';
-
-import {CONTAINER_SIZES } from "../../utils/constants";
+import { COLORS, CONTAINER_SIZES } from '../../utils';
 
 const boxStyles = {
   position: 'relative',
@@ -36,7 +29,7 @@ const fabStyles = {
   zIndex: '9999',
   right: '-20px',
   position: 'absolute',
-  backgroundColor: common['white'],
+  backgroundColor: COLORS.whiteColor,
 };
 
 const listStyles = (open) => ({
@@ -46,7 +39,7 @@ const listStyles = (open) => ({
 
 const listItemStyles = {
   paddingLeft: '32px',
-  backgroundColor: grey[50],
+  backgroundColor: COLORS.lightGrayColor,
 };
 
 const openedMixin = (theme) => ({
@@ -115,11 +108,7 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
 
   return (
     <>
-      <ListItem
-        button
-        onClick={itemExpandingHandler}
-        onMouseEnter={mouseEnterHandler}
-      >
+      <ListItem button onClick={itemExpandingHandler} onMouseEnter={mouseEnterHandler}>
         <ListItemIcon>{page.icon}</ListItemIcon>
         <ListItemText primary={page.title} />
         {expanded[page.collapsibleId] ? <ExpandLess /> : <ExpandMore />}
@@ -127,13 +116,7 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
       <Collapse in={expanded[page.collapsibleId]}>
         <List component="div" disablePadding>
           {page.subPages.map(({ title, path }) => (
-            <ListItem
-              button
-              to={path}
-              key={title}
-              sx={listItemStyles}
-              component={NavLink}
-            >
+            <ListItem button to={path} key={title} sx={listItemStyles} component={NavLink}>
               <ListItemText primary={title} />
             </ListItem>
           ))}
