@@ -56,7 +56,7 @@ stages:
                 dockerRegistryEndpoint: ${{ parameters.containerRepository }}
             - task: HelmInstaller@1
               displayName: Helm installer
-            - script: helm registry login ${{ parameters.chartRegistry }} -u admin -p ${{ parameters.containerRepository }}
+            - script: helm registry login ${{ parameters.helmMetadata.chartRegistry }} -u admin -p ${{ parameters.containerRepository }}
             - task: HelmDeploy@0
               inputs:
                 connectionType: 'Kubernetes Service Connection'
@@ -64,7 +64,7 @@ stages:
                 namespace: ${{ parameters.kubernetesNamespace }}
                 command: upgrade
                 install: true
-                chartName: 'oci://${{ parameters.chartRegistry }}/helm-charts/app'
+                chartName: 'oci://${{ parameters.helmMetadata.chartRegistry }}/helm-charts/app'
                 chartVersion: '0.1.1'
                 releaseName: ${{ parameters.helmMetadata.releaseName }}
                 overrideValues: |
