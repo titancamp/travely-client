@@ -33,6 +33,7 @@ parameters:
     releaseName: ''
     chartRegistry: ''
 
+stages:
 - stage: Deploy
   jobs:
   - deployment: Deploy
