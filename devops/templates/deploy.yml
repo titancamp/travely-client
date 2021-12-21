@@ -76,7 +76,7 @@ stages:
                   ingress.hosts[0].paths[0].pathType=Prefix
                   ingress.hosts[0].paths[0].path=${{ parameters.path }}
                   ingress.tls[0].hosts[0]=${{ parameters.hostname }}
-                  ingress.tls[0].secretName=${{ format('{0}-{1}', replace(parameters.hostname, '.', '-'), 'cert' }}
+                  ingress.tls[0].secretName=${{ format('{0}-{1}', replace(parameters.hostname, '.', '-'), 'cert') }}
                   ingress.annotations.external-dns\.alpha\.kubernetes\.io\/target=${{ parameters.cname }}
                   ingress.annotations.cert-manager\.io\/cluster-issuer=cert-manager
                   serviceAccount.create=false
