@@ -3,7 +3,7 @@ trigger:
 
 variables:
   imageTag: $(Build.BuildId)
-  containerRepository: registry.travely.am/travely/front
+  containerRepository: travely/front
   containerRegistry: registry-travely-am
 
 stages:
