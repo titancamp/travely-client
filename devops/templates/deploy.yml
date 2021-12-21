@@ -1,17 +1,42 @@
 parameters:
 - name: imageTag
   type: string
-- name: imageRepository
+- name: containerRepository
   type: string
 - name: containerRegistry
   type: string
+- name: containerRegistryPassword
+  type: string
+- name: containerPort
+  type: number
+  default: 5000
 - name: hostname
   type: string
+- name: path
+  type: string
+  default: /
+- name: cname
+  type: string
+- name: environment
+  type: string
+- name: kubernetesServiceConnection
+  type: string
+- name: kubernetesNamespace
+  type: string
+- name: ingress
+  type: object
+  default:
+    enabled: false
+- name: helmMetadata
+  type: object
+  default:
+    releaseName: ''
+    chartRegistry: ''
 
 - stage: Deploy
   jobs:
   - deployment: Deploy
-    environment: dev.dev-travely-am
+    environment: ${{ parameters.environment }}
     variables:
     - name: HELM_EXPERIMENTAL_OCI
       value: 1
@@ -22,35 +47,35 @@ parameters:
             - checkout: self
             - task: KubernetesManifest@0
               inputs:
-                action: 'createSecret'
-                kubernetesServiceConnection: 'dev-dev-travely-am-1637185039689'
-                namespace: 'dev-travely-am'
-                secretType: 'dockerRegistry'
-                secretName: 'regcred'
-                dockerRegistryEndpoint: 'registry.travely.am'
+                action: createSecret
+                kubernetesServiceConnection: ${{ parameters.kubernetesServiceConnection }}
+                namespace: ${{ parameters.kubernetesNamespace }}
+                secretType: dockerRegistry
+                secretName: regcred
+                dockerRegistryEndpoint: ${{ parameters.containerRepository }}
             - task: HelmInstaller@1
               displayName: Helm installer
-            - script: "helm registry login registry.travely.am -u admin -p $(registry_travely_am_password)"
+            - script: "helm registry login ${{parameters.chartRegistry}} -u admin -p ${{ parameters.containerRepository }}"
             - task: HelmDeploy@0
               inputs:
                 connectionType: 'Kubernetes Service Connection'
-                kubernetesServiceConnection: 'dev-dev-travely-am-1639235401610'
-                namespace: 'dev-travely-am'
+                kubernetesServiceConnection: ${{ parameters.kubernetesServiceConnection }}
+                namespace: ${{ parameters.kubernetesNamespace }}
                 command: upgrade
                 install: true
-                chartName: 'oci://registry.travely.am/helm-charts/app'
+                chartName: 'oci://${{parameters.chartRegistry}}/helm-charts/app'
                 chartVersion: '0.1.1'
-                releaseName: 'front'
+                releaseName: ${{ parameters.helmMetadata.releaseName }}
                 overrideValues: |
-                  image.repository=$${{ parameters.imageRepository }}
+                  image.repository=${{ parameters.containerRepository }}
                   image.tag=${{ parameters.imageTag }}
-                  containerPort=5000
-                  ingress.enabled=true
+                  containerPort=${{ parameters.containerPort }}
+                  ingress.enabled=${{ parameters.ingress.enabled }}
                   ingress.hosts[0].host=${{ parameters.hostname }}
                   ingress.hosts[0].paths[0].pathType=Prefix
-                  ingress.hosts[0].paths[0].path=/
+                  ingress.hosts[0].paths[0].path=${{ parameters.path }}
                   ingress.tls[0].hosts[0]=${{ parameters.hostname }}
-                  ingress.tls[0].secretName=front-travely-am-cert
-                  ingress.annotations.external-dns\.alpha\.kubernetes\.io\/target=k8s.travely.am
+                  ingress.tls[0].secretName=${{ replace(parameters.hostname, '.', '-') }}
+                  ingress.annotations.external-dns\.alpha\.kubernetes\.io\/target=${{ parameters.cname }}
                   ingress.annotations.cert-manager\.io\/cluster-issuer=cert-manager
                   serviceAccount.create=false

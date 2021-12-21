@@ -1,7 +1,7 @@
 parameters:
 - name: imageTag
   type: string
-- name: imageRepository
+- name: containerRepository
   type: string
 - name: containerRegistry
   type: string
@@ -15,7 +15,7 @@ stages:
       displayName: "Build and push to docker hub with latest tag."
       inputs:
         containerRegistry: ${{ parameters.containerRegistry }}
-        repository: ${{ parameters.imageRepository }}
+        repository: ${{ parameters.containerRepository }}
         command: "buildAndPush"
         Dockerfile: "Dockerfile"
         buildContext: "."

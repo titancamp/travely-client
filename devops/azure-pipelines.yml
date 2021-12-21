@@ -1,90 +1,34 @@
 trigger:
   - devops
 
-stages:
-- stage: Build
-  jobs:
-  - job: Build
-    steps:
-    - task: Docker@2
-      displayName: "Build and push to docker hub with latest tag."
-      inputs:
-        containerRegistry: "registry.travely.am"
-        repository: "travely/front"
-        command: "buildAndPush"
-        Dockerfile: "Dockerfile"
-        buildContext: "."
-        tags: |
-          $(Build.BuildId)
-          latest
-- stage: Deploy
-  jobs:
-  - deployment: Deploy
-    environment: dev.dev-travely-am
-    variables:
-    - name: HELM_EXPERIMENTAL_OCI
-      value: 1
-    - name: HOST
-      value: front.travely.am
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-            - checkout: self
-            - task: HelmInstaller@1
-              displayName: Helm installer
-            # - script: "helm registry login registry.travely.am -u admin -p $(registry_travely_am_password) && helm install --namespace dev-travely-am --set 'image.repository=registry.travely.am/travely/front,image.tag=87,ingress.enabled=true,ingress.hosts[0].host=front.travely.am,ingress.hosts[0].paths[0].pathType=Prefix,ingress.tls[0].hosts[0].host=front.travely.am,ingress.tls[0].secretName=front-travely-am-cert,serviceAccount.create=false' front --wait oci://registry.travely.am/helm-charts/app --version 0.1.0 --dry-run"
-            - script: "helm registry login registry.travely.am -u admin -p $(registry_travely_am_password)"
-            - task: HelmDeploy@0
-              inputs:
-                connectionType: 'Kubernetes Service Connection'
-                kubernetesServiceConnection: 'dev-dev-travely-am-1639235401610'
-                namespace: 'dev-travely-am'
-                command: upgrade
-                install: true
-                chartName: 'oci://registry.travely.am/helm-charts/app'
-                chartVersion: '0.1.1'
-                releaseName: 'front'
-                valueFile: devops/values.yaml
-                # overrideValues: |
-                #   image.repository=registry.travely.am/travely/front
-                #   image.tag=$(Build.BuildId)
-                #   containerPort=5000
-                #   ingress.enabled=true
-                #   ingress.hosts[0].host=$(HOST)
-                #   ingress.hosts[0].paths[0].pathType=Prefix
-                #   ingress.hosts[0].paths[0].path=/
-                #   ingress.tls[0].hosts[0]=$(HOST)
-                #   ingress.tls[0].secretName=front-travely-am-cert
-                #   ingress.annotations.external-dns\.alpha\.kubernetes\.io\/target=k8s.travely.am
-                #   ingress.annotations.cert-manager\.io\/cluster-issuer=cert-manager
-                #   serviceAccount.create=false
-            # - script: "helm registry login registry.travely.am -u admin -p $(registry_travely_am_password) && helm pull oci://registry.travely.am/helm-charts/app --version 0.1.0"
-            # - task: KubernetesManifest@0
-            #   name: bake
-            #   inputs:
-            #     action: bake
-            #     renderType: helm
-            #     helmChart: "app-0.1.0.tgz"
-            #     overrides: |
-            #       image.repository:registry.travely.am/travely/front
-            #       image.tag:$(Build.BuildId)
-            #       ingress.enabled:false
-            #       fullnameOverride:travely-front-dev
-            #       serviceAccount.create:false
-            # - task: KubernetesManifest@0
-            #   inputs:
-            #     action: 'createSecret'
-            #     kubernetesServiceConnection: 'dev-dev-travely-am-1637185039689'
-            #     namespace: 'dev-travely-am'
-            #     secretType: 'dockerRegistry'
-            #     secretName: 'regcred'
-            #     dockerRegistryEndpoint: 'registry.travely.am'
-            # - task: KubernetesManifest@0
-            #   name: deploy
-            #   inputs:
-            #     action: 'deploy'
-            #     kubernetesServiceConnection: 'dev-dev-travely-am-1637185039689'
-            #     namespace: 'dev-travely-am'
-            #     manifests: $(bake.manifestsBundle)
+variables:
+  imageTag: $(Build.BuildId)
+  containerRepository: registry.travely.am/travely/front
+  containerRegistry: registry-travely-am
 
+stages:
+# Build stage
+- template: templates/build.yml
+  parameters:
+    imageTag: variables.imageTag
+    containerRepository: $(containerRepository)
+    containerRegistry: $(containerRegistry)
+# Deploy stage
+- template: templates/deploy.yml
+  parameters:
+    imageTag: variables.imageTag
+    containerRepository: variables.containerRepository
+    containerRegistry: variables.containerRegistry
+    containerRegistryPassword: $(registry_travely_am_password)
+    containerPort: 5000
+    hostname: front.travely.am
+    path: /
+    cname: k8s.travely.am
+    environment: dev.dev-travely-am
+    kubernetesServiceConnection: dev-dev-travely-am-1639235401610
+    kubernetesNamespace: dev-travely-am
+    ingress:
+      enabled: true
+    helmMetadata:
+      releaseName: front
+      chartRegistry: registry.travely.am
