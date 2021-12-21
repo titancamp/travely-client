@@ -17,8 +17,8 @@ stages:
 # Deploy stage
 - template: templates/deploy.yml
   parameters:
-    imageTag: $(containerRegistryHost)/$(imageTag)
-    containerRepository: $(containerRepository)
+    imageTag: $(imageTag)
+    containerRepository: $(containerRegistryHost)/$(containerRepository)
     containerRegistry: $(containerRegistry)
     containerRegistryPassword: $(registry_travely_am_password)
     containerPort: 5000
