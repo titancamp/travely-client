@@ -5,6 +5,7 @@ variables:
   imageTag: $(Build.BuildId)
   containerRepository: travely/front
   containerRegistry: registry-travely-am
+  containerRegistryHost: registry.travely.am
 
 stages:
 # Build stage
@@ -16,7 +17,7 @@ stages:
 # Deploy stage
 - template: templates/deploy.yml
   parameters:
-    imageTag: $(imageTag)
+    imageTag: $(containerRegistryHost)/$(imageTag)
     containerRepository: $(containerRepository)
     containerRegistry: $(containerRegistry)
     containerRegistryPassword: $(registry_travely_am_password)
@@ -31,4 +32,4 @@ stages:
       enabled: true
     helmMetadata:
       releaseName: front
-      chartRegistry: registry.travely.am
+      chartRegistry: $(containerRegistryHost)
