@@ -1,5 +1,4 @@
 FROM docker.io/node:16-bullseye-slim
-USER node
 
 ARG APP=app
 ARG HOME=/home/node
@@ -17,7 +16,6 @@ RUN npm run build
 RUN cp -a build $HOME
 RUN ln -s $HOME/build/index.html $HOME/build/404.html
 WORKDIR $HOME
-USER root
 RUN rm -rf $APP
 
 #prepare
