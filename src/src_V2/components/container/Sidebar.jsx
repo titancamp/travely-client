@@ -12,11 +12,18 @@ import {
   ListItemIcon,
   ListItemText,
   Drawer as MuiDrawer,
-} from '@mui/material';
+} from "@mui/material";
 
-import { ExpandLess, ExpandMore, ChevronLeft, ChevronRight } from '@mui/icons-material';
+import {
+  ExpandLess,
+  ExpandMore,
+  ChevronLeft,
+  ChevronRight,
+} from '@mui/icons-material';
 
-import { COLORS, CONTAINER_SIZES } from '../../utils/constants';
+import {common, grey} from '@mui/material/colors';
+
+import {CONTAINER_SIZES } from "../../utils/constants";
 
 const boxStyles = {
   position: 'relative',
@@ -29,7 +36,7 @@ const fabStyles = {
   zIndex: '9999',
   right: '-20px',
   position: 'absolute',
-  backgroundColor: COLORS.whiteColor,
+  backgroundColor: common['white'],
 };
 
 const listStyles = (open) => ({
@@ -39,7 +46,7 @@ const listStyles = (open) => ({
 
 const listItemStyles = {
   paddingLeft: '32px',
-  backgroundColor: COLORS.lightGrayColor,
+  backgroundColor: grey[50],
 };
 
 const openedMixin = (theme) => ({
@@ -88,7 +95,7 @@ const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
 
 function MenuItem({ page }) {
   return (
-    <ListItem button to={page.path} component={NavLink} key={page.title}>
+    <ListItem button to={page.path} component={NavLink}>
       <ListItemIcon>{page.icon}</ListItemIcon>
       <ListItemText primary={page.title} />
     </ListItem>
@@ -108,15 +115,25 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
 
   return (
     <>
-      <ListItem button onClick={itemExpandingHandler} onMouseEnter={mouseEnterHandler}>
+      <ListItem
+        button
+        onClick={itemExpandingHandler}
+        onMouseEnter={mouseEnterHandler}
+      >
         <ListItemIcon>{page.icon}</ListItemIcon>
         <ListItemText primary={page.title} />
         {expanded[page.collapsibleId] ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={expanded[page.collapsibleId]}>
         <List component="div" disablePadding>
-          {page.subPages.map(({ title }) => (
-            <ListItem button sx={listItemStyles} key={title}>
+          {page.subPages.map(({ title, path }) => (
+            <ListItem
+              button
+              to={path}
+              key={title}
+              sx={listItemStyles}
+              component={NavLink}
+            >
               <ListItemText primary={title} />
             </ListItem>
           ))}
