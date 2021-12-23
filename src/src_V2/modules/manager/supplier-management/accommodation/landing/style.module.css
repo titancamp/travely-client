@@ -1,0 +1,29 @@
+.landing {
+  display: flex;
+  margin-top: 64px;
+  padding-left: 78px;
+  padding-right: 78px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.info {
+  max-width: 500px;
+  width: 100%;
+}
+
+.infoContent {
+  opacity: 0.6;
+  margin-top: 8px;
+}
+
+.addBtn {
+  margin-top: 16px;
+}
+
+.img {
+  width: 665px;
+  height: 381px;
+  opacity: 0.4;
+  margin-right: 190px;
+}

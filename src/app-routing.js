@@ -1,7 +1,6 @@
-import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch } from 'react-router-dom';
 // import Admin from "./components/admin/admin";
-// import User from "./components/user/user";
+// import User from './components/user/user';
 // import Login from "./components/auth/login";
 // import ForgotPassword from "./components/auth/forgot-password";
 // import PasswordReset from "./components/auth/password-reset";
