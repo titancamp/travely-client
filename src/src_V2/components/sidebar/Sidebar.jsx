@@ -20,16 +20,17 @@ import { COLORS, CONTAINER_SIZES } from '../../utils';
 
 const boxStyles = {
   position: 'relative',
-  display: 'inline-block',
+  display: 'flex',
 };
 
 const fabStyles = {
   width: '40px',
   height: '40px',
-  zIndex: '9999',
+  top: '20px',
+  zIndex: 1201,
   right: '-20px',
   position: 'absolute',
-  backgroundColor: COLORS.whiteColor,
+  backgroundColor: COLORS.white,
 };
 
 const listStyles = (open) => ({
@@ -39,11 +40,11 @@ const listStyles = (open) => ({
 
 const listItemStyles = {
   paddingLeft: '32px',
-  backgroundColor: COLORS.lightGrayColor,
+  backgroundColor: COLORS.lightGray,
 };
 
 const openedMixin = (theme) => ({
-  top: '85px',
+  position: 'relative',
   width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
@@ -53,7 +54,7 @@ const openedMixin = (theme) => ({
 });
 
 const closedMixin = (theme) => ({
-  top: '85px',
+  position: 'relative',
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.standard,
@@ -141,7 +142,7 @@ export default function Sidebar({ pageConfigs, open, setOpen }) {
   );
 
   return (
-    <Box style={boxStyles}>
+    <Box sx={boxStyles}>
       <Tooltip placement={'right'} TransitionComponent={Zoom} title={!open ? 'Expand' : 'Collapse'}>
         <Fab onClick={openCloseHandler} color={'inherit'} sx={fabStyles}>
           {open ? <ChevronLeft /> : <ChevronRight />}

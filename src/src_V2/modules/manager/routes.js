@@ -1,7 +1,7 @@
 import Todo from './todo';
 import Dashboard from './dashboard';
 import Accommodation from './supplier-management/accommodation';
-import Payable from './financial/payable';
+import Payables from './financial/components/payables/Payables';
 
 export const ROUTES = {
   TODO: 'todo',
@@ -18,6 +18,6 @@ export default function routeConfigs() {
     { path: ROUTES.TODO, element: <Todo /> },
     { path: ROUTES.DASHBOARD, element: <Dashboard /> },
     { path: ROUTES.ACCOMMODATION, element: <Accommodation /> },
-    { path: ROUTES.PAYABLE, element: <Payable /> },
+    { path: ROUTES.PAYABLE, element: <Payables /> },
   ];
 }

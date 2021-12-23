@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Box, Card, Grid, Button, IconButton, Typography, CardContent } from '@mui/material';
-import { grey } from '@mui/material/colors';
 import { AddCircle } from '@mui/icons-material';
 import { Edit, Delete } from '@mui/icons-material';
 
 import DialogManager from '../dialogs/Index';
+import { COLORS } from '../../../../../utils';
 import styles from './style.module.css';
 
 export default function Rooms() {
@@ -54,10 +54,10 @@ function RoomInfoCard({ room, onOpenDialog }) {
         </CardContent>
         <Box className={`${styles.cardActions} ${styles.rightAligned}`}>
           <IconButton onClick={openViewCardDialog}>
-            <Edit style={{ color: grey[600] }} />
+            <Edit style={{ color: COLORS.darkGray }} />
           </IconButton>
           <IconButton color="primary" onClick={openViewCardDialog}>
-            <Delete style={{ color: grey[600] }} />
+            <Delete style={{ color: COLORS.darkGray }} />
           </IconButton>
         </Box>
       </Card>
