@@ -1,0 +1,72 @@
+
+.gridItem {
+    max-width: 275px !important;
+    min-width: 260px !important;
+    max-height: 218px;
+}
+
+.card {
+    height: 100%;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.addCard {
+    background-color: #eaf4fc !important;
+    min-height: 210px;
+}
+
+.card .detailsInfo {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.card .title {
+    margin: 8px 0;
+    font-size: 24px;
+}
+
+.addCard .title {
+    margin-top: 28px;
+    margin-bottom: 20px;
+}
+
+.subTitle {
+    font-size: 14px !important;
+}
+
+.card .price {
+    margin-top: 12px;
+}
+
+.addButton {
+    color: #2183d1;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+}
+
+.svg {
+    color: #2183d1;
+    margin-top: 2px;
+    margin-left: 9px;
+    width: 15px!important;
+    height: 15px!important;
+}
+
+.addButtonContainer {
+    display: flex;
+    margin: 24px 0 0 15px;
+}
+
+.cardActions {
+    margin-bottom: 12px!important;
+    padding: 4px 13px!important;
+}
+
+.cardActions.rightAligned {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.icon {
+    color: #757575;
+}

@@ -1,10 +1,10 @@
-import AccommodationNoData from "./landing/AccommodationNoData";
-import AddAccommodation from "./add/Index";
-import AccommodationList from "./list/Index";
+import AccommodationNoData from './landing/AccommodationNoData';
+import AddAccommodation from './add/Index';
+import AccommodationList from './list/Index';
 
 export const ROUTES = {
-  ADD: "add",
-  LIST: "list",
+  ADD: 'add',
+  LIST: 'list',
 };
 
 /**

@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import {
   Fab,
@@ -12,35 +12,35 @@ import {
   ListItemIcon,
   ListItemText,
   Drawer as MuiDrawer,
-} from "@mui/material";
+} from '@mui/material';
+import { common, grey } from '@mui/material/colors';
+import { ExpandLess, ExpandMore, ChevronLeft, ChevronRight } from '@mui/icons-material';
+import { makeStyles } from '@mui/styles';
 
-import {
-  ExpandLess,
-  ExpandMore,
-  ChevronLeft,
-  ChevronRight,
-} from '@mui/icons-material';
+import styles from './style.module.css';
 
-import {common, grey} from '@mui/material/colors';
+import { CONTAINER_SIZES } from '../../utils';
 
-import {CONTAINER_SIZES } from "../../utils/constants";
-
+//TODO move styles css module.
 const boxStyles = {
   position: 'relative',
-  display: 'inline-block',
+  display: 'flex',
 };
 
 const fabStyles = {
   width: '40px',
   height: '40px',
+  left: '12px',
   zIndex: '9999',
-  right: '-20px',
-  position: 'absolute',
+  top: '98px',
+  position: 'fixed',
   backgroundColor: common['white'],
+  transition: 'left 300ms cubic-bezier(0.4, 0, 0.6, 1) 0ms',
 };
 
 const listStyles = (open) => ({
-  marginTop: '36px',
+  marginTop: '24px',
+  width: '100%',
   ...(!open && { display: 'none' }),
 });
 
@@ -57,6 +57,9 @@ const openedMixin = (theme) => ({
     duration: theme.transitions.duration.standard,
   }),
   overflowX: 'hidden',
+  ' ~ .MuiFab-root': {
+    left: '300px',
+  },
 });
 
 const closedMixin = (theme) => ({
@@ -74,6 +77,13 @@ const closedMixin = (theme) => ({
     width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
     ul: {
       display: 'initial !important',
+    },
+    ' ~ .MuiFab-root': {
+      left: '300px',
+      pointerEvents: 'none',
+      svg: {
+        transform: 'rotate(180deg)',
+      },
     },
   },
 });
@@ -93,16 +103,19 @@ const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
   }),
 }));
 
-function MenuItem({ page }) {
+function MenuItem({ page, pathname }) {
+  const classMenuItem = page.path === pathname ? styles.menuItem : '';
+  const classMenuIcon = page.path === pathname ? styles.icon : '';
+
   return (
-    <ListItem button to={page.path} component={NavLink}>
-      <ListItemIcon>{page.icon}</ListItemIcon>
+    <ListItem button to={page.path} component={NavLink} className={classMenuItem}>
+      <ListItemIcon className={classMenuIcon}>{page.icon}</ListItemIcon>
       <ListItemText primary={page.title} />
     </ListItem>
   );
 }
 
-function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
+function ExpandableMenuItem({ open, page, expanded, setExpandedState, pathname }) {
   function mouseEnterHandler() {
     if (!open && !expanded[page.collapsibleId]) {
       setExpandedState(page.collapsibleId);
@@ -115,24 +128,22 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
 
   return (
     <>
-      <ListItem
-        button
-        onClick={itemExpandingHandler}
-        onMouseEnter={mouseEnterHandler}
-      >
+      <ListItem button onClick={itemExpandingHandler} onMouseEnter={mouseEnterHandler}>
         <ListItemIcon>{page.icon}</ListItemIcon>
         <ListItemText primary={page.title} />
         {expanded[page.collapsibleId] ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={expanded[page.collapsibleId]}>
-        <List component="div" disablePadding>
+        <List component='div' disablePadding>
           {page.subPages.map(({ title, path }) => (
             <ListItem
               button
               to={path}
               key={title}
               sx={listItemStyles}
+              pathname={pathname}
               component={NavLink}
+              className={path === pathname ? styles.menuItem : ''}
             >
               <ListItemText primary={title} />
             </ListItem>
@@ -144,6 +155,7 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
 }
 
 export default function Sidebar({ pageConfigs, open, setOpen }) {
+  const { pathname } = useLocation();
   const [expanded, setExpanded] = useState({});
   const openCloseHandler = useCallback(() => setOpen(!open), [open, setOpen]);
 
@@ -159,28 +171,33 @@ export default function Sidebar({ pageConfigs, open, setOpen }) {
 
   return (
     <Box style={boxStyles}>
-      <Tooltip placement={'right'} TransitionComponent={Zoom} title={!open ? 'Expand' : 'Collapse'}>
-        <Fab onClick={openCloseHandler} color={'inherit'} sx={fabStyles}>
-          {open ? <ChevronLeft /> : <ChevronRight />}
-        </Fab>
-      </Tooltip>
-      <Drawer variant="permanent" anchor="left" open={open}>
+      <Drawer variant='permanent' anchor='left' open={open}>
         <List style={listStyles(open)}>
-          {pageConfigs.map((page) =>
-            page.path ? (
-              <MenuItem page={page} key={page.title} />
+          {pageConfigs.map((page) => {
+            return page.path ? (
+              <MenuItem page={page} key={page.title} pathname={pathname} />
             ) : (
               <ExpandableMenuItem
                 open={open}
                 page={page}
                 key={page.title}
+                pathname={pathname}
                 expanded={expanded}
                 setExpandedState={setExpandedState}
               />
-            )
-          )}
+            );
+          })}
         </List>
       </Drawer>
+      <Tooltip
+        placement={'right'}
+        TransitionComponent={Zoom}
+        title={!open ? 'Expand' : 'Collapse'}
+      >
+        <Fab onClick={openCloseHandler} color={'inherit'} sx={fabStyles}>
+          {open ? <ChevronLeft /> : <ChevronRight />}
+        </Fab>
+      </Tooltip>
     </Box>
   );
 }

@@ -1,106 +1,107 @@
+import { Box, Grid, Button, TextField } from '@mui/material';
+import { useEffect } from 'react';
+import { useFormik } from 'formik';
+import { CloudUpload } from '@mui/icons-material';
+
 import {
-  Box,
-  Button,
-  InputLabel,
-  IconButton,
-  FormControl,
-  OutlinedInput,
-  InputAdornment,
-} from "@mui/material";
+  partnershipSchema,
+  partnershipInitialValues,
+} from '../../../../../utils/schemas/tourManagment/accommodation';
 
-import { CalendarToday, CloudUpload } from "@mui/icons-material";
+import styles from './style.module.css';
 
-export default function Contact() {
+//TODO handle the attachments functionality
+//TODO read and implement FRD requirements
+
+export default function Contact({ accommodation }) {
+  const formikData = {
+    validationSchema: partnershipSchema,
+    initialValues: partnershipInitialValues(accommodation.partnership.values),
+  };
+  const initializeTouchState = () => setTouched({ ...accommodation.partnership.touched });
+  const addPartnershipToAccommodation = () =>
+    (accommodation.partnership = { values, isValid, touched });
+
+  const { values, errors, touched, handleBlur, isValid, setTouched, handleChange } =
+    useFormik(formikData);
+
+  useEffect(initializeTouchState, []);
+  useEffect(addPartnershipToAccommodation, [values, isValid, touched]);
+
   return (
-    <Box
-      style={{
-        maxWidth: 400,
-        margin: "40px 0 0 130px",
-      }}
-    >
-      <Box style={{ display: "flex" }}>
-        <p>Details</p>
-        <Box
-          style={{
-            display: "flex",
-          }}
-        >
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">
-              Sign Date
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    edge="end"
-                  >
-                    <CalendarToday />
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
+    <Box>
+      <Box className={styles.mnRow}>
+        <label className={styles.label}>Details</label>
+        <Grid container item xs={7} spacing={3}>
+          <Grid item xs={4}>
+            <TextField
+              fullWidth
+              type='date'
+              name='signInDate'
+              label='Sign Date'
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.signInDate}
+              InputLabelProps={{ shrink: true }}
+              error={errors.signInDate && touched.signInDate}
+              helperText={touched.signInDate && errors.signInDate}
             />
-          </FormControl>
-
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">
-              Expiry Date
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    edge="end"
-                  >
-                    <CalendarToday />
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
+          </Grid>
+          <Grid item xs={4}>
+            <TextField
+              fullWidth
+              type='date'
+              name='expiryDate'
+              label='Expiry Date'
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.expiryDate}
+              InputLabelProps={{ shrink: true }}
+              error={errors.expiryDate && touched.expiryDate}
+              helperText={touched.expiryDate && errors.expiryDate}
             />
-          </FormControl>
+          </Grid>
+        </Grid>
+      </Box>
+      <Box className={styles.mnRow}>
+        <label className={styles.label} />
+        <Box className={styles.addAttachmentContainer}>
+          <Button className={styles.addAttachment}>
+            ADD ATTACHMENTS
+            <CloudUpload />
+          </Button>
         </Box>
       </Box>
-
-      <Button
-        sx={{
-          width: 310,
-          borderRadius: 0.5,
-          boxSizing: "border-box",
-          background: "rgba(33, 131, 209, 0.08)",
-          border: "1px solid rgba(33, 131, 209, 0.5)",
-        }}
-      >
-        ADD ATTACHMENTS
-        <CloudUpload />
-      </Button>
-
-      <Box style={{ display: "flex" }}>
-        <p>Margin</p>
-        <Box
-          style={{
-            display: "flex",
-          }}
-        >
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">
-              Percentage
-            </InputLabel>
-            <OutlinedInput id="outlined-adornment-password" label="Password" />
-          </FormControl>
-
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">
-              Fixed Price
-            </InputLabel>
-            <OutlinedInput id="outlined-adornment-password" label="Password" />
-          </FormControl>
-        </Box>
+      <Box className={styles.mnRow}>
+        <label className={styles.label}>Margin</label>
+        <Grid container item xs={7} spacing={3}>
+          <Grid item xs={4}>
+            <TextField
+              fullWidth
+              name='percentage'
+              label='Percentage'
+              placeholder='Percentage'
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.percentage}
+              error={errors.percentage && touched.percentage}
+              helperText={touched.percentage && errors.percentage}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <TextField
+              fullWidth
+              name='price'
+              label='Fixed Price'
+              placeholder='Fixed Price'
+              onBlur={handleBlur}
+              value={values.price}
+              onChange={handleChange}
+              error={errors.price && touched.price}
+              helperText={touched.price && errors.price}
+            />
+          </Grid>
+        </Grid>
       </Box>
     </Box>
   );

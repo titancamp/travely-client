@@ -1,13 +1,14 @@
 /* Add accommodation styles*/
 
 .container {
-  padding: 50px 120px 0;
+  padding: 40px 120px 0;
 }
 
 /* Main Info */
 
 .mainInfo {
   max-width: 930px;
+  min-width: 700px;
 }
 
 .mnRow {
@@ -24,7 +25,7 @@
 .map {
   padding: 0;
   border: none;
-  color: black;
+  color: black !important;
   font-weight: bold;
 }
 
@@ -34,59 +35,44 @@
   margin-right: 234px;
 }
 
-.gridItem {
-  max-width: 282px !important;
-  max-height: 218px;
+/* Contact */
+
+.ctField {
+  margin-bottom: 25px !important;
+  max-width: 400px;
 }
 
-.card {
-  height: 100%;
-  color: rgba(0, 0, 0, 0.87);
+.outline {
+  border-color: red !important;
 }
 
-.addCard {
-  background-color: #eaf4fc !important;
+/* Partnership */
+
+.addAttachmentContainer {
+  margin: 30px 0 30px 0 !important;
 }
 
-.card .detailsInfo {
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.6);
+.addAttachmentContainer .addAttachment {
+  width: 320px;
+  height: 45px;
+  font-size: 15px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: rgba(33, 131, 209, 0.08);
+  border: 1px solid rgba(33, 131, 209, 0.5);
 }
 
-.card .title {
-  margin: 8px 0;
-  font-size: 24px;
+.addAttachmentIcon {
+  margin-left: 10px !important;
 }
 
-.addCard .title {
-  margin-top: 28px;
-  margin-bottom: 20px;
+.ptField {
+  margin-left: 20px !important;
+  min-width: 290px !important;
 }
 
-.subTitle {
-  font-size: 14px;
-}
-
-.card .price {
-  margin-top: 12px;
-}
-
-.addButton {
-  color: #2183d1;
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.addButton svg {
-  margin-left: 9px;
-}
-
-.cardActions {
-  margin-bottom: 12px;
-  padding: 0 13px;
-}
-
-.cardActions.rightAligned {
+.marginSection {
+  width: 100%;
   display: flex;
-  justify-content: flex-end;
 }
+

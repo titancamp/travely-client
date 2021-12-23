@@ -1,80 +1,93 @@
+import { useEffect } from 'react';
+import { useFormik } from 'formik';
+import { Person, LocalPhone, Email } from '@mui/icons-material';
 import {
   Box,
-  FormControl,
   InputLabel,
+  FormControl,
   OutlinedInput,
-  IconButton,
-  InputAdornment,
-} from "@mui/material";
+  FormHelperText,
+} from '@mui/material';
 
-import { Person, LocalPhone, Email } from "@mui/icons-material";
+import { EndAdornment } from '../../components/endAdornment';
+import {
+  contactSchema,
+  contactInitialValues,
+} from '../../../../../utils/schemas/tourManagment/accommodation';
 
-export default function Contact() {
+import styles from './style.module.css';
+
+//TODO handle phone validation confirm with piems
+
+export default function Contact({ accommodation }) {
+  const formikData = {
+    validationSchema: contactSchema,
+    initialValues: contactInitialValues(accommodation.contact.values),
+  };
+  const initializeTouchState = () => setTouched({ ...accommodation.contact.touched });
+  const addContactAccommodation = () =>
+    (accommodation.contact = { values, isValid, touched });
+
+  const { values, errors, touched, isValid, handleBlur, setTouched, handleChange } =
+    useFormik(formikData);
+
+  useEffect(initializeTouchState, []);
+  useEffect(addContactAccommodation, [values, isValid, touched]);
+
   return (
-    <Box
-      style={{
-        maxWidth: 400,
-        margin: "40px 0 0 130px",
-      }}
-    >
-      <p>Details</p>
-      <Box
-        style={{
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">
-            Password
-          </InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton aria-label="toggle password visibility" edge="end">
-                  <Person />
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
-
-        <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">
-            Password
-          </InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton aria-label="toggle password visibility" edge="end">
-                  <LocalPhone />
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
-
-        <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">
-            Password
-          </InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton aria-label="toggle password visibility" edge="end">
-                  <Email />
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
+    <form>
+      <Box className={styles.mnRow}>
+        <label className={styles.label}>Details</label>
+        <Box>
+          <FormControl fullWidth className={styles.ctField}>
+            <InputLabel error={errors.person && touched.person}>
+              Contact Person
+            </InputLabel>
+            <OutlinedInput
+              name='person'
+              onBlur={handleBlur}
+              value={values.person}
+              label='Contact Person'
+              onChange={handleChange}
+              error={errors.person && touched.person}
+              endAdornment={<EndAdornment icon={<Person />} />}
+            />
+            {touched.person && errors.person && (
+              <FormHelperText error>{errors.person}</FormHelperText>
+            )}
+          </FormControl>
+          <FormControl fullWidth className={styles.ctField}>
+            <InputLabel error={errors.phone && touched.phone}>Contact Phone</InputLabel>
+            <OutlinedInput
+              name='phone'
+              onBlur={handleBlur}
+              value={values.phone}
+              label='Contact Phone'
+              onChange={handleChange}
+              error={errors.phone && touched.phone}
+              endAdornment={<EndAdornment icon={<LocalPhone />} />}
+            />
+            {errors.phone && touched.phone && (
+              <FormHelperText error>{errors.phone}</FormHelperText>
+            )}
+          </FormControl>
+          <FormControl fullWidth className={styles.ctField}>
+            <InputLabel error={errors.email && touched.email}>Contact Email</InputLabel>
+            <OutlinedInput
+              name='email'
+              onBlur={handleBlur}
+              value={values.email}
+              label='Contact Email'
+              onChange={handleChange}
+              error={errors.email && touched.email}
+              endAdornment={<EndAdornment icon={<Email />} />}
+            />
+            {errors.email && touched.email && (
+              <FormHelperText error>{errors.email}</FormHelperText>
+            )}
+          </FormControl>
+        </Box>
       </Box>
-    </Box>
+    </form>
   );
 }

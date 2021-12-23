@@ -9,6 +9,7 @@
 
 .info {
   max-width: 500px;
+  min-width: 430px;
   width: 100%;
 }
 

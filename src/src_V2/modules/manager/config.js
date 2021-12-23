@@ -59,6 +59,10 @@ export const managerSidebarConfig = [
         title: 'Guides',
         path: '/manager/guides',
       },
+      {
+        title: 'Extra Services',
+        path: '/manager/extra-services',
+      },
     ],
   },
   {

@@ -1,13 +1,34 @@
-/* Card View */
+/* Add Room */
+.dialogAction {
+  margin-top: 40px;
+}
 
+/* Card View */
 .cardActions {
-    margin-bottom: 12px;
-    padding: 0 13px;
+  margin-bottom: 12px;
 }
 
 .cardActions.rightAligned {
-    display: flex;
-    justify-content: flex-end;
-
+  display: flex;
+  justify-content: flex-end;
 }
 
+.cardViewContainer {
+  min-width: 600px;
+  min-height: 300px;
+}
+
+.viewDialogTitle {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 24px;
+  padding-bottom: 27px;
+}
+
+.viewDialogTitle .dialogTitle {
+  font-size: 24px;
+}
+
+.roomLabel {
+  opacity: 0.6;
+}

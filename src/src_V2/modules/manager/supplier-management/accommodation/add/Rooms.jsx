@@ -1,96 +1,96 @@
-import { useState } from 'react';
-import { Box, Card, Grid, Button, IconButton, Typography, CardContent } from '@mui/material';
-import { grey } from '@mui/material/colors';
-import { AddCircle } from '@mui/icons-material';
-import { Edit, Delete } from '@mui/icons-material';
+import { useEffect, useState } from 'react';
+import { Box, Grid } from '@mui/material';
 
 import DialogManager from '../dialogs/Index';
+import { AddCard, InfoCard } from '../../components';
+
 import styles from './style.module.css';
 
-export default function Rooms() {
-  const [temporaryData] = useState([]);
-  const [dialogManagerState, onShowHideDialog] = useState({
-    id: null,
-    mode: '',
-    open: false,
-  });
+export default function Rooms({ accommodation }) {
+  const [rooms, setRooms] = useState(accommodation.rooms);
+  const [dialogManagerState, onShowHideDialog] = useState({ open: false });
+  const addRoomsToAccommodationData = () => (accommodation.rooms = rooms);
+
+  function addRoom(room) {
+    room.id = rooms.length ? rooms[rooms.length - 1].id + 1 : 1;
+    setRooms([...rooms, room]);
+    onShowHideDialog({ open: false });
+  }
+
+  function deleteRoom(id) {
+    setRooms(rooms.filter((room) => room.id !== id));
+    onShowHideDialog({ open: false });
+  }
+
+  function editRoom(newRoom) {
+    setRooms(rooms.map((room) => (newRoom.id === room.id ? newRoom : room)));
+    onShowHideDialog({ open: false });
+  }
+
+  function openAddCardDialog() {
+    onShowHideDialog({
+      open: true,
+      mode: 'add',
+      actions: addRoom,
+    });
+  }
+
+  function openViewCardDialog(id) {
+    onShowHideDialog({
+      open: true,
+      mode: 'view',
+      state: rooms.find((room) => room.id === id),
+      actions: { openDeleteCardDialog, openEditCardDialog },
+    });
+  }
+
+  function openDeleteCardDialog(id) {
+    onShowHideDialog({
+      open: true,
+      state: { id },
+      mode: 'delete',
+      actions: deleteRoom,
+    });
+  }
+
+  function openEditCardDialog(id) {
+    onShowHideDialog({
+      open: true,
+      mode: 'edit',
+      actions: editRoom,
+      state: rooms.find((room) => room.id === id),
+    });
+  }
+
+  useEffect(addRoomsToAccommodationData, [rooms]);
 
   return (
     <Box className={styles.roomContent}>
       <Grid container spacing={1}>
-        <AddRoomCard onOpenDialog={onShowHideDialog} />
-        {temporaryData.map((room) => (
-          <RoomInfoCard room={room} key={room.id} onOpenDialog={onShowHideDialog} />
+        <AddCard
+          title='Rooms'
+          buttonText='ADD ROOM'
+          onOpenDialog={openAddCardDialog}
+          subTitle='Add Button bellow to add rooms to your accommodation'
+          disabled={rooms.length === 50}
+        />
+        {rooms.map((room) => (
+          <InfoCard
+            id={room.id}
+            key={room.id}
+            sectionData={{
+              label2: room.type?.label,
+              label3: room.beds,
+              label4: room.price,
+              label1: room.quantity,
+            }}
+            areaAction={openViewCardDialog}
+            firstCardAction={openEditCardDialog}
+            secondCardAction={openDeleteCardDialog}
+          />
         ))}
       </Grid>
       <DialogManager data={dialogManagerState} onShowHideDialog={onShowHideDialog} />
     </Box>
-  );
-}
-
-//TODO cards should be reusable
-
-function RoomInfoCard({ room, onOpenDialog }) {
-  function openViewCardDialog() {
-    onOpenDialog({
-      open: true,
-      id: room.id,
-      mode: 'view',
-    });
-  }
-
-  return (
-    <Grid className={styles.gridItem} item xs={3}>
-      <Card className={styles.card}>
-        <CardContent>
-          <Typography className={styles.detailsInfo}>Qty: {room.quantity}</Typography>
-          <Typography variant="h6" className={styles.title}>
-            {room.type}
-          </Typography>
-          <Typography className={styles.detailsInfo}>Beds: {room.beds}</Typography>
-          <Typography component="p" className={styles.price}>
-            {room.price} AMD
-          </Typography>
-        </CardContent>
-        <Box className={`${styles.cardActions} ${styles.rightAligned}`}>
-          <IconButton onClick={openViewCardDialog}>
-            <Edit style={{ color: grey[600] }} />
-          </IconButton>
-          <IconButton color="primary" onClick={openViewCardDialog}>
-            <Delete style={{ color: grey[600] }} />
-          </IconButton>
-        </Box>
-      </Card>
-    </Grid>
-  );
-}
-
-function AddRoomCard({ onOpenDialog }) {
-  function openAddCardDialog() {
-    onOpenDialog({
-      mode: 'add',
-      open: true,
-    });
-  }
-
-  return (
-    <Grid className={styles.gridItem} item xs={3}>
-      <Card className={`${styles.addCard} ${styles.card}`}>
-        <CardContent>
-          <Typography className={styles.title} variant="h5">
-            Rooms
-          </Typography>
-          <Typography className={styles.subTitle}>
-            Add Button bellow to add rooms to your accommodation
-          </Typography>
-        </CardContent>
-        <Box className={styles.cardActions}>
-          <Button className={styles.addButton} onClick={openAddCardDialog}>
-            ADD ROOM
-            <AddCircle />
-          </Button>
-        </Box>
-      </Card>
-    </Grid>
   );
 }

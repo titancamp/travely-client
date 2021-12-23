@@ -1,22 +1,34 @@
-import { Dialog } from "@mui/material";
-import AddRoomDialog from "./AddRoom.dialog";
-import ViewRoomDialog from "./ViewRoom.dialog";
-import DeleteRoomDialog from "./DeleteRoom.dialog";
+import { Dialog } from '@mui/material';
+import AddRoomDialog from './AddRoom.dialog';
+import ViewRoomDialog from './ViewRoom.dialog';
+import DeleteRoomDialog from './DeleteRoom.dialog';
+import Map from './Map.dialog';
 
 function CurrentDialog({ data, onClose, onShowHideDialog }) {
   switch (data.mode) {
-    case "add":
-      return <AddRoomDialog onClose={onClose} />;
-    case "edit":
+    case 'map':
+      return <Map onClose={onClose} />;
+    case 'add':
+      return <AddRoomDialog onClose={onClose} onSuccess={data.actions} />;
+    case 'edit':
       return (
-        <AddRoomDialog onClose={onClose} onShowHideDialog={onShowHideDialog} />
+        <AddRoomDialog
+          editMode
+          room={data.state}
+          eonClose={onClose}
+          onSuccess={data.actions}
+        />
       );
-    case "view":
+    case 'view':
+      return <ViewRoomDialog data={data} />;
+    case 'delete':
       return (
-        <ViewRoomDialog id={data.id} onShowHideDialog={onShowHideDialog} />
+        <DeleteRoomDialog
+          onClose={onClose}
+          id={data.state.id}
+          deleteRoom={data.actions}
+        />
       );
-    case "delete":
-      return <DeleteRoomDialog onClose={onClose} />;
     default:
       return null;
   }
@@ -25,18 +37,14 @@ function CurrentDialog({ data, onClose, onShowHideDialog }) {
 export default function DialogManager({ data, onShowHideDialog }) {
   function onClose() {
     onShowHideDialog({
-      mode: "",
+      mode: '',
       open: false,
     });
   }
 
   return (
     <Dialog open={data.open} onClose={onClose}>
-      <CurrentDialog
-        data={data}
-        onClose={onClose}
-        onShowHideDialog={onShowHideDialog}
-      />
+      <CurrentDialog data={data} onClose={onClose} onShowHideDialog={onShowHideDialog} />
     </Dialog>
   );
 }

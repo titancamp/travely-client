@@ -13,8 +13,8 @@ export const ROUTES = {
  */
 export default function routeConfigs() {
   return [
-    {path: ROUTES.TODO, element: <Todo />,},
-    {path: ROUTES.DASHBOARD, element: <Dashboard />,},
-    {path: ROUTES.ACCOMMODATION, element: <Accommodation />,},
+    { path: ROUTES.TODO, element: <Todo /> },
+    { path: ROUTES.DASHBOARD, element: <Dashboard /> },
+    { path: ROUTES.ACCOMMODATION, element: <Accommodation /> },
   ];
 }
