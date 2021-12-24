@@ -25,7 +25,7 @@ const boxStyles = {
   position: 'relative',
   display: 'flex',
   minHeight: '91.4vh',
-  marginTop: '3px',
+  marginTop: '2px',
 };
 
 /**

@@ -2,7 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
-import { Button } from "@mui/material";
+import { Button } from '@mui/material';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -17,26 +17,44 @@ import { Container } from '../../../../../components';
 import { managerSidebarConfig } from '../../../config';
 
 import styles from './style.module.css';
-import FilterBlock from "./FilterBlock";
+import FilterBlock from './FilterBlock';
 
 function createData(name, type, region, city, contactNumber, contactPerson, email, status) {
   return { name, type, region, city, contactNumber, contactPerson, email, status };
 }
 
 const rows = [
-  createData('Mariot', 'Hotel', 'Kotayq', 'Abovyan', '+374 11 11 11 11', 'Name Lastname',
+  createData(
+    'Mariot',
+    'Hotel',
+    'Kotayq',
+    'Abovyan',
+    '+374 11 11 11 11',
+    'Name Lastname',
     'customer.care@marriott.com',
     <Button variant="contained" className={styles.btn} component="span">
       Ready
     </Button>
   ),
-  createData('Tufenkyan', 'Hotel', 'Kotayq', 'Abovyan', '+374 11 11 11 11', 'Name Lastname',
+  createData(
+    'Tufenkyan',
+    'Hotel',
+    'Kotayq',
+    'Abovyan',
+    '+374 11 11 11 11',
+    'Name Lastname',
     'customer.care@marriott.com',
     <Button variant="contained" className={`${styles.btn} ${styles.secondaryBtn}`} component="span">
       Missed Price
     </Button>
   ),
-  createData('Multi rest', 'Hotel', 'Kotayq', 'Abovyan', '+374 11 11 11 11', 'Name Lastname',
+  createData(
+    'Multi rest',
+    'Hotel',
+    'Kotayq',
+    'Abovyan',
+    '+374 11 11 11 11',
+    'Name Lastname',
     'customer.care@marriott.com',
     <Button variant="contained" className={styles.btn} component="span">
       Ready
@@ -124,8 +142,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { order, orderBy, onRequestSort } =
-    props;
+  const { order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -186,20 +203,15 @@ export default function AccommodationList() {
     setPage(0);
   };
 
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
     <Container managerSidebarConfig={managerSidebarConfig}>
-      <FilterBlock/>
+      <FilterBlock />
       <Box className={styles.table}>
         <Paper sx={{ width: '100%', mb: 2 }}>
           <TableContainer>
-            <Table
-              sx={{ minWidth: 750 }}
-              aria-labelledby="tableTitle"
-              size='medium'
-            >
+            <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">
               <EnhancedTableHead
                 order={order}
                 orderBy={orderBy}
@@ -212,17 +224,8 @@ export default function AccommodationList() {
                   .map((row, index) => {
                     const labelId = `enhanced-table-${index}`;
                     return (
-                      <TableRow
-                        hover
-                        tabIndex={-1}
-                        key={row.name}
-                      >
-                        <TableCell
-                          component="th"
-                          id={labelId}
-                          scope="row"
-                          padding="none"
-                        >
+                      <TableRow hover tabIndex={-1} key={row.name}>
+                        <TableCell component="th" id={labelId} scope="row" padding="none">
                           {row.name}
                         </TableCell>
                         <TableCell align="right">{row.type}</TableCell>

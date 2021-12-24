@@ -26,7 +26,7 @@ const boxStyles = {
 const fabStyles = {
   width: '40px',
   height: '40px',
-  top: '20px',
+  top: '15px',
   zIndex: 1201,
   right: '-20px',
   position: 'absolute',

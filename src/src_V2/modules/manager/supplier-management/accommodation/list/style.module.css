@@ -1,65 +1,65 @@
 .table {
-    width: 96% !important;
-    margin: 0 auto;
+  width: 96% !important;
+  margin: 0 auto;
 }
 
 .tableTitles > * {
-    font-weight: bold !important;
+  font-weight: bold !important;
 }
 
 .btn {
-    border-radius: 16px !important;
-    text-transform: capitalize !important;
+  border-radius: 16px !important;
+  text-transform: capitalize !important;
 }
 
 .secondaryBtn {
-    background: #F50057 !important;
+  background: #f50057 !important;
 }
 
 /* FilterBlock */
 
 .select {
-    width: 170px !important;
+  width: 170px !important;
 }
 
 .priceInp {
-    width: 121px;
+  width: 121px;
 }
 
 .box {
-    background: #F8F8F9;
-    align-items: center;
-    padding: 24px 0;
-    margin-bottom: 32px;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid darkgrey;
+  background: #f8f8f9;
+  align-items: center;
+  padding: 24px 0;
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid darkgrey;
 }
 
 .leftSection {
-    align-items: center;
-    margin-left: 40px;
-    display: flex;
+  align-items: center;
+  margin-left: 40px;
+  display: flex;
 }
 
 .rightSection {
-    margin-right: 82px;
+  margin-right: 82px;
 }
 
 .title {
-    font-size: 24px !important;
-    margin-right: 24px !important;
+  font-size: 24px !important;
+  margin-right: 24px !important;
 }
 
 .addBtn {
-    margin-left: 22px !important;
+  margin-left: 22px !important;
 }
 
-.filterBtnsBlock>span {
-    padding: 10px 15px;
+.filterBtnsBlock > span {
+  padding: 10px 15px;
 }
 
-tr>th:first-child,
-tr>td:first-child {
-    padding-left: 15px;
+tr > th:first-child,
+tr > td:first-child {
+  padding-left: 15px;
 }

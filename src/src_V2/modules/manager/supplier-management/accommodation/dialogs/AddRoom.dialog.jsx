@@ -6,7 +6,7 @@ import {
   Autocomplete,
   DialogActions,
   DialogContent,
-} from "@mui/material";
+} from '@mui/material';
 
 export default function AddRoomDialog({ onClose }) {
   return (
@@ -19,8 +19,8 @@ export default function AddRoomDialog({ onClose }) {
               disablePortal
               id="combo-box-demo"
               options={[
-                { label: "The Shawshank Redemption", year: 1994 },
-                { label: "The Godfather", year: 1972 },
+                { label: 'The Shawshank Redemption', year: 1994 },
+                { label: 'The Godfather', year: 1972 },
               ]}
               renderInput={(params) => <TextField {...params} label="Type*" />}
             />
@@ -41,12 +41,10 @@ export default function AddRoomDialog({ onClose }) {
             <Autocomplete
               disablePortal
               options={[
-                { label: "The Godfather", year: 1972 },
-                { label: "The Shawshank Redemption", year: 1994 },
+                { label: 'The Godfather', year: 1972 },
+                { label: 'The Shawshank Redemption', year: 1994 },
               ]}
-              renderInput={(params) => (
-                <TextField {...params} label="Room Services" />
-              )}
+              renderInput={(params) => <TextField {...params} label="Room Services" />}
             />
           </Grid>
         </Grid>
