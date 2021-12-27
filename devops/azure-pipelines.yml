@@ -1,6 +1,12 @@
 trigger:
   - devops
 
+resources:
+  repositories:
+    - repository: travely
+      type: github
+      name: titancamp/travely
+
 variables:
   imageTag: $(Build.BuildId)
   containerRepository: travely/front
@@ -9,13 +15,13 @@ variables:
 
 stages:
 # Build stage
-- template: templates/build.yml
+- template: templates/build.yml@travely
   parameters:
     imageTag: $(imageTag)
     containerRepository: $(containerRepository)
     containerRegistry: $(containerRegistry)
 # Deploy stage
-- template: templates/deploy.yml
+- template: templates/deploy.yml@travely
   parameters:
     imageTag: $(imageTag)
     containerRepository: $(containerRegistryHost)/$(containerRepository)
