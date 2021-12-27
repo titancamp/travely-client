@@ -20,8 +20,6 @@ export default function ViewRoomDialog({ id, onShowHideDialog }) {
   );
 
   function getRoomInfo() {
-    console.log(id);
-
     /**
      * Temporary get from backend.
      */
