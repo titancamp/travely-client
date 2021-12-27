@@ -6,6 +6,7 @@ resources:
   - repository: travely
     type: github
     name: titancamp/travely
+    ref: refs/heads/devops
     endpoint: k-harutyunyan
 
 variables:
