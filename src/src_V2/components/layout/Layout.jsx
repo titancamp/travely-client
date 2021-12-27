@@ -11,6 +11,7 @@ const boxStyles = {
 
 const titleColor = {
   color: COLORS.secondary,
+  marginTop: '10px',
 };
 
 export default function Layout({ children, title }) {

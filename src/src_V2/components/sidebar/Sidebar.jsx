@@ -34,13 +34,14 @@ const fabStyles = {
 };
 
 const listStyles = (open) => ({
-  marginTop: '36px',
+  marginTop: '28px',
   ...(!open && { display: 'none' }),
 });
 
 const listItemStyles = {
   paddingLeft: '32px',
   backgroundColor: COLORS.lightGray,
+  color: COLORS.secondary,
 };
 
 const openedMixin = (theme) => ({
@@ -87,11 +88,13 @@ const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
   }),
 }));
 
-function MenuItem({ page }) {
+function MenuItem({ page, selected }) {
+  const color = selected && COLORS.primary;
+
   return (
-    <ListItem button to={page.path} component={NavLink}>
-      <ListItemIcon>{page.icon}</ListItemIcon>
-      <ListItemText primary={page.title} />
+    <ListItem button to={page.path} component={NavLink} selected={selected}>
+      <ListItemIcon sx={{ color }}>{page.icon}</ListItemIcon>
+      <ListItemText sx={{ color }} primary={page.title} />
     </ListItem>
   );
 }
@@ -116,11 +119,23 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
       </ListItem>
       <Collapse in={expanded[page.collapsibleId]}>
         <List component="div" disablePadding>
-          {page.subPages.map(({ title, path }) => (
-            <ListItem button to={path} key={title} sx={listItemStyles} component={NavLink}>
-              <ListItemText primary={title} />
-            </ListItem>
-          ))}
+          {page.subPages.map(({ title, path }) => {
+            const selected = path === location.pathname;
+            const color = selected && COLORS.primary;
+
+            return (
+              <ListItem
+                button
+                to={path}
+                key={title}
+                sx={listItemStyles}
+                component={NavLink}
+                selected={selected}
+              >
+                <ListItemText primary={title} sx={{ color }} />
+              </ListItem>
+            );
+          })}
         </List>
       </Collapse>
     </>
@@ -150,9 +165,11 @@ export default function Sidebar({ pageConfigs, open, setOpen }) {
       </Tooltip>
       <Drawer variant="permanent" anchor="left" open={open}>
         <List style={listStyles(open)}>
-          {pageConfigs.map((page) =>
-            page.path ? (
-              <MenuItem page={page} key={page.title} />
+          {pageConfigs.map((page) => {
+            const selected = page.path === location.pathname;
+
+            return page.path ? (
+              <MenuItem page={page} key={page.title} selected={selected} />
             ) : (
               <ExpandableMenuItem
                 open={open}
@@ -161,8 +178,8 @@ export default function Sidebar({ pageConfigs, open, setOpen }) {
                 expanded={expanded}
                 setExpandedState={setExpandedState}
               />
-            )
-          )}
+            );
+          })}
         </List>
       </Drawer>
     </Box>

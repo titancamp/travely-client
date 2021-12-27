@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import {
   Box,
   Table,
@@ -15,7 +15,16 @@ import {
 import { visuallyHidden } from '@mui/utils';
 
 import { Container } from '../../../../../components';
+import NoData from '../../../../../components/no-data/NoData';
 import { managerSidebarConfig } from '../../../config';
+import { COLORS } from '../../../../../utils';
+import styles from './Payables.module.css';
+
+const tableHeadStyles = {
+  backgroundColor: COLORS.midGray,
+};
+
+const rowsPerPageOptions = [20, 50, 100];
 
 const headCells = [
   {
@@ -100,7 +109,7 @@ function EnhancedTableHead(props) {
   };
 
   return (
-    <TableHead>
+    <TableHead sx={tableHeadStyles}>
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
@@ -116,6 +125,7 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
+            className={styles.tableCell}
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
@@ -140,11 +150,11 @@ function EnhancedTableHead(props) {
 }
 
 const PayableTable = () => {
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('calories');
+  const [selected, setSelected] = useState([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -208,7 +218,7 @@ const PayableTable = () => {
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
-            <TableBody>
+            <TableBody className={styles.tableBody}>
               {rows
                 .slice()
                 .sort(getComparator(order, orderBy))
@@ -257,16 +267,19 @@ const PayableTable = () => {
               )}
             </TableBody>
           </Table>
+          {!rows.length && <NoData />}
         </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        {rows.length > 0 && (
+          <TablePagination
+            rowsPerPageOptions={rowsPerPageOptions}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        )}
       </Paper>
     </Box>
   );
@@ -274,8 +287,7 @@ const PayableTable = () => {
 
 export default function Payables() {
   return (
-    <Container managerSidebarConfig={managerSidebarConfig} showLayout={true} title={'Payables'}>
-      {/*todo create layout with background color and so on*/}
+    <Container managerSidebarConfig={managerSidebarConfig} showLayout={true} title="Payables">
       <PayableTable />
     </Container>
   );

@@ -7,6 +7,7 @@ export const CONTAINER_SIZES = {
 export const COLORS = {
   white: common.white,
   lightGray: grey[50],
+  midGray: grey[100],
   darkGray: grey[600],
   primary: '#2183D1',
   secondary: 'rgba(0, 0, 0, 0.6)',
