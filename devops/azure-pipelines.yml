@@ -36,6 +36,9 @@ stages:
     environment: dev.dev-travely-am
     kubernetesServiceConnection: dev-dev-travely-am-1639235401610
     kubernetesNamespace: dev-travely-am
+    containerEnv:
+    - name: env
+      value: env
     ingress:
       enabled: true
     helmMetadata:
