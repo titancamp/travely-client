@@ -17,13 +17,13 @@ variables:
 
 stages:
 # Build stage
-- template: templates/build.yml@travely
+- template: .devops/templates/build.yml@travely
   parameters:
     imageTag: $(imageTag)
     containerRepository: $(containerRepository)
     containerRegistry: $(containerRegistry)
 # Deploy stage
-- template: templates/deploy.yml@travely
+- template: .devops/templates/deploy.yml@travely
   parameters:
     imageTag: $(imageTag)
     containerRepository: $(containerRegistryHost)/$(containerRepository)
