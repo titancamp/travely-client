@@ -3,9 +3,10 @@ trigger:
 
 resources:
   repositories:
-    - repository: travely
-      type: github
-      name: titancamp/travely
+  - repository: travely
+    type: github
+    name: titancamp/travely
+    endpoint: k-harutyunyan
 
 variables:
   imageTag: $(Build.BuildId)
