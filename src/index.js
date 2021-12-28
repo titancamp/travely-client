@@ -6,12 +6,16 @@ import CssBaseline from '@mui/material/CssBaseline';
 import App from "./src_V2/app/App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./src_V2/store/index";
+import {ThemeProvider} from "@mui/material";
+import { theme } from './src_V2/utils';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <CssBaseline />
-      <App />
+      <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

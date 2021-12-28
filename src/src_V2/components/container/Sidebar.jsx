@@ -31,7 +31,7 @@ const boxStyles = {
 const fabStyles = {
   width: "40px",
   height: "40px",
-  zIndex: "9999",
+  zIndex: "1300",
   right: "-20px",
   position: "absolute",
   backgroundColor: COLORS.whiteColor,

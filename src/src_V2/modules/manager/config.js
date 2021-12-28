@@ -15,7 +15,7 @@ import {
         icon: <Dashboard />,
     },
     {
-        title: "To Do",
+        title: "To Do List",
         path: "/manager/todo",
         icon: <PlaylistAddCheck />,
     },

@@ -31,6 +31,7 @@ const Main = styled("main")(({ theme, open }) => ({
 const boxStyles = {
   display: "inline-block",
   position: "relative",
+  width: '100%',
 };
 
 /**
