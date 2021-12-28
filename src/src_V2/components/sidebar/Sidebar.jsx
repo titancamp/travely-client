@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
 import {
+  styled,
   Fab,
   Box,
   List,
@@ -13,36 +13,16 @@ import {
   ListItemText,
   Drawer as MuiDrawer,
 } from '@mui/material';
-
 import { ExpandLess, ExpandMore, ChevronLeft, ChevronRight } from '@mui/icons-material';
+import { blue } from '@mui/material/colors';
 
-import { COLORS, CONTAINER_SIZES } from '../../utils';
-
-const boxStyles = {
-  position: 'relative',
-  display: 'flex',
-};
-
-const fabStyles = {
-  width: '40px',
-  height: '40px',
-  top: '15px',
-  zIndex: 1201,
-  right: '-20px',
-  position: 'absolute',
-  backgroundColor: COLORS.white,
-};
+import { CONTAINER_SIZES } from '../../utils';
+import styles from './Sidebar.module.css';
 
 const listStyles = (open) => ({
   marginTop: '28px',
   ...(!open && { display: 'none' }),
 });
-
-const listItemStyles = {
-  paddingLeft: '32px',
-  backgroundColor: COLORS.lightGray,
-  color: COLORS.secondary,
-};
 
 const openedMixin = (theme) => ({
   position: 'relative',
@@ -89,7 +69,7 @@ const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
 }));
 
 function MenuItem({ page, selected }) {
-  const color = selected && COLORS.primary;
+  const color = selected && blue[700];
 
   return (
     <ListItem button to={page.path} component={NavLink} selected={selected}>
@@ -121,14 +101,14 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
         <List component="div" disablePadding>
           {page.subPages.map(({ title, path }) => {
             const selected = path === location.pathname;
-            const color = selected && COLORS.primary;
+            const color = selected && blue[700];
 
             return (
               <ListItem
                 button
+                className={styles.subListItem}
                 to={path}
                 key={title}
-                sx={listItemStyles}
                 component={NavLink}
                 selected={selected}
               >
@@ -157,9 +137,9 @@ export default function Sidebar({ pageConfigs, open, setOpen }) {
   );
 
   return (
-    <Box sx={boxStyles}>
+    <Box className={styles.mainBox}>
       <Tooltip placement={'right'} TransitionComponent={Zoom} title={!open ? 'Expand' : 'Collapse'}>
-        <Fab onClick={openCloseHandler} color={'inherit'} sx={fabStyles}>
+        <Fab onClick={openCloseHandler} className={styles.fabToggle}>
           {open ? <ChevronLeft /> : <ChevronRight />}
         </Fab>
       </Tooltip>

@@ -16,74 +16,67 @@ import { visuallyHidden } from '@mui/utils';
 
 import { Container } from '../../../../../components';
 import NoData from '../../../../../components/no-data/NoData';
+import Layout from '../../../../../components/layout/Layout';
+import payablesList from '../../mock/payable';
 import { managerSidebarConfig } from '../../../config';
-import { COLORS } from '../../../../../utils';
 import styles from './Payables.module.css';
-
-const tableHeadStyles = {
-  backgroundColor: COLORS.midGray,
-};
 
 const rowsPerPageOptions = [20, 50, 100];
 
-const headCells = [
+const columns = [
   {
-    id: 'name',
-    numeric: false,
-    disablePadding: true,
-    label: 'Dessert (100g serving)',
+    id: 'paymentId',
+    label: 'Payment ID',
   },
   {
-    id: 'calories',
-    numeric: true,
-    disablePadding: false,
-    label: 'Calories',
+    id: 'tourId',
+    label: 'Tour ID',
   },
   {
-    id: 'fat',
-    numeric: true,
-    disablePadding: false,
-    label: 'Fat (g)',
+    id: 'tourName',
+    label: 'Tour name',
   },
   {
-    id: 'carbs',
-    numeric: true,
-    disablePadding: false,
-    label: 'Carbs (g)',
+    id: 'supplier',
+    label: 'Supplier',
   },
   {
-    id: 'protein',
-    numeric: true,
-    disablePadding: false,
-    label: 'Protein (g)',
+    id: 'plannedCost',
+    label: 'Planed cost',
+  },
+  {
+    id: 'actualCost',
+    label: 'Actual cost',
+  },
+  {
+    id: 'paid',
+    label: 'Paid',
+  },
+  {
+    id: 'createdDate',
+    label: 'Created date',
+  },
+  {
+    id: 'invoiceId',
+    label: 'Invoice ID',
+  },
+  {
+    id: 'dueDate',
+    label: 'Due date',
+  },
+  {
+    id: 'paymentDate',
+    label: 'Payment date',
+  },
+  {
+    id: 'paymentType',
+    label: 'Payment type',
+  },
+  {
+    id: 'invoiceAttachment',
+    label: 'Invoice Attachment',
   },
 ];
-
-const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
-];
-
-function createData(name, calories, fat, carbs, protein) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  };
-}
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -109,7 +102,7 @@ function EnhancedTableHead(props) {
   };
 
   return (
-    <TableHead sx={tableHeadStyles}>
+    <TableHead className={styles.tableHead}>
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
@@ -122,11 +115,11 @@ function EnhancedTableHead(props) {
             }}
           />
         </TableCell>
-        {headCells.map((headCell) => (
+        {columns.map((headCell) => (
           <TableCell
+            align="left"
             key={headCell.id}
             className={styles.tableCell}
-            align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -151,10 +144,12 @@ function EnhancedTableHead(props) {
 
 const PayableTable = () => {
   const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('calories');
+  const [orderBy, setOrderBy] = useState('createdDate');
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(20);
+
+  const payables = payablesList();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -164,19 +159,19 @@ const PayableTable = () => {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = payables.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, paymentId) => {
+    const selectedIndex = selected.indexOf(paymentId);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, paymentId);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -203,23 +198,23 @@ const PayableTable = () => {
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - payables.length) : 0;
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+    <Box className={styles.mainDiv}>
+      <Paper className={styles.paper}>
         <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+          <Table className={styles.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={payables.length}
             />
             <TableBody className={styles.tableBody}>
-              {rows
+              {payables
                 .slice()
                 .sort(getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -230,7 +225,7 @@ const PayableTable = () => {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.paymentId)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -246,13 +241,9 @@ const PayableTable = () => {
                           }}
                         />
                       </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      {Object.keys(row).map((value) => (
+                        <TableCell key={row.paymentId}>{row[value]}</TableCell>
+                      ))}
                     </TableRow>
                   );
                 })}
@@ -267,13 +258,13 @@ const PayableTable = () => {
               )}
             </TableBody>
           </Table>
-          {!rows.length && <NoData />}
+          {!payables.length && <NoData />}
         </TableContainer>
-        {rows.length > 0 && (
+        {!!payables.length && (
           <TablePagination
             rowsPerPageOptions={rowsPerPageOptions}
             component="div"
-            count={rows.length}
+            count={payables.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
@@ -287,8 +278,10 @@ const PayableTable = () => {
 
 export default function Payables() {
   return (
-    <Container managerSidebarConfig={managerSidebarConfig} showLayout={true} title="Payables">
-      <PayableTable />
+    <Container managerSidebarConfig={managerSidebarConfig}>
+      <Layout title="Payables">
+        <PayableTable />
+      </Layout>
     </Container>
   );
 }

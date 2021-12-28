@@ -4,7 +4,6 @@ import { AddCircle } from '@mui/icons-material';
 import { Edit, Delete } from '@mui/icons-material';
 
 import DialogManager from '../dialogs/Index';
-import { COLORS } from '../../../../../utils';
 import styles from './style.module.css';
 
 export default function Rooms() {
@@ -54,10 +53,10 @@ function RoomInfoCard({ room, onOpenDialog }) {
         </CardContent>
         <Box className={`${styles.cardActions} ${styles.rightAligned}`}>
           <IconButton onClick={openViewCardDialog}>
-            <Edit style={{ color: COLORS.darkGray }} />
+            <Edit className={styles.cardButton} />
           </IconButton>
           <IconButton color="primary" onClick={openViewCardDialog}>
-            <Delete style={{ color: COLORS.darkGray }} />
+            <Delete className={styles.cardButton} />
           </IconButton>
         </Box>
       </Card>

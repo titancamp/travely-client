@@ -4,8 +4,7 @@ import { styled } from '@mui/material/styles';
 
 import Header from '../header/Header';
 import Sidebar from '../sidebar/Sidebar';
-
-import Layout from '../layout/Layout';
+import styles from './Container.module.css';
 
 const Main = styled('main')(({ theme, open }) => ({
   flexGrow: 1,
@@ -21,33 +20,22 @@ const Main = styled('main')(({ theme, open }) => ({
   }),
 }));
 
-const boxStyles = {
-  position: 'relative',
-  display: 'flex',
-  minHeight: '91.4vh',
-  marginTop: '2px',
-};
-
 /**
  * @description - Container component which includes the following components in it, Sidebar, Appbar and Main component
  *                with some ui styles to support the Sidebars behavior(expand/collapse);
  * @param children - The children elements.
  * @param managerSidebarConfig - The configs for sidebar menu options.
- * @param showLayout - Whether to show the Layout component
- * @param title - The Title of Layout if there is one
  * @returns {JSX.Element}
  */
-export default function Enhancer({ children, managerSidebarConfig, showLayout, title }) {
+export default function Enhancer({ children, managerSidebarConfig }) {
   const [openSidebar, setOpenSidebar] = useState(true);
 
   return (
     <Box>
       <Header />
-      <Box sx={boxStyles}>
+      <Box className={styles.subBox}>
         <Sidebar pageConfigs={managerSidebarConfig} open={openSidebar} setOpen={setOpenSidebar} />
-        <Main open={openSidebar}>
-          {showLayout ? <Layout title={title}>{children}</Layout> : children}
-        </Main>
+        <Main open={openSidebar}>{children}</Main>
       </Box>
     </Box>
   );
