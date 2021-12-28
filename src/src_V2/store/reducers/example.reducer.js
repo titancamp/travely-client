@@ -1,4 +1,4 @@
-import EXAMPLE_TYPES from "../types/example.types";
+import EXAMPLE_TYPES from '../types/example.types';
 
 const INITIAL_EXAMPLE = {
   setup: false,
@@ -7,7 +7,7 @@ const INITIAL_EXAMPLE = {
 /**
  * @description - Only for setup purposes, removable on the next commits.
  */
-const exampleReducer = (state = INITIAL_EXAMPLE, {type, payload}) => {
+const exampleReducer = (state = INITIAL_EXAMPLE, { type, payload }) => {
   switch (type) {
     case EXAMPLE_TYPES.INIT_APPLICATION_EXAMPLE:
       return {

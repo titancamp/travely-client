@@ -1,0 +1,60 @@
+.actionBanner {
+  display: flex;
+  padding: 15px 72px;
+  align-items: center;
+  background-color: #2183d1;
+  justify-content: space-between;
+}
+
+.contentLeft {
+  display: flex;
+  color: #f8f8f9;
+  margin-left: 12px;
+  align-items: center;
+}
+
+.contentLeft .title {
+  margin-left: 16px;
+  align-items: center;
+}
+
+.actionBanner .cancelBtn {
+  color: white;
+  font-size: 15px;
+  box-shadow: none;
+  margin-right: 18px;
+  background-color: #2183d1;
+}
+
+.actionBanner button {
+  transition: all 0.2s;
+}
+
+.actionBanner button:hover {
+  opacity: 0.7;
+}
+
+.actionBanner .addBtn:hover {
+  color: #000;
+}
+
+.actionBanner .addBtn {
+  color: #2183d1;
+  background-color: #fff;
+  font-weight: 500;
+}
+
+.addBtn:disabled {
+  background-color: #e0e0e0;
+  color: grey;
+}
+
+.addBtn:hover {
+  color: white;
+}
+
+.tab {
+  height: 56px;
+  padding-left: 80px;
+  background-color: #f8f8f9;
+}

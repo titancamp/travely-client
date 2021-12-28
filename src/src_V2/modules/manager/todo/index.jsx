@@ -1,13 +1,13 @@
-import React, {useEffect} from "react";
-import {Container} from "../../../components";
+import {useEffect} from "react";
+import { Container } from '../../../components';
 
+import { Typography } from '@mui/material';
+import { managerSidebarConfig } from '../config';
 import {
     Dialog,
     Grid,
-    Typography
 } from "@mui/material";
 
-import {managerSidebarConfig} from "../config";
 import TodoItem from "./TodoItem";
 import TodoClient from "../../../../api/todo-client";
 import {useToggle} from "../../../hooks";
@@ -19,7 +19,6 @@ export default function Todo() {
 
   const getTodos = async () => {
       const data = await TodoClient.getTodos();
-      console.log('data', data);
   }
 
   useEffect(() => {
