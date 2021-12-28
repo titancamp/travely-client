@@ -5,13 +5,13 @@ export const CONTAINER_SIZES = {
 
 export const ERROR_MESSAGES = {
   required: 'The filed is required',
-  integer: 'The filed must be integer',
-  email: "The field isn't valid email",
+  number: 'The filed must be a number',
   positive: 'The filed must be positive',
-  phone: "The field isn't valid phone number",
-  maxNumberField: 'The filed value must be lower than 99',
-  maxTextField: 'The filed must be at most 150 characters',
-  maxNoteField: 'The filed must be at most 1500 characters',
+  email: 'The field is not a valid email',
+  integer: 'The filed must be an integer',
+  phone: 'The field is not a valid phone number',
+  maxNumberField: (max) => `The value must be at most ${max}`,
+  maxTextField: (max) => `The filed must be at most ${max} characters`,
 };
 
 //Phone temporary regexp for the app

@@ -3,7 +3,6 @@ import {
   Box,
   Card,
   Grid,
-  Button,
   IconButton,
   Typography,
   CardContent,
@@ -12,9 +11,7 @@ import {
 
 import styles from './style.module.css';
 
-//TODO Handle disable state, tooltip text and styles
-
-export function AddCard({ title, subTitle, buttonText, onOpenDialog, disabled }) {
+export function AddCard({ title, subTitle, buttonText, onOpenDialog }) {
   return (
     <Grid className={styles.gridItem} item xs={3}>
       <CardActionArea onClick={onOpenDialog}>
@@ -35,7 +32,6 @@ export function AddCard({ title, subTitle, buttonText, onOpenDialog, disabled })
   );
 }
 
-//TODO set Labels from props and styles on label cases
 export function InfoCard({
   id,
   sectionData,
@@ -43,42 +39,46 @@ export function InfoCard({
   firstCardAction,
   secondCardAction,
 }) {
-  function openRoomView() {
+  function openView() {
     areaAction(id);
   }
 
-  function editRoom() {
+  function editItem() {
     firstCardAction(id);
   }
 
-  function deleteRoom() {
+  function deleteItem() {
     secondCardAction(id);
   }
 
   return (
     <Grid className={styles.gridItem} item xs={3}>
       <Card className={styles.card}>
-        <CardActionArea onClick={openRoomView}>
+        <CardActionArea onClick={openView}>
           <CardContent>
             <Typography className={styles.detailsInfo}>
-              Qty: {sectionData.label1}
+              {sectionData[1].label}
+              {sectionData[1].value}
             </Typography>
             <Typography variant='h6' className={styles.title}>
-              {sectionData.label2 || 'aaa'}
+              {sectionData[2].label}
+              {sectionData[2].value}
             </Typography>
             <Typography className={styles.detailsInfo}>
-              Beds: {sectionData.label3}
+              {sectionData[3].label}
+              {sectionData[3].value}
             </Typography>
-            <Typography component='p' className={styles.price}>
-              {sectionData.label4} AMD
+            <Typography component='p' className={styles.bottom}>
+              {sectionData[4].label}
+              {sectionData[4].value}
             </Typography>
           </CardContent>
         </CardActionArea>
         <Box className={`${styles.cardActions} ${styles.rightAligned}`}>
-          <IconButton onClick={editRoom}>
+          <IconButton onClick={editItem}>
             <Edit className={styles.icon} />
           </IconButton>
-          <IconButton color='primary' onClick={deleteRoom}>
+          <IconButton color='primary' onClick={deleteItem}>
             <Delete className={styles.icon} />
           </IconButton>
         </Box>

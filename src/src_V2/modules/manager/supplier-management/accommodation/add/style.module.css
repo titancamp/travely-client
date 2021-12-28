@@ -9,6 +9,7 @@
 .mainInfo {
   max-width: 930px;
   min-width: 700px;
+  min-height: 650px;
 }
 
 .mnRow {
@@ -49,7 +50,7 @@
 /* Partnership */
 
 .addAttachmentContainer {
-  margin: 30px 0 30px 0 !important;
+  margin: 30px 0 30px 25px !important;
 }
 
 .addAttachmentContainer .addAttachment {

@@ -79,10 +79,22 @@ export default function Rooms({ accommodation }) {
             id={room.id}
             key={room.id}
             sectionData={{
-              label2: room.type?.label,
-              label3: room.beds,
-              label4: room.price,
-              label1: room.quantity,
+              1: {
+                value: room.quantity,
+                label: 'Qty: ',
+              },
+              2: {
+                value: room.type?.label,
+                label: null,
+              },
+              3: {
+                value: room.beds,
+                label: 'Beds: ',
+              },
+              4: {
+                value: `${room.price} ${room.price ? 'AMD' : ''}`,
+                label: room.price ? '' : 'Price: ',
+              },
             }}
             areaAction={openViewCardDialog}
             firstCardAction={openEditCardDialog}

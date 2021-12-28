@@ -1,21 +1,21 @@
 import { Dialog } from '@mui/material';
-import AddRoomDialog from './AddRoom.dialog';
+import AddEditRoomDialog from './AddEditRoom.dialog';
 import ViewRoomDialog from './ViewRoom.dialog';
 import DeleteRoomDialog from './DeleteRoom.dialog';
 import Map from './Map.dialog';
 
-function CurrentDialog({ data, onClose, onShowHideDialog }) {
+function CurrentDialog({ data, onClose }) {
   switch (data.mode) {
     case 'map':
       return <Map onClose={onClose} />;
     case 'add':
-      return <AddRoomDialog onClose={onClose} onSuccess={data.actions} />;
+      return <AddEditRoomDialog onClose={onClose} onSuccess={data.actions} />;
     case 'edit':
       return (
-        <AddRoomDialog
+        <AddEditRoomDialog
           editMode
           room={data.state}
-          eonClose={onClose}
+          onClose={onClose}
           onSuccess={data.actions}
         />
       );
@@ -44,7 +44,7 @@ export default function DialogManager({ data, onShowHideDialog }) {
 
   return (
     <Dialog open={data.open} onClose={onClose}>
-      <CurrentDialog data={data} onClose={onClose} onShowHideDialog={onShowHideDialog} />
+      <CurrentDialog data={data} onClose={onClose} />
     </Dialog>
   );
 }

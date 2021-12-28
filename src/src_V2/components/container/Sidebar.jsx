@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import { common, grey } from '@mui/material/colors';
 import { ExpandLess, ExpandMore, ChevronLeft, ChevronRight } from '@mui/icons-material';
-import { makeStyles } from '@mui/styles';
+// import { makeStyles } from '@mui/styles';
 
 import styles from './style.module.css';
 
@@ -81,9 +81,9 @@ const closedMixin = (theme) => ({
     ' ~ .MuiFab-root': {
       left: '300px',
       pointerEvents: 'none',
-      svg: {
+      /*svg: {
         transform: 'rotate(180deg)',
-      },
+      },*/
     },
   },
 });

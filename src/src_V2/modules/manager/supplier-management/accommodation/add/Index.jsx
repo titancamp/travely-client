@@ -26,7 +26,6 @@ function AccommodationStep({ currentTab, accommodation }) {
   }
 }
 
-//TODO prettify onSubmit function
 export default function AddAccommodation() {
   const [currentTab, setCurrentTab] = useState(1);
   const { current: accommodation } = useRef({
@@ -44,7 +43,7 @@ export default function AddAccommodation() {
     } else if (!accommodation.partnership.isValid) {
       return setCurrentTab(4);
     } else {
-      alert(JSON.stringify(accommodation, null, 2));
+      console.log(accommodation);
     }
   }
 
@@ -57,3 +56,30 @@ export default function AddAccommodation() {
     </Container>
   );
 }
+
+//TODO prettify onSubmit function
+//TODO Add button disable enable
+//TODO Sidebar height need to be full
+
+/**
+ * TODO on Main info
+ * 1. Pin on Map
+ * 3. Static data get from backend
+ */
+
+/**
+ * TODO on Contact
+ * grid implementation for small screens
+ */
+
+/**
+ * TODO on Room
+ * Handle disable state, tooltip text and styles on add room card
+ */
+
+/**
+ * TODO on Partnership
+ * handle the attachments functionality
+ * read and implement FRD requirements
+ * partnership inputs length styles
+ */

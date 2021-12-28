@@ -21,9 +21,6 @@ export default function ViewRoomDialog({ data: { state: room, actions } }) {
     actions.openEditCardDialog(room.id);
   }
 
-  //TODO handle N/A cases and styles
-  //TODO need we edit, delete buttons on right section?
-
   return (
     <Box className={styles.cardViewContainer}>
       <DialogTitle className={styles.viewDialogTitle}>
@@ -52,7 +49,9 @@ export default function ViewRoomDialog({ data: { state: room, actions } }) {
             </Grid>
             <Grid item xs={4}>
               <Typography>Price</Typography>
-              <Typography className={styles.roomLabel}>{room.price}0000 AMD</Typography>
+              <Typography className={styles.roomLabel}>
+                {room.price} {room.price && 'AMD'}
+              </Typography>
             </Grid>
           </Grid>
           <Grid container item xs={8} spacing={2} mb={3}>

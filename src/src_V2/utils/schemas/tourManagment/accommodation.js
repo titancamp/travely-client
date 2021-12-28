@@ -56,63 +56,67 @@ export function partnershipInitialValues(initialValues) {
  */
 
 const BaseSchemas = {
-  integer: number()
-    .typeError(ERROR_MESSAGES.integer)
-    .integer(ERROR_MESSAGES.integer)
-    .positive(ERROR_MESSAGES.positive)
-    .max(99, ERROR_MESSAGES.maxNumberField),
-  requiredText: string()
-    .max(150, ERROR_MESSAGES.maxTextField)
-    .required(ERROR_MESSAGES.required),
-  textField: string().max(150, ERROR_MESSAGES.maxTextField),
+  email: string().email(ERROR_MESSAGES.email),
+  requiredNumber: number()
+    .typeError(ERROR_MESSAGES.number)
+    .required(ERROR_MESSAGES.required)
+    .nullable(),
+  phone: string()
+    .typeError(ERROR_MESSAGES.phone)
+    .matches(PhoneRegex, ERROR_MESSAGES.phone),
   autocompleteField: object()
     .shape({ id: number(), label: string() })
     .required(ERROR_MESSAGES.required)
     .nullable(),
-  requiredNumber: number().required(ERROR_MESSAGES.required).nullable(),
+  integer: (max = 99) =>
+    number()
+      .typeError(ERROR_MESSAGES.integer)
+      .integer(ERROR_MESSAGES.integer)
+      .positive(ERROR_MESSAGES.positive)
+      .max(max, ERROR_MESSAGES.maxNumberField(max)),
+  floatingNumber: (max = 99999.99) =>
+    number()
+      .typeError(ERROR_MESSAGES.number)
+      .positive(ERROR_MESSAGES.positive)
+      .max(max, ERROR_MESSAGES.maxNumberField(max)),
+  requiredText: (max = 150) =>
+    string().max(max, ERROR_MESSAGES.maxTextField(max)).required(ERROR_MESSAGES.required),
+  textField: (max = 150) => string().max(max, ERROR_MESSAGES.maxTextField(max)),
 };
 
 export function mainInfoSchema() {
   return object().shape({
-    city: BaseSchemas.textField,
-    region: BaseSchemas.textField,
-    address: BaseSchemas.textField,
-    name: BaseSchemas.requiredText,
+    city: BaseSchemas.textField(),
+    region: BaseSchemas.textField(),
+    address: BaseSchemas.textField(),
+    name: BaseSchemas.requiredText(),
     type: BaseSchemas.autocompleteField,
-    notes: string().max(1500, ERROR_MESSAGES.maxNoteField),
+    notes: BaseSchemas.textField(500),
   });
 }
 
 export function addRoomSchema() {
   return object().shape({
-    beds: BaseSchemas.integer,
+    beds: BaseSchemas.integer(),
+    quantity: BaseSchemas.integer(),
     type: BaseSchemas.autocompleteField,
-    quantity: BaseSchemas.integer,
-    additionalBeds: BaseSchemas.integer,
-    price: number().positive().max(),
+    price: BaseSchemas.floatingNumber(),
+    additionalBeds: BaseSchemas.integer(),
   });
 }
 
 export function contactSchema() {
   return object().shape({
-    email: string().email(ERROR_MESSAGES.email),
-    phone: string()
-      .typeError(ERROR_MESSAGES.phone)
-      .matches(PhoneRegex, ERROR_MESSAGES.phone),
-    person: BaseSchemas.textField,
+    phone: BaseSchemas.phone,
+    email: BaseSchemas.email,
+    person: BaseSchemas.textField(),
   });
 }
 
 export function partnershipSchema() {
   return object().shape({
-    signInDate: '',
-    expiryDate: '',
-    price: number()
-      .typeError(ERROR_MESSAGES.integer)
-      .integer(ERROR_MESSAGES.integer)
-      .positive(ERROR_MESSAGES.positive)
-      .max(99999.99, ERROR_MESSAGES.maxNumberField),
-    percentage: BaseSchemas.integer,
     attachments: object().shape([]).nullable(),
+    price: BaseSchemas.floatingNumber(999999.99),
+    percentage: BaseSchemas.floatingNumber(999.99),
   });
 }

@@ -1,6 +1,3 @@
-import { useEffect } from 'react';
-import { useFormik } from 'formik';
-import { Person, LocalPhone, Email } from '@mui/icons-material';
 import {
   Box,
   InputLabel,
@@ -8,6 +5,9 @@ import {
   OutlinedInput,
   FormHelperText,
 } from '@mui/material';
+import { useEffect } from 'react';
+import { useFormik } from 'formik';
+import { Person, LocalPhone, Email } from '@mui/icons-material';
 
 import { EndAdornment } from '../../components/endAdornment';
 import {
@@ -16,8 +16,6 @@ import {
 } from '../../../../../utils/schemas/tourManagment/accommodation';
 
 import styles from './style.module.css';
-
-//TODO handle phone validation confirm with piems
 
 export default function Contact({ accommodation }) {
   const formikData = {

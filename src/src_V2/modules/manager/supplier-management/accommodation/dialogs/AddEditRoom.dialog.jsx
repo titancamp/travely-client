@@ -16,7 +16,7 @@ import {
 import { RoomTypes, RoomServices } from '../constants';
 import styles from './style.module.css';
 
-export default function AddRoomDialog({ onClose, onSuccess, room, editMode }) {
+export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }) {
   const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
 
   const formikData = {
@@ -29,7 +29,6 @@ export default function AddRoomDialog({ onClose, onSuccess, room, editMode }) {
     values,
     errors,
     touched,
-    isValid,
     handleBlur,
     handleChange,
     setFieldValue,
@@ -37,23 +36,19 @@ export default function AddRoomDialog({ onClose, onSuccess, room, editMode }) {
   } = useFormik(formikData);
 
   //TODO get static data from backend side.
-  //TODO field naming for backend compatible.
-  //TODO error messages style awaiting for design.
   //TODO remove the isValid case from submit button.
-  //TODO Remove default arrow icons from number type inputs.
-  //TODO Handle onClose validation if clicked outside of a dialog.
-  //TODO need we disable add button and service(not mentioned in task).
   //TODO there is an issue when selecting and changing the autocomplete value manually.
   //TODO add correct error message for price in schema
 
   // TODO handle cancelation
   // TODO handle max price and error message FRD 99....
+  //TODO error messages styles remove default margin from helper text
 
   return (
     <form onSubmit={handleSubmit} autoComplete='off'>
       <DialogTitle id='alert-dialog-title'>{editMode ? 'Edit' : 'Add'} Room</DialogTitle>
       <DialogContent style={{ paddingTop: 10 }}>
-        <Grid container spacing={2} rowSpacing={4}>
+        <Grid container spacing={2} rowSpacing={3}>
           <Grid item xs={6}>
             <Autocomplete
               options={RoomTypes}
