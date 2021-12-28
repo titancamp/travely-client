@@ -1,0 +1,121 @@
+/* Filter */
+.container {
+  border-left: 4px solid #2183d1;
+}
+
+.timeBlock {
+  margin: 2px -6px !important;
+}
+
+.dashedBorder {
+  margin: 20px 0;
+  border-bottom: 1px dashed grey;
+}
+
+.roomTitle {
+  font-size: 12px !important;
+  margin-bottom: 20px !important;
+}
+
+.roomType {
+  width: 251px;
+}
+
+.roomQuantity {
+  width: 118px;
+}
+
+.roomPrice {
+  width: 151px;
+}
+
+.beds {
+  width: 159px;
+}
+
+/* Details */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerActions {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.headerDeleteBtn{
+  margin-right: 41px;
+  margin-left: 21px;
+}
+
+.infoItem {
+  display: flex;
+  margin-bottom: 3px;
+}
+
+.detailsIcon {
+  margin-right: 13px;
+}
+
+.itemBlock {
+  margin-bottom: 16px;
+}
+
+
+.dialogMenu {
+  width: 100%;
+}
+
+/* Rooms */
+
+.card {
+  width: 275px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.cardActions {
+  text-align: right;
+}
+
+.cardQuantity {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.card .cardBeds {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.card .cardTitle {
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.card .cardPrice {
+  font-size: 16px;
+}
+
+.card .cardDetailsBtn {
+  font-size: 14px;
+  margin: 11px 14px;
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.roomsTabPanel {
+  /*margin-top: 20px;*/
+  padding: inherit !important;
+}
+
+.roomsSection {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.test {
+  margin-bottom: 20px;
+}

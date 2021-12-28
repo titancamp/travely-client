@@ -11,6 +11,8 @@ import {
 
 import styles from './style.module.css';
 
+//TODO Handle disable state, tooltip text and styles
+
 export function AddCard({ title, subTitle, buttonText, onOpenDialog }) {
   return (
     <Grid className={styles.gridItem} item xs={3}>

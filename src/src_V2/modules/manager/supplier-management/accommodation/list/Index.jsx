@@ -2,7 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
-import { Button } from "@mui/material";
+import { Button } from '@mui/material';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -17,28 +17,67 @@ import { Container } from '../../../../../components';
 import { managerSidebarConfig } from '../../../config';
 
 import styles from './style.module.css';
-import FilterBlock from "./FilterBlock";
+import FilterBlock from './FilterBlock';
+import AccomodationDetailsDialog from './dialogs/AccomodationDetails.dialog';
 
-function createData(name, type, region, city, contactNumber, contactPerson, email, status) {
+function createData(
+  name,
+  type,
+  region,
+  city,
+  contactNumber,
+  contactPerson,
+  email,
+  status
+) {
   return { name, type, region, city, contactNumber, contactPerson, email, status };
 }
 
 const rows = [
-  createData('Mariot', 'Hotel', 'Kotayq', 'Abovyan', '+374 11 11 11 11', 'Name Lastname',
+  createData(
+    'Mariot',
+    'Hotel',
+    'Kotayq',
+    'Abovyan',
+    '+374 11 11 11 11',
+    'Name Lastname',
     'customer.care@marriott.com',
-    <Button variant="contained" className={styles.btn} component="span">
+    <Button variant='contained' className={styles.btn} component='span'>
       Ready
     </Button>
   ),
-  createData('Tufenkyan', 'Hotel', 'Kotayq', 'Abovyan', '+374 11 11 11 11', 'Name Lastname',
+  createData(
+    'Tufenkyan',
+    'Hotel',
+    'Kotayq',
+    'Abovyan',
+    '+374 11 11 11 11',
+    'Name Lastname',
     'customer.care@marriott.com',
-    <Button variant="contained" className={`${styles.btn} ${styles.secondaryBtn}`} component="span">
+    <Button
+      variant='contained'
+      className={`${styles.btn} ${styles.secondaryBtn}`}
+      component='span'
+    >
       Missed Price
     </Button>
   ),
-  createData('Multi rest', 'Hotel', 'Kotayq', 'Abovyan', '+374 11 11 11 11', 'Name Lastname',
+  createData(
+    'Multi rest',
+    'Hotel',
+    'Kotayq',
+    'Abovyan',
+    '+374 11 11 11 11',
+    'Name Lastname',
     'customer.care@marriott.com',
-    <Button variant="contained" className={styles.btn} component="span">
+    <Button
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      variant='contained'
+      className={styles.btn}
+      component='span'
+    >
       Ready
     </Button>
   ),
@@ -124,8 +163,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { order, orderBy, onRequestSort } =
-    props;
+  const { order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -147,7 +185,7 @@ function EnhancedTableHead(props) {
             >
               {headCell.label}
               {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
+                <Box component='span' sx={visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </Box>
               ) : null}
@@ -171,6 +209,16 @@ export default function AccommodationList() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -186,20 +234,15 @@ export default function AccommodationList() {
     setPage(0);
   };
 
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
     <Container managerSidebarConfig={managerSidebarConfig}>
-      <FilterBlock/>
+      <FilterBlock />
       <Box className={styles.table}>
         <Paper sx={{ width: '100%', mb: 2 }}>
           <TableContainer>
-            <Table
-              sx={{ minWidth: 750 }}
-              aria-labelledby="tableTitle"
-              size='medium'
-            >
+            <Table sx={{ minWidth: 750 }} aria-labelledby='tableTitle' size='medium'>
               <EnhancedTableHead
                 order={order}
                 orderBy={orderBy}
@@ -216,22 +259,18 @@ export default function AccommodationList() {
                         hover
                         tabIndex={-1}
                         key={row.name}
+                        onClick={handleClickOpen}
                       >
-                        <TableCell
-                          component="th"
-                          id={labelId}
-                          scope="row"
-                          padding="none"
-                        >
+                        <TableCell component='th' id={labelId} scope='row' padding='none'>
                           {row.name}
                         </TableCell>
-                        <TableCell align="right">{row.type}</TableCell>
-                        <TableCell align="right">{row.region}</TableCell>
-                        <TableCell align="right">{row.city}</TableCell>
-                        <TableCell align="right">{row.contactNumber}</TableCell>
-                        <TableCell align="right">{row.contactPerson}</TableCell>
-                        <TableCell align="right">{row.email}</TableCell>
-                        <TableCell align="right">{row.status}</TableCell>
+                        <TableCell align='right'>{row.type}</TableCell>
+                        <TableCell align='right'>{row.region}</TableCell>
+                        <TableCell align='right'>{row.city}</TableCell>
+                        <TableCell align='right'>{row.contactNumber}</TableCell>
+                        <TableCell align='right'>{row.contactPerson}</TableCell>
+                        <TableCell align='right'>{row.email}</TableCell>
+                        <TableCell align='right'>{row.status}</TableCell>
                       </TableRow>
                     );
                   })}
@@ -249,7 +288,7 @@ export default function AccommodationList() {
           </TableContainer>
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
-            component="div"
+            component='div'
             count={rows.length}
             rowsPerPage={rowsPerPage}
             page={page}
@@ -258,6 +297,7 @@ export default function AccommodationList() {
           />
         </Paper>
       </Box>
+      <AccomodationDetailsDialog open={open} handleClose={handleClose} />
     </Container>
   );
 }
