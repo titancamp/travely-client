@@ -1,5 +1,5 @@
 trigger:
-  - devops
+  - dev
 
 resources:
   repositories:
