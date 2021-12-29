@@ -14,9 +14,7 @@ import {
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 
-import { Container } from '../../../../../components';
-import NoData from '../../../../../components/no-data/NoData';
-import Layout from '../../../../../components/layout/Layout';
+import { Container, Layout, NoData } from '../../../../../components';
 import payablesList from '../../mock/payable';
 import { managerSidebarConfig } from '../../../config';
 import styles from './Payables.module.css';

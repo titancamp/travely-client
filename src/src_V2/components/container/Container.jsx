@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-import Header from '../header/Header';
-import Sidebar from '../sidebar/Sidebar';
+import { Header, Sidebar } from '../';
 import styles from './Container.module.css';
 
 const Main = styled('main')(({ theme, open }) => ({
