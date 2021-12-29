@@ -34,7 +34,9 @@ export default function Enhancer({ children, managerSidebarConfig }) {
       <Header />
       <Box className={styles.subBox}>
         <Sidebar pageConfigs={managerSidebarConfig} open={openSidebar} setOpen={setOpenSidebar} />
-        <Main open={openSidebar}>{children}</Main>
+        <Main open={openSidebar} className={styles.main}>
+          {children}
+        </Main>
       </Box>
     </Box>
   );

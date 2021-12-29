@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   Box,
   Table,
@@ -11,10 +11,12 @@ import {
   TableSortLabel,
   Paper,
   Checkbox,
+  Tooltip,
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 
 import { Container, Layout, NoData } from '../../../../../components';
+import { useHoverTooltip } from '../../../../../hooks';
 import payablesList from '../../mock/payable';
 import { managerSidebarConfig } from '../../../config';
 import styles from './Payables.module.css';
@@ -92,6 +94,20 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
+function TooltipText({ text }) {
+  const textElementRef = useRef();
+
+  const hoverStatus = useHoverTooltip(text, textElementRef);
+
+  return (
+    <Tooltip title={text} interactive disableHoverListener={!hoverStatus}>
+      <div ref={textElementRef} className={styles.tooltip}>
+        {text}
+      </div>
+    </Tooltip>
+  );
+}
+
 function EnhancedTableHead(props) {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
 
@@ -102,7 +118,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead className={styles.tableHead}>
       <TableRow>
-        <TableCell padding="checkbox">
+        <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
           <Checkbox
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -117,8 +133,7 @@ function EnhancedTableHead(props) {
           <TableCell
             align="left"
             key={headCell.id}
-            className={styles.tableCell}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            className={`${styles.tableCell} ${styles.tableHeaderCell}`}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -126,7 +141,7 @@ function EnhancedTableHead(props) {
               direction={orderBy === headCell.id ? order : 'asc'}
               onClick={createSortHandler(headCell.id)}
             >
-              {headCell.label}
+              <TooltipText text={headCell.label} />
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
@@ -199,10 +214,10 @@ const PayableTable = () => {
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - payables.length) : 0;
 
   return (
-    <Box className={styles.mainDiv}>
-      <Paper className={styles.paper}>
-        <TableContainer>
-          <Table className={styles.table} aria-labelledby="tableTitle">
+    <Box>
+      <Paper>
+        <TableContainer className={styles.tableContainer}>
+          <Table aria-labelledby="tableTitle" padding="none">
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
@@ -229,8 +244,9 @@ const PayableTable = () => {
                       tabIndex={-1}
                       key={row.name}
                       selected={isItemSelected}
+                      className={styles.tableRow}
                     >
-                      <TableCell padding="checkbox">
+                      <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
                         <Checkbox
                           color="primary"
                           checked={isItemSelected}
@@ -240,7 +256,9 @@ const PayableTable = () => {
                         />
                       </TableCell>
                       {Object.keys(row).map((value) => (
-                        <TableCell key={row.paymentId}>{row[value]}</TableCell>
+                        <TableCell className={styles.tableCell} key={row.paymentId}>
+                          <TooltipText text={row[value]} />
+                        </TableCell>
                       ))}
                     </TableRow>
                   );

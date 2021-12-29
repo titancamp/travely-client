@@ -64,7 +64,7 @@ const payablesList = () => [
   createPayable(
     262,
     18759,
-    'Trip to Tatev',
+    'Very very looooooooooooooooooooooooooooooooooooong Trip to Tatev',
     'Tatev Hotel',
     400,
     400,
