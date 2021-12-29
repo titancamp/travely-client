@@ -1,10 +1,10 @@
-FROM docker.io/node:16
-USER node
+FROM node:16-bullseye-slim
 
 ARG APP=app
 ARG HOME=/home/node
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH=$PATH:$HOME/.npm-global/bin
+ENV PORT=5000
 
 #build
 WORKDIR $HOME/$APP
@@ -16,13 +16,13 @@ RUN npm run build
 RUN cp -a build $HOME
 RUN ln -s $HOME/build/index.html $HOME/build/404.html
 WORKDIR $HOME
-USER root
 RUN rm -rf $APP
 
 #prepare
-EXPOSE 5000
+EXPOSE $PORT
 RUN npm install -g http-server
-RUN $PORT
+
 #start
 USER node
-ENTRYPOINT http-server build -a 0.0.0.0 -p 5000
+ENTRYPOINT ["http-server", "build"]
+CMD ["-a", "0.0.0.0", "-p", $PORT]
