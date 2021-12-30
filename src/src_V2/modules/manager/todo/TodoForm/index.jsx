@@ -1,16 +1,47 @@
 import {
     Button,
     DialogActions,
-    DialogTitle, Divider, FormControl, Grid,
-    IconButton, InputAdornment, InputLabel, MenuItem, Select, TextField
-} from "@mui/material";
-import {CalendarToday, Close, NotificationsActive, Search} from "@mui/icons-material";
-import { useFormik } from "formik";
-import {getTodoFormValidation, TaskStatus} from "../utils";
-import React from "react";
-import TodoClient from "../../../../../api/todo-client";
+    DialogTitle,
+    Divider,
+    FormControl,
+    Grid,
+    IconButton,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField
+} from '@mui/material';
+import {
+    Close,
+    NotificationsActive,
+} from '@mui/icons-material';
+import { useFormik } from 'formik';
+import {
+    getTodoFormValidation,
+    TaskStatus,
+    TODO_FORM_INITIAL_VALES
+} from '../utils';
+import TodoClient from '../../../../../api/todo-client';
+import { useSelector } from 'react-redux';
+import { getTodoItemSelector } from '../../../../store/selectors/todo.selectors';
+import useStyles from './styles';
 
-const TodoForm = ({ onClose }) => {
+const getDefaultValues = (todo) => {
+    if (!todo) {
+        return TODO_FORM_INITIAL_VALES;
+    }
+    const data = { ...todo };
+    if (todo.reminder) {
+        data.reminder = new Date(todo.reminder).toISOString().slice(0, 16);
+    }
+    if (todo.deadline) {
+        data.deadline = new Date(todo.deadline).toISOString().slice(0, 16);
+    }
+    return data;
+};
+
+const TodoForm = ({ onClose, getTodos, id }) => {
+    const todo = useSelector(getTodoItemSelector(id));
     const {
         values,
         touched,
@@ -19,39 +50,30 @@ const TodoForm = ({ onClose }) => {
         isValid,
         handleChange,
     } = useFormik({
-        initialValues: {
-            title: '',
-            deadline: '',
-            description: '',
-            tourId: '',
-            reminder: '',
-            status: 'todo',
-            priority: 'medium',
-        },
+        initialValues: getDefaultValues(todo),
         onSubmit: async (values) => {
-            await TodoClient.addTodo(values);
+            await TodoClient[todo ? 'updateTodo' : 'addTodo'](values);
+            getTodos();
+            onClose();
         },
         validationSchema: getTodoFormValidation(),
     });
 
+    const styles = useStyles();
+
     return <form onSubmit={handleSubmit}>
         <DialogTitle>
-            Add To Do Item
+            {todo ? 'Edit' : 'Add'} To Do Item
             <IconButton
                 aria-label="close"
                 onClick={onClose}
-                sx={{
-                    position: 'absolute',
-                    right: 8,
-                    top: 8,
-                    color: (theme) => theme.palette.grey[500],
-                }}
+                sx={styles.closeIcon}
             >
                 <Close />
             </IconButton>
         </DialogTitle>
         <Divider />
-        <Grid container sx={{ py: 2, px: 3, }} spacing={2}>
+        <Grid container sx={styles.form} spacing={2}>
             <Grid item xs={12}>
                 <TextField
                     placeholder='Title *'
@@ -66,19 +88,6 @@ const TodoForm = ({ onClose }) => {
             </Grid>
             <Grid item xs={12}>
                 <TextField
-                    placeholder='Deadline *'
-                    size='small'
-                    fullWidth
-                    name='deadline'
-                    value={values.deadline}
-                    error={touched.deadline && errors.deadline}
-                    onChange={handleChange}
-                    helperText={errors.deadline}
-                    type='datetime-local'
-                />
-            </Grid>
-            <Grid item xs={12}>
-                <TextField
                     placeholder='Description'
                     multiline
                     rows={3}
@@ -88,6 +97,19 @@ const TodoForm = ({ onClose }) => {
                     error={touched.description && errors.description}
                     onChange={handleChange}
                     helperText={errors.description}
+                />
+            </Grid>
+            <Grid item xs={12}>
+                <TextField
+                    placeholder='Deadline *'
+                    size='small'
+                    fullWidth
+                    name='deadline'
+                    value={values.deadline}
+                    error={touched.deadline && errors.deadline}
+                    onChange={handleChange}
+                    helperText={errors.deadline}
+                    type='datetime-local'
                 />
             </Grid>
             <Grid item xs={12}>
@@ -163,14 +185,14 @@ const TodoForm = ({ onClose }) => {
             </Grid>
         </Grid>
         <DialogActions>
-            <Button sx={{ color: 'text.primary' }} onClick={onClose}>Cancel</Button>
+            <Button sx={styles.cancel} onClick={onClose}>Cancel</Button>
             <Button
                 variant='contained'
                 disabled={!isValid}
                 type='submit'
             >Save</Button>
         </DialogActions>
-    </form>
+    </form>;
 };
 
 export default TodoForm;

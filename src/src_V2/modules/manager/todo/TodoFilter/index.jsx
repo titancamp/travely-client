@@ -10,15 +10,20 @@ import {
     Tab,
     Tabs,
     TextField
-} from "@mui/material";
-import {TaskPriority, TaskStatus} from "../utils";
-import {Add, Search} from "@mui/icons-material";
-import React, {useState} from "react";
-import {useFormik} from "formik";
+} from '@mui/material';
+import {
+    TaskPriority,
+    TaskStatus
+} from '../utils';
+import {
+    Add,
+    Search
+} from '@mui/icons-material';
+import { useEffect } from 'react';
+import { useFormik } from 'formik';
+import useStyles from './styles';
 
-const TodoFilter = ({ toggle }) => {
-    const [activeTab, setActiveTab] = useState('todo');
-
+const TodoFilter = ({ toggle, handleFiltersChange, filters }) => {
     const {
         values,
         touched,
@@ -27,22 +32,29 @@ const TodoFilter = ({ toggle }) => {
         handleChange,
     } = useFormik({
         initialValues: {
-            title: '',
-            statuses: [],
-            priorities: [],
-        },
-        onSubmit: (values) => {
-            console.log(values);
+            name: filters.name,
+            statuses: filters.statuses ? filters.statuses.split(',') : [],
+            priorities: filters.priorities ? filters.priorities.split(',') : [],
         },
     });
 
-    const handleTabChange = (event, newValue) => {
-        setActiveTab(newValue);
+    const styles = useStyles();
+
+    useEffect(() => {
+        handleFiltersChange({
+            name: values.name,
+            statuses: values.statuses.join(','),
+            priorities: values.priorities.join(','),
+        });
+    }, [values.name, values.statuses.length, values.priorities.length]);
+
+    const handleTabChange = (e, tab) => {
+        handleFiltersChange({ tab });
     };
 
     return (<>
         <Grid item>
-            <Tabs value={activeTab} onChange={handleTabChange}>
+            <Tabs value={filters.tab} onChange={handleTabChange}>
                 <Tab label='To Do List' value={TaskStatus.TODO} />
                 <Tab label='Archived' value={TaskStatus.ARCHIVED} />
             </Tabs>
@@ -62,10 +74,10 @@ const TodoFilter = ({ toggle }) => {
                                     <Search />
                                 </InputAdornment>
                             }}
-                            name='title'
+                            name='name'
                             fullWidth
-                            value={values.title}
-                            errors={touched.title && errors.title}
+                            value={values.name}
+                            errors={touched.name && errors.name}
                             onChange={handleChange}
                             placeholder='Search'
                             size='small'
@@ -88,7 +100,6 @@ const TodoFilter = ({ toggle }) => {
                                 <MenuItem value={TaskStatus.TODO}>To Do</MenuItem>
                                 <MenuItem value={TaskStatus.IN_PROGRESS}>In Progress</MenuItem>
                                 <MenuItem value={TaskStatus.DONE}>Done</MenuItem>
-                                <MenuItem value={TaskStatus.ARCHIVED}>Archived</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
@@ -112,10 +123,10 @@ const TodoFilter = ({ toggle }) => {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <Grid item xs={6} sx={styles.add}>
                         <Button
                             variant='contained'
-                            startIcon={<Add sx={{ width: 24, height: 24 }} />}
+                            startIcon={<Add sx={styles.addIcon} />}
                             onClick={toggle}
                         >
                             Add New
@@ -125,6 +136,6 @@ const TodoFilter = ({ toggle }) => {
             </form>
         </Grid>
     </>);
-}
+};
 
 export default TodoFilter;

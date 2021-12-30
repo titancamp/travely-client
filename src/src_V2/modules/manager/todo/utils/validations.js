@@ -7,6 +7,6 @@ export const getTodoFormValidation = () => Yup.object().shape({
     deadline: Yup.date()
         .required(),
     description: Yup.string()
-        .max(100, 'Please enter max 100 characters.'),
+        .max(1000, 'Please enter max 1000 characters.'),
 });
 

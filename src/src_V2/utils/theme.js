@@ -1,4 +1,4 @@
-import {createTheme} from "@mui/material";
+import { createTheme } from '@mui/material';
 
 let theme = createTheme({
     components: {
@@ -18,5 +18,4 @@ theme = createTheme(theme, {
     }
 });
 
-console.log('theme', theme);
 export { theme };

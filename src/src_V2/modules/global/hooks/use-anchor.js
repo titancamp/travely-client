@@ -1,4 +1,7 @@
-import {useCallback, useState} from "react";
+import {
+    useCallback,
+    useState
+} from 'react';
 
 const useAnchor = () => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -16,7 +19,7 @@ const useAnchor = () => {
         handleClick,
         handleClose,
         open,
-    }
-}
+    };
+};
 
 export default useAnchor;

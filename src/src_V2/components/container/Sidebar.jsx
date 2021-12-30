@@ -1,186 +1,192 @@
-import { useCallback, useState } from 'react';
+import {
+    useCallback,
+    useState
+} from 'react';
 import { NavLink } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import {
-  Fab,
-  Box,
-  List,
-  Zoom,
-  Tooltip,
-  Collapse,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Drawer as MuiDrawer,
-} from "@mui/material";
+    Fab,
+    Box,
+    List,
+    Zoom,
+    Tooltip,
+    Collapse,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Drawer as MuiDrawer,
+} from '@mui/material';
 
 import {
-  ExpandLess,
-  ExpandMore,
-  ChevronLeft,
-  ChevronRight,
+    ExpandLess,
+    ExpandMore,
+    ChevronLeft,
+    ChevronRight,
 } from '@mui/icons-material';
 
-import {common, grey} from '@mui/material/colors';
+import {
+    common,
+    grey
+} from '@mui/material/colors';
 
-import {CONTAINER_SIZES } from "../../utils/constants";
+import { CONTAINER_SIZES } from '../../utils/constants';
 
 const boxStyles = {
-  position: 'relative',
-  display: 'inline-block',
+    position: 'relative',
+    display: 'inline-block',
 };
 
 const fabStyles = {
-  width: '40px',
-  height: '40px',
-  zIndex: '9999',
-  right: '-20px',
-  position: 'absolute',
-  backgroundColor: common['white'],
+    width: '40px',
+    height: '40px',
+    zIndex: '1300',
+    right: '-20px',
+    position: 'absolute',
+    backgroundColor: common['white'],
 };
 
 const listStyles = (open) => ({
-  marginTop: '36px',
-  ...(!open && { display: 'none' }),
+    marginTop: '36px',
+    ...(!open && { display: 'none' }),
 });
 
 const listItemStyles = {
-  paddingLeft: '32px',
-  backgroundColor: grey[50],
+    paddingLeft: '32px',
+    backgroundColor: grey[50],
 };
 
 const openedMixin = (theme) => ({
-  top: '85px',
-  width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.standard,
-  }),
-  overflowX: 'hidden',
+    top: '85px',
+    width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.standard,
+    }),
+    overflowX: 'hidden',
 });
 
 const closedMixin = (theme) => ({
-  top: '85px',
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.standard,
-  }),
-  overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(4)} + 1px)`,
-  },
-  '&: hover': {
-    width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
-    ul: {
-      display: 'initial !important',
+    top: '85px',
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.standard,
+    }),
+    overflowX: 'hidden',
+    width: `calc(${theme.spacing(7)} + 1px)`,
+    [theme.breakpoints.up('sm')]: {
+        width: `calc(${theme.spacing(4)} + 1px)`,
     },
-  },
+    '&: hover': {
+        width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
+        ul: {
+            display: 'initial !important',
+        },
+    },
 });
 
 const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
-  flexShrink: 0,
-  whiteSpace: 'nowrap',
-  boxSizing: 'border-box',
-  width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
-  ...(open && {
-    ...openedMixin(theme),
-    '& .MuiDrawer-paper': openedMixin(theme),
-  }),
-  ...(!open && {
-    ...closedMixin(theme),
-    '& .MuiDrawer-paper': closedMixin(theme),
-  }),
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
+    ...(open && {
+        ...openedMixin(theme),
+        '& .MuiDrawer-paper': openedMixin(theme),
+    }),
+    ...(!open && {
+        ...closedMixin(theme),
+        '& .MuiDrawer-paper': closedMixin(theme),
+    }),
 }));
 
 function MenuItem({ page }) {
-  return (
-    <ListItem button to={page.path} component={NavLink}>
-      <ListItemIcon>{page.icon}</ListItemIcon>
-      <ListItemText primary={page.title} />
-    </ListItem>
-  );
+    return (
+        <ListItem button to={page.path} component={NavLink}>
+            <ListItemIcon>{page.icon}</ListItemIcon>
+            <ListItemText primary={page.title} />
+        </ListItem>
+    );
 }
 
 function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
-  function mouseEnterHandler() {
-    if (!open && !expanded[page.collapsibleId]) {
-      setExpandedState(page.collapsibleId);
+    function mouseEnterHandler() {
+        if (!open && !expanded[page.collapsibleId]) {
+            setExpandedState(page.collapsibleId);
+        }
     }
-  }
 
-  function itemExpandingHandler() {
-    setExpandedState(page.collapsibleId);
-  }
+    function itemExpandingHandler() {
+        setExpandedState(page.collapsibleId);
+    }
 
-  return (
-    <>
-      <ListItem
-        button
-        onClick={itemExpandingHandler}
-        onMouseEnter={mouseEnterHandler}
-      >
-        <ListItemIcon>{page.icon}</ListItemIcon>
-        <ListItemText primary={page.title} />
-        {expanded[page.collapsibleId] ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={expanded[page.collapsibleId]}>
-        <List component="div" disablePadding>
-          {page.subPages.map(({ title, path }) => (
+    return (
+        <>
             <ListItem
-              button
-              to={path}
-              key={title}
-              sx={listItemStyles}
-              component={NavLink}
+                button
+                onClick={itemExpandingHandler}
+                onMouseEnter={mouseEnterHandler}
             >
-              <ListItemText primary={title} />
+                <ListItemIcon>{page.icon}</ListItemIcon>
+                <ListItemText primary={page.title} />
+                {expanded[page.collapsibleId] ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
-          ))}
-        </List>
-      </Collapse>
-    </>
-  );
+            <Collapse in={expanded[page.collapsibleId]}>
+                <List component="div" disablePadding>
+                    {page.subPages.map(({ title, path }) => (
+                        <ListItem
+                            button
+                            to={path}
+                            key={title}
+                            sx={listItemStyles}
+                            component={NavLink}
+                        >
+                            <ListItemText primary={title} />
+                        </ListItem>
+                    ))}
+                </List>
+            </Collapse>
+        </>
+    );
 }
 
 export default function Sidebar({ pageConfigs, open, setOpen }) {
-  const [expanded, setExpanded] = useState({});
-  const openCloseHandler = useCallback(() => setOpen(!open), [open, setOpen]);
+    const [expanded, setExpanded] = useState({});
+    const openCloseHandler = useCallback(() => setOpen(!open), [open, setOpen]);
 
-  const setExpandedState = useCallback(
-    (id) => {
-      setExpanded({
-        ...expanded,
-        [id]: !expanded[id],
-      });
-    },
-    [expanded]
-  );
+    const setExpandedState = useCallback(
+        (id) => {
+            setExpanded({
+                ...expanded,
+                [id]: !expanded[id],
+            });
+        },
+        [expanded]
+    );
 
-  return (
-    <Box style={boxStyles}>
-      <Tooltip placement={'right'} TransitionComponent={Zoom} title={!open ? 'Expand' : 'Collapse'}>
-        <Fab onClick={openCloseHandler} color={'inherit'} sx={fabStyles}>
-          {open ? <ChevronLeft /> : <ChevronRight />}
-        </Fab>
-      </Tooltip>
-      <Drawer variant="permanent" anchor="left" open={open}>
-        <List style={listStyles(open)}>
-          {pageConfigs.map((page) =>
-            page.path ? (
-              <MenuItem page={page} key={page.title} />
-            ) : (
-              <ExpandableMenuItem
-                open={open}
-                page={page}
-                key={page.title}
-                expanded={expanded}
-                setExpandedState={setExpandedState}
-              />
-            )
-          )}
-        </List>
-      </Drawer>
-    </Box>
-  );
+    return (
+        <Box style={boxStyles}>
+            <Tooltip placement={'right'} TransitionComponent={Zoom} title={!open ? 'Expand' : 'Collapse'}>
+                <Fab onClick={openCloseHandler} color={'inherit'} sx={fabStyles}>
+                    {open ? <ChevronLeft /> : <ChevronRight />}
+                </Fab>
+            </Tooltip>
+            <Drawer variant="permanent" anchor="left" open={open}>
+                <List style={listStyles(open)}>
+                    {pageConfigs.map((page) =>
+                        page.path ? (
+                            <MenuItem page={page} key={page.title} />
+                        ) : (
+                            <ExpandableMenuItem
+                                open={open}
+                                page={page}
+                                key={page.title}
+                                expanded={expanded}
+                                setExpandedState={setExpandedState}
+                            />
+                        )
+                    )}
+                </List>
+            </Drawer>
+        </Box>
+    );
 }

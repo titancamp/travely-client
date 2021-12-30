@@ -1,213 +1,209 @@
-import React, {useState} from "react";
 import {
-    Box, Button,
+    useCallback,
+    useState
+} from 'react';
+import {
     Card,
     CardActions,
     CardContent,
     CardHeader,
     Collapse,
     Grid,
-    IconButton, List, ListItem, Menu, MenuItem,
+    IconButton,
+    ListItemIcon,
+    ListItemText,
+    Menu,
+    MenuItem,
     Tooltip,
     Typography
-} from "@mui/material";
+} from '@mui/material';
 import {
     AddAlert,
     Alarm,
-    KeyboardArrowDown,
+    Delete,
+    Edit,
     LocationOn,
-    NotificationsActive
-} from "@mui/icons-material";
-import {useAnchor, useToggle} from "../../../../hooks";
-import {TaskPriority, TaskStatus} from "../utils";
-
-const mapToPriority = {
-  [TaskPriority.LOW]: {
-      color: 'warning.main',
-      tooltipText: 'Low priority'
-  },
-  [TaskPriority.MEDIUM]: {
-      color: 'success.main',
-      tooltipText: 'Medium priority',
-  },
-  [TaskPriority.HIGH]: {
-      color: 'error.main',
-      tooltipText: 'High priority',
-  },
-};
+    MoreVert,
+    NotificationsActive,
+    SettingsBackupRestore
+} from '@mui/icons-material';
+import {
+    useAnchor,
+    useToggle
+} from '../../../global/hooks';
+import {
+    ReminderStatus,
+    TaskStatus
+} from '../utils';
+import useStyles from './styles';
+import TaskPriorityMenu from '../TaskPriorityMenu';
+import { useSelector } from 'react-redux';
+import { getTodoItemSelector } from '../../../../store/selectors/todo.selectors';
+import TaskStatusMenu from '../TaskStatusMenu';
+import TodoClient from '../../../../../api/todo-client';
 
 const mapToReminderState = (notificationTime) => ({
-    NOT_SET: {
-        icon: <NotificationsActive color='warning' sx={{ opacity: 0.5 }} />,
+    [ReminderStatus.NOT_SET]: {
+        icon: <AddAlert sx={{ opacity: 0.25 }} />,
         tooltipText: 'No reminder',
     },
-    SET: {
+    [ReminderStatus.SET]: {
         icon: <NotificationsActive color='warning' />,
         tooltipText: notificationTime,
     },
-    SENT: {
-        icon: <AddAlert sx={{ opacity: 0.25 }} />,
-        tooltipText: '',
+    [ReminderStatus.PASSED]: {
+        icon: <NotificationsActive color='warning' sx={{ opacity: 0.5 }} />,
+        tooltipText: 'Sent',
     }
 });
 
-const mapToStatus = {
-    [TaskStatus.TODO]: {
-        color: 'primary',
-        title: 'To-do'
-    },
-    [TaskStatus.IN_PROGRESS]: {
-        color: 'warning',
-        title: 'In Progress',
-    },
-    [TaskStatus.DONE]: {
-        color: 'success',
-        title: 'Done',
-    }
-}
-
 const TodoItem = ({
-      title,
-      reminderTime,
-      tourLocation,
-      description,
-      priority,
-      reminderState,
-      status,
+    tourLocation,
+    id,
+    getTodos,
+    handleEdit,
 }) => {
+    const todo = useSelector(getTodoItemSelector(id));
+
     const { open: expanded, toggle } = useToggle();
 
+    const [drawCollapseText, setDrawCollapseText] = useState(false);
+
+    const styles = useStyles(todo.status === TaskStatus.ARCHIVED);
+
     const {
-        handleClick,
-        anchorEl,
-        open,
-        handleClose,
+        handleClick: handleMoreVertClick,
+        anchorEl: moreVertEl,
+        open: actionsOpen,
+        handleClose: handleMoreVertClose,
     } = useAnchor();
 
-   const { color, tooltipText } = mapToPriority[priority];
+    const descriptionRef = useCallback(node => {
+        if (node !== null) {
+            setDrawCollapseText(node.scrollHeight > node.clientHeight);
+        }
+    }, []);
 
-   const applyActiveStyles = (taskStatus) => {
-       if (taskStatus === status) {
-           return ({
-               backgroundColor: 'primary.main',
-               color: 'common.white',
-           })
-       }
-       return {};
-   }
+    const handleTaskDelete = async () => {
+        await TodoClient.deleteTodo(todo.id);
+        getTodos();
+    };
 
-   return (<Card>
-       <Grid container>
-           <Grid item xs={4}>
-               <CardHeader
-                   title={title}
-                   titleTypographyProps={{
-                       variant: 'subtitle1',
-                       pb: 1,
-                   }}
-                   subheader={<Grid container spacing={2}>
-                       <Grid item sx={{ display: 'flex', alignItems: 'center', }}>
-                           <Alarm sx={{ width: 16, height: 16, mr: 1, }}/>
-                           <Typography variant='caption'>
-                               {reminderTime}
-                           </Typography>
-                       </Grid>
-                       <Grid item sx={{ display: 'flex', alignItems: 'center', }}>
-                           <LocationOn sx={{ width: 16, height: 16, mr: 1, }} />
-                           <Typography variant='caption'>
-                               {tourLocation}
-                           </Typography>
-                       </Grid>
-                   </Grid>}
-               />
-           </Grid>
-           <Grid item xs={5} sx={{ display: 'flex', alignItems: 'center' }}>
-               <CardContent sx={theme => ({
-                   pt: 0,
-                   '&:last-child': {
-                       paddingBottom: 0,
-                   },
-                   borderLeft: `1px solid ${theme.palette.divider}`,
-                   borderRight: `1px solid ${theme.palette.divider}`,
-                   mt: 1,
-               })}>
-                   {!expanded && (<>
-                       <Typography variant='subtitle2' sx={{
-                           display: '-webkit-box',
-                           WebkitLineClamp: '3',
-                           WebkitBoxOrient: 'vertical',
-                           overflow: 'hidden',
-                           textOverflow: 'ellipsis',
-                       }}>
-                           {description}
-                       </Typography>
-                       <Typography color='primary' variant='subtitle2' onClick={toggle}>Read all</Typography>
-                   </>)}
-                   <Collapse in={expanded}>
-                       <Typography variant='subtitle2'>
-                           {description}
-                       </Typography>
-                       <Typography color='primary' variant='subtitle2' onClick={toggle}>Show less</Typography>
-                   </Collapse>
-               </CardContent>
-           </Grid>
-           <Grid item xs={3}>
-               <CardActions>
-                   <Tooltip title={tooltipText}>
-                       <IconButton>
-                           <Box sx={{ width: 16, height: 16, backgroundColor: color, borderRadius: '50%' }} />
-                       </IconButton>
-                   </Tooltip>
-                   <Tooltip title={mapToReminderState('5 minutes age')[reminderState].tooltipText}>
-                       <IconButton>
-                           {mapToReminderState('5 minutes age')[reminderState].icon}
-                       </IconButton>
-                   </Tooltip>
-                   <Button
-                       variant='outlined'
-                       sx={{
-                           borderRadius: 20,
-                           textTransform: 'none',
-                       }}
-                       endIcon={<KeyboardArrowDown />}
-                       color={mapToStatus[status].color}
-                       onClick={handleClick}
-                   >
-                       {mapToStatus[status].title}
-                   </Button>
-                   <Menu
-                       anchorEl={anchorEl}
-                       open={open}
-                       onClose={handleClose}
-                       PaperProps={{
-                           sx: {
-                               mt: 1,
-                               width: 250,
-                           }
-                       }}
-                       MenuListProps={{
-                           sx: {
-                               py: 0,
-                           }
-                       }}
-                       anchorOrigin={{
-                           vertical: 'bottom',
-                           horizontal: 'center',
-                       }}
-                       transformOrigin={{
-                           vertical: 'top',
-                           horizontal: 'right',
-                       }}
-                   >
-                    <MenuItem sx={{ py: 2, ...applyActiveStyles(TaskStatus.TODO) }}>To-Do</MenuItem>
-                    <MenuItem sx={{ py: 2, ...applyActiveStyles(TaskStatus.IN_PROGRESS) }}>In Progress</MenuItem>
-                    <MenuItem sx={{ py: 2, ...applyActiveStyles(TaskStatus.DONE) }}>Done</MenuItem>
-                    <MenuItem sx={{ py: 2, ...applyActiveStyles(TaskStatus.ARCHIVED) }}>Archive</MenuItem>
-                   </Menu>
-               </CardActions>
-           </Grid>
-       </Grid>
-   </Card>);
+    const duplicateTask = async () => {
+        await TodoClient.duplicateTodo(todo);
+        getTodos();
+    };
+
+    const restoreTask = async () => {
+        await TodoClient.updateTodo({
+            ...todo,
+            status: TaskStatus.TODO,
+        });
+        getTodos();
+    };
+
+    return (<Card sx={styles.card}>
+        <Grid container>
+            <Grid item xs={4}>
+                <CardHeader
+                    title={todo.name}
+                    titleTypographyProps={{
+                        variant: 'subtitle1',
+                        pb: 1,
+                    }}
+                    subheader={<Grid container spacing={2}>
+                        <Grid item sx={styles.iconWithInfo}>
+                            <Alarm sx={styles.icon}/>
+                            <Typography variant='caption'>
+                                {todo.reminder}
+                            </Typography>
+                        </Grid>
+                        <Grid item sx={styles.iconWithInfo}>
+                            <LocationOn sx={styles.icon} />
+                            <Typography variant='caption'>
+                                {tourLocation}
+                            </Typography>
+                        </Grid>
+                    </Grid>}
+                />
+            </Grid>
+            <Grid item xs={todo.status === TaskStatus.ARCHIVED ? 8 : 5} sx={styles.contentContainer}>
+                <CardContent sx={styles.content}>
+                    {!expanded && (<>
+                        <Typography
+                            variant='subtitle2'
+                            sx={styles.description}
+                            ref={descriptionRef}
+                        >
+                            {todo.description}
+                        </Typography>
+                        {drawCollapseText && (
+                            <Typography color='primary' variant='subtitle2' onClick={toggle}>Read all</Typography>
+                        )}
+                    </>)}
+                    <Collapse in={expanded}>
+                        <Typography variant='subtitle2'>
+                            {todo.description}
+                        </Typography>
+                        {drawCollapseText && (
+                            <Typography color='primary' variant='subtitle2' onClick={toggle}>Show less</Typography>
+                        )}
+                    </Collapse>
+                </CardContent>
+                {todo.status === TaskStatus.ARCHIVED && (<IconButton sx={{ alignSelf: 'center' }} onClick={restoreTask}>
+                    <SettingsBackupRestore />
+                </IconButton>)}
+            </Grid>
+            {todo.status !== TaskStatus.ARCHIVED && (
+                <Grid item xs={3}>
+                    <CardActions sx={styles.actions}>
+                        <TaskPriorityMenu todo={todo} />
+                        <Tooltip title={mapToReminderState(todo.reminder)[todo.reminderStatus].tooltipText}>
+                            <IconButton>
+                                {mapToReminderState(todo.reminder)[todo.reminderStatus].icon}
+                            </IconButton>
+                        </Tooltip>
+                        <TaskStatusMenu todo={todo} getTodos={getTodos} />
+                        <IconButton  onClick={handleMoreVertClick}>
+                            <MoreVert />
+                        </IconButton>
+                        <Menu
+                            anchorEl={moreVertEl}
+                            open={actionsOpen}
+                            onClose={handleMoreVertClose}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                        >
+                            <MenuItem onClick={() => handleEdit(id)}>
+                                <ListItemIcon>
+                                    <Edit />
+                                </ListItemIcon>
+                                <ListItemText>Edit</ListItemText>
+                            </MenuItem>
+                            <MenuItem onClick={duplicateTask}>
+                                <ListItemIcon>
+                                    <Edit />
+                                </ListItemIcon>
+                                <ListItemText>Duplicate</ListItemText>
+                            </MenuItem>
+                            <MenuItem onClick={handleTaskDelete}>
+                                <ListItemIcon>
+                                    <Delete />
+                                </ListItemIcon>
+                                <ListItemText>Delete</ListItemText>
+                            </MenuItem>
+                        </Menu>
+                    </CardActions>
+                </Grid>
+            )}
+        </Grid>
+    </Card>);
 };
 
 export default TodoItem;

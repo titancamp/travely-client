@@ -1,4 +1,7 @@
-import {useCallback, useState} from "react";
+import {
+    useCallback,
+    useState
+} from 'react';
 
 const useToggle = (defaultValue = false) => {
     const [open, setOpen] = useState(defaultValue);
@@ -11,7 +14,7 @@ const useToggle = (defaultValue = false) => {
         open,
         toggle,
         setOpen,
-    }
-}
+    };
+};
 
 export default useToggle;
