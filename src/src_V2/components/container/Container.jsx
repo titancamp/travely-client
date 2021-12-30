@@ -5,9 +5,9 @@ import { styled } from '@mui/material/styles';
 import Header from './header/Header';
 import Sidebar from './Sidebar';
 
-import { CONTAINER_SIZES } from '../../utils';
-
-const { DRAWER_EXPANDED_WIDTH, DRAWER_COLLAPSED_WIDTH } = CONTAINER_SIZES;
+//TODO removable
+// import { CONTAINER_SIZES } from '../../utils';
+// const { DRAWER_EXPANDED_WIDTH, DRAWER_COLLAPSED_WIDTH } = CONTAINER_SIZES;
 
 const Main = styled('main')(({ theme, open }) => ({
   flexGrow: 1,

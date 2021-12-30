@@ -5,7 +5,13 @@ import { Box, Tab, Tabs, Button, Typography } from '@mui/material';
 
 import styles from './style.module.css';
 
-export default function Banner({ currentTab, setCurrentTab, onSubmit }) {
+export default function Banner({
+  currentTab,
+  setCurrentTab,
+  onSubmit,
+  pageName,
+  subMenus,
+}) {
   const navigate = useNavigate();
 
   function handleChange(event, newValue) {
@@ -24,7 +30,7 @@ export default function Banner({ currentTab, setCurrentTab, onSubmit }) {
             <ArrowBack fontSize='medium' />
           </IconButton>
           <Typography variant='h5' className={styles.title}>
-            Add Accommodation
+            Add {pageName}
           </Typography>
         </Box>
         <Box>
@@ -38,10 +44,9 @@ export default function Banner({ currentTab, setCurrentTab, onSubmit }) {
       </Box>
       <Box className={styles.tab}>
         <Tabs value={currentTab} onChange={handleChange}>
-          <Tab value={1} label='MAIN INFO' />
-          <Tab value={2} label='ROOMS' />
-          <Tab value={3} label='CONTACT' />
-          <Tab value={4} label='PARTNERSHIP' />
+          {subMenus.map((menu, index) => (
+            <Tab key={index} value={index + 1} label={menu} />
+          ))}
         </Tabs>
       </Box>
     </>

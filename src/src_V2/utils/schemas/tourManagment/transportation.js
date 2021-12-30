@@ -2,7 +2,7 @@ import { object } from 'yup';
 import { BaseSchemas } from './BaseSchemas';
 
 /**
- * Initial values for accommodation.
+ * Initial values for transportation.
  */
 export function mainInfoInitialValues(initialValues) {
   return {
@@ -19,7 +19,17 @@ export function mainInfoInitialValues(initialValues) {
   };
 }
 
-export function AddRoomInitialValues(initialValues) {
+export function AddDriverInitialValues(initialValues) {
+  return {
+    name: '',
+    phone: '',
+    license: null,
+    languages: null,
+    ...initialValues,
+  };
+}
+
+export function AddCarInitialValues(initialValues) {
   return {
     beds: '',
     price: '',
@@ -27,15 +37,6 @@ export function AddRoomInitialValues(initialValues) {
     quantity: '',
     services: [],
     additionalBeds: '',
-    ...initialValues,
-  };
-}
-
-export function contactInitialValues(initialValues) {
-  return {
-    email: '',
-    phone: '',
-    person: '',
     ...initialValues,
   };
 }
@@ -65,21 +66,12 @@ export function mainInfoSchema() {
   });
 }
 
-export function addRoomSchema() {
-  return object().shape({
-    beds: BaseSchemas.integer(),
-    quantity: BaseSchemas.integer(),
-    price: BaseSchemas.floatingNumber(),
-    additionalBeds: BaseSchemas.integer(),
-    type: BaseSchemas.requiredAutocompleteField,
-  });
-}
-
-export function contactSchema() {
+export function addDriverSchema() {
   return object().shape({
     phone: BaseSchemas.phone,
-    email: BaseSchemas.email,
-    person: BaseSchemas.textField(),
+    name: BaseSchemas.textField(),
+    license: BaseSchemas.autocompleteField,
+    languages: BaseSchemas.autocompleteField,
   });
 }
 

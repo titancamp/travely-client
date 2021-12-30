@@ -35,15 +35,6 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
     handleSubmit,
   } = useFormik(formikData);
 
-  //TODO get static data from backend side.
-  //TODO remove the isValid case from submit button.
-  //TODO there is an issue when selecting and changing the autocomplete value manually.
-  //TODO add correct error message for price in schema
-
-  // TODO handle cancelation
-  // TODO handle max price and error message FRD 99....
-  //TODO error messages styles remove default margin from helper text
-
   return (
     <form onSubmit={handleSubmit} autoComplete='off'>
       <DialogTitle id='alert-dialog-title'>{editMode ? 'Edit' : 'Add'} Room</DialogTitle>
@@ -149,11 +140,7 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
       </DialogContent>
       <DialogActions className={styles.dialogAction}>
         <Button onClick={onClose}>Cancel</Button>
-        <Button
-          type='submit'
-          variant='contained'
-          disabled={!(values.type /* && isValid*/)}
-        >
+        <Button type='submit' variant='contained' disabled={!values.type}>
           {editMode ? 'Edit' : 'Add'}
         </Button>
       </DialogActions>

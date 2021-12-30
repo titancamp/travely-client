@@ -5,28 +5,67 @@ import {
   Grid,
   IconButton,
   Typography,
+  Tooltip,
   CardContent,
   CardActionArea,
 } from '@mui/material';
 
+import { Person } from '@mui/icons-material';
+
 import styles from './style.module.css';
 
-//TODO Handle disable state, tooltip text and styles
+//TODO disable icon
 
-export function AddCard({ title, subTitle, buttonText, onOpenDialog }) {
+export function AddCard({
+  title,
+  disabled,
+  subTitle,
+  buttonText,
+  onOpenDialog,
+  tooltipKeyWord,
+}) {
+  function openDialog() {
+    if (!disabled) {
+      onOpenDialog();
+    }
+  }
+
   return (
     <Grid className={styles.gridItem} item xs={3}>
-      <CardActionArea onClick={onOpenDialog}>
-        <Card className={`${styles.addCard} ${styles.card}`}>
-          <CardContent>
+      <CardActionArea onClick={openDialog}>
+        <Card
+          className={`${styles.addCard} ${styles.card} ${
+            disabled ? styles.disabledCard : ''
+          }`}
+        >
+          <CardContent className={styles.addCardContent}>
+            {disabled && (
+              <Tooltip
+                arrow
+                placement='bottom'
+                title={`Maximum 50 ${tooltipKeyWord}s allowed, please delete an existing ${tooltipKeyWord} to add a new one.`}
+                className={styles.toolTip}
+              >
+                <Person className={disabled ? styles.addButtonDisabled : ''} />
+              </Tooltip>
+            )}
             <Typography className={styles.title} variant='h5'>
               {title}
             </Typography>
             <Typography className={styles.subTitle}>{subTitle}</Typography>
           </CardContent>
           <Box className={styles.addButtonContainer}>
-            <Typography className={styles.addButton}>{buttonText}</Typography>
-            <AddCircle fontSize='small' className={styles.svg} />
+            <Typography
+              className={`${styles.addButton} ${
+                disabled ? styles.addButtonDisabled : ''
+              }`}
+            >
+              {buttonText}
+            </Typography>
+            <AddCircle
+              fontSize='small'
+              className={`${styles.svg} ${disabled ? styles.addButtonDisabled : ''}`}
+            />
           </Box>
         </Card>
       </CardActionArea>
@@ -56,7 +95,7 @@ export function InfoCard({
   return (
     <Grid className={styles.gridItem} item xs={3}>
       <Card className={styles.card}>
-        <CardActionArea onClick={openView}>
+        <CardActionArea onClick={openView} className={styles.cardContent}>
           <CardContent>
             <Typography className={styles.detailsInfo}>
               {sectionData[1].label}

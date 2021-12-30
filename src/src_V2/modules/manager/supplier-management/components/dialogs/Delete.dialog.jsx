@@ -1,6 +1,6 @@
 import { Button, DialogTitle, DialogActions, DialogContent } from '@mui/material';
 
-export default function DeleteRoomDialog({ id, onClose, deleteRoom }) {
+export default function DeleteDialog({ id, onClose, deleteRoom }) {
   function deleteRoomItem() {
     deleteRoom(id);
   }

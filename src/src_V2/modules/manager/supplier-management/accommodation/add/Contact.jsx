@@ -1,5 +1,6 @@
 import {
   Box,
+  Grid,
   InputLabel,
   FormControl,
   OutlinedInput,
@@ -36,55 +37,61 @@ export default function Contact({ accommodation }) {
     <form>
       <Box className={styles.mnRow}>
         <label className={styles.label}>Details</label>
-        <Box>
-          <FormControl fullWidth className={styles.ctField}>
-            <InputLabel error={errors.person && touched.person}>
-              Contact Person
-            </InputLabel>
-            <OutlinedInput
-              name='person'
-              onBlur={handleBlur}
-              value={values.person}
-              label='Contact Person'
-              onChange={handleChange}
-              error={errors.person && touched.person}
-              endAdornment={<EndAdornment icon={<Person />} />}
-            />
-            {touched.person && errors.person && (
-              <FormHelperText error>{errors.person}</FormHelperText>
-            )}
-          </FormControl>
-          <FormControl fullWidth className={styles.ctField}>
-            <InputLabel error={errors.phone && touched.phone}>Contact Phone</InputLabel>
-            <OutlinedInput
-              name='phone'
-              onBlur={handleBlur}
-              value={values.phone}
-              label='Contact Phone'
-              onChange={handleChange}
-              error={errors.phone && touched.phone}
-              endAdornment={<EndAdornment icon={<LocalPhone />} />}
-            />
-            {errors.phone && touched.phone && (
-              <FormHelperText error>{errors.phone}</FormHelperText>
-            )}
-          </FormControl>
-          <FormControl fullWidth className={styles.ctField}>
-            <InputLabel error={errors.email && touched.email}>Contact Email</InputLabel>
-            <OutlinedInput
-              name='email'
-              onBlur={handleBlur}
-              value={values.email}
-              label='Contact Email'
-              onChange={handleChange}
-              error={errors.email && touched.email}
-              endAdornment={<EndAdornment icon={<Email />} />}
-            />
-            {errors.email && touched.email && (
-              <FormHelperText error>{errors.email}</FormHelperText>
-            )}
-          </FormControl>
-        </Box>
+        <Grid container>
+          <Grid item xs={12}>
+            <FormControl fullWidth className={styles.ctField}>
+              <InputLabel error={errors.person && touched.person}>
+                Contact Person
+              </InputLabel>
+              <OutlinedInput
+                name='person'
+                onBlur={handleBlur}
+                value={values.person}
+                label='Contact Person'
+                onChange={handleChange}
+                error={errors.person && touched.person}
+                endAdornment={<EndAdornment icon={<Person />} />}
+              />
+              {touched.person && errors.person && (
+                <FormHelperText error>{errors.person}</FormHelperText>
+              )}
+            </FormControl>
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl fullWidth className={styles.ctField}>
+              <InputLabel error={errors.phone && touched.phone}>Contact Phone</InputLabel>
+              <OutlinedInput
+                name='phone'
+                onBlur={handleBlur}
+                value={values.phone}
+                label='Contact Phone'
+                onChange={handleChange}
+                error={errors.phone && touched.phone}
+                endAdornment={<EndAdornment icon={<LocalPhone />} />}
+              />
+              {errors.phone && touched.phone && (
+                <FormHelperText error>{errors.phone}</FormHelperText>
+              )}
+            </FormControl>
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl fullWidth className={styles.ctField}>
+              <InputLabel error={errors.email && touched.email}>Contact Email</InputLabel>
+              <OutlinedInput
+                name='email'
+                onBlur={handleBlur}
+                value={values.email}
+                label='Contact Email'
+                onChange={handleChange}
+                error={errors.email && touched.email}
+                endAdornment={<EndAdornment icon={<Email />} />}
+              />
+              {errors.email && touched.email && (
+                <FormHelperText error>{errors.email}</FormHelperText>
+              )}
+            </FormControl>
+          </Grid>
+        </Grid>
       </Box>
     </form>
   );

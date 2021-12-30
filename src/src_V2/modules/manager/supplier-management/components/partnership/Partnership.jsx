@@ -10,17 +10,17 @@ import {
 
 import styles from './style.module.css';
 
-export default function Contact({ accommodation }) {
+export default function Partnership({ parentRef }) {
   const formik = useFormik({
     validationSchema: partnershipSchema,
-    initialValues: partnershipInitialValues(accommodation.partnership.values),
+    initialValues: partnershipInitialValues(parentRef.partnership.values),
   });
   const { values, errors, touched, isValid, handleBlur, setTouched, handleChange } =
     formik;
 
-  const initializeTouchState = () => setTouched({ ...accommodation.partnership.touched });
+  const initializeTouchState = () => setTouched({ ...parentRef.partnership.touched });
   const addPartnershipToAccommodation = () =>
-    (accommodation.partnership = { values, isValid, touched });
+    (parentRef.partnership = { values, isValid, touched });
 
   useEffect(initializeTouchState, []);
   useEffect(addPartnershipToAccommodation, [values, isValid, touched]);
@@ -29,8 +29,8 @@ export default function Contact({ accommodation }) {
     <Box className={styles.partnership}>
       <Box className={styles.mnRow}>
         <label className={styles.label}>Details</label>
-        <Grid container item xs={9} spacing={3}>
-          <Grid item xs={3}>
+        <Grid container spacing={3}>
+          <Grid item xs={2.5}>
             <TextField
               fullWidth
               type='date'
@@ -45,7 +45,7 @@ export default function Contact({ accommodation }) {
               inputProps={{ ...(values.expiryDate && { max: values.expiryDate }) }}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={2.5}>
             <TextField
               fullWidth
               type='date'
@@ -69,8 +69,8 @@ export default function Contact({ accommodation }) {
       </Box>
       <Box className={styles.mnRow}>
         <label className={styles.label}>Margin</label>
-        <Grid container item xs={9} spacing={3}>
-          <Grid item xs={3}>
+        <Grid container spacing={3}>
+          <Grid item xs={2.5}>
             <TextField
               fullWidth
               name='percentage'
@@ -83,7 +83,7 @@ export default function Contact({ accommodation }) {
               helperText={touched.percentage && errors.percentage}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={2.5}>
             <TextField
               fullWidth
               name='price'

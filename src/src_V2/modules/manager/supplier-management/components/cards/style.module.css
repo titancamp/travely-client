@@ -15,6 +15,22 @@
     min-height: 210px;
 }
 
+.disabledCard {
+    background-color: #E0E0E0 !important;
+    cursor: default;
+}
+
+.addCardContent {
+    position: relative;
+}
+
+.toolTip {
+    top: 18px;
+    right: 18px;
+    position: absolute;
+    z-index: 9999999;
+}
+
 .card .detailsInfo {
     font-size: 14px;
     color: rgba(0, 0, 0, 0.6);
@@ -44,6 +60,10 @@
     font-weight: 500 !important;
 }
 
+.addButtonDisabled {
+    opacity: 0.6;
+    color: black !important;
+}
 .svg {
     color: #2183d1;
     margin-top: 2px;
@@ -60,6 +80,10 @@
 .cardActions {
     margin-bottom: 12px!important;
     padding: 4px 13px!important;
+}
+
+.cardContent {
+    min-height: 160px;
 }
 
 .cardActions.rightAligned {

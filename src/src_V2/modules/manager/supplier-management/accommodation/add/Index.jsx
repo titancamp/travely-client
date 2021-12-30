@@ -4,9 +4,8 @@ import { useRef, useState } from 'react';
 import Rooms from './Rooms';
 import Contact from './Contact';
 import MainInfo from './MainInfo';
-import Banner from '../banner/Banner';
-import Partnership from './Partnership';
 import { Container } from '../../../../../components';
+import { Banner, Partnership } from '../../components';
 
 import styles from './style.module.css';
 import { managerSidebarConfig } from '../../../config';
@@ -20,7 +19,7 @@ function AccommodationStep({ currentTab, accommodation }) {
     case 3:
       return <Contact accommodation={accommodation} />;
     case 4:
-      return <Partnership accommodation={accommodation} />;
+      return <Partnership parentRef={accommodation} />;
     default:
       return null;
   }
@@ -49,7 +48,13 @@ export default function AddAccommodation() {
 
   return (
     <Container managerSidebarConfig={managerSidebarConfig}>
-      <Banner onSubmit={onSubmit} currentTab={currentTab} setCurrentTab={setCurrentTab} />
+      <Banner
+        onSubmit={onSubmit}
+        currentTab={currentTab}
+        pageName='Accommodation'
+        setCurrentTab={setCurrentTab}
+        subMenus={['MAIN INFO', 'ROOMS', 'CONTACT', 'PARTNERSHIP']}
+      />
       <Box className={styles.container}>
         <AccommodationStep currentTab={currentTab} accommodation={accommodation} />
       </Box>

@@ -1,7 +1,11 @@
-/* Add accommodation styles*/
+/* Add transportation styles*/
 
 .container {
   padding: 40px 120px 0;
+}
+
+.content {
+  margin-right: 234px;
 }
 
 /* Main Info */
@@ -30,19 +34,7 @@
   font-weight: bold;
 }
 
-/* Rooms*/
-
-.roomContent {
-  margin-right: 234px;
-}
-
-/* Contact */
-
 .ctField {
   margin-bottom: 25px !important;
   max-width: 400px;
-}
-
-.outline {
-  border-color: red !important;
 }

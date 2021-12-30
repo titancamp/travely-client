@@ -1,26 +1,19 @@
 import { Dialog } from '@mui/material';
-import AddEditRoomDialog from './AddEditRoom.dialog';
-import ViewRoomDialog from './ViewRoom.dialog';
-import DeleteDialog from '../../components/dialogs/Delete.dialog';
+
 import Map from '../../components/dialogs/Map.dialog';
+import AddEditDriverDialog from './AddEditDriver.dialog';
+import DeleteDialog from '../../components/dialogs/Delete.dialog';
 
 function CurrentDialog({ data, onClose }) {
   switch (data.mode) {
     case 'map':
       return <Map onClose={onClose} />;
     case 'add':
-      return <AddEditRoomDialog onClose={onClose} onSuccess={data.actions} />;
+      return <AddEditDriverDialog onClose={onClose} onSuccess={data.actions} />;
     case 'edit':
-      return (
-        <AddEditRoomDialog
-          editMode
-          room={data.state}
-          onClose={onClose}
-          onSuccess={data.actions}
-        />
-      );
+      return <></>;
     case 'view':
-      return <ViewRoomDialog data={data} />;
+      return <></>;
     case 'delete':
       return (
         <DeleteDialog onClose={onClose} id={data.state.id} deleteRoom={data.actions} />
