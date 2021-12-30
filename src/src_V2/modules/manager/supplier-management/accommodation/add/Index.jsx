@@ -1,15 +1,15 @@
-import { useRef, useState } from "react";
-import { Box } from "@mui/material";
+import { useRef, useState } from 'react';
+import { Box } from '@mui/material';
 
-import Rooms from "./Rooms";
-import Banner from "../banner/Banner";
-import Contact from "./Contact";
-import MainInfo from "./MainInfo";
-import Partnership from "./Partnership";
-import { Container } from "../../../../../components";
+import Rooms from './Rooms';
+import Banner from '../banner/Banner';
+import Contact from './Contact';
+import MainInfo from './MainInfo';
+import Partnership from './Partnership';
+import { Container } from '../../../../../components';
 
-import styles from "./style.module.css";
-import { managerSidebarConfig } from "../../../config";
+import styles from './style.module.css';
+import { managerSidebarConfig } from '../../../config';
 
 function AccommodationStep({ currentTab, accommodation }) {
   switch (currentTab) {
@@ -34,10 +34,7 @@ export default function AddAccommodation() {
     <Container managerSidebarConfig={managerSidebarConfig}>
       <Banner currentTab={currentTab} setCurrentTab={setCurrentTab} />
       <Box className={styles.container}>
-        <AccommodationStep
-          currentTab={currentTab}
-          accommodation={accommodation}
-        />
+        <AccommodationStep currentTab={currentTab} accommodation={accommodation} />
       </Box>
     </Container>
   );
