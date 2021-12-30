@@ -1,0 +1,12 @@
+@import '../../styles/colors.css';
+
+.mainDiv {
+  padding: 24px;
+  height: 100%;
+  background-color: var(--lightGray);
+}
+
+.title {
+  color: var(--secondary);
+  margin-top: 10px;
+}

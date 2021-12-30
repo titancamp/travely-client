@@ -38,7 +38,7 @@ const boxStyles = {
  * @returns {JSX.Element}
  */
 export default function Enhancer({ children, managerSidebarConfig }) {
-  const [openSidebar, setOpenSidebar] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(true);
 
   return (
     <Box>
