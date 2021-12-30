@@ -1,5 +1,5 @@
 import { NoData } from '../../components';
-import image from '../../../../../assets/accommodation.png';
+import image from '../../../../../assets/transportation.png';
 
 //TODO replace with right image
 export default function AccommodationLandingPage() {
