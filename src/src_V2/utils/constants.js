@@ -13,6 +13,6 @@ export const ERROR_MESSAGES = {
   maxTextField: (max) => `The filed must be at most ${max} characters`,
 };
 
-//Phone temporary regexp for the app
+//Armenian Phone regexp
 export const PhoneRegex =
   /^(([+374]{4}|[0]{1}))?(\s|-)?([1-9]{2})(\s|-)?(\d{2})(\s|-)?(\d{2})(\s|-)?(\d{2})$/;

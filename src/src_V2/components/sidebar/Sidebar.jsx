@@ -13,30 +13,11 @@ import {
   ListItemText,
   Drawer as MuiDrawer,
 } from '@mui/material';
-import { common, grey } from '@mui/material/colors';
+import { grey } from '@mui/material/colors';
 import { ExpandLess, ExpandMore, ChevronLeft, ChevronRight } from '@mui/icons-material';
-// import { makeStyles } from '@mui/styles';
 
-import styles from './style.module.css';
-
+import styles from './Sidebar.module.css';
 import { CONTAINER_SIZES } from '../../utils';
-
-//TODO move styles css module.
-const boxStyles = {
-  position: 'relative',
-  display: 'flex',
-};
-
-const fabStyles = {
-  width: '40px',
-  height: '40px',
-  left: '12px',
-  zIndex: '9999',
-  top: '98px',
-  position: 'fixed',
-  backgroundColor: common['white'],
-  transition: 'left 300ms cubic-bezier(0.4, 0, 0.6, 1) 0ms',
-};
 
 const listStyles = (open) => ({
   marginTop: '24px',
@@ -50,11 +31,11 @@ const listItemStyles = {
 };
 
 const openedMixin = (theme) => ({
-  top: '85px',
+  top: '79px',
   width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.standard,
+    duration: theme.transitions.duration.enteringScreen,
   }),
   overflowX: 'hidden',
   ' ~ .MuiFab-root': {
@@ -63,10 +44,10 @@ const openedMixin = (theme) => ({
 });
 
 const closedMixin = (theme) => ({
-  top: '85px',
+  top: '79px',
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.standard,
+    duration: theme.transitions.duration.enteringScreen,
   }),
   overflowX: 'hidden',
   width: `calc(${theme.spacing(7)} + 1px)`,
@@ -81,9 +62,6 @@ const closedMixin = (theme) => ({
     ' ~ .MuiFab-root': {
       left: '300px',
       pointerEvents: 'none',
-      /*svg: {
-        transform: 'rotate(180deg)',
-      },*/
     },
   },
 });
@@ -157,7 +135,13 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState, pathname }
 export default function Sidebar({ pageConfigs, open, setOpen }) {
   const { pathname } = useLocation();
   const [expanded, setExpanded] = useState({});
-  const openCloseHandler = useCallback(() => setOpen(!open), [open, setOpen]);
+  const openCloseHandler = useCallback(
+    (e) => {
+      e.stopPropagation();
+      setOpen(!open);
+    },
+    [open, setOpen]
+  );
 
   const setExpandedState = useCallback(
     (id) => {
@@ -170,7 +154,7 @@ export default function Sidebar({ pageConfigs, open, setOpen }) {
   );
 
   return (
-    <Box style={boxStyles}>
+    <Box className={styles.mainBox}>
       <Drawer variant='permanent' anchor='left' open={open}>
         <List style={listStyles(open)}>
           {pageConfigs.map((page) => {
@@ -194,7 +178,7 @@ export default function Sidebar({ pageConfigs, open, setOpen }) {
         TransitionComponent={Zoom}
         title={!open ? 'Expand' : 'Collapse'}
       >
-        <Fab onClick={openCloseHandler} color={'inherit'} sx={fabStyles}>
+        <Fab onClick={openCloseHandler} color={'inherit'} className={styles.fab}>
           {open ? <ChevronLeft /> : <ChevronRight />}
         </Fab>
       </Tooltip>
