@@ -12,6 +12,8 @@ import {
   Paper,
   Checkbox,
   Tooltip,
+  Typography,
+  Toolbar,
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 
@@ -100,13 +102,28 @@ function TooltipText({ text }) {
   const hoverStatus = useHoverTooltip(text, textElementRef);
 
   return (
-    <Tooltip title={text} interactive disableHoverListener={!hoverStatus}>
+    <Tooltip title={text} interactive="true" disableHoverListener={!hoverStatus}>
       <div ref={textElementRef} className={styles.tooltip}>
         {text}
       </div>
     </Tooltip>
   );
 }
+
+const EnhancedTableToolbar = (props) => {
+  const { numSelected } = props;
+
+  return (
+    <Toolbar className={styles.toolbar}>
+      {!!numSelected && (
+        <Typography component="div">
+          <span className={styles.selectedCountText}>Selected rows</span>{' '}
+          <span className={styles.selectedCountNum}>{numSelected}</span>
+        </Typography>
+      )}
+    </Toolbar>
+  );
+};
 
 function EnhancedTableHead(props) {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
@@ -164,6 +181,9 @@ const PayableTable = () => {
 
   const payables = payablesList();
 
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - payables.length) : 0;
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -172,7 +192,7 @@ const PayableTable = () => {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = payables.map((n) => n.name);
+      const newSelecteds = payables.map((n) => n.paymentId);
       setSelected(newSelecteds);
       return;
     }
@@ -210,9 +230,6 @@ const PayableTable = () => {
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - payables.length) : 0;
-
   return (
     <Box>
       <Paper>
@@ -232,7 +249,7 @@ const PayableTable = () => {
                 .sort(getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.paymentId);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -242,7 +259,7 @@ const PayableTable = () => {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.paymentId}
                       selected={isItemSelected}
                       className={styles.tableRow}
                     >
@@ -255,8 +272,8 @@ const PayableTable = () => {
                           }}
                         />
                       </TableCell>
-                      {Object.keys(row).map((value) => (
-                        <TableCell className={styles.tableCell} key={row.paymentId}>
+                      {Object.keys(row).map((value, index) => (
+                        <TableCell className={styles.tableCell} key={`${row.paymentId}-${index}`}>
                           <TooltipText text={row[value]} />
                         </TableCell>
                       ))}
@@ -277,15 +294,20 @@ const PayableTable = () => {
           {!payables.length && <NoData />}
         </TableContainer>
         {!!payables.length && (
-          <TablePagination
-            rowsPerPageOptions={rowsPerPageOptions}
-            component="div"
-            count={payables.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+          <div className={styles.tableFooter}>
+            <EnhancedTableToolbar numSelected={selected.length} />
+            <TablePagination
+              className={styles.tablePagination}
+              rowsPerPageOptions={rowsPerPageOptions}
+              component="div"
+              count={payables.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              labelRowsPerPage={<span className={styles.tablePaginationText}>Rows per page:</span>}
+            />
+          </div>
         )}
       </Paper>
     </Box>

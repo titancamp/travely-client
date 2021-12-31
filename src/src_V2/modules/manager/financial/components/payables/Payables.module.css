@@ -39,3 +39,29 @@
   text-overflow: ellipsis;
   width: 100px;
 }
+
+.tableFooter {
+  display: flex;
+  justify-content: space-between;
+}
+
+.toolbar {
+  min-height: inherit !important;
+}
+
+.toolbar .selectedCountText {
+  color: var(--secondary);
+  font-size: 14px;
+}
+
+.toolbar .selectedCountNum {
+  font-size: 16px;
+}
+
+.tablePagination {
+  display: flex;
+}
+
+.tablePaginationText {
+  color: var(--secondary);
+}
