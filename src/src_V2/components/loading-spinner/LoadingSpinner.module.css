@@ -1,0 +1,45 @@
+@keyframes spinnerSubDiv {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.spinnerSubDiv div {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border: 10px solid #3d64f4;
+  border-top-color: transparent;
+  border-radius: 50%;
+}
+
+.spinnerSubDiv div {
+  animation: spinnerSubDiv 1s linear infinite;
+  top: 100px;
+  left: 100px;
+}
+
+.spinnerDiv {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  overflow: hidden;
+  background: none;
+  margin: 0 44%;
+}
+
+.spinnerSubDiv {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0;
+}
+
+.spinnerSubDiv div {
+  box-sizing: content-box;
+}

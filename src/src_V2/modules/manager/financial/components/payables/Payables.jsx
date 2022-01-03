@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Box,
   Table,
@@ -14,70 +14,39 @@ import {
   Tooltip,
   Typography,
   Toolbar,
+  Chip,
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
+import { deepPurple, green, orange, pink } from '@mui/material/colors';
 
-import { Container, Layout, NoData } from '../../../../../components';
+import { Container, Layout, LoadingSpinner, NoData } from '../../../../../components';
 import { useHoverTooltip } from '../../../../../hooks';
 import payablesList from '../../mock/payable';
 import { managerSidebarConfig } from '../../../config';
+import { PaymentStatus, PaymentType } from '../../constants';
+import { generateDate } from '../../../../../utils';
+import attachmentImage from '../../../../../assets/attachment.png';
 import styles from './Payables.module.css';
 
 const rowsPerPageOptions = [20, 50, 100];
 
 const columns = [
-  {
-    id: 'paymentId',
-    label: 'Payment ID',
-  },
-  {
-    id: 'tourId',
-    label: 'Tour ID',
-  },
-  {
-    id: 'tourName',
-    label: 'Tour name',
-  },
-  {
-    id: 'supplier',
-    label: 'Supplier',
-  },
-  {
-    id: 'plannedCost',
-    label: 'Planed cost',
-  },
-  {
-    id: 'actualCost',
-    label: 'Actual cost',
-  },
-  {
-    id: 'paid',
-    label: 'Paid',
-  },
-  {
-    id: 'createdDate',
-    label: 'Created date',
-  },
-  {
-    id: 'invoiceId',
-    label: 'Invoice ID',
-  },
-  {
-    id: 'dueDate',
-    label: 'Due date',
-  },
-  {
-    id: 'paymentDate',
-    label: 'Payment date',
-  },
-  {
-    id: 'paymentType',
-    label: 'Payment type',
-  },
-  {
-    id: 'invoiceAttachment',
-    label: 'Invoice Attachment',
-  },
+  { id: 'paymentId', label: 'Payment ID' },
+  { id: 'tourId', label: 'Tour ID' },
+  { id: 'tourNam', label: 'Tour name' },
+  { id: 'supplier', label: 'Supplier' },
+  { id: 'plannedCost', label: 'Planed cost' },
+  { id: 'actualCost', label: 'Actual cost' },
+  { id: 'difference', label: 'Difference' },
+  { id: 'paidCost', label: 'Paid' },
+  { id: 'remaining', label: 'Remaining' },
+  { id: 'status', label: 'Status' },
+  { id: 'createdDate', label: 'Created date' },
+  { id: 'invoiceId', label: 'Invoice ID' },
+  { id: 'dueDate', label: 'Due date' },
+  { id: 'paymentDate', label: 'Payment date' },
+  { id: 'paymentType', label: 'Payment type' },
+  { id: 'invoiceAttachment', label: 'Invoice Attachment' },
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -110,7 +79,7 @@ function TooltipText({ text }) {
   );
 }
 
-const EnhancedTableToolbar = (props) => {
+function EnhancedTableToolbar(props) {
   const { numSelected } = props;
 
   return (
@@ -123,7 +92,7 @@ const EnhancedTableToolbar = (props) => {
       )}
     </Toolbar>
   );
-};
+}
 
 function EnhancedTableHead(props) {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
@@ -172,17 +141,84 @@ function EnhancedTableHead(props) {
   );
 }
 
-const PayableTable = () => {
-  const [order, setOrder] = useState('asc');
+function TableCellWrapper({ children }) {
+  return <TableCell className={styles.tableCell}>{children}</TableCell>;
+}
+
+function TooltipTableCell({ rowValue }) {
+  return (
+    <TableCellWrapper>
+      <TooltipText text={rowValue} />
+    </TableCellWrapper>
+  );
+}
+
+function PayableStatuses({ statusNum }) {
+  let color = null;
+  const statusName = PaymentStatus[statusNum];
+
+  switch (statusNum) {
+    case PaymentStatus['Partially Paid']:
+      color = orange[900];
+      break;
+    case PaymentStatus.Paid:
+      color = green[600];
+      break;
+    case PaymentStatus.Overdue:
+      color = pink[700];
+      break;
+    case PaymentStatus.Unpaid:
+      color = deepPurple[800];
+      break;
+    default:
+      return <Chip label={statusName} className={styles.canceledPayableStatus} />;
+  }
+
+  return (
+    <Chip
+      label={statusName}
+      style={{ color, border: `1px solid ${color}` }}
+      className={styles.whiteTableCell}
+    />
+  );
+}
+
+function InvoiceAttachment({ attachment }) {
+  // todo Add attachment link to download
+  return (
+    <>
+      {attachment ? (
+        <Box
+          component="img"
+          alt="Attachment"
+          src={attachmentImage}
+          className={styles.attachmentImg}
+        />
+      ) : (
+        '--'
+      )}
+    </>
+  );
+}
+
+const PayableTable = ({ payables, payablesLoading }) => {
+  const [order, setOrder] = useState('desc');
   const [orderBy, setOrderBy] = useState('createdDate');
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(20);
 
-  const payables = payablesList();
-
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - payables.length) : 0;
+
+  const isSelected = (name) => selected.indexOf(name) !== -1;
+
+  const rowsAfterPagingAndSorting = () => {
+    return payables
+      .slice()
+      .sort(getComparator(order, orderBy))
+      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -228,8 +264,6 @@ const PayableTable = () => {
     setPage(0);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-
   return (
     <Box>
       <Paper>
@@ -244,42 +278,63 @@ const PayableTable = () => {
               rowCount={payables.length}
             />
             <TableBody className={styles.tableBody}>
-              {payables
-                .slice()
-                .sort(getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.paymentId);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+              {rowsAfterPagingAndSorting().map((row, index) => {
+                const isItemSelected = isSelected(row.paymentId);
+                const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.paymentId)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.paymentId}
-                      selected={isItemSelected}
-                      className={styles.tableRow}
+                return (
+                  <TableRow
+                    hover
+                    onClick={(event) => handleClick(event, row.paymentId)}
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={row.paymentId}
+                    selected={isItemSelected}
+                    className={styles.tableRow}
+                  >
+                    <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
+                      <Checkbox
+                        color="primary"
+                        checked={isItemSelected}
+                        inputProps={{
+                          'aria-labelledby': labelId,
+                        }}
+                      />
+                    </TableCell>
+                    <TooltipTableCell rowValue={row.paymentId} />
+                    <TooltipTableCell rowValue={row.tourId} />
+                    <TooltipTableCell rowValue={row.tourName} />
+                    <TooltipTableCell rowValue={row.supplier} />
+                    <TooltipTableCell rowValue={row.plannedCost} />
+                    <TooltipTableCell rowValue={row.actualCost} />
+                    <TableCell
+                      className={`${styles.tableCell} ${
+                        row.difference > 0
+                          ? styles.positiveTableCell
+                          : row.difference < 0
+                          ? styles.negativeTableCell
+                          : styles.neutralTableCell
+                      }`}
                     >
-                      <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            'aria-labelledby': labelId,
-                          }}
-                        />
-                      </TableCell>
-                      {Object.keys(row).map((value, index) => (
-                        <TableCell className={styles.tableCell} key={`${row.paymentId}-${index}`}>
-                          <TooltipText text={row[value]} />
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  );
-                })}
+                      <TooltipText text={row.difference} />
+                    </TableCell>
+                    <TooltipTableCell rowValue={row.paidCost} />
+                    <TooltipTableCell rowValue={row.remaining} />
+                    <TableCellWrapper>
+                      <PayableStatuses statusNum={row.status} />
+                    </TableCellWrapper>
+                    <TooltipTableCell rowValue={generateDate(row.createdDate)} />
+                    <TooltipTableCell rowValue={row.invoiceId} />
+                    <TooltipTableCell rowValue={generateDate(row.dueDate)} />
+                    <TooltipTableCell rowValue={generateDate(row.paymentDate)} />
+                    <TooltipTableCell rowValue={PaymentType[row.paymentType]} />
+                    <TableCellWrapper>
+                      <InvoiceAttachment attachment={row.invoiceAttachment} />
+                    </TableCellWrapper>
+                  </TableRow>
+                );
+              })}
               {emptyRows > 0 && (
                 <TableRow
                   style={{
@@ -291,9 +346,9 @@ const PayableTable = () => {
               )}
             </TableBody>
           </Table>
-          {!payables.length && <NoData />}
+          {payablesLoading ? <LoadingSpinner /> : !payables.length && <NoData />}
         </TableContainer>
-        {!!payables.length && (
+        {!payablesLoading && !!payables.length && (
           <div className={styles.tableFooter}>
             <EnhancedTableToolbar numSelected={selected.length} />
             <TablePagination
@@ -315,10 +370,36 @@ const PayableTable = () => {
 };
 
 export default function Payables() {
+  const [payables, setPayables] = useState([]);
+  const [payablesLoading, setPayablesLoading] = useState(false);
+
+  useEffect(() => {
+    getPayables();
+  }, []);
+
+  // getting Payables from backend
+  function getPayables() {
+    setPayablesLoading(true);
+
+    setTimeout(() => {
+      processPayables(payablesList());
+      setPayablesLoading(false);
+    }, 0);
+  }
+
+  function processPayables(payables) {
+    const processedPayables = [...payables].map((payable) => {
+      payable.difference = payable.plannedCost - payable.actualCost;
+      payable.remaining = payable.actualCost - payable.paidCost;
+      return payable;
+    });
+    setPayables(processedPayables);
+  }
+
   return (
     <Container managerSidebarConfig={managerSidebarConfig}>
       <Layout title="Payables">
-        <PayableTable />
+        <PayableTable payables={payables} payablesLoading={payablesLoading} />
       </Layout>
     </Container>
   );
