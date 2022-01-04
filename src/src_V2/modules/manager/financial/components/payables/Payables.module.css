@@ -1,12 +1,21 @@
 @import '../../../../../styles/colors.css';
 
 .tableContainer {
-  height: 90vh;
+  overflow-y: auto;
+}
+
+.mainTableBox {
+  height: 77vh;
+  overflow-y: auto;
 }
 
 .tableHead,
 .tableRow {
   height: 56px !important;
+}
+
+.tableStickyBox {
+  background-color: var(--midGray) !important;
 }
 
 .totalFooter {
@@ -16,7 +25,6 @@
 .totalFooter .tableCell,
 .totalFooter .tableCellCheckbox {
   font-weight: 600;
-  background-color: var(--midGray) !important;
 }
 
 /* sticky table head */
