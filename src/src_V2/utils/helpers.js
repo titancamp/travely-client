@@ -7,3 +7,12 @@ export const generateDate = (dateStr) => {
 
   return `${mm}/${dd}/${yyyy}`;
 };
+
+export const generateArrayByRange = (start, end, conditionCallback = () => true) => {
+  if (start > end) {
+    return [];
+  }
+  return [...Array(end - start + 1).keys()]
+    .map((_, index) => start + index)
+    .filter(conditionCallback);
+};

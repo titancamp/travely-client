@@ -1,12 +1,22 @@
 @import '../../../../../styles/colors.css';
 
 .tableContainer {
-  max-height: 680px;
+  height: 90vh;
 }
 
 .tableHead,
 .tableRow {
   height: 56px !important;
+}
+
+.totalFooter {
+  height: 43px;
+}
+
+.totalFooter .tableCell,
+.totalFooter .tableCellCheckbox {
+  font-weight: 600;
+  background-color: var(--midGray) !important;
 }
 
 /* sticky table head */
@@ -30,14 +40,14 @@
 }
 
 .tableCell {
-  width: 140px !important;
+  min-width: 140px !important;
 }
 
 .tooltip {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 100px;
+  max-width: 100px;
 }
 
 .tableFooter {
@@ -84,6 +94,10 @@
 }
 
 /* Table Cell Statuses */
+.statusChip {
+  height: 27px !important;
+}
+
 .whiteTableCell {
   background-color: var(--white) !important;
 }

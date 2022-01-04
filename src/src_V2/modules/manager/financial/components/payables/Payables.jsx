@@ -24,7 +24,7 @@ import { useHoverTooltip } from '../../../../../hooks';
 import payablesList from '../../mock/payable';
 import { managerSidebarConfig } from '../../../config';
 import { PaymentStatus, PaymentType } from '../../constants';
-import { generateDate } from '../../../../../utils';
+import { generateArrayByRange, generateDate } from '../../../../../utils';
 import attachmentImage from '../../../../../assets/attachment.png';
 import styles from './Payables.module.css';
 
@@ -35,6 +35,7 @@ const columns = [
   { id: 'tourId', label: 'Tour ID' },
   { id: 'tourNam', label: 'Tour name' },
   { id: 'supplier', label: 'Supplier' },
+  { id: 'currency', label: 'Currency' },
   { id: 'plannedCost', label: 'Planed cost' },
   { id: 'actualCost', label: 'Actual cost' },
   { id: 'difference', label: 'Difference' },
@@ -65,7 +66,19 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function TooltipText({ text }) {
+function colorCondition(difference) {
+  let style;
+  if (difference > 0) {
+    style = styles.positiveTableCell;
+  } else if (difference < 0) {
+    style = styles.negativeTableCell;
+  } else {
+    style = styles.neutralTableCell;
+  }
+  return style;
+}
+
+const TooltipText = ({ text }) => {
   const textElementRef = useRef();
 
   const hoverStatus = useHoverTooltip(text, textElementRef);
@@ -77,9 +90,9 @@ function TooltipText({ text }) {
       </div>
     </Tooltip>
   );
-}
+};
 
-function EnhancedTableToolbar(props) {
+const EnhancedTableToolbar = (props) => {
   const { numSelected } = props;
 
   return (
@@ -92,9 +105,9 @@ function EnhancedTableToolbar(props) {
       )}
     </Toolbar>
   );
-}
+};
 
-function EnhancedTableHead(props) {
+const EnhancedTableHead = (props) => {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
 
   const createSortHandler = (property) => (event) => {
@@ -139,21 +152,24 @@ function EnhancedTableHead(props) {
       </TableRow>
     </TableHead>
   );
-}
+};
 
-function TableCellWrapper({ children }) {
-  return <TableCell className={styles.tableCell}>{children}</TableCell>;
-}
+const TableCellWrapper = ({ children }) => (
+  <TableCell className={styles.tableCell}>{children}</TableCell>
+);
 
-function TooltipTableCell({ rowValue }) {
+const EmptyTableCellWrapper = ({ count }) =>
+  generateArrayByRange(1, count).map((el, index) => <TableCellWrapper key={index} />);
+
+const TooltipTableCell = ({ rowValue }) => {
   return (
     <TableCellWrapper>
       <TooltipText text={rowValue} />
     </TableCellWrapper>
   );
-}
+};
 
-function PayableStatuses({ statusNum }) {
+const PayableStatuses = ({ statusNum }) => {
   let color = null;
   const statusName = PaymentStatus[statusNum];
 
@@ -171,35 +187,37 @@ function PayableStatuses({ statusNum }) {
       color = deepPurple[800];
       break;
     default:
-      return <Chip label={statusName} className={styles.canceledPayableStatus} />;
+      return (
+        <Chip
+          label={statusName}
+          className={`${styles.canceledPayableStatus} ${styles.statusChip}`}
+        />
+      );
   }
 
   return (
     <Chip
       label={statusName}
       style={{ color, border: `1px solid ${color}` }}
-      className={styles.whiteTableCell}
+      className={`${styles.whiteTableCell} ${styles.statusChip}`}
     />
   );
-}
+};
 
-function InvoiceAttachment({ attachment }) {
-  // todo Add attachment link to download
-  return (
-    <>
-      {attachment ? (
-        <Box
-          component="img"
-          alt="Attachment"
-          src={attachmentImage}
-          className={styles.attachmentImg}
-        />
-      ) : (
-        '--'
-      )}
-    </>
-  );
-}
+const InvoiceAttachment = ({ attachment }) => (
+  <>
+    {attachment ? (
+      <Box
+        component="img"
+        alt="Attachment"
+        src={attachmentImage}
+        className={styles.attachmentImg}
+      />
+    ) : (
+      '--'
+    )}
+  </>
+);
 
 const PayableTable = ({ payables, payablesLoading }) => {
   const [order, setOrder] = useState('desc');
@@ -213,11 +231,20 @@ const PayableTable = ({ payables, payablesLoading }) => {
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
+  const showPayablesCondition = !payablesLoading && !!payables.length;
+
   const rowsAfterPagingAndSorting = () => {
     return payables
       .slice()
       .sort(getComparator(order, orderBy))
       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  };
+
+  const totalSum = (key) => {
+    return payables.reduce((acc, curr) => {
+      acc += curr[key];
+      return acc;
+    }, 0);
   };
 
   const handleRequestSort = (event, property) => {
@@ -306,17 +333,10 @@ const PayableTable = ({ payables, payablesLoading }) => {
                     <TooltipTableCell rowValue={row.tourId} />
                     <TooltipTableCell rowValue={row.tourName} />
                     <TooltipTableCell rowValue={row.supplier} />
+                    <TooltipTableCell rowValue={row.currency} />
                     <TooltipTableCell rowValue={row.plannedCost} />
                     <TooltipTableCell rowValue={row.actualCost} />
-                    <TableCell
-                      className={`${styles.tableCell} ${
-                        row.difference > 0
-                          ? styles.positiveTableCell
-                          : row.difference < 0
-                          ? styles.negativeTableCell
-                          : styles.neutralTableCell
-                      }`}
-                    >
+                    <TableCell className={`${styles.tableCell} ${colorCondition(row.difference)}`}>
                       <TooltipText text={row.difference} />
                     </TableCell>
                     <TooltipTableCell rowValue={row.paidCost} />
@@ -335,6 +355,28 @@ const PayableTable = ({ payables, payablesLoading }) => {
                   </TableRow>
                 );
               })}
+
+              {showPayablesCondition && (
+                <TableRow className={styles.totalFooter}>
+                  <TableCell
+                    padding="checkbox"
+                    className={`${styles.tableCheckboxCell} ${styles.tableCellCheckbox}`}
+                  />
+                  <TableCellWrapper>Total</TableCellWrapper>
+                  <EmptyTableCellWrapper count={4} />
+                  <TooltipTableCell rowValue={totalSum('plannedCost')} />
+                  <TooltipTableCell rowValue={totalSum('actualCost')} />
+                  <TableCell
+                    className={`${styles.tableCell} ${colorCondition(totalSum('difference'))}`}
+                  >
+                    <TooltipText text={totalSum('difference')} />
+                  </TableCell>
+                  <TooltipTableCell rowValue={totalSum('paidCost')} />
+                  <TooltipTableCell rowValue={totalSum('remaining')} />
+                  <EmptyTableCellWrapper count={7} />
+                </TableRow>
+              )}
+
               {emptyRows > 0 && (
                 <TableRow
                   style={{
@@ -348,7 +390,7 @@ const PayableTable = ({ payables, payablesLoading }) => {
           </Table>
           {payablesLoading ? <LoadingSpinner /> : !payables.length && <NoData />}
         </TableContainer>
-        {!payablesLoading && !!payables.length && (
+        {showPayablesCondition && (
           <div className={styles.tableFooter}>
             <EnhancedTableToolbar numSelected={selected.length} />
             <TablePagination
@@ -391,6 +433,7 @@ export default function Payables() {
     const processedPayables = [...payables].map((payable) => {
       payable.difference = payable.plannedCost - payable.actualCost;
       payable.remaining = payable.actualCost - payable.paidCost;
+      payable.currency = 'AMD';
       return payable;
     });
     setPayables(processedPayables);
