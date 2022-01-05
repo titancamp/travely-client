@@ -256,17 +256,15 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
       <Paper>
         <TableContainer className={styles.tableContainer}>
           <Table aria-labelledby="tableTitle" padding="none">
-            <Box className={styles.tableStickyBox}>
-              <EnhancedTableHead
-                numSelected={selected.length}
-                order={order}
-                orderBy={orderBy}
-                onSelectAllClick={handleSelectAllClick}
-                onRequestSort={handleRequestSort}
-                rowCount={payables.length}
-                columns={columns}
-              />
-            </Box>
+            <EnhancedTableHead
+              numSelected={selected.length}
+              order={order}
+              orderBy={orderBy}
+              onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
+              rowCount={payables.length}
+              columns={columns}
+            />
             <TableBody className={styles.tableBody}>
               {/*Usual Rows*/}
               <Box className={styles.mainTableBox}>
@@ -328,10 +326,9 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
               <Box className={styles.tableStickyBox}>
                 {showPayablesCondition && (
                   <TableRow className={styles.totalFooter}>
-                    <TableCell
-                      padding="checkbox"
-                      className={`${styles.tableCheckboxCell} ${styles.tableCellCheckbox}`}
-                    />
+                    <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
+                      <Checkbox className={styles.totalFooterChkBox} />
+                    </TableCell>
                     <TableCellWrapper>Total AMD</TableCellWrapper>
                     <EmptyTableCellWrapper count={4} />
                     <TooltipTableCell rowValue={totalSum('plannedCost')} />

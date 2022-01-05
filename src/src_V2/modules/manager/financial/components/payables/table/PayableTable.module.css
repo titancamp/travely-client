@@ -13,19 +13,31 @@
 .tableHead,
 .tableRow {
   height: 56px !important;
+  display: table !important;
+  width: 100%;
+  background-color: var(--white);
+  /*table-layout: fixed;*/
 }
 
 .tableStickyBox {
   background-color: var(--midGray) !important;
+  width: calc(100% - 1em);
 }
 
 .totalFooter {
   height: 43px;
+  display: table !important;
+  width: 100%;
+  /*table-layout: fixed;*/
 }
 
 .totalFooter .tableCell,
 .totalFooter .tableCellCheckbox {
   font-weight: 600;
+}
+
+.totalFooterChkBox {
+  visibility: hidden;
 }
 
 /* sticky table head */
@@ -34,6 +46,7 @@
   position: sticky !important;
   top: 0;
   z-index: 1;
+  width: calc(100% - 1em);
 }
 
 .tableBody {
