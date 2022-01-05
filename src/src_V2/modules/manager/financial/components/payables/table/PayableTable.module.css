@@ -1,4 +1,4 @@
-@import '../../../../../styles/colors.css';
+@import '../../../../../../styles/colors.css';
 
 .tableContainer {
   overflow-y: auto;
@@ -7,6 +7,7 @@
 .mainTableBox {
   height: 77vh;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .tableHead,
@@ -49,13 +50,6 @@
 
 .tableCell {
   min-width: 140px !important;
-}
-
-.tooltip {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100px;
 }
 
 .tableFooter {
