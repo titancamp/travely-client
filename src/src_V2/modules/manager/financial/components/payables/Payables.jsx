@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { managerSidebarConfig } from '../../../config';
 import payablesList from '../../mock/payable';
 import { Container, Layout } from '../../../../../components';
+import ControlPanel from './control-panel/ControlPanel';
 import PayableTable from './table/PayableTable';
 
 const rowsPerPageOptions = [20, 50, 100];
@@ -62,6 +63,7 @@ export default function Payables() {
   return (
     <Container managerSidebarConfig={managerSidebarConfig}>
       <Layout title="Payables">
+        <ControlPanel />
         <PayableTable
           payables={payables}
           columns={columns}

@@ -332,7 +332,7 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
                       padding="checkbox"
                       className={`${styles.tableCheckboxCell} ${styles.tableCellCheckbox}`}
                     />
-                    <TableCellWrapper>Total</TableCellWrapper>
+                    <TableCellWrapper>Total AMD</TableCellWrapper>
                     <EmptyTableCellWrapper count={4} />
                     <TooltipTableCell rowValue={totalSum('plannedCost')} />
                     <TooltipTableCell rowValue={totalSum('actualCost')} />
