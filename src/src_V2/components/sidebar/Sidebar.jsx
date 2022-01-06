@@ -143,7 +143,7 @@ export default function Sidebar({ pageConfigs, open, setOpen }) {
           {open ? <ChevronLeft /> : <ChevronRight />}
         </Fab>
       </Tooltip>
-      <Drawer variant="permanent" anchor="left" open={open}>
+      <Drawer variant="permanent" anchor="left" open={open} className={styles.drawer}>
         <List style={listStyles(open)}>
           {pageConfigs.map((page) => {
             const selected = page.path === location.pathname;

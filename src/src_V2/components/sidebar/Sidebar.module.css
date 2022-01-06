@@ -9,10 +9,14 @@
   width: 40px !important;
   height: 40px !important;
   top: 15px;
-  z-index: 1201;
+  z-index: 1;
   right: -20px;
   position: absolute !important;
   background-color: var(--white) !important;
+}
+
+.drawer {
+  z-index: 0;
 }
 
 .subListItem {

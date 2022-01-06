@@ -21,6 +21,7 @@ import { deepPurple, green, orange, pink } from '@mui/material/colors';
 import { generateArrayByRange, generateDate } from '../../../../../../utils';
 import { PaymentStatus, PaymentType } from '../../../constants';
 import { LoadingSpinner, NoData, TooltipText } from '../../../../../../components';
+import EditDrawer from '../edit/drawer/EditDrawer';
 import attachmentImage from '../../../../../../assets/attachment.png';
 import styles from './PayableTable.module.css';
 
@@ -186,6 +187,12 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(20);
 
+  const [drawerState, setDrawerState] = useState({
+    isOpened: false,
+    drawerEvent: null,
+  });
+  const [clickedRow, setClickedRow] = useState({});
+
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - payables.length) : 0;
 
@@ -222,7 +229,9 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
     setSelected([]);
   };
 
-  const handleClick = (event, paymentId) => {
+  const handleCheckboxChange = (event, paymentId) => {
+    event.stopPropagation();
+
     const selectedIndex = selected.indexOf(paymentId);
     let newSelected = [];
 
@@ -251,6 +260,21 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
     setPage(0);
   };
 
+  const handleRowClick = (event, row) => {
+    setDrawerState({
+      isOpened: true,
+      drawerEvent: event,
+    });
+    setClickedRow({ ...row });
+  };
+
+  const handleDrawerOpen = (opened) => {
+    setDrawerState({
+      ...drawerState,
+      isOpened: opened,
+    });
+  };
+
   return (
     <Box>
       <Paper>
@@ -275,7 +299,7 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.paymentId)}
+                      onClick={(event) => handleRowClick(event, row)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -287,6 +311,7 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
                         <Checkbox
                           color="primary"
                           checked={isItemSelected}
+                          onClick={(event) => handleCheckboxChange(event, row.paymentId)}
                           inputProps={{
                             'aria-labelledby': labelId,
                           }}
@@ -375,6 +400,12 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
           </div>
         )}
       </Paper>
+
+      <EditDrawer
+        drawerState={drawerState}
+        clickedRow={clickedRow}
+        isOpenedChangeHandler={handleDrawerOpen}
+      />
     </Box>
   );
 }
