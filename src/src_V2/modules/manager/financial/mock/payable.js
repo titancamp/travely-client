@@ -12,7 +12,9 @@ function createPayable(
   dueDate,
   paymentDate,
   paymentType,
-  invoiceAttachment
+  invoiceAttachment,
+  payableId,
+  readyDate
 ) {
   return {
     paymentId,
@@ -29,6 +31,8 @@ function createPayable(
     paymentDate,
     paymentType,
     invoiceAttachment,
+    payableId,
+    readyDate,
   };
 }
 
@@ -47,7 +51,9 @@ const payablesList = () => [
     '2021-12-26T09:36:19Z',
     '2021-12-26T09:36:19Z',
     1,
-    false
+    false,
+    17887,
+    '2021-12-26T09:36:19Z'
   ),
   createPayable(
     452,
@@ -63,7 +69,9 @@ const payablesList = () => [
     '2021-12-26T09:36:19Z',
     '2021-12-26T09:36:19Z',
     2,
-    false
+    false,
+    17887,
+    '2021-12-26T09:36:19Z'
   ),
   createPayable(
     262,
@@ -79,7 +87,9 @@ const payablesList = () => [
     '2021-12-26T09:36:19Z',
     '2021-12-26T09:36:19Z',
     1,
-    false
+    false,
+    17887,
+    '2021-12-26T09:36:19Z'
   ),
   createPayable(
     159,
@@ -95,7 +105,9 @@ const payablesList = () => [
     '2021-12-26T09:36:19Z',
     '2021-12-26T09:36:19Z',
     1,
-    false
+    false,
+    17887,
+    '2021-12-26T09:36:19Z'
   ),
   createPayable(
     356,
@@ -111,7 +123,9 @@ const payablesList = () => [
     '2021-12-26T09:36:19Z',
     '2021-12-26T09:36:19Z',
     2,
-    false
+    false,
+    17887,
+    '2021-12-26T09:36:19Z'
   ),
   createPayable(
     408,
@@ -127,7 +141,9 @@ const payablesList = () => [
     '2021-12-26T09:36:19Z',
     '2021-12-26T09:36:19Z',
     1,
-    false
+    false,
+    17887,
+    '2021-12-26T09:36:19Z'
   ),
   createPayable(
     237,
@@ -143,7 +159,9 @@ const payablesList = () => [
     '2021-12-26T09:36:19Z',
     '2021-12-26T09:36:19Z',
     1,
-    true
+    true,
+    17887,
+    '2021-12-26T09:36:19Z'
   ),
   createPayable(
     375,
@@ -159,7 +177,9 @@ const payablesList = () => [
     '2021-12-26T09:36:19Z',
     '2021-12-26T09:36:19Z',
     1,
-    false
+    false,
+    17887,
+    '2021-12-26T09:36:19Z'
   ),
   createPayable(
     518,
@@ -175,7 +195,9 @@ const payablesList = () => [
     '2021-12-26T09:36:19Z',
     '2021-12-26T09:36:19Z',
     1,
-    true
+    true,
+    17887,
+    '2021-12-26T09:36:19Z'
   ),
   createPayable(
     392,
@@ -191,7 +213,9 @@ const payablesList = () => [
     '2021-12-26T09:36:19Z',
     'Mon Jan 03 2022 17:06:16 GMT+0400 (Armenia Standard Time)',
     1,
-    false
+    false,
+    17887,
+    '2021-12-26T09:36:19Z'
   ),
   createPayable(
     318,
@@ -207,7 +231,9 @@ const payablesList = () => [
     '2021-12-26T09:36:19Z',
     '2021-12-26T09:36:19Z',
     2,
-    true
+    true,
+    17887,
+    '2021-12-26T09:36:19Z'
   ),
   createPayable(
     360,
@@ -223,7 +249,9 @@ const payablesList = () => [
     'Mon Jan 03 2022 17:06:16 GMT+0400 (Armenia Standard Time)',
     '2021-12-26T09:36:19Z',
     1,
-    false
+    false,
+    17887,
+    '2021-12-26T09:36:19Z'
   ),
   createPayable(
     437,
@@ -239,7 +267,9 @@ const payablesList = () => [
     '2021-12-26T09:36:19Z',
     '2021-12-26T09:36:19Z',
     1,
-    false
+    false,
+    17887,
+    '2021-12-26T09:36:19Z'
   ),
   createPayable(
     438,
@@ -255,7 +285,9 @@ const payablesList = () => [
     '2021-12-26T09:36:19Z',
     '2021-12-26T09:36:19Z',
     1,
-    false
+    false,
+    17887,
+    '2021-12-26T09:36:19Z'
   ),
   createPayable(
     439,
@@ -271,7 +303,9 @@ const payablesList = () => [
     '2021-12-26T09:36:19Z',
     '2021-12-26T09:36:19Z',
     1,
-    true
+    true,
+    17887,
+    '2021-12-26T09:36:19Z'
   ),
   createPayable(
     440,
@@ -287,7 +321,9 @@ const payablesList = () => [
     '2021-12-26T09:36:19Z',
     '2021-12-26T09:36:19Z',
     1,
-    false
+    false,
+    17887,
+    '2021-12-26T09:36:19Z'
   ),
 ];
 

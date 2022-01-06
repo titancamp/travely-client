@@ -1,0 +1,92 @@
+@import '../../../../../../../styles/colors.css';
+
+.mainText {
+  font-size: 17px;
+}
+
+.mainBox {
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 3px 1px -2px var(--midDarkGrey), 0 2px 2px var(--midAvgGrey),
+    0 1px 5px var(--midLightGrey);
+}
+
+.layout {
+  margin-right: 25px;
+  margin-left: 25px;
+}
+
+.generalInfo {
+  background-color: var(--midGrey);
+  margin-top: 30px;
+  margin-bottom: 30px;
+  justify-content: space-evenly;
+  border: 1px solid var(--midLightGrey);
+  box-sizing: border-box;
+  border-radius: 8px;
+  height: 67px;
+  align-items: center;
+}
+
+.generalInfo hr {
+  height: 35px;
+  margin-top: 15px !important;
+}
+
+.textDiv {
+  margin-left: 25px;
+}
+
+.payableId {
+  color: var(--darkGrey);
+  font-weight: 600;
+}
+
+.supplierName {
+  color: var(--secondary);
+  font-size: 12px;
+}
+
+.closeBtnDiv {
+  display: flex;
+  color: var(--secondary);
+  margin-right: 33px;
+  cursor: pointer;
+}
+
+.closeBtn {
+  width: 14px;
+  height: 14px;
+}
+
+.footerBox {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  justify-content: end;
+}
+
+.btnDiv {
+  display: flex;
+}
+
+.saveBtn {
+  margin: 0 30px 0 10px !important;
+}
+
+.costBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.costAmount {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.costTxt {
+  font-size: 13px;
+}

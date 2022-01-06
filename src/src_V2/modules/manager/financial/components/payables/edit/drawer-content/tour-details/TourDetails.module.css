@@ -1,0 +1,29 @@
+.detailsAccordion div {
+  align-items: center;
+}
+
+.detailsTxt {
+  font-size: 20px !important;
+  color: var(--darkGrey);
+}
+
+.pathImg {
+  height: 18px;
+  margin-right: 10px;
+}
+
+.accordionDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.accordionDetailItems {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.accordionDetailTxt {
+  font-weight: 600;
+}

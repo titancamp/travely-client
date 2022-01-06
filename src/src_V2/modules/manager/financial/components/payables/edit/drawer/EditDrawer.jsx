@@ -4,6 +4,12 @@ import { Box, Drawer } from '@mui/material';
 import styles from './EditDrawer.module.css';
 import RowList from '../drawer-content/RowList';
 
+const DrawerList = ({ row, closeHandler }) => (
+  <Box className={styles.contentDiv} role="presentation">
+    <RowList row={row} onClose={closeHandler} />
+  </Box>
+);
+
 export default function EditDrawer({ drawerState, clickedRow, isOpenedChangeHandler }) {
   const { isOpened, drawerEvent } = drawerState;
   const anchor = 'right';
@@ -28,20 +34,9 @@ export default function EditDrawer({ drawerState, clickedRow, isOpenedChangeHand
     isOpenedChangeHandler(false);
   };
 
-  const DrawerList = () => (
-    <Box
-      className={styles.contentDiv}
-      role="presentation"
-      onClick={handleCloseDrawer}
-      onKeyDown={handleCloseDrawer}
-    >
-      <RowList row={clickedRow} />
-    </Box>
-  );
-
   return (
-    <Drawer anchor={anchor} open={isOpened} onClose={handleCloseDrawer}>
-      <DrawerList />
+    <Drawer anchor={anchor} transitionDuration={500} open={isOpened} onClose={handleCloseDrawer}>
+      <DrawerList row={clickedRow} closeHandler={handleCloseDrawer} />
     </Drawer>
   );
 }

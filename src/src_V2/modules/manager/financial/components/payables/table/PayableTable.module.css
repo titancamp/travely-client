@@ -20,7 +20,7 @@
 }
 
 .tableStickyBox {
-  background-color: var(--midGray) !important;
+  background-color: var(--midGrey) !important;
   width: calc(100% - 1em);
 }
 
@@ -42,7 +42,7 @@
 
 /* sticky table head */
 .tableHead {
-  background-color: var(--midGray) !important;
+  background-color: var(--midGrey) !important;
   position: sticky !important;
   top: 0;
   z-index: 1;

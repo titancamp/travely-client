@@ -3,7 +3,7 @@
 .mainDiv {
   padding: 24px;
   height: 100%;
-  background-color: var(--lightGray);
+  background-color: var(--lightGrey);
 }
 
 .title {

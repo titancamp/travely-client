@@ -1,29 +1,69 @@
-import { Divider, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Box, Button, Divider, Stack } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import TourDetails from './tour-details/TourDetails';
+import styles from './RowList.module.css';
 
-export default function RowList({ row }) {
-  console.log(row);
+const CostBox = ({ currency, cost, text }) => {
+  return (
+    <Box className={styles.costBox}>
+      <Box className={styles.costAmount}>
+        {currency} {cost}
+      </Box>
+      <Box className={styles.costTxt}>{text}</Box>
+    </Box>
+  );
+};
+
+export default function RowList({ row, onClose }) {
   return (
     <>
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+      {/*Header*/}
+      <Box className={styles.mainBox}>
+        <div className={styles.textDiv}>
+          <div className={`${styles.payableId} ${styles.mainText}`}>
+            Payable ID: {row.payableId}
+          </div>
+          <div className={styles.supplierName}>Supplier Name: {row.supplier}</div>
+        </div>
+        <div className={styles.closeBtnDiv}>
+          <CloseIcon onClick={onClose} iconStyle={styles.closeBtn} />
+        </div>
+      </Box>
+
+      {/*Layout*/}
+      <Box className={styles.layout}>
+        <Box>
+          <Stack
+            className={styles.generalInfo}
+            direction="row"
+            divider={<Divider orientation="vertical" flexItem />}
+            spacing={2}
+          >
+            <CostBox currency={row.currency} cost={row.plannedCost} text="Planned Cost" />
+            <CostBox currency={row.currency} cost={row.actualCost} text="Actual Cost" />
+            <CostBox currency={row.currency} cost={row.difference} text="Difference" />
+            <CostBox currency={row.currency} cost={row.paidCost} text="Paid Amount" />
+            <CostBox currency={row.currency} cost={row.remaining} text="Remaining" />
+          </Stack>
+        </Box>
+
+        <Box>
+          <TourDetails row={row} />
+        </Box>
+      </Box>
+
+      {/*Footer*/}
+      <Box className={`${styles.mainBox} ${styles.footerBox}`}>
+        <div className={styles.btnDiv}>
+          <Button variant="outlined" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button className={styles.saveBtn} variant="contained">
+            Save
+          </Button>
+        </div>
+      </Box>
     </>
   );
 }
