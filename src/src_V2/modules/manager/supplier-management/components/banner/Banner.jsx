@@ -6,16 +6,16 @@ import { Box, Tab, Tabs, Button, Typography } from '@mui/material';
 import styles from './style.module.css';
 
 export default function Banner({
-  currentTab,
-  setCurrentTab,
   onSubmit,
   pageName,
   subMenus,
+  setCurrentTab,
+  currentTab: { step },
 }) {
   const navigate = useNavigate();
 
   function handleChange(event, newValue) {
-    setCurrentTab(newValue);
+    setCurrentTab({ step: newValue });
   }
 
   function navigateBack() {
@@ -43,7 +43,7 @@ export default function Banner({
         </Box>
       </Box>
       <Box className={styles.tab}>
-        <Tabs value={currentTab} onChange={handleChange}>
+        <Tabs value={step} onChange={handleChange}>
           {subMenus.map((menu, index) => (
             <Tab key={index} value={index + 1} label={menu} />
           ))}

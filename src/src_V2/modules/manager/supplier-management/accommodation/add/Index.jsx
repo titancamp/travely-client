@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Rooms from './Rooms';
 import MainInfo from './MainInfo';
@@ -9,10 +10,10 @@ import { Banner, Partnership, Contact } from '../../components';
 import styles from './style.module.css';
 import { managerSidebarConfig } from '../../../config';
 
-function AccommodationStep({ currentTab, accommodation }) {
-  switch (currentTab) {
+function AccommodationStep({ accommodation, currentTab: { step, isValidate } }) {
+  switch (step) {
     case 1:
-      return <MainInfo parentRef={accommodation} />;
+      return <MainInfo isValidate={isValidate} parentRef={accommodation} />;
     case 2:
       return <Rooms parentRef={accommodation} />;
     case 3:
@@ -25,23 +26,24 @@ function AccommodationStep({ currentTab, accommodation }) {
 }
 
 export default function AddAccommodation() {
-  const [currentTab, setCurrentTab] = useState(1);
+  const navigate = useNavigate();
+  const [currentTab, setCurrentTab] = useState({ step: 1 });
   const { current: accommodation } = useRef({
     rooms: [],
-    contact: {},
     mainInfo: {},
-    partnership: {},
+    contact: { isValid: true },
+    partnership: { isValid: true },
   });
 
   function onSubmit() {
     if (!accommodation.mainInfo.isValid) {
-      return setCurrentTab(1);
+      setCurrentTab({ step: 1, isValidate: true });
     } else if (!accommodation.contact.isValid) {
-      return setCurrentTab(3);
+      setCurrentTab({ step: 3 });
     } else if (!accommodation.partnership.isValid) {
-      return setCurrentTab(4);
+      setCurrentTab({ step: 4 });
     } else {
-      console.log(accommodation);
+      navigate('../list');
     }
   }
 
@@ -62,8 +64,6 @@ export default function AddAccommodation() {
 }
 
 //TODO prettify onSubmit function
-//TODO Add button disable enable
-//TODO Sidebar height need to be full
 
 /**
  * TODO on Main info
@@ -72,18 +72,6 @@ export default function AddAccommodation() {
  */
 
 /**
- * TODO on Contact
- * grid implementation for small screens
- */
-
-/**
- * TODO on Room
- * Handle disable state, tooltip text and styles on add room card
- */
-
-/**
  * TODO on Partnership
  * handle the attachments functionality
- * read and implement FRD requirements
- * partnership inputs length styles
  */

@@ -12,18 +12,8 @@ import {
 
 import styles from './style.module.css';
 
-export default function MainInfo({ parentRef }) {
+export default function MainInfo({ parentRef, isValidate }) {
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });
-  const formikData = {
-    validationSchema: mainInfoSchema,
-    initialValues: mainInfoInitialValues(parentRef.mainInfo.values),
-  };
-
-  const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
-  const initializeTouchState = () => setTouched({ ...parentRef.mainInfo.touched });
-  const addMainInfoToAccommodation = () =>
-    (parentRef.mainInfo = { values, isValid, touched });
-
   const {
     values,
     errors,
@@ -31,9 +21,23 @@ export default function MainInfo({ parentRef }) {
     isValid,
     handleBlur,
     setTouched,
+    submitForm,
     handleChange,
     setFieldValue,
-  } = useFormik(formikData);
+  } = useFormik({
+    validationSchema: mainInfoSchema,
+    initialValues: mainInfoInitialValues(parentRef.mainInfo.values),
+  });
+
+  const initializeTouchState = () => setTouched({ ...parentRef.mainInfo.touched });
+  const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
+  const addMainInfoToParent = () => (parentRef.mainInfo = { values, isValid, touched });
+
+  function validateForm() {
+    if (isValidate) {
+      submitForm();
+    }
+  }
 
   function openMapDialog() {
     onShowHideDialog({
@@ -43,7 +47,8 @@ export default function MainInfo({ parentRef }) {
   }
 
   useEffect(initializeTouchState, []);
-  useEffect(addMainInfoToAccommodation, [values, isValid, touched]);
+  useEffect(validateForm, [isValidate]);
+  useEffect(addMainInfoToParent, [values, isValid, touched]);
 
   return (
     <Box className={styles.mainInfo}>
