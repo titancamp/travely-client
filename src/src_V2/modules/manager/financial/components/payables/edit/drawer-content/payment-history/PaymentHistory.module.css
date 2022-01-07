@@ -1,3 +1,15 @@
 .cardImg {
   height: 16px;
 }
+
+.accordionBox div {
+  justify-content: space-between !important;
+}
+
+.paymentCommonBox {
+  display: flex;
+}
+
+.paymentBox {
+  display: flex;
+}

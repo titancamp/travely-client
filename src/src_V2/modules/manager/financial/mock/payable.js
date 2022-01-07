@@ -1,3 +1,5 @@
+import paymentHistory from './payment-history';
+
 function createPayable(
   paymentId,
   tourId,
@@ -14,7 +16,8 @@ function createPayable(
   paymentType,
   invoiceAttachment,
   payableId,
-  readyDate
+  readyDate,
+  paymentHistory
 ) {
   return {
     paymentId,
@@ -33,6 +36,7 @@ function createPayable(
     invoiceAttachment,
     payableId,
     readyDate,
+    paymentHistory,
   };
 }
 
@@ -40,7 +44,7 @@ const payablesList = () => [
   createPayable(
     305,
     18759,
-    'Trip to Tatev',
+    '5 day tour to Tsakhadzor',
     'Tatev Hotel',
     400,
     400,
@@ -53,7 +57,12 @@ const payablesList = () => [
     1,
     false,
     17887,
-    '2021-12-26T09:36:19Z'
+    '2021-12-26T09:36:19Z',
+    [
+      paymentHistory('134252-89', '1000', '2021-12-26T09:36:19Z', 1),
+      paymentHistory('134252-89', '1000', '2021-12-26T09:36:19Z', 2),
+      paymentHistory('134252-89', '1000', '2021-12-26T09:36:19Z', 2),
+    ]
   ),
   createPayable(
     452,
@@ -89,7 +98,8 @@ const payablesList = () => [
     1,
     false,
     17887,
-    '2021-12-26T09:36:19Z'
+    '2021-12-26T09:36:19Z',
+    [paymentHistory('134252-89', '1000', '2021-12-26T09:36:19Z', 2)]
   ),
   createPayable(
     159,

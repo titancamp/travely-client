@@ -8,12 +8,12 @@ import styles from './Notes.module.css';
 export default function Notes({ row }) {
   console.log(row);
   return (
-    <Accordion>
+    <Accordion className={commonStyles.accordion}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
-        className={commonStyles.detailsAccordion}
+        className={commonStyles.accordionSummary}
       >
         <Box
           component="img"

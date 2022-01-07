@@ -3,8 +3,8 @@
 .mainDiv {
   display: flex;
   align-items: baseline;
-  width: 46%;
   margin: 10px 0;
+  flex-wrap: wrap;
 }
 
 /* Search */
@@ -37,8 +37,16 @@
   margin-right: 20px;
 }
 
+.filterDiv button {
+  min-width: 100px;
+}
+
 /* Options */
 
 .optionsDiv {
   margin-right: 20px;
+}
+
+.optionsDiv button {
+  min-width: 173px;
 }

@@ -1,12 +1,36 @@
+@import '../../../../../../../styles/colors.css';
+
 /* Accordions */
 
-.detailsAccordion div {
+.accordion {
+  border: 1px solid var(--midLightGrey);
+  box-shadow: none !important;
+}
+
+.accordionSummary {
+  background-color: var(--midGrey) !important;
+  border-bottom: 1px solid var(--midLightGrey) !important;
+}
+
+.accordionSummary:hover {
+  background-color: var(--midLightGrey) !important;
+}
+
+.accordionSummary div {
   align-items: center;
+}
+
+.accordionDetails {
+  background-color: var(--midGrey) !important;
 }
 
 .detailsTxt {
   font-size: 20px !important;
   color: var(--darkGrey);
+}
+
+.detailsCount {
+  color: var(--secondary);
 }
 
 .panelImg {

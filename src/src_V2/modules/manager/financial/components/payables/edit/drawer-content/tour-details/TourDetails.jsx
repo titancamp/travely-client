@@ -10,12 +10,12 @@ import styles from './TourDetails.module.css';
 
 export default function TourDetails({ row }) {
   return (
-    <Accordion>
+    <Accordion className={commonStyles.accordion}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
-        className={commonStyles.detailsAccordion}
+        className={commonStyles.accordionSummary}
       >
         <Box
           component="img"
@@ -25,7 +25,7 @@ export default function TourDetails({ row }) {
         />
         <Typography className={commonStyles.detailsTxt}>Tour Details</Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails className={commonStyles.accordionDetails}>
         <Box className={styles.accordionDetails}>
           <Box className={styles.accordionDetailItems}>
             <Box>Tour ID</Box>

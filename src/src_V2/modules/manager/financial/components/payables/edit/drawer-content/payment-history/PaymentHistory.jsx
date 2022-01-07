@@ -1,5 +1,4 @@
-import { Accordion, AccordionSummary, Box, Typography } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Accordion, AccordionSummary, Box, Button, Typography } from '@mui/material';
 
 import creditCard from '../../../../../../../../assets/credit-card.png';
 import commonStyles from '../style.module.css';
@@ -8,20 +7,29 @@ import styles from './PaymentHistory.module.css';
 export default function PaymentHistory({ row }) {
   console.log(row);
   return (
-    <Accordion>
+    <Accordion className={commonStyles.accordion} expanded={true}>
       <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
-        className={commonStyles.detailsAccordion}
+        className={`${commonStyles.accordionSummary} ${styles.accordionBox}`}
       >
-        <Box
-          component="img"
-          alt="Payment History"
-          src={creditCard}
-          className={`${styles.cardImg} ${commonStyles.panelImg}`}
-        />
-        <Typography className={commonStyles.detailsTxt}>Payment History</Typography>
+        <Box className={styles.paymentBox}>
+          <Box
+            component="img"
+            alt="Payment History"
+            src={creditCard}
+            className={`${styles.cardImg} ${commonStyles.panelImg}`}
+          />
+          <Typography className={commonStyles.detailsTxt}>
+            Payment History{' '}
+            {row.paymentHistory?.length && (
+              <span className={commonStyles.detailsCount}>({row.paymentHistory.length})</span>
+            )}
+          </Typography>
+        </Box>
+        <Box>
+          {row.paymentHistory?.length && <Button variant="contained">+ Add payment</Button>}
+        </Box>
       </AccordionSummary>
       {/*<AccordionDetails>*/}
       {/*  <Box className={styles.accordionDetails}>*/}
