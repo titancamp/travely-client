@@ -3,7 +3,7 @@ import { Map } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import { Box, TextField, Autocomplete, Grid, Button } from '@mui/material';
 
-import DialogManager from '../dialogs/Index';
+import DialogManager from '../dialogs';
 import { AccommodationTypes, HotelServices } from '../constants';
 import {
   mainInfoSchema,

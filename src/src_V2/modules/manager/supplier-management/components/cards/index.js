@@ -3,6 +3,7 @@ import {
   Box,
   Card,
   Grid,
+  Button,
   IconButton,
   Typography,
   CardContent,
@@ -40,9 +41,14 @@ export function InfoCard({
   areaAction,
   firstCardAction,
   secondCardAction,
+  seeDetailsAction,
 }) {
   function openView() {
     areaAction(id);
+  }
+
+  function openDetails() {
+    seeDetailsAction(id);
   }
 
   function editItem() {
@@ -56,7 +62,7 @@ export function InfoCard({
   return (
     <Grid className={styles.gridItem} item xs={3}>
       <Card className={styles.card}>
-        <CardActionArea onClick={openView}>
+        <CardActionArea onClick={areaAction ? openView : null}>
           <CardContent>
             <Typography className={styles.detailsInfo}>
               {sectionData[1].label}
@@ -77,12 +83,20 @@ export function InfoCard({
           </CardContent>
         </CardActionArea>
         <Box className={`${styles.cardActions} ${styles.rightAligned}`}>
-          <IconButton onClick={editItem}>
-            <Edit className={styles.icon} />
-          </IconButton>
-          <IconButton color='primary' onClick={deleteItem}>
-            <Delete className={styles.icon} />
-          </IconButton>
+          {seeDetailsAction ? (
+            <Box onClick={openDetails} className={styles.cardActions}>
+              <Button className={styles.cardDetailsBtn}>SEE DETAILS</Button>
+            </Box>
+          ) : (
+            <>
+              <IconButton onClick={editItem}>
+                <Edit className={styles.icon} />
+              </IconButton>
+              <IconButton color='primary' onClick={deleteItem}>
+                <Delete className={styles.icon} />
+              </IconButton>
+            </>
+          )}
         </Box>
       </Card>
     </Grid>

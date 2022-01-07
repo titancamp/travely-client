@@ -3,6 +3,8 @@ import AddEditRoomDialog from './AddEditRoom.dialog';
 import ViewRoomDialog from './ViewRoom.dialog';
 import DeleteRoomDialog from './DeleteRoom.dialog';
 import Map from './Map.dialog';
+import AllFiltersDialog from './AllFilters.dialog';
+import AccommodationDetailsDialog from './AccommodationDetails.dialog';
 
 function CurrentDialog({ data, onClose }) {
   switch (data.mode) {
@@ -21,6 +23,10 @@ function CurrentDialog({ data, onClose }) {
       );
     case 'view':
       return <ViewRoomDialog data={data} />;
+    case 'accommodationFilters':
+      return <AllFiltersDialog data={data} onClose={onClose} />;
+    case 'accommodationDetails':
+      return <AccommodationDetailsDialog data={data} onClose={onClose} />;
     case 'delete':
       return (
         <DeleteRoomDialog
