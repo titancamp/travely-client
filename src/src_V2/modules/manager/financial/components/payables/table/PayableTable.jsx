@@ -289,99 +289,106 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
               rowCount={payables.length}
               columns={columns}
             />
-            <TableBody className={styles.tableBody}>
-              {/*Usual Rows*/}
-              <Box className={styles.mainTableBox}>
-                {rowsAfterPagingAndSorting().map((row, index) => {
-                  const isItemSelected = isSelected(row.paymentId);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+            {payables.length ? (
+              <TableBody className={styles.tableBody}>
+                {/*Usual Rows*/}
+                <Box className={styles.mainTableBox}>
+                  {rowsAfterPagingAndSorting().map((row, index) => {
+                    const isItemSelected = isSelected(row.paymentId);
+                    const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleRowClick(event, row)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.paymentId}
-                      selected={isItemSelected}
-                      className={styles.tableRow}
-                    >
-                      <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          onClick={(event) => handleCheckboxChange(event, row.paymentId)}
-                          inputProps={{
-                            'aria-labelledby': labelId,
-                          }}
-                        />
-                      </TableCell>
-                      <TooltipTableCell rowValue={row.paymentId} />
-                      <TooltipTableCell rowValue={row.tourId} />
-                      <TooltipTableCell rowValue={row.tourName} />
-                      <TooltipTableCell rowValue={row.supplier} />
-                      <TooltipTableCell rowValue={row.currency} />
-                      <TooltipTableCell rowValue={row.plannedCost} />
-                      <TooltipTableCell rowValue={row.actualCost} />
-                      <TableCell
-                        className={`${styles.tableCell} ${colorCondition(row.difference)}`}
+                    return (
+                      <TableRow
+                        hover
+                        onClick={(event) => handleRowClick(event, row)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={row.paymentId}
+                        selected={isItemSelected}
+                        className={styles.tableRow}
                       >
-                        <TooltipText text={row.difference} />
-                      </TableCell>
-                      <TooltipTableCell rowValue={row.paidCost} />
-                      <TooltipTableCell rowValue={row.remaining} />
-                      <TableCellWrapper>
-                        <PayableStatuses statusNum={row.status} />
-                      </TableCellWrapper>
-                      <TooltipTableCell rowValue={generateDate(row.createdDate)} />
-                      <TooltipTableCell rowValue={row.invoiceId} />
-                      <TooltipTableCell rowValue={generateDate(row.dueDate)} />
-                      <TooltipTableCell rowValue={generateDate(row.paymentDate)} />
-                      <TooltipTableCell rowValue={PaymentType[row.paymentType]} />
-                      <TableCellWrapper>
-                        <InvoiceAttachment attachment={row.invoiceAttachment} />
-                      </TableCellWrapper>
-                    </TableRow>
-                  );
-                })}
-              </Box>
+                        <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
+                          <Checkbox
+                            color="primary"
+                            checked={isItemSelected}
+                            onClick={(event) => handleCheckboxChange(event, row.paymentId)}
+                            inputProps={{
+                              'aria-labelledby': labelId,
+                            }}
+                          />
+                        </TableCell>
+                        <TooltipTableCell rowValue={row.paymentId} />
+                        <TooltipTableCell rowValue={row.tourId} />
+                        <TooltipTableCell rowValue={row.tourName} />
+                        <TooltipTableCell rowValue={row.supplier} />
+                        <TooltipTableCell rowValue={row.currency} />
+                        <TooltipTableCell rowValue={row.plannedCost} />
+                        <TooltipTableCell rowValue={row.actualCost} />
+                        <TableCell
+                          className={`${styles.tableCell} ${colorCondition(row.difference)}`}
+                        >
+                          <TooltipText text={row.difference} />
+                        </TableCell>
+                        <TooltipTableCell rowValue={row.paidCost} />
+                        <TooltipTableCell rowValue={row.remaining} />
+                        <TableCellWrapper>
+                          <PayableStatuses statusNum={row.status} />
+                        </TableCellWrapper>
+                        <TooltipTableCell rowValue={generateDate(row.createdDate)} />
+                        <TooltipTableCell rowValue={row.invoiceId} />
+                        <TooltipTableCell rowValue={generateDate(row.dueDate)} />
+                        <TooltipTableCell rowValue={generateDate(row.paymentDate)} />
+                        <TooltipTableCell rowValue={PaymentType[row.paymentType]} />
+                        <TableCellWrapper>
+                          <InvoiceAttachment attachment={row.invoiceAttachment} />
+                        </TableCellWrapper>
+                      </TableRow>
+                    );
+                  })}
+                </Box>
 
-              {/*Total Sticky Row*/}
-              <Box className={styles.tableStickyBox}>
-                {showPayablesCondition && (
-                  <TableRow className={styles.totalFooter}>
-                    <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
-                      <Checkbox className={styles.totalFooterChkBox} />
-                    </TableCell>
-                    <TableCellWrapper>Total AMD</TableCellWrapper>
-                    <EmptyTableCellWrapper count={4} />
-                    <TooltipTableCell rowValue={totalSum('plannedCost')} />
-                    <TooltipTableCell rowValue={totalSum('actualCost')} />
-                    <TableCell
-                      className={`${styles.tableCell} ${colorCondition(totalSum('difference'))}`}
-                    >
-                      <TooltipText text={totalSum('difference')} />
-                    </TableCell>
-                    <TooltipTableCell rowValue={totalSum('paidCost')} />
-                    <TooltipTableCell rowValue={totalSum('remaining')} />
-                    <EmptyTableCellWrapper count={7} />
+                {/*Total Sticky Row*/}
+                <Box className={styles.tableStickyBox}>
+                  {showPayablesCondition && (
+                    <TableRow className={styles.totalFooter}>
+                      <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
+                        <Checkbox className={styles.totalFooterChkBox} />
+                      </TableCell>
+                      <TableCellWrapper>Total AMD</TableCellWrapper>
+                      <EmptyTableCellWrapper count={4} />
+                      <TooltipTableCell rowValue={totalSum('plannedCost')} />
+                      <TooltipTableCell rowValue={totalSum('actualCost')} />
+                      <TableCell
+                        className={`${styles.tableCell} ${colorCondition(totalSum('difference'))}`}
+                      >
+                        <TooltipText text={totalSum('difference')} />
+                      </TableCell>
+                      <TooltipTableCell rowValue={totalSum('paidCost')} />
+                      <TooltipTableCell rowValue={totalSum('remaining')} />
+                      <EmptyTableCellWrapper count={7} />
+                    </TableRow>
+                  )}
+                </Box>
+
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: 53 * emptyRows,
+                    }}
+                  >
+                    <TableCell colSpan={6} />
                   </TableRow>
                 )}
+              </TableBody>
+            ) : (
+              <Box className={styles.noData}>
+                {/*todo hide scroll*/}
+                <NoData />
               </Box>
-
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: 53 * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
+            )}
           </Table>
-          {payablesLoading ? <LoadingSpinner /> : !payables.length && <NoData />}
+          {payablesLoading && <LoadingSpinner />}
         </TableContainer>
         {showPayablesCondition && (
           <div className={styles.tableFooter}>

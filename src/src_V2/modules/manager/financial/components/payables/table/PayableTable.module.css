@@ -40,6 +40,10 @@
   visibility: hidden;
 }
 
+.noData {
+  margin: 50px;
+}
+
 /* sticky table head */
 .tableHead {
   background-color: var(--midGrey) !important;

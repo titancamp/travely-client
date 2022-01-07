@@ -1,3 +1,9 @@
 .notesImg {
   height: 25px;
 }
+
+.notesTextArea {
+  width: 844px;
+  border: 1px solid var(--midLightGrey);
+  border-radius: 4px;
+}

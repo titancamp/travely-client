@@ -1,4 +1,11 @@
-import { Accordion, AccordionSummary, Box, Typography } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  TextareaAutosize,
+  Typography,
+} from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import notesImage from '../../../../../../../../assets/notes.png';
@@ -23,28 +30,17 @@ export default function Notes({ row }) {
         />
         <Typography className={commonStyles.detailsTxt}>Notes</Typography>
       </AccordionSummary>
-      {/*<AccordionDetails>*/}
-      {/*  <Box className={styles.accordionDetails}>*/}
-      {/*    <Box className={styles.accordionDetailItems}>*/}
-      {/*      <Box>Tour ID</Box>*/}
-      {/*      <Box className={styles.accordionDetailTxt}>{row.tourId}</Box>*/}
-      {/*    </Box>*/}
-      {/*    <Box className={styles.accordionDetailItems}>*/}
-      {/*      <Box>Tour Name</Box>*/}
-      {/*      <Box className={styles.accordionDetailTxt}>{row.tourName}</Box>*/}
-      {/*    </Box>*/}
-      {/*    <Box className={styles.accordionDetailItems}>*/}
-      {/*      <Box>Tour Ready Date</Box>*/}
-      {/*      <Box className={styles.accordionDetailTxt}>{generateDate(row.readyDate)}</Box>*/}
-      {/*    </Box>*/}
-      {/*    <Box className={styles.accordionDetailItems}>*/}
-      {/*      <Box>Tour Status</Box>*/}
-      {/*      <Box className={styles.accordionDetailTxt}>*/}
-      {/*        {PaymentStatus[row.status].toUpperCase()}*/}
-      {/*      </Box>*/}
-      {/*    </Box>*/}
-      {/*  </Box>*/}
-      {/*</AccordionDetails>*/}
+      <AccordionDetails className={commonStyles.accordionDetails}>
+        <Box>
+          <TextareaAutosize
+            aria-label="minimum height"
+            minRows={3}
+            placeholder="Type in..."
+            className={styles.notesTextArea}
+            value={row.notes}
+          />
+        </Box>
+      </AccordionDetails>
     </Accordion>
   );
 }

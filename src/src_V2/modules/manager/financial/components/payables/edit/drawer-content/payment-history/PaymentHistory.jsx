@@ -1,8 +1,18 @@
-import { Accordion, AccordionSummary, Box, Button, Typography } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Button,
+  Typography,
+} from '@mui/material';
 
 import creditCard from '../../../../../../../../assets/credit-card.png';
 import commonStyles from '../style.module.css';
 import styles from './PaymentHistory.module.css';
+import { NoData } from '../../../../../../../../components';
+
+const AddPaymentBtn = () => <Button variant="contained">+ Add payment</Button>;
 
 export default function PaymentHistory({ row }) {
   console.log(row);
@@ -27,32 +37,18 @@ export default function PaymentHistory({ row }) {
             )}
           </Typography>
         </Box>
-        <Box>
-          {row.paymentHistory?.length && <Button variant="contained">+ Add payment</Button>}
-        </Box>
+        <Box>{row.paymentHistory?.length && <AddPaymentBtn />}</Box>
       </AccordionSummary>
-      {/*<AccordionDetails>*/}
-      {/*  <Box className={styles.accordionDetails}>*/}
-      {/*    <Box className={styles.accordionDetailItems}>*/}
-      {/*      <Box>Tour ID</Box>*/}
-      {/*      <Box className={styles.accordionDetailTxt}>{row.tourId}</Box>*/}
-      {/*    </Box>*/}
-      {/*    <Box className={styles.accordionDetailItems}>*/}
-      {/*      <Box>Tour Name</Box>*/}
-      {/*      <Box className={styles.accordionDetailTxt}>{row.tourName}</Box>*/}
-      {/*    </Box>*/}
-      {/*    <Box className={styles.accordionDetailItems}>*/}
-      {/*      <Box>Tour Ready Date</Box>*/}
-      {/*      <Box className={styles.accordionDetailTxt}>{generateDate(row.readyDate)}</Box>*/}
-      {/*    </Box>*/}
-      {/*    <Box className={styles.accordionDetailItems}>*/}
-      {/*      <Box>Tour Status</Box>*/}
-      {/*      <Box className={styles.accordionDetailTxt}>*/}
-      {/*        {PaymentStatus[row.status].toUpperCase()}*/}
-      {/*      </Box>*/}
-      {/*    </Box>*/}
-      {/*  </Box>*/}
-      {/*</AccordionDetails>*/}
+      <AccordionDetails className={commonStyles.accordionDetails}>
+        <Box>
+          {!row.paymentHistory?.length && (
+            <Box className={styles.noDataBox}>
+              <NoData className={styles.noData} />
+              <AddPaymentBtn />
+            </Box>
+          )}
+        </Box>
+      </AccordionDetails>
     </Accordion>
   );
 }

@@ -13,3 +13,13 @@
 .paymentBox {
   display: flex;
 }
+
+.noDataBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.noData {
+  margin: 12px;
+}
