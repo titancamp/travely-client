@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+/*import { useEffect, useRef, useState } from 'react';
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 import 'leaflet-geosearch/dist/geosearch.css';
 
@@ -19,10 +19,10 @@ function SetViewOnClick({ animateRef }) {
   });
 
   return null;
-}
+}*/
 
 export default function Map() {
-  const [location, setLocation] = useState([40.1872, 44.5152]);
+  /*  const [location, setLocation] = useState([40.1872, 44.5152]);
   const animateRef = useRef(true);
   const popupRef = useRef();
 
@@ -59,11 +59,11 @@ export default function Map() {
     }, []);
 
     return null;
-  }
+  }*/
 
   return (
     <>
-      <MapContainer
+      {/*      <MapContainer
         zoom={15}
         center={location}
         style={{ width: 600, height: 600 }}
@@ -83,7 +83,7 @@ export default function Map() {
         </Marker>
         <SetViewOnClick animateRef={animateRef} />
         <LeafletgeoSearch />
-      </MapContainer>
+      </MapContainer>*/}
     </>
   );
 }

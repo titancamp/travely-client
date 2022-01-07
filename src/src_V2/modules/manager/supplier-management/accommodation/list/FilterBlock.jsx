@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import styles from './style.module.css';
 import {
@@ -17,7 +18,7 @@ import TuneIcon from '@mui/icons-material/Tune';
 import AllFiltersDialog from './dialogs/AllFilters.dialog';
 
 export default function FilterBlock() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
