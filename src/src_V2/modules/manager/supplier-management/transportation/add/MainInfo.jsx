@@ -15,27 +15,18 @@ import {
 import { Person, LocalPhone, Email } from '@mui/icons-material';
 
 import DialogManager from '../dialogs/Index';
-
+import { EndAdornment } from '../../components/endAdornment';
 import {
   mainInfoSchema,
   mainInfoInitialValues,
-} from '../../../../../utils/schemas/tourManagment/accommodation';
+} from '../../../../../utils/schemas/tourManagment/transportation';
 
 import styles from './style.module.css';
-import { EndAdornment } from '../../components/endAdornment';
+import { TransportationTypes } from '../constants';
+import { Regions } from '../../accommodation/constants';
 
-export default function MainInfo({ parentRef }) {
+export default function MainInfo({ parentRef, isValidate }) {
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });
-  const formikData = {
-    validationSchema: mainInfoSchema,
-    initialValues: mainInfoInitialValues(parentRef.mainInfo.values),
-  };
-
-  const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
-  const initializeTouchState = () => setTouched({ ...parentRef.mainInfo.touched });
-  const addMainInfoToAccommodation = () =>
-    (parentRef.mainInfo = { values, isValid, touched });
-
   const {
     values,
     errors,
@@ -43,9 +34,23 @@ export default function MainInfo({ parentRef }) {
     isValid,
     handleBlur,
     setTouched,
+    submitForm,
     handleChange,
     setFieldValue,
-  } = useFormik(formikData);
+  } = useFormik({
+    validationSchema: mainInfoSchema,
+    initialValues: mainInfoInitialValues(parentRef.mainInfo.values),
+  });
+
+  const initializeTouchState = () => setTouched({ ...parentRef.mainInfo.touched });
+  const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
+  const addMainInfoToParent = () => (parentRef.mainInfo = { values, isValid, touched });
+
+  function validateForm() {
+    if (isValidate) {
+      submitForm();
+    }
+  }
 
   function openMapDialog() {
     onShowHideDialog({
@@ -55,7 +60,8 @@ export default function MainInfo({ parentRef }) {
   }
 
   useEffect(initializeTouchState, []);
-  useEffect(addMainInfoToAccommodation, [values, isValid, touched]);
+  useEffect(validateForm, [isValidate]);
+  useEffect(addMainInfoToParent, [values, isValid, touched]);
 
   return (
     <Box className={styles.mainInfo}>
@@ -66,7 +72,7 @@ export default function MainInfo({ parentRef }) {
             <Grid item xs={6}>
               <Autocomplete
                 value={values.type}
-                options={[]}
+                options={TransportationTypes}
                 onChange={autoCompleteChangeHandler('type')}
                 renderInput={(params) => (
                   <TextField
@@ -173,16 +179,19 @@ export default function MainInfo({ parentRef }) {
               </Button>
             </Grid>
             <Grid item xs={6}>
-              <TextField
-                fullWidth
-                name='region'
-                label='Region'
-                placeholder='Region'
-                onBlur={handleBlur}
+              <Autocomplete
+                options={Regions}
                 value={values.region}
-                onChange={handleChange}
-                error={errors.region && touched.region}
-                helperText={touched.region && errors.region}
+                onChange={autoCompleteChangeHandler('region')}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    name='region'
+                    label='Region'
+                    value={values.region}
+                    onChange={handleChange}
+                  />
+                )}
               />
             </Grid>
             <Grid item xs={6}>

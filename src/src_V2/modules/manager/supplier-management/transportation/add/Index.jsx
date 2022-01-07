@@ -10,10 +10,10 @@ import { managerSidebarConfig } from '../../../config';
 import Cars from './Cars';
 import MainInfo from './MainInfo';
 
-function TransportationSteps({ currentTab, transportation }) {
-  switch (currentTab) {
+function TransportationSteps({ currentTab: { step, isValidate }, transportation }) {
+  switch (step) {
     case 1:
-      return <MainInfo parentRef={transportation} />;
+      return <MainInfo isValidate={isValidate} parentRef={transportation} />;
     case 2:
       return <Drivers parentRef={transportation} />;
     case 3:
@@ -26,19 +26,19 @@ function TransportationSteps({ currentTab, transportation }) {
 }
 
 export default function AddTransportation() {
-  const [currentTab, setCurrentTab] = useState(1);
+  const [currentTab, setCurrentTab] = useState({ step: 1 });
   const { current: transportation } = useRef({
     cars: [],
     drivers: [],
     mainInfo: {},
-    partnership: {},
+    partnership: { isValid: true },
   });
 
   function onSubmit() {
     if (!transportation.mainInfo.isValid) {
-      return setCurrentTab(1);
+      return setCurrentTab({ step: 1, isValidate: true });
     } else if (!transportation.partnership.isValid) {
-      return setCurrentTab(4);
+      return setCurrentTab({ step: 4 });
     } else {
       console.log(transportation);
     }

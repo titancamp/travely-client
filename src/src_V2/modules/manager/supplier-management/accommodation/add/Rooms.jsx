@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Box, Grid } from '@mui/material';
 
-import DialogManager from '../dialogs';
+import DialogManager from '../dialogs/Index.jsx';
 import { AddCard, InfoCard } from '../../components';
 
 import styles from './style.module.css';

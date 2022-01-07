@@ -21,10 +21,10 @@ import {
 
 import styles from './style.module.css';
 import { EndAdornment } from '../../components/endAdornment';
-import { RoomServices } from '../../accommodation/constants';
+import { LicenseTypes } from '../constants';
 
 //TODO License type
-//TODO Languages
+//TODO Languages list
 //TODO disable state
 
 export default function AddEditDriverDialog({ onClose, onSuccess, driver, editMode }) {
@@ -92,7 +92,8 @@ export default function AddEditDriverDialog({ onClose, onSuccess, driver, editMo
             </Grid>
             <Grid item xs={6}>
               <Autocomplete
-                options={RoomServices}
+                multiple
+                options={LicenseTypes}
                 value={values.services}
                 onChange={autoCompleteChangeHandler('license')}
                 renderInput={(params) => (
@@ -111,7 +112,7 @@ export default function AddEditDriverDialog({ onClose, onSuccess, driver, editMo
           </Grid>
           <Grid item xs={12}>
             <Autocomplete
-              options={RoomServices}
+              options={LicenseTypes}
               value={values.services}
               onChange={autoCompleteChangeHandler('languages')}
               renderInput={(params) => (

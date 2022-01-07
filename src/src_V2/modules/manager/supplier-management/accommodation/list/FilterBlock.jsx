@@ -14,7 +14,7 @@ import {
   InputAdornment,
 } from '@mui/material';
 import { AccommodationTypes } from '../constants';
-import DialogManager from '../dialogs';
+import DialogManager from '../dialogs/Index';
 import styles from './style.module.css';
 
 export default function FilterBlock() {

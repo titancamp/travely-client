@@ -18,7 +18,7 @@ import { visuallyHidden } from '@mui/utils';
 import { Container } from '../../../../../components';
 import { managerSidebarConfig } from '../../../config';
 import FilterBlock from './FilterBlock';
-import DialogManager from '../dialogs';
+import DialogManager from '../dialogs/Index';
 
 import styles from './style.module.css';
 import AccommodationActions from './Menu';

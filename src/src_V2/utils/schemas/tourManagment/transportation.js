@@ -9,11 +9,11 @@ export function mainInfoInitialValues(initialValues) {
     city: '',
     name: '',
     notes: '',
-    region: '',
     type: null,
     address: '',
     checkIn: '',
     checkOut: '',
+    region: null,
     services: [],
     ...initialValues,
   };
@@ -57,19 +57,22 @@ export function partnershipInitialValues(initialValues) {
  */
 export function mainInfoSchema() {
   return object().shape({
+    phone: BaseSchemas.phone,
+    email: BaseSchemas.email,
     city: BaseSchemas.textField(),
     region: BaseSchemas.textField(),
     address: BaseSchemas.textField(),
-    name: BaseSchemas.requiredText(),
-    type: BaseSchemas.autocompleteField,
     notes: BaseSchemas.textField(500),
+    person: BaseSchemas.textField(50),
+    name: BaseSchemas.requiredText(50),
+    type: BaseSchemas.requiredAutocompleteField,
   });
 }
 
 export function addDriverSchema() {
   return object().shape({
     phone: BaseSchemas.phone,
-    name: BaseSchemas.textField(),
+    name: BaseSchemas.textField(50),
     license: BaseSchemas.autocompleteField,
     languages: BaseSchemas.autocompleteField,
   });

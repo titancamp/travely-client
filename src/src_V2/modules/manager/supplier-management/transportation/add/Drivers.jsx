@@ -74,36 +74,47 @@ export default function Drivers({ parentRef }) {
           buttonText='ADD DRIVER'
           onOpenDialog={openAddCardDialog}
           disabled={drivers.length === 50}
-          subTitle='Add Button bellow to add rooms to your accommodation'
+          subTitle='Add Button bellow to add driver to your accommodation'
           tooltipKeyWord={'driver'}
         />
-        {drivers.map((driver) => (
-          <InfoCard
-            id={driver.id}
-            key={driver.id}
-            sectionData={{
-              1: {
-                value: driver.license?.label,
-                label: '',
-              },
-              2: {
-                value: driver.name,
-                label: null,
-              },
-              3: {
-                value: driver.languages[0],
-                label: '',
-              },
-              4: {
-                value: driver.phone,
-                label: '',
-              },
-            }}
-            areaAction={openViewCardDialog}
-            firstCardAction={openEditCardDialog}
-            secondCardAction={openDeleteCardDialog}
-          />
-        ))}
+        {drivers.map((driver) => {
+          let license = driver.license.reduce(
+            (prevType, { label }) => prevType + label + ', ',
+            ''
+          );
+
+          if (license.length) {
+            license += ' Category';
+          }
+
+          return (
+            <InfoCard
+              id={driver.id}
+              key={driver.id}
+              sectionData={{
+                1: {
+                  value: license,
+                  label: '',
+                },
+                2: {
+                  value: driver.name,
+                  label: null,
+                },
+                3: {
+                  value: driver.languages?.[0],
+                  label: '',
+                },
+                4: {
+                  value: driver.phone,
+                  label: '',
+                },
+              }}
+              areaAction={openViewCardDialog}
+              firstCardAction={openEditCardDialog}
+              secondCardAction={openDeleteCardDialog}
+            />
+          );
+        })}
       </Grid>
       <DialogManager data={dialogManagerState} onShowHideDialog={onShowHideDialog} />
     </Box>

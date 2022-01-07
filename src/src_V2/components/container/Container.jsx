@@ -6,7 +6,6 @@ import Header from '../header/Header';
 import Sidebar from '../sidebar/Sidebar';
 
 import { CONTAINER_SIZES } from '../../utils';
-const { DRAWER_EXPANDED_WIDTH, DRAWER_COLLAPSED_WIDTH } = CONTAINER_SIZES;
 
 const Main = styled('main')(({ theme, open }) => ({
   flexGrow: 1,
@@ -15,13 +14,13 @@ const Main = styled('main')(({ theme, open }) => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  marginLeft: DRAWER_COLLAPSED_WIDTH + 33,
+  marginLeft: 33,
   ...(open && {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: DRAWER_EXPANDED_WIDTH,
+    marginLeft: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
   }),
 }));
 
