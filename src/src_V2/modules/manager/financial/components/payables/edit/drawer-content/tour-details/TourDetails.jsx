@@ -3,6 +3,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import pathImage from '../../../../../../../../assets/path.png';
 import { generateDate } from '../../../../../../../../utils';
+import { PaymentStatus } from '../../../../../constants';
+
+import commonStyles from '../style.module.css';
 import styles from './TourDetails.module.css';
 
 export default function TourDetails({ row }) {
@@ -12,10 +15,15 @@ export default function TourDetails({ row }) {
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
-        className={styles.detailsAccordion}
+        className={commonStyles.detailsAccordion}
       >
-        <Box component="img" alt="Tour Details" src={pathImage} className={styles.pathImg} />
-        <Typography className={styles.detailsTxt}>Tour Details</Typography>
+        <Box
+          component="img"
+          alt="Tour Details"
+          src={pathImage}
+          className={`${styles.pathImg} ${commonStyles.panelImg}`}
+        />
+        <Typography className={commonStyles.detailsTxt}>Tour Details</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Box className={styles.accordionDetails}>
@@ -33,7 +41,9 @@ export default function TourDetails({ row }) {
           </Box>
           <Box className={styles.accordionDetailItems}>
             <Box>Tour Status</Box>
-            <Box className={styles.accordionDetailTxt}>{row.status}</Box>
+            <Box className={styles.accordionDetailTxt}>
+              {PaymentStatus[row.status].toUpperCase()}
+            </Box>
           </Box>
         </Box>
       </AccordionDetails>

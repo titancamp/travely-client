@@ -20,14 +20,17 @@
 
 .generalInfo {
   background-color: var(--midGrey);
-  margin-top: 30px;
-  margin-bottom: 30px;
   justify-content: space-evenly;
   border: 1px solid var(--midLightGrey);
   box-sizing: border-box;
   border-radius: 8px;
   height: 67px;
   align-items: center;
+}
+
+.layoutDistance {
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .generalInfo hr {

@@ -1,15 +1,5 @@
-.detailsAccordion div {
-  align-items: center;
-}
-
-.detailsTxt {
-  font-size: 20px !important;
-  color: var(--darkGrey);
-}
-
 .pathImg {
   height: 18px;
-  margin-right: 10px;
 }
 
 .accordionDetails {

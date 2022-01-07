@@ -2,6 +2,8 @@ import { Box, Button, Divider, Stack } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 import TourDetails from './tour-details/TourDetails';
+import PaymentHistory from './payment-history/PaymentHistory';
+import Notes from './notes/Notes';
 import styles from './RowList.module.css';
 
 const CostBox = ({ currency, cost, text }) => {
@@ -33,7 +35,7 @@ export default function RowList({ row, onClose }) {
 
       {/*Layout*/}
       <Box className={styles.layout}>
-        <Box>
+        <Box className={styles.layoutDistance}>
           <Stack
             className={styles.generalInfo}
             direction="row"
@@ -48,8 +50,16 @@ export default function RowList({ row, onClose }) {
           </Stack>
         </Box>
 
-        <Box>
+        <Box className={styles.layoutDistance}>
           <TourDetails row={row} />
+        </Box>
+
+        <Box className={styles.layoutDistance}>
+          <PaymentHistory row={row} />
+        </Box>
+
+        <Box className={styles.layoutDistance}>
+          <Notes row={row} />
         </Box>
       </Box>
 
