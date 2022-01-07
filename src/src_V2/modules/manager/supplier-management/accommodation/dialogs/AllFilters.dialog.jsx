@@ -1,14 +1,19 @@
-// import * as React from 'react';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import MultipleSelectCheckmarks from '../MultipleSelectCheckmarks';
+import {
+  Grid,
+  Button,
+  Dialog,
+  TextField,
+  Typography,
+  IconButton,
+  DialogTitle,
+  Autocomplete,
+  DialogContent,
+} from '@mui/material';
+import MultipleSelectCheckmarks from '../list/MultipleSelectCheckmarks';
 import styles from './style.module.css';
-import { Autocomplete, Grid, TextField, Typography } from '@mui/material';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
@@ -30,18 +35,23 @@ const BootstrapDialogTitle = (props) => {
     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
       {children}
       {onClose ? (
-        <IconButton
-          aria-label='close'
-          onClick={onClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
+        <div className={styles.filterHeader}>
+          <div>
+            <Button className={styles.resetBtn}>RESET</Button>
+          </div>
+          <IconButton
+            aria-label='close'
+            onClick={onClose}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 16,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </div>
       ) : null}
     </DialogTitle>
   );
@@ -86,17 +96,17 @@ const options = [
   'Champagne Bar',
 ];
 
-export default function AllFiltersDialog({ open, handleClose }) {
+export default function AllFiltersDialog({ onClose, data: { open } }) {
   return (
     <BootstrapDialog
-      onClose={handleClose}
+      onClose={onClose}
       aria-labelledby='customized-dialog-title'
       open={open}
     >
       <BootstrapDialogTitle
         id='customized-dialog-title'
-        onClose={handleClose}
-        className={styles.container}
+        onClose={onClose}
+        className={`${styles.container} ${styles.header}`}
       >
         Filters
       </BootstrapDialogTitle>

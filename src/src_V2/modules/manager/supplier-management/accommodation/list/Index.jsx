@@ -1,24 +1,27 @@
 import * as React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import { Button } from '@mui/material';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Paper from '@mui/material/Paper';
+import {
+  Box,
+  Paper,
+  Table,
+  Button,
+  TableRow,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableSortLabel,
+  TableContainer,
+  TablePagination,
+} from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
-
 import { Container } from '../../../../../components';
 import { managerSidebarConfig } from '../../../config';
+import FilterBlock from './FilterBlock';
+import DialogManager from '../dialogs';
 
 import styles from './style.module.css';
-import FilterBlock from './FilterBlock';
-import AccomodationDetailsDialog from './dialogs/AccomodationDetails.dialog';
+import AccommodationActions from './Menu';
 
 function createData(
   name,
@@ -42,7 +45,14 @@ const rows = [
     '+374 11 11 11 11',
     'Name Lastname',
     'customer.care@marriott.com',
-    <Button variant='contained' className={styles.btn} component='span'>
+    <Button
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      variant='contained'
+      className={styles.btn}
+      component='span'
+    >
       Ready
     </Button>
   ),
@@ -55,6 +65,9 @@ const rows = [
     'Name Lastname',
     'customer.care@marriott.com',
     <Button
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
       variant='contained'
       className={`${styles.btn} ${styles.secondaryBtn}`}
       component='span'
@@ -160,6 +173,12 @@ const headCells = [
     disablePadding: false,
     label: 'Status',
   },
+  {
+    id: 'actions',
+    numeric: true,
+    disablePadding: false,
+    label: '',
+  },
 ];
 
 function EnhancedTableHead(props) {
@@ -209,14 +228,15 @@ export default function AccommodationList() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const [open, setOpen] = React.useState(false);
+  const [dialogManagerState, onShowHideDialog] = useState({ open: false });
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const addClass = (e) => {
+    console.log(e);
+    e.target.parentElement.classList.add('moreVertIconTr');
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const removeClass = (e) => {
+    e.target.parentElement.classList.remove('moreVertIconTr');
   };
 
   const handleRequestSort = (event, property) => {
@@ -235,6 +255,14 @@ export default function AccommodationList() {
   };
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+  function openAccommodationDetailsDialog() {
+    onShowHideDialog({
+      open: true,
+      mode: 'accommodationDetails',
+      actions: {},
+    });
+  }
 
   return (
     <Container managerSidebarConfig={managerSidebarConfig}>
@@ -259,7 +287,9 @@ export default function AccommodationList() {
                         hover
                         tabIndex={-1}
                         key={row.name}
-                        onClick={handleClickOpen}
+                        onClick={openAccommodationDetailsDialog}
+                        onMouseEnter={addClass}
+                        onMouseLeave={removeClass}
                       >
                         <TableCell component='th' id={labelId} scope='row' padding='none'>
                           {row.name}
@@ -271,6 +301,16 @@ export default function AccommodationList() {
                         <TableCell align='right'>{row.contactPerson}</TableCell>
                         <TableCell align='right'>{row.email}</TableCell>
                         <TableCell align='right'>{row.status}</TableCell>
+                        <TableCell
+                          align='right'
+                          onClick={(event) => {
+                            event.stopPropagation();
+                          }}
+                        >
+                          <Box>
+                            <AccommodationActions />
+                          </Box>
+                        </TableCell>
                       </TableRow>
                     );
                   })}
@@ -297,7 +337,7 @@ export default function AccommodationList() {
           />
         </Paper>
       </Box>
-      <AccomodationDetailsDialog open={open} handleClose={handleClose} />
+      <DialogManager data={dialogManagerState} onShowHideDialog={onShowHideDialog} />
     </Container>
   );
 }

@@ -91,6 +91,11 @@
     justify-content: flex-end;
 }
 
+.cardDetailsBtn {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.87) !important;
+}
+
 .icon {
     color: #757575;
 }

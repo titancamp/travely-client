@@ -1,37 +1,37 @@
 import { useState } from 'react';
-import Box from '@mui/material/Box';
-import styles from './style.module.css';
+import { Link } from 'react-router-dom';
+import { AddCircle, Tune } from '@mui/icons-material';
 import {
-  Autocomplete,
-  Button,
-  FormControl,
+  Box,
   Grid,
-  InputLabel,
+  Button,
   TextField,
   Typography,
+  InputLabel,
+  FormControl,
+  Autocomplete,
+  OutlinedInput,
+  InputAdornment,
 } from '@mui/material';
 import { AccommodationTypes } from '../constants';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import TuneIcon from '@mui/icons-material/Tune';
-import AllFiltersDialog from './dialogs/AllFilters.dialog';
+import DialogManager from '../dialogs';
+import styles from './style.module.css';
 
 export default function FilterBlock() {
-  const [open, setOpen] = useState(false);
+  const [dialogManagerState, onShowHideDialog] = useState({ open: false });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  function openAllFiltersDialog() {
+    onShowHideDialog({
+      open: true,
+      mode: 'accommodationFilters',
+      actions: {},
+    });
+  }
 
   return (
     <Box className={styles.box}>
       <div className={styles.leftSection}>
-        <Typography className={styles.title}>Accomodations</Typography>
+        <Typography className={styles.title}>Accommodations</Typography>
         <Grid container rowSpacing={3} spacing={2}>
           <Grid item>
             <Autocomplete
@@ -78,19 +78,19 @@ export default function FilterBlock() {
       </div>
       <div className={styles.rightSection}>
         <Grid item className={styles.filterBtnsBlock}>
-          <Button variant='outlined' component='span' onClick={handleClickOpen}>
-            <TuneIcon className={styles.filterBtnIcon} />
+          <Button variant='outlined' component='span' onClick={openAllFiltersDialog}>
+            <Tune className={styles.filterBtnIcon} />
             All Filters
           </Button>
           <Button
             variant='contained'
             className={styles.addBtn}
             component='span'
-            startIcon={<AddCircleIcon />}
+            startIcon={<AddCircle />}
           >
-            Add new
+            <Link to={`../add`}>Add new</Link>
           </Button>
-          <AllFiltersDialog open={open} handleClose={handleClose} />
+          <DialogManager data={dialogManagerState} onShowHideDialog={onShowHideDialog} />
         </Grid>
       </div>
     </Box>
