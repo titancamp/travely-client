@@ -30,6 +30,21 @@ export const AccommodationTypes = [
   { id: 1, label: 'Hostels' },
   { id: 2, label: 'Guest Houses' },
   { id: 3, label: 'Private Houses' },
+  { id: 4, label: 'Hotel' },
+];
+
+export const Regions = [
+  { id: 1, label: 'Aragatsotn' },
+  { id: 2, label: 'Ararat' },
+  { id: 3, label: 'Armavir' },
+  { id: 4, label: 'Gegharkunik' },
+  { id: 5, label: 'Kotayk' },
+  { id: 5, label: 'Lori' },
+  { id: 7, label: 'Shirak' },
+  { id: 8, label: 'Syunik' },
+  { id: 9, label: 'Tavush' },
+  { id: 10, label: 'Vayots Dzor' },
+  { id: 11, label: 'Yerevan' },
 ];
 
 export const HotelServices = [

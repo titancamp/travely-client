@@ -6,10 +6,10 @@ import { AddCard, InfoCard } from '../../components';
 
 import styles from './style.module.css';
 
-export default function Rooms({ accommodation }) {
-  const [rooms, setRooms] = useState(accommodation.rooms);
+export default function Rooms({ parentRef }) {
+  const [rooms, setRooms] = useState(parentRef.rooms);
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });
-  const addRoomsToAccommodationData = () => (accommodation.rooms = rooms);
+  const addRoomsToAccommodationData = () => (parentRef.rooms = rooms);
 
   function addRoom(room) {
     room.id = rooms.length ? rooms[rooms.length - 1].id + 1 : 1;

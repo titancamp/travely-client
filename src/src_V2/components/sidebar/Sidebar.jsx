@@ -31,7 +31,7 @@ const listItemStyles = {
 };
 
 const openedMixin = (theme) => ({
-  top: '79px',
+  top: '78px',
   width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
@@ -44,7 +44,7 @@ const openedMixin = (theme) => ({
 });
 
 const closedMixin = (theme) => ({
-  top: '79px',
+  top: '78px',
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,

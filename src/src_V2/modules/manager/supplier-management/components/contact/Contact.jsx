@@ -10,22 +10,22 @@ import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Person, LocalPhone, Email } from '@mui/icons-material';
 
-import { EndAdornment } from '../../components/endAdornment';
+import { EndAdornment } from '../endAdornment';
 import {
   contactSchema,
   contactInitialValues,
-} from '../../../../../utils/schemas/tourManagment/accommodation';
+} from '../../../../../utils/schemas/tourManagment/components';
 
 import styles from './style.module.css';
 
-export default function Contact({ accommodation }) {
+export default function Contact({ parentRef }) {
   const formikData = {
     validationSchema: contactSchema,
-    initialValues: contactInitialValues(accommodation.contact.values),
+    initialValues: contactInitialValues(parentRef.contact.values),
   };
-  const initializeTouchState = () => setTouched({ ...accommodation.contact.touched });
+  const initializeTouchState = () => setTouched({ ...parentRef.contact.touched });
   const addContactAccommodation = () =>
-    (accommodation.contact = { values, isValid, touched });
+    (parentRef.contact = { values, isValid, touched });
 
   const { values, errors, touched, isValid, handleBlur, setTouched, handleChange } =
     useFormik(formikData);

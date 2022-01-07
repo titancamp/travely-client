@@ -6,7 +6,7 @@ import { Box, Grid, Button, TextField, Chip, FormHelperText } from '@mui/materia
 import {
   partnershipSchema,
   partnershipInitialValues,
-} from '../../../../../utils/schemas/tourManagment/accommodation';
+} from '../../../../../utils/schemas/tourManagment/components';
 
 import styles from './style.module.css';
 

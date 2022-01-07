@@ -2,10 +2,9 @@ import { Box } from '@mui/material';
 import { useRef, useState } from 'react';
 
 import Rooms from './Rooms';
-import Contact from './Contact';
 import MainInfo from './MainInfo';
 import { Container } from '../../../../../components';
-import { Banner, Partnership } from '../../components';
+import { Banner, Partnership, Contact } from '../../components';
 
 import styles from './style.module.css';
 import { managerSidebarConfig } from '../../../config';
@@ -13,11 +12,11 @@ import { managerSidebarConfig } from '../../../config';
 function AccommodationStep({ currentTab, accommodation }) {
   switch (currentTab) {
     case 1:
-      return <MainInfo accommodation={accommodation} />;
+      return <MainInfo parentRef={accommodation} />;
     case 2:
-      return <Rooms accommodation={accommodation} />;
+      return <Rooms parentRef={accommodation} />;
     case 3:
-      return <Contact accommodation={accommodation} />;
+      return <Contact parentRef={accommodation} />;
     case 4:
       return <Partnership parentRef={accommodation} />;
     default:

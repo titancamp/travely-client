@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Box, TextField, Autocomplete, Grid, Button } from '@mui/material';
 
 import DialogManager from '../dialogs/Index';
-import { AccommodationTypes, HotelServices } from '../constants';
+import { AccommodationTypes, HotelServices, Regions } from '../constants';
 import {
   mainInfoSchema,
   mainInfoInitialValues,
@@ -12,17 +12,17 @@ import {
 
 import styles from './style.module.css';
 
-export default function MainInfo({ accommodation }) {
+export default function MainInfo({ parentRef }) {
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });
   const formikData = {
     validationSchema: mainInfoSchema,
-    initialValues: mainInfoInitialValues(accommodation.mainInfo.values),
+    initialValues: mainInfoInitialValues(parentRef.mainInfo.values),
   };
 
   const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
-  const initializeTouchState = () => setTouched({ ...accommodation.mainInfo.touched });
+  const initializeTouchState = () => setTouched({ ...parentRef.mainInfo.touched });
   const addMainInfoToAccommodation = () =>
-    (accommodation.mainInfo = { values, isValid, touched });
+    (parentRef.mainInfo = { values, isValid, touched });
 
   const {
     values,
@@ -91,7 +91,7 @@ export default function MainInfo({ accommodation }) {
                   label='Check In Time'
                   value={values.checkIn}
                   onChange={handleChange}
-                  inputProps={{ step: 60, min: 10 }}
+                  inputProps={{ step: 60, min: 10, placeholder: 'aaa' }}
                   InputLabelProps={{ shrink: true }}
                 />
               </Grid>
@@ -123,16 +123,19 @@ export default function MainInfo({ accommodation }) {
               </Button>
             </Grid>
             <Grid item xs={6}>
-              <TextField
-                fullWidth
-                name='region'
-                label='Region'
-                placeholder='Region'
-                onBlur={handleBlur}
+              <Autocomplete
+                options={Regions}
                 value={values.region}
-                onChange={handleChange}
-                error={errors.region && touched.region}
-                helperText={touched.region && errors.region}
+                onChange={autoCompleteChangeHandler('region')}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    name='region'
+                    label='Region'
+                    value={values.region}
+                    onChange={handleChange}
+                  />
+                )}
               />
             </Grid>
             <Grid item xs={6}>
