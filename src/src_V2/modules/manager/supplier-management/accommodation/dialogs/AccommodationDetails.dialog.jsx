@@ -16,7 +16,7 @@ import {
 } from '@mui/icons-material';
 import { TabList, TabPanel, TabContext } from '@mui/lab';
 import { InfoCard } from '../../components';
-import DialogManager from './index';
+import DialogManager from './Index';
 import styles from './style.module.css';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
