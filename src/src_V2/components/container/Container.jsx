@@ -5,7 +5,6 @@ import { styled } from '@mui/material/styles';
 import Header from '../header/Header';
 import Sidebar from '../sidebar/Sidebar';
 
-//TODO removable
 import { CONTAINER_SIZES } from '../../utils';
 const { DRAWER_EXPANDED_WIDTH, DRAWER_COLLAPSED_WIDTH } = CONTAINER_SIZES;
 
@@ -26,7 +25,6 @@ const Main = styled('main')(({ theme, open }) => ({
   }),
 }));
 
-//TODO move styles to css module.
 const boxStyles = {
   minWidth: 700,
   width: '100%',
