@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux';
-import { useAnchor } from '../../../global';
 import {
     Box,
     IconButton,
@@ -11,6 +10,7 @@ import { TaskPriority } from '../utils';
 import TodoClient from '../../../../../api/todo-client';
 import { updateTodo } from '../../../../store/actions/todo.actions';
 import useStyles from './styles';
+import { useAnchor } from '../../../../hooks';
 
 const mapToPriority = {
     [TaskPriority.LOW]: {

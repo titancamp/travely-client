@@ -1,14 +1,12 @@
-import axios from "axios";
+import axios from 'axios';
 
-import appConfig from "../app-config.json";
-
-const baseURL = process.env.REACT_APP_BASE_URL || appConfig.baseURL;
+const baseURL = process.env.REACT_APP_BASE_URL;
 
 const ApiClient = axios.create({
-  baseURL,
-  headers: {
-    "Content-Type": "application/json",
-  },
+    baseURL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
 });
 //
 // ApiClient.interceptors.request.use(
@@ -57,12 +55,12 @@ const ApiClient = axios.create({
 
 // global error handling
 ApiClient.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
+    function (response) {
+        return response;
+    },
+    function (error) {
+        return Promise.reject(error);
+    }
 );
 
 export default ApiClient;

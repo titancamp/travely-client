@@ -30,16 +30,16 @@ import {
 import {
     useAnchor,
     useToggle
-} from '../../../global/hooks';
+} from '../../../../hooks';
 import {
     ReminderStatus,
     TaskStatus
 } from '../utils';
 import useStyles from './styles';
-import TaskPriorityMenu from '../TaskPriorityMenu';
+import TaskPriorityMenu from '../task-priority-menu';
 import { useSelector } from 'react-redux';
 import { getTodoItemSelector } from '../../../../store/selectors/todo.selectors';
-import TaskStatusMenu from '../TaskStatusMenu';
+import TaskStatusMenu from '../task-status-menu';
 import TodoClient from '../../../../../api/todo-client';
 
 const mapToReminderState = (notificationTime) => ({

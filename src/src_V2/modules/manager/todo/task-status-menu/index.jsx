@@ -12,7 +12,7 @@ import { TaskStatus } from '../utils';
 import {
     useAnchor,
     useToggle
-} from '../../../global';
+} from '../../../../hooks';
 import TodoClient from '../../../../../api/todo-client';
 import { updateTodo } from '../../../../store/actions/todo.actions';
 import { useDispatch } from 'react-redux';

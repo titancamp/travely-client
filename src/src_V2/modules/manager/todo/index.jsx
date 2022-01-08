@@ -13,18 +13,21 @@ import {
     Grid,
 } from '@mui/material';
 
-import TodoItem from './TodoItem';
+import TodoItem from './todo-item';
 import TodoClient from '../../../../api/todo-client';
-import { useToggle } from '../../global/hooks';
-import TodoForm from './TodoForm';
-import TodoFilter from './TodoFilter';
+import {
+    useFilters,
+    useToggle
+} from '../../../hooks';
+import TodoForm from './todo-form';
+import TodoFilter from './todo-filter';
 import {
     useDispatch,
     useSelector
 } from 'react-redux';
 import { getTodosAction } from '../../../store/actions/todo.actions';
 import { getTodosList } from '../../../store/selectors/todo.selectors';
-import { useFilters } from '../../global';
+import styles from './styles';
 import {
     TaskStatus,
     TODO_FILTER_DEFAULT_VALUES,
@@ -83,11 +86,8 @@ export default function Todo() {
         <Container managerSidebarConfig={managerSidebarConfig}>
             <Grid
                 container
-                direction='column'
                 spacing={3}
-                pr={3}
-                ml={3}
-                sx={{ width: '98%' }}
+                sx={styles.todoContainer}
             >
                 <Grid item>
                     <Typography variant='h5'>To Do List</Typography>
@@ -97,7 +97,7 @@ export default function Todo() {
                     handleFiltersChange={handleFiltersChange}
                     filters={filters}
                 />
-                <Grid item sx={{ width: '100%' }}>
+                <Grid item sx={styles.todoList}>
                     <List
                         itemCount={data.length}
                         itemSize={TODO_ITEM_SIZE}
@@ -121,9 +121,7 @@ export default function Todo() {
                 open={open}
                 onClose={toggle}
                 PaperProps={{
-                    sx: {
-                        width: 600
-                    },
+                    sx: styles.dialogPaper,
                 }}
             >
                 <TodoForm
