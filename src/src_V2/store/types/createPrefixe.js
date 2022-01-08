@@ -3,6 +3,6 @@
  * @param {String} prefix - prefix
  * @returns {Function}
  */
-export default function createPrefix(prefix){
-    return name => `@@APP/${prefix}/${name}`;
+export default function createPrefix(prefix) {
+  return (name) => `@@APP/${prefix}/${name}`;
 }

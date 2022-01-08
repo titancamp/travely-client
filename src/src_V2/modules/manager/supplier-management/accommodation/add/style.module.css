@@ -1,3 +1,5 @@
+@import '../../../../../styles/colors.css';
+
 /* Add accommodation styles*/
 
 .container {
@@ -50,7 +52,7 @@
 
 .card .detailsInfo {
   font-size: 14px;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--secondary);
 }
 
 .card .title {
@@ -89,4 +91,8 @@
 .cardActions.rightAligned {
   display: flex;
   justify-content: flex-end;
+}
+
+.cardActions .cardButton {
+  color: var(--secondary);
 }

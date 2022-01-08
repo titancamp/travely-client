@@ -1,12 +1,20 @@
-import Box from "@mui/material/Box";
-import styles from "./style.module.css";
-import { Autocomplete, Button, FormControl, Grid, InputLabel, TextField, Typography } from "@mui/material";
-import { AccommodationTypes } from "../constants";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputAdornment from "@mui/material/InputAdornment";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import Box from '@mui/material/Box';
+import styles from './style.module.css';
+import {
+  Autocomplete,
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { AccommodationTypes } from '../constants';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-export default function FilterBlock () {
+export default function FilterBlock() {
   return (
     <Box className={styles.box}>
       <div className={styles.leftSection}>
@@ -57,8 +65,17 @@ export default function FilterBlock () {
       </div>
       <div className={styles.rightSection}>
         <Grid item className={styles.filterBtnsBlock}>
-          <Button variant="outlined" component="span">All Filters</Button>
-          <Button variant="contained" className={styles.addBtn} component="span" startIcon={<AddCircleIcon />}>Add new</Button>
+          <Button variant="outlined" component="span">
+            All Filters
+          </Button>
+          <Button
+            variant="contained"
+            className={styles.addBtn}
+            component="span"
+            startIcon={<AddCircleIcon />}
+          >
+            Add new
+          </Button>
         </Grid>
       </div>
     </Box>

@@ -1,30 +1,25 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from 'react';
 
-import {
-  Box,
-  Typography,
-  IconButton,
-  DialogTitle,
-  DialogContent,
-} from "@mui/material";
-import { Edit, Delete } from "@mui/icons-material";
+import { Box, Typography, IconButton, DialogTitle, DialogContent } from '@mui/material';
+import { Edit, Delete } from '@mui/icons-material';
 
-import styles from "./style.module.css";
+import styles from './style.module.css';
 
 export default function ViewRoomDialog({ id, onShowHideDialog }) {
   const [room, setRoom] = useState({});
-  const openDialog = useCallback((mode) => {
-    //TODO handle in another way
-    onShowHideDialog({
-      id,
-      mode,
-      open: true,
-    });
-  }, [id, onShowHideDialog]);
+  const openDialog = useCallback(
+    (mode) => {
+      //TODO handle in another way
+      onShowHideDialog({
+        id,
+        mode,
+        open: true,
+      });
+    },
+    [id, onShowHideDialog]
+  );
 
   function getRoomInfo() {
-    console.log(id);
-
     /**
      * Temporary get from backend.
      */
@@ -33,7 +28,7 @@ export default function ViewRoomDialog({ id, onShowHideDialog }) {
       beds: 2,
       quantity: 12,
       price: 30000,
-      type: "Standard Single",
+      type: 'Standard Single',
     });
   }
 
@@ -43,13 +38,13 @@ export default function ViewRoomDialog({ id, onShowHideDialog }) {
   return (
     <>
       <DialogTitle>
-        <Box style={{ display: "flex", justifyContent: "space-between" }}>
+        <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant="h5">{room.type} / Details</Typography>
           <Box className={`${styles.cardActions} ${styles.rightAligned}`}>
-            <IconButton onClick={() => openDialog("edit")}>
+            <IconButton onClick={() => openDialog('edit')}>
               <Edit />
             </IconButton>
-            <IconButton color="primary" onClick={() => openDialog("delete")}>
+            <IconButton color="primary" onClick={() => openDialog('delete')}>
               <Delete />
             </IconButton>
           </Box>
@@ -61,7 +56,7 @@ export default function ViewRoomDialog({ id, onShowHideDialog }) {
             width: 500,
           }}
         >
-          <Box style={{ display: "flex" }}>
+          <Box style={{ display: 'flex' }}>
             <Box>
               <h6>Type</h6>
               <p>{room.type}</p>
@@ -75,7 +70,7 @@ export default function ViewRoomDialog({ id, onShowHideDialog }) {
               <p>{room.price}</p>
             </Box>
           </Box>
-          <Box style={{ display: "flex" }}>
+          <Box style={{ display: 'flex' }}>
             <Box>
               <h6>Number of Beds</h6>
               <p>{room.beds}</p>
