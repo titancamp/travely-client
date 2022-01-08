@@ -2,12 +2,14 @@
 
 .tableContainer {
   overflow-y: auto;
+  background-color: var(--midGrey) !important;
 }
 
 .mainTableBox {
   height: 77vh;
   overflow-y: auto;
   overflow-x: hidden;
+  display: block !important;
 }
 
 .tableHead,
@@ -20,8 +22,9 @@
 }
 
 .tableStickyBox {
-  background-color: var(--midGrey) !important;
   width: calc(100% - 1em);
+  background-color: var(--midGrey) !important;
+  display: block !important;
 }
 
 .totalFooter {

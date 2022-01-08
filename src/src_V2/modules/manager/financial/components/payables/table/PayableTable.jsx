@@ -119,6 +119,14 @@ const TableCellWrapper = ({ children }) => (
   <TableCell className={styles.tableCell}>{children}</TableCell>
 );
 
+const TableBodyWrapper = ({ children }) => (
+  <TableBody>
+    <TableRow>
+      <TableCell>{children}</TableCell>
+    </TableRow>
+  </TableBody>
+);
+
 const EmptyTableCellWrapper = ({ count }) =>
   generateArrayByRange(1, count).map((el, index) => <TableCellWrapper key={index} />);
 
@@ -290,66 +298,78 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
               columns={columns}
             />
             {payables.length ? (
-              <TableBody className={styles.tableBody}>
+              <>
                 {/*Usual Rows*/}
-                <Box className={styles.mainTableBox}>
-                  {rowsAfterPagingAndSorting().map((row, index) => {
-                    const isItemSelected = isSelected(row.paymentId);
-                    const labelId = `enhanced-table-checkbox-${index}`;
+                <TableBody className={`${styles.tableBody} ${styles.mainTableBox}`}>
+                  <>
+                    {rowsAfterPagingAndSorting().map((row, index) => {
+                      const isItemSelected = isSelected(row.paymentId);
+                      const labelId = `enhanced-table-checkbox-${index}`;
 
-                    return (
-                      <TableRow
-                        hover
-                        onClick={(event) => handleRowClick(event, row)}
-                        role="checkbox"
-                        aria-checked={isItemSelected}
-                        tabIndex={-1}
-                        key={row.paymentId}
-                        selected={isItemSelected}
-                        className={styles.tableRow}
-                      >
-                        <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
-                          <Checkbox
-                            color="primary"
-                            checked={isItemSelected}
-                            onClick={(event) => handleCheckboxChange(event, row.paymentId)}
-                            inputProps={{
-                              'aria-labelledby': labelId,
-                            }}
-                          />
-                        </TableCell>
-                        <TooltipTableCell rowValue={row.paymentId} />
-                        <TooltipTableCell rowValue={row.tourId} />
-                        <TooltipTableCell rowValue={row.tourName} />
-                        <TooltipTableCell rowValue={row.supplier} />
-                        <TooltipTableCell rowValue={row.currency} />
-                        <TooltipTableCell rowValue={row.plannedCost} />
-                        <TooltipTableCell rowValue={row.actualCost} />
-                        <TableCell
-                          className={`${styles.tableCell} ${colorCondition(row.difference)}`}
+                      return (
+                        <TableRow
+                          hover
+                          onClick={(event) => handleRowClick(event, row)}
+                          role="checkbox"
+                          aria-checked={isItemSelected}
+                          tabIndex={-1}
+                          key={row.paymentId}
+                          selected={isItemSelected}
+                          className={styles.tableRow}
                         >
-                          <TooltipText text={row.difference} />
-                        </TableCell>
-                        <TooltipTableCell rowValue={row.paidCost} />
-                        <TooltipTableCell rowValue={row.remaining} />
-                        <TableCellWrapper>
-                          <PayableStatuses statusNum={row.status} />
-                        </TableCellWrapper>
-                        <TooltipTableCell rowValue={generateDate(row.createdDate)} />
-                        <TooltipTableCell rowValue={row.invoiceId} />
-                        <TooltipTableCell rowValue={generateDate(row.dueDate)} />
-                        <TooltipTableCell rowValue={generateDate(row.paymentDate)} />
-                        <TooltipTableCell rowValue={PaymentType[row.paymentType]} />
-                        <TableCellWrapper>
-                          <InvoiceAttachment attachment={row.invoiceAttachment} />
-                        </TableCellWrapper>
+                          <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
+                            <Checkbox
+                              color="primary"
+                              checked={isItemSelected}
+                              onClick={(event) => handleCheckboxChange(event, row.paymentId)}
+                              inputProps={{
+                                'aria-labelledby': labelId,
+                              }}
+                            />
+                          </TableCell>
+                          <TooltipTableCell rowValue={row.paymentId} />
+                          <TooltipTableCell rowValue={row.tourId} />
+                          <TooltipTableCell rowValue={row.tourName} />
+                          <TooltipTableCell rowValue={row.supplier} />
+                          <TooltipTableCell rowValue={row.currency} />
+                          <TooltipTableCell rowValue={row.plannedCost} />
+                          <TooltipTableCell rowValue={row.actualCost} />
+                          <TableCell
+                            className={`${styles.tableCell} ${colorCondition(row.difference)}`}
+                          >
+                            <TooltipText text={row.difference} />
+                          </TableCell>
+                          <TooltipTableCell rowValue={row.paidCost} />
+                          <TooltipTableCell rowValue={row.remaining} />
+                          <TableCellWrapper>
+                            <PayableStatuses statusNum={row.status} />
+                          </TableCellWrapper>
+                          <TooltipTableCell rowValue={generateDate(row.createdDate)} />
+                          <TooltipTableCell rowValue={row.invoiceId} />
+                          <TooltipTableCell rowValue={generateDate(row.dueDate)} />
+                          <TooltipTableCell rowValue={generateDate(row.paymentDate)} />
+                          <TooltipTableCell rowValue={PaymentType[row.paymentType]} />
+                          <TableCellWrapper>
+                            <InvoiceAttachment attachment={row.invoiceAttachment} />
+                          </TableCellWrapper>
+                        </TableRow>
+                      );
+                    })}
+
+                    {emptyRows > 0 && (
+                      <TableRow
+                        style={{
+                          height: 53 * emptyRows,
+                        }}
+                      >
+                        <TableCell colSpan={6} />
                       </TableRow>
-                    );
-                  })}
-                </Box>
+                    )}
+                  </>
+                </TableBody>
 
                 {/*Total Sticky Row*/}
-                <Box className={styles.tableStickyBox}>
+                <TableBody className={`${styles.tableBody} ${styles.tableStickyBox}`}>
                   {showPayablesCondition && (
                     <TableRow className={styles.totalFooter}>
                       <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
@@ -369,26 +389,24 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
                       <EmptyTableCellWrapper count={7} />
                     </TableRow>
                   )}
-                </Box>
-
-                {emptyRows > 0 && (
-                  <TableRow
-                    style={{
-                      height: 53 * emptyRows,
-                    }}
-                  >
-                    <TableCell colSpan={6} />
-                  </TableRow>
-                )}
-              </TableBody>
+                </TableBody>
+              </>
+            ) : payablesLoading ? (
+              // todo hide scroll when loading and there is no data
+              <TableBodyWrapper>
+                {/*Loading*/}
+                {/*todo correct loading styles*/}
+                <LoadingSpinner />
+              </TableBodyWrapper>
             ) : (
-              <Box className={styles.noData}>
-                {/*todo hide scroll*/}
-                <NoData />
-              </Box>
+              <TableBodyWrapper>
+                {/*No Data*/}
+                <Box className={styles.noData}>
+                  <NoData />
+                </Box>
+              </TableBodyWrapper>
             )}
           </Table>
-          {payablesLoading && <LoadingSpinner />}
         </TableContainer>
         {showPayablesCondition && (
           <div className={styles.tableFooter}>

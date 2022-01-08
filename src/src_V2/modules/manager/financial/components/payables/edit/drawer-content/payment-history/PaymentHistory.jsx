@@ -14,8 +14,8 @@ import { NoData } from '../../../../../../../../components';
 
 const AddPaymentBtn = () => <Button variant="contained">+ Add payment</Button>;
 
-export default function PaymentHistory({ row }) {
-  console.log(row);
+export default function PaymentHistory({ history }) {
+  console.log(history);
   return (
     <Accordion className={commonStyles.accordion} expanded={true}>
       <AccordionSummary
@@ -32,16 +32,16 @@ export default function PaymentHistory({ row }) {
           />
           <Typography className={commonStyles.detailsTxt}>
             Payment History{' '}
-            {row.paymentHistory?.length && (
-              <span className={commonStyles.detailsCount}>({row.paymentHistory.length})</span>
+            {history?.length && (
+              <span className={commonStyles.detailsCount}>({history.length})</span>
             )}
           </Typography>
         </Box>
-        <Box>{row.paymentHistory?.length && <AddPaymentBtn />}</Box>
+        <Box>{history?.length && <AddPaymentBtn />}</Box>
       </AccordionSummary>
       <AccordionDetails className={commonStyles.accordionDetails}>
         <Box>
-          {!row.paymentHistory?.length && (
+          {!history?.length && (
             <Box className={styles.noDataBox}>
               <NoData className={styles.noData} />
               <AddPaymentBtn />

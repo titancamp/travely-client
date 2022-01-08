@@ -55,7 +55,7 @@ export default function RowList({ row, onClose }) {
         </Box>
 
         <Box className={styles.layoutDistance}>
-          <PaymentHistory row={row} />
+          <PaymentHistory history={row.paymentHistory} />
         </Box>
 
         <Box className={styles.layoutDistance}>
