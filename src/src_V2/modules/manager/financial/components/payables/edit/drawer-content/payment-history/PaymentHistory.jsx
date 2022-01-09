@@ -15,7 +15,6 @@ import { NoData } from '../../../../../../../../components';
 const AddPaymentBtn = () => <Button variant="contained">+ Add payment</Button>;
 
 export default function PaymentHistory({ history }) {
-  console.log(history);
   return (
     <Accordion className={commonStyles.accordion} expanded={true}>
       <AccordionSummary

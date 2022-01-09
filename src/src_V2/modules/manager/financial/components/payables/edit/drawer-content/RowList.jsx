@@ -29,7 +29,7 @@ export default function RowList({ row, onClose }) {
           <div className={styles.supplierName}>Supplier Name: {row.supplier}</div>
         </div>
         <div className={styles.closeBtnDiv}>
-          <CloseIcon onClick={onClose} iconStyle={styles.closeBtn} />
+          <CloseIcon onClick={onClose} className={styles.closeBtn} />
         </div>
       </Box>
 

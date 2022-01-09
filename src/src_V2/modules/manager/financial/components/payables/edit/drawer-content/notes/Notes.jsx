@@ -3,7 +3,8 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
-  TextareaAutosize,
+  Button,
+  TextField,
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -31,15 +32,23 @@ export default function Notes({ row }) {
         <Typography className={commonStyles.detailsTxt}>Notes</Typography>
       </AccordionSummary>
       <AccordionDetails className={commonStyles.accordionDetails}>
-        <Box>
-          <TextareaAutosize
-            aria-label="minimum height"
-            minRows={3}
-            placeholder="Type in..."
-            className={styles.notesTextArea}
-            value={row.notes}
-          />
-        </Box>
+        <TextField
+          placeholder="Type in..."
+          minRows={3}
+          multiline
+          className={styles.notesTextArea}
+          value={row.notes}
+          fullWidth
+          InputProps={{
+            endAdornment: (
+              <Box className={styles.saveSection}>
+                <Button variant="contained" className={styles.saveBtn}>
+                  Save Note
+                </Button>
+              </Box>
+            ),
+          }}
+        />
       </AccordionDetails>
     </Accordion>
   );

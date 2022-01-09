@@ -3,7 +3,38 @@
 }
 
 .notesTextArea {
-  width: 844px;
-  border: 1px solid var(--midLightGrey);
+  border: 1px solid var(--midLightGrey) !important;
   border-radius: 4px;
+  display: flex !important;
+  flex-direction: column;
+  align-items: flex-end;
+  background-color: var(--white);
+}
+
+.notesTextArea > div {
+  flex-direction: column;
+  padding: 0;
+}
+
+.notesTextArea > div > textarea {
+  width: 96%;
+  padding-top: 17px;
+  padding-bottom: 17px;
+}
+
+/*.notesTextArea > div:hover .MuiOutlinedInput-notchedOutline {*/
+/*  border-color: var(--primary) !important;*/
+/*}*/
+
+.saveSection {
+  width: 100%;
+  background-color: var(--midLightGrey);
+  border-radius: 0 0 3px 3px;
+  height: 62px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.saveBtn {
+  margin: 10px !important;
 }

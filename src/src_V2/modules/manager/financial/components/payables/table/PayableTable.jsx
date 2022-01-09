@@ -119,9 +119,9 @@ const TableCellWrapper = ({ children }) => (
   <TableCell className={styles.tableCell}>{children}</TableCell>
 );
 
-const TableBodyWrapper = ({ children }) => (
+const TableBodyWrapper = ({ children, rowClassName }) => (
   <TableBody>
-    <TableRow>
+    <TableRow className={rowClassName && rowClassName}>
       <TableCell>{children}</TableCell>
     </TableRow>
   </TableBody>
@@ -399,7 +399,7 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
                 <LoadingSpinner />
               </TableBodyWrapper>
             ) : (
-              <TableBodyWrapper>
+              <TableBodyWrapper rowClassName={styles.whiteTableCell}>
                 {/*No Data*/}
                 <Box className={styles.noData}>
                   <NoData />

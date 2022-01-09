@@ -14,6 +14,7 @@
 }
 
 .layout {
+  min-height: 82vh;
   margin-right: 25px;
   margin-left: 25px;
 }
@@ -65,8 +66,6 @@
 }
 
 .footerBox {
-  position: absolute;
-  bottom: 0;
   width: 100%;
   justify-content: end;
 }
