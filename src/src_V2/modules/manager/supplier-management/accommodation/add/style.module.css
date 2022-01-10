@@ -1,0 +1,98 @@
+@import '../../../../../styles/colors.css';
+
+/* Add accommodation styles*/
+
+.container {
+  padding: 50px 120px 0;
+}
+
+/* Main Info */
+
+.mainInfo {
+  max-width: 930px;
+}
+
+.mnRow {
+  display: flex;
+}
+
+.label {
+  width: 100px;
+  font-size: 14px;
+  text-align: right;
+  margin-right: 24px;
+}
+
+.map {
+  padding: 0;
+  border: none;
+  color: black;
+  font-weight: bold;
+}
+
+/* Rooms*/
+
+.roomContent {
+  margin-right: 234px;
+}
+
+.gridItem {
+  max-width: 282px !important;
+  max-height: 218px;
+}
+
+.card {
+  height: 100%;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.addCard {
+  background-color: #eaf4fc !important;
+}
+
+.card .detailsInfo {
+  font-size: 14px;
+  color: var(--secondary);
+}
+
+.card .title {
+  margin: 8px 0;
+  font-size: 24px;
+}
+
+.addCard .title {
+  margin-top: 28px;
+  margin-bottom: 20px;
+}
+
+.subTitle {
+  font-size: 14px;
+}
+
+.card .price {
+  margin-top: 12px;
+}
+
+.addButton {
+  color: #2183d1;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.addButton svg {
+  margin-left: 9px;
+}
+
+.cardActions {
+  margin-bottom: 12px;
+  padding: 0 13px;
+}
+
+.cardActions.rightAligned {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cardActions .cardButton {
+  color: var(--secondary);
+}

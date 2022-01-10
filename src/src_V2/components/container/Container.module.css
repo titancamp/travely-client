@@ -1,0 +1,10 @@
+.subBox {
+  position: relative;
+  display: flex;
+  min-height: 91.4vh;
+  margin-top: 2px;
+}
+
+.main {
+  overflow-x: auto;
+}

@@ -2,12 +2,8 @@ import { useState } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-import Header from './header/Header';
-import Sidebar from './Sidebar';
-
-import { CONTAINER_SIZES } from '../../utils/constants';
-
-const { DRAWER_EXPANDED_WIDTH, DRAWER_COLLAPSED_WIDTH, CONTENT_LEFT_MARGIN } = CONTAINER_SIZES;
+import { Header, Sidebar } from '../';
+import styles from './Container.module.css';
 
 const Main = styled('main')(({ theme, open }) => ({
   flexGrow: 1,
@@ -15,20 +11,13 @@ const Main = styled('main')(({ theme, open }) => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  marginLeft: DRAWER_COLLAPSED_WIDTH + CONTENT_LEFT_MARGIN,
   ...(open && {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: DRAWER_EXPANDED_WIDTH + CONTENT_LEFT_MARGIN,
   }),
 }));
-
-const boxStyles = {
-  position: 'relative',
-  display: 'inline-block',
-};
 
 /**
  * @description - Container component which includes the following components in it, Sidebar, Appbar and Main component
@@ -38,14 +27,16 @@ const boxStyles = {
  * @returns {JSX.Element}
  */
 export default function Enhancer({ children, managerSidebarConfig }) {
-  const [openSidebar, setOpenSidebar] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(true);
 
   return (
     <Box>
       <Header />
-      <Box style={boxStyles}>
+      <Box className={styles.subBox}>
         <Sidebar pageConfigs={managerSidebarConfig} open={openSidebar} setOpen={setOpenSidebar} />
-        <Main open={openSidebar}>{children}</Main>
+        <Main open={openSidebar} className={styles.main}>
+          {children}
+        </Main>
       </Box>
     </Box>
   );
