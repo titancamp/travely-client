@@ -37,7 +37,6 @@ export default function AddTransportation() {
   });
 
   function onSubmit() {
-    console.log(transportation);
     if (!transportation.mainInfo.isValid) {
       return setCurrentTab({ step: 1, isValidate: true });
     } else if (!transportation.partnership.isValid) {
