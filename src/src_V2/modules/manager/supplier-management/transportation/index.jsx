@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
 import AddTransportation from './add/Index';
-import TransportationNoData from './noData/TransportationNoData';
+import TransportationNoData from './TransportationNoData';
 
 export const ROUTES = {
   ADD: 'add',
@@ -9,7 +9,7 @@ export const ROUTES = {
 };
 
 /**
- * @description Accommodation route configs.
+ * @description Transportation route configs.
  */
 function routeConfigs() {
   return [

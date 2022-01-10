@@ -1,4 +1,4 @@
-import { object, string, number } from 'yup';
+import { object, string, number, array } from 'yup';
 import { ERROR_MESSAGES, PhoneRegex } from '../../constants';
 
 export const BaseSchemas = {
@@ -15,6 +15,12 @@ export const BaseSchemas = {
     .shape({ id: number(), label: string() })
     .required(ERROR_MESSAGES.required)
     .nullable(),
+  multiAutocompleteField: array().of(
+    object().shape({
+      value: string(),
+      label: string(),
+    })
+  ),
   integer: (max = 99) =>
     number()
       .typeError(ERROR_MESSAGES.integer)

@@ -21,11 +21,7 @@ import {
 
 import styles from './style.module.css';
 import { EndAdornment } from '../../components/endAdornment';
-import { LicenseTypes } from '../constants';
-
-//TODO License type
-//TODO Languages list
-//TODO disable state
+import { License, Languages } from '../constants';
 
 export default function AddEditDriverDialog({ onClose, onSuccess, driver, editMode }) {
   const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
@@ -51,28 +47,28 @@ export default function AddEditDriverDialog({ onClose, onSuccess, driver, editMo
       <DialogTitle id='alert-dialog-title'>
         {editMode ? 'Edit' : 'Add'} Driver
       </DialogTitle>
-      <DialogContent style={{ paddingTop: 10 }}>
+      <DialogContent className={styles.viewTitle}>
         <Grid container spacing={2} rowSpacing={3}>
           <Grid item xs={12}>
-            <FormControl fullWidth className={styles.ctField}>
-              <InputLabel error={errors.person && touched.person}>Name</InputLabel>
+            <FormControl fullWidth>
+              <InputLabel error={errors.name && touched.name}>Name</InputLabel>
               <OutlinedInput
                 name='name'
-                onBlur={handleBlur}
-                value={values.person}
                 label='Name'
+                onBlur={handleBlur}
+                value={values.name}
                 onChange={handleChange}
-                error={errors.person && touched.person}
+                error={errors.name && touched.name}
                 endAdornment={<EndAdornment icon={<Person />} />}
               />
-              {touched.person && errors.person && (
-                <FormHelperText error>{errors.person}</FormHelperText>
+              {touched.name && errors.name && (
+                <FormHelperText error>{errors.name}</FormHelperText>
               )}
             </FormControl>
           </Grid>
           <Grid container item xs={12} spacing={3}>
             <Grid item xs={6}>
-              <FormControl fullWidth className={styles.ctField}>
+              <FormControl fullWidth>
                 <InputLabel error={errors.phone && touched.phone}>
                   Contact Phone
                 </InputLabel>
@@ -93,8 +89,8 @@ export default function AddEditDriverDialog({ onClose, onSuccess, driver, editMo
             <Grid item xs={6}>
               <Autocomplete
                 multiple
-                options={LicenseTypes}
-                value={values.services}
+                options={License}
+                value={values.license}
                 onChange={autoCompleteChangeHandler('license')}
                 renderInput={(params) => (
                   <TextField
@@ -102,9 +98,9 @@ export default function AddEditDriverDialog({ onClose, onSuccess, driver, editMo
                     name='license'
                     label='License Type'
                     onBlur={handleBlur}
-                    disabled={values.type}
                     onChange={handleChange}
-                    value={values.services}
+                    error={errors.license && touched.license}
+                    helperText={touched.license && errors.license}
                   />
                 )}
               />
@@ -112,8 +108,9 @@ export default function AddEditDriverDialog({ onClose, onSuccess, driver, editMo
           </Grid>
           <Grid item xs={12}>
             <Autocomplete
-              options={LicenseTypes}
-              value={values.services}
+              multiple
+              options={Languages}
+              value={values.languages}
               onChange={autoCompleteChangeHandler('languages')}
               renderInput={(params) => (
                 <TextField
@@ -121,9 +118,10 @@ export default function AddEditDriverDialog({ onClose, onSuccess, driver, editMo
                   name='languages'
                   label='Languages'
                   onBlur={handleBlur}
-                  disabled={values.type}
                   onChange={handleChange}
-                  value={values.services}
+                  value={values.languages}
+                  error={errors.languages && touched.languages}
+                  helperText={touched.languages && errors.languages}
                 />
               )}
             />

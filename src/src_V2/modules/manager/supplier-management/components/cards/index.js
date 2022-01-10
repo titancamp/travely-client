@@ -4,18 +4,16 @@ import {
   Card,
   Grid,
   Button,
+  Tooltip,
   IconButton,
   Typography,
-  Tooltip,
   CardContent,
   CardActionArea,
 } from '@mui/material';
 
-import { Person } from '@mui/icons-material';
+import { Info } from '@mui/icons-material';
 
 import styles from './style.module.css';
-
-//TODO disable icon
 
 export function AddCard({
   title,
@@ -47,7 +45,7 @@ export function AddCard({
                 title={`Maximum 50 ${tooltipKeyWord}s allowed, please delete an existing ${tooltipKeyWord} to add a new one.`}
                 className={styles.toolTip}
               >
-                <Person className={disabled ? styles.addButtonDisabled : ''} />
+                <Info className={disabled ? styles.addButtonDisabled : ''} />
               </Tooltip>
             )}
             <Typography className={styles.title} variant='h5'>
@@ -76,8 +74,9 @@ export function AddCard({
 
 export function InfoCard({
   id,
-  sectionData,
+  disabled,
   areaAction,
+  sectionData,
   firstCardAction,
   secondCardAction,
   seeDetailsAction,
@@ -101,8 +100,11 @@ export function InfoCard({
   return (
     <Grid className={styles.gridItem} item xs={3}>
       <Card className={styles.card}>
-        <CardActionArea onClick={areaAction ? openView : null}
-        	className={styles.cardContent}>
+        <CardActionArea
+          disabled={disabled}
+          className={styles.cardContent}
+          onClick={areaAction ? openView : null}
+        >
           <CardContent>
             <Typography className={styles.detailsInfo}>
               {sectionData[1].label}

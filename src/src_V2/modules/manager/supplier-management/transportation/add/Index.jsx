@@ -1,14 +1,14 @@
 import { Box } from '@mui/material';
 import { useRef, useState } from 'react';
 
+import Cars from './Cars';
+import MainInfo from './MainInfo';
 import Drivers from './Drivers';
 import { Container } from '../../../../../components';
 import { Banner, Partnership } from '../../components';
 
 import styles from './style.module.css';
 import { managerSidebarConfig } from '../../../config';
-import Cars from './Cars';
-import MainInfo from './MainInfo';
 
 function TransportationSteps({ currentTab: { step, isValidate }, transportation }) {
   switch (step) {

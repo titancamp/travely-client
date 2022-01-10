@@ -29,20 +29,20 @@ export default function Drivers({ parentRef }) {
     onShowHideDialog({ open: false });
   }
 
-  function openAddCardDialog() {
-    onShowHideDialog({
-      open: true,
-      mode: 'add',
-      actions: addDriver,
-    });
-  }
-
   function openViewCardDialog(id) {
     onShowHideDialog({
       open: true,
-      mode: 'view',
+      mode: 'view-driver',
       state: drivers.find((driver) => driver.id === id),
       actions: { openDeleteCardDialog, openEditCardDialog },
+    });
+  }
+
+  function openAddCardDialog() {
+    onShowHideDialog({
+      open: true,
+      mode: 'add-driver',
+      actions: addDriver,
     });
   }
 
@@ -58,7 +58,7 @@ export default function Drivers({ parentRef }) {
   function openEditCardDialog(id) {
     onShowHideDialog({
       open: true,
-      mode: 'edit',
+      mode: 'edit-driver',
       actions: editDriver,
       state: drivers.find((driver) => driver.id === id),
     });
@@ -78,14 +78,19 @@ export default function Drivers({ parentRef }) {
           tooltipKeyWord={'driver'}
         />
         {drivers.map((driver) => {
-          let license = driver.license.reduce(
-            (prevType, { label }) => prevType + label + ', ',
+          let license = driver.license?.reduce(
+            (prevType, { label }, index) => prevType + (index ? ', ' : '') + label,
             ''
           );
 
-          if (license.length) {
+          if (license?.length) {
             license += ' Category';
           }
+
+          let languages = driver.languages?.reduce(
+            (prev, { label }, index) => prev + (index ? ' / ' : '') + label,
+            ''
+          );
 
           return (
             <InfoCard
@@ -101,7 +106,7 @@ export default function Drivers({ parentRef }) {
                   label: null,
                 },
                 3: {
-                  value: driver.languages?.[0],
+                  value: languages,
                   label: '',
                 },
                 4: {

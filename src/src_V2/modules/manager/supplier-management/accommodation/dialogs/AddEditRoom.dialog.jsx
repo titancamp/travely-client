@@ -38,7 +38,7 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
   return (
     <form onSubmit={handleSubmit} autoComplete='off'>
       <DialogTitle id='alert-dialog-title'>{editMode ? 'Edit' : 'Add'} Room</DialogTitle>
-      <DialogContent style={{ paddingTop: 10 }}>
+      <DialogContent style={styles.viewTitle}>
         <Grid container spacing={2} rowSpacing={3}>
           <Grid item xs={6}>
             <Autocomplete
@@ -66,7 +66,6 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
               label='Quantity'
               placeholder='Quantity'
               onBlur={handleBlur}
-              disabled={!values.type}
               value={values.quantity}
               onChange={handleChange}
               error={errors.quantity && touched.quantity}
@@ -84,7 +83,7 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
               onChange={handleChange}
               error={errors.price && touched.price}
               helperText={touched.price && errors.price}
-              disabled={!values.type || !values.quantity}
+              disabled={!values.quantity}
             />
           </Grid>
           <Grid item xs={4}>
@@ -96,7 +95,6 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
               placeholder='Number of Beds'
               onBlur={handleBlur}
               value={values.beds}
-              disabled={!values.type}
               onChange={handleChange}
               error={errors.beds && touched.beds}
               helperText={touched.beds && errors.beds}
@@ -110,7 +108,6 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
               placeholder='Additional Beds'
               onBlur={handleBlur}
               onChange={handleChange}
-              disabled={!values.type}
               value={values.additionalBeds}
               error={errors.additionalBeds && touched.additionalBeds}
               helperText={touched.additionalBeds && errors.additionalBeds}
@@ -121,7 +118,6 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
               multiple
               options={RoomServices}
               value={values.services}
-              disabled={!values.type}
               onChange={autoCompleteChangeHandler('services')}
               renderInput={(params) => (
                 <TextField
@@ -129,7 +125,6 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
                   name='services'
                   label='Room Services'
                   onBlur={handleBlur}
-                  disabled={!values.type}
                   onChange={handleChange}
                   value={values.services}
                 />
@@ -140,7 +135,7 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
       </DialogContent>
       <DialogActions className={styles.dialogAction}>
         <Button onClick={onClose}>Cancel</Button>
-        <Button type='submit' variant='contained' disabled={!values.type}>
+        <Button type='submit' variant='contained'>
           {editMode ? 'Edit' : 'Add'}
         </Button>
       </DialogActions>

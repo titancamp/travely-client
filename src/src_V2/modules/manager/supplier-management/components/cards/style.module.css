@@ -1,7 +1,7 @@
 
 .gridItem {
-    max-width: 275px !important;
-    min-width: 260px !important;
+    max-width: 280px !important;
+    min-width: 275px !important;
     max-height: 218px;
 }
 
@@ -33,12 +33,18 @@
 
 .card .detailsInfo {
     font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     color: rgba(0, 0, 0, 0.6);
 }
 
 .card .title {
     margin: 8px 0;
     font-size: 24px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .addCard .title {
