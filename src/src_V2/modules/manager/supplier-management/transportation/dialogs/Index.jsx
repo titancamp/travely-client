@@ -43,7 +43,7 @@ function CurrentDialog({ data, onClose }) {
       return (
         <DeleteDialog onClose={onClose} id={data.state.id} deleteAction={data.actions} />
       );
-       case 'accommodationFilters':
+    case 'accommodationFilters':
       return <AllFiltersDialog data={data} onClose={onClose} />;
     case 'transportationDetails':
       return <TransportationDetailsDialog data={data} onClose={onClose} />;
