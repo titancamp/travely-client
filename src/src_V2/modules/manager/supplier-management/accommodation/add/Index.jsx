@@ -62,16 +62,3 @@ export default function AddAccommodation() {
     </Container>
   );
 }
-
-//TODO prettify onSubmit function
-
-/**
- * TODO on Main info
- * 1. Pin on Map
- * 3. Static data get from backend
- */
-
-/**
- * TODO on Partnership
- * handle the attachments functionality
- */
