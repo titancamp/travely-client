@@ -1,0 +1,74 @@
+.table {
+  width: 96% !important;
+  margin: 0 auto;
+}
+
+.tableTitles > * {
+  font-weight: bold !important;
+}
+
+.btn {
+  border-radius: 16px !important;
+  text-transform: capitalize !important;
+}
+
+.secondaryBtn {
+  background: #f50057 !important;
+}
+
+/* FilterBlock */
+
+.filterBtnIcon {
+  margin-right: 8px;
+}
+
+.select {
+  width: 170px !important;
+}
+
+.priceInp {
+  width: 121px;
+}
+
+.box {
+  background: #f8f8f9;
+  align-items: center;
+  padding: 24px 0;
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid darkgrey;
+}
+
+.leftSection {
+  align-items: center;
+  margin-left: 40px;
+  display: flex;
+}
+
+.rightSection {
+  margin-right: 82px;
+}
+
+.leftSection .title {
+  font-size: 24px;
+  margin-right: 24px;
+}
+
+.rightSection .addBtn {
+  margin-left: 22px;
+}
+
+.rightSection .addBtn a {
+  color: white;
+  text-decoration: none;
+}
+
+.filterBtnsBlock > span {
+  padding: 10px 15px;
+}
+
+tr > th:first-child,
+tr > td:first-child {
+  padding-left: 15px;
+}

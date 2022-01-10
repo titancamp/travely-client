@@ -3,6 +3,8 @@ import { Dialog } from '@mui/material';
 import Map from '../../components/dialogs/Map.dialog';
 import AddEditDriverDialog from './AddEditDriver.dialog';
 import DeleteDialog from '../../components/dialogs/Delete.dialog';
+import AllFiltersDialog from './AllFilters.dialog';
+import TransportationDetailsDialog from './TransportationDetails.dialog';
 
 function CurrentDialog({ data, onClose }) {
   switch (data.mode) {
@@ -14,6 +16,10 @@ function CurrentDialog({ data, onClose }) {
       return <></>;
     case 'view':
       return <></>;
+    case 'accommodationFilters':
+      return <AllFiltersDialog data={data} onClose={onClose} />;
+    case 'transportationDetails':
+      return <TransportationDetailsDialog data={data} onClose={onClose} />;
     case 'delete':
       return (
         <DeleteDialog onClose={onClose} id={data.state.id} deleteRoom={data.actions} />

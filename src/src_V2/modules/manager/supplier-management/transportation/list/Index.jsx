@@ -5,7 +5,6 @@ import {
   Box,
   Paper,
   Table,
-  Button,
   TableRow,
   TableBody,
   TableCell,
@@ -23,76 +22,34 @@ import DialogManager from '../dialogs/Index';
 import styles from './style.module.css';
 import AccommodationActions from './Menu';
 
-function createData(
-  name,
-  type,
-  region,
-  city,
-  contactNumber,
-  contactPerson,
-  email,
-  status
-) {
-  return { name, type, region, city, contactNumber, contactPerson, email, status };
+function createData(name, car, type, city, contactNumber, contactPerson) {
+  return { name, car, type, city, contactNumber, contactPerson };
 }
 
 const rows = [
   createData(
-    'Mariot',
-    'Hotel',
-    'Kotayq',
+    'Auto Park Name Example',
+    'Hyundai Veloster (st4)',
+    'Transportation Agency',
     'Abovyan',
     '+374 11 11 11 11',
-    'Name Lastname',
-    'customer.care@marriott.com',
-    <Button
-      onClick={(event) => {
-        event.stopPropagation();
-      }}
-      variant='contained'
-      className={styles.btn}
-      component='span'
-    >
-      Ready
-    </Button>
+    'Name Lastname'
   ),
   createData(
-    'Tufenkyan',
-    'Hotel',
-    'Kotayq',
-    'Abovyan',
+    'Savannah Nguyen',
+    'Hyundai Veloster (st4)',
+    'Individual Contractor',
+    'Yerevan',
     '+374 11 11 11 11',
-    'Name Lastname',
-    'customer.care@marriott.com',
-    <Button
-      onClick={(event) => {
-        event.stopPropagation();
-      }}
-      variant='contained'
-      className={`${styles.btn} ${styles.secondaryBtn}`}
-      component='span'
-    >
-      Missed Price
-    </Button>
+    'Name Lastname'
   ),
   createData(
-    'Multi rest',
-    'Hotel',
-    'Kotayq',
-    'Abovyan',
+    'Kathryn Murphy',
+    'Volkswagen Touareg (st6)',
+    'Transportation Agency',
+    'Dilijan',
     '+374 11 11 11 11',
-    'Name Lastname',
-    'customer.care@marriott.com',
-    <Button
-      onClick={(event) => {
-        event.stopPropagation();
-      }}
-      variant='contained'
-      className={styles.btn}
-      component='span'
-    >
-      Ready
-    </Button>
+    'Name Lastname'
   ),
 ];
 
@@ -132,16 +89,16 @@ const headCells = [
     label: 'Name',
   },
   {
+    id: 'car',
+    numeric: true,
+    disablePadding: false,
+    label: 'Car',
+  },
+  {
     id: 'type',
     numeric: true,
     disablePadding: false,
     label: 'Type',
-  },
-  {
-    id: 'region',
-    numeric: true,
-    disablePadding: false,
-    label: 'Region',
   },
   {
     id: 'city',
@@ -160,18 +117,6 @@ const headCells = [
     numeric: true,
     disablePadding: false,
     label: 'Contact Person',
-  },
-  {
-    id: 'email',
-    numeric: true,
-    disablePadding: false,
-    label: 'Email',
-  },
-  {
-    id: 'status',
-    numeric: true,
-    disablePadding: false,
-    label: 'Status',
   },
   {
     id: 'actions',
@@ -258,7 +203,7 @@ export default function AccommodationList() {
   function openAccommodationDetailsDialog() {
     onShowHideDialog({
       open: true,
-      mode: 'accommodationDetails',
+      mode: 'transportationDetails',
       actions: {},
     });
   }
@@ -293,13 +238,11 @@ export default function AccommodationList() {
                         <TableCell component='th' id={labelId} scope='row' padding='none'>
                           {row.name}
                         </TableCell>
+                        <TableCell align='right'>{row.car}</TableCell>
                         <TableCell align='right'>{row.type}</TableCell>
-                        <TableCell align='right'>{row.region}</TableCell>
                         <TableCell align='right'>{row.city}</TableCell>
                         <TableCell align='right'>{row.contactNumber}</TableCell>
                         <TableCell align='right'>{row.contactPerson}</TableCell>
-                        <TableCell align='right'>{row.email}</TableCell>
-                        <TableCell align='right'>{row.status}</TableCell>
                         <TableCell
                           align='right'
                           onClick={(event) => {
