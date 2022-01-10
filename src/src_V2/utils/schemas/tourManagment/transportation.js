@@ -23,31 +23,19 @@ export function AddDriverInitialValues(initialValues) {
   return {
     name: '',
     phone: '',
-    license: null,
-    languages: null,
+    license: [],
+    languages: [],
     ...initialValues,
   };
 }
 
 export function AddCarInitialValues(initialValues) {
   return {
-    beds: '',
-    price: '',
-    type: null,
-    quantity: '',
-    services: [],
-    additionalBeds: '',
-    ...initialValues,
-  };
-}
-
-export function partnershipInitialValues(initialValues) {
-  return {
-    price: '',
-    percentage: '',
-    signInDate: '',
-    attachments: [],
-    expiryDate: '',
+    model: '',
+    plate: '',
+    color: '',
+    seats: '',
+    carSeats: '',
     ...initialValues,
   };
 }
@@ -72,9 +60,19 @@ export function mainInfoSchema() {
 export function addDriverSchema() {
   return object().shape({
     phone: BaseSchemas.phone,
-    name: BaseSchemas.textField(50),
-    license: BaseSchemas.autocompleteField,
+    name: BaseSchemas.requiredText(50),
     languages: BaseSchemas.autocompleteField,
+    license: BaseSchemas.multiAutocompleteField,
+  });
+}
+
+export function addCarSchema() {
+  return object().shape({
+    seats: BaseSchemas.integer(),
+    carSeats: BaseSchemas.integer(),
+    color: BaseSchemas.textField(50),
+    plate: BaseSchemas.textField(10),
+    model: BaseSchemas.requiredText(50),
   });
 }
 

@@ -30,7 +30,7 @@ export default function Cars({ parentRef }) {
   function openAddCardDialog() {
     onShowHideDialog({
       open: true,
-      mode: 'add',
+      mode: 'add-car',
       actions: addCar,
     });
   }
@@ -38,7 +38,7 @@ export default function Cars({ parentRef }) {
   function openViewCardDialog(id) {
     onShowHideDialog({
       open: true,
-      mode: 'view',
+      mode: 'view-car',
       state: cars.find((car) => car.id === id),
       actions: { openDeleteCardDialog, openEditCardDialog },
     });
@@ -56,7 +56,7 @@ export default function Cars({ parentRef }) {
   function openEditCardDialog(id) {
     onShowHideDialog({
       open: true,
-      mode: 'edit',
+      mode: 'edit-car',
       actions: editCar,
       state: cars.find((car) => car.id === id),
     });
@@ -72,7 +72,7 @@ export default function Cars({ parentRef }) {
           buttonText='ADD CAR'
           onOpenDialog={openAddCardDialog}
           disabled={cars.length === 50}
-          subTitle='Add Button bellow to add rooms to your accommodation'
+          subTitle='Add Button bellow to add cars to your accommodation'
           tooltipKeyWord={'car'}
         />
         {cars.map((car) => (
@@ -81,19 +81,19 @@ export default function Cars({ parentRef }) {
             key={car.id}
             sectionData={{
               1: {
-                value: car.license?.label,
+                value: car.color,
                 label: '',
               },
               2: {
-                value: car.name,
+                value: car.model,
                 label: null,
               },
               3: {
-                value: car.languages?.['0'],
-                label: '',
+                value: car.seats + (car.carSeats ? ' / Car Seats: ' + car.carSeats : ''),
+                label: 'Seats: ',
               },
               4: {
-                value: car.phone,
+                value: car.plate,
                 label: '',
               },
             }}

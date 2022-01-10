@@ -13,10 +13,6 @@
   justify-content: flex-end;
 }
 
-.cardViewContainer {
-  min-width: 600px;
-  min-height: 300px;
-}
 
 .viewDialogTitle {
   display: flex;
@@ -45,7 +41,9 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-
+.viewTitle {
+  padding-top: 10px !important;
+}
 
 /* Filter */
 

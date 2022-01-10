@@ -1,8 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
 import AddTransportation from './add/Index';
-import TransportationNoData from './noData/TransportationNoData';
-import AccommodationList from './list/Index';
+import TransportationNoData from './TransportationNoData';
 
 export const ROUTES = {
   ADD: 'add',
@@ -10,13 +9,12 @@ export const ROUTES = {
 };
 
 /**
- * @description Accommodation route configs.
+ * @description Transportation route configs.
  */
 function routeConfigs() {
   return [
     { index: true, element: <TransportationNoData /> },
     { path: ROUTES.ADD, element: <AddTransportation /> },
-    { path: ROUTES.LIST, element: <AccommodationList /> },
   ];
 }
 

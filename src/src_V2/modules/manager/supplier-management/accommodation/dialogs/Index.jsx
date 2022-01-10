@@ -29,7 +29,7 @@ function CurrentDialog({ data, onClose }) {
       return <AccommodationDetailsDialog data={data} onClose={onClose} />;
     case 'delete':
       return (
-        <DeleteDialog onClose={onClose} id={data.state.id} deleteRoom={data.actions} />
+        <DeleteDialog onClose={onClose} id={data.state.id} deleteAction={data.actions} />
       );
     default:
       return null;
