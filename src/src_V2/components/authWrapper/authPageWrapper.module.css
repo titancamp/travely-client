@@ -1,0 +1,65 @@
+@import '../../styles/colors.css';
+
+.authWrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.illustrationWrapper {
+    width: 45vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.04);
+    pointer-events: none;
+    user-select: none;
+}
+
+.titleWrapper {
+    width: 386px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.title {
+    margin: 0;
+    font-weight: 400;
+    font-size: 32px;
+    color: var(--primary);
+}
+
+.description {
+    margin: 6px 0 0 0;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--secondary);
+}
+
+.logo {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 160px;
+}
+
+.img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.illustration {
+ max-width: 80%;
+}
+
+.mainWrapper {
+    width: 55vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formWrapper {
+    width: 386px;
+    padding-top: 10px;
+}

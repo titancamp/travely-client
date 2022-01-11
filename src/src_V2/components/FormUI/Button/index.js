@@ -1,9 +1,9 @@
-import React from 'react';
 import { Button } from '@mui/material';
 import { useFormikContext } from 'formik';
 
 const ButtonWrapper = ({ children, ...otherProps }) => {
-  const { submitForm } = useFormikContext();
+  const context = useFormikContext();
+  const { submitForm } = context;
 
   const handleSubmit = () => {
     submitForm();
@@ -15,16 +15,11 @@ const ButtonWrapper = ({ children, ...otherProps }) => {
     fullWidth: true,
     size: 'large',
     onClick: handleSubmit,
-    ...otherProps
+    disabled: context.isSubmitting,
+    ...otherProps,
   };
 
-  return (
-    <Button
-      {...configButton}
-    >
-      {children}
-    </Button>
-  );
+  return <Button {...configButton}>{children}</Button>;
 };
 
 export default ButtonWrapper;

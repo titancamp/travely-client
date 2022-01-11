@@ -1,4 +1,3 @@
-import React from 'react';
 import { TextField } from '@mui/material';
 import { useField } from 'formik';
 
@@ -8,8 +7,9 @@ const TextFieldWrapper = ({ name, ...otherProps }) => {
   const configTextField = {
     fullWidth: true,
     variant: 'outlined',
+    margin: 'dense',
     ...field,
-    ...otherProps
+    ...otherProps,
   };
 
   if (meta && meta.touched && meta.error) {
@@ -17,9 +17,7 @@ const TextFieldWrapper = ({ name, ...otherProps }) => {
     configTextField.helperText = meta.error;
   }
 
-  return (
-    <TextField {...configTextField} />
-  );
+  return <TextField {...configTextField} />;
 };
 
 export default TextFieldWrapper;
