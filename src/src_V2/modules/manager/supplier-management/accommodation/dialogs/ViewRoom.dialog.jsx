@@ -1,91 +1,82 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 
-import { Box, Typography, IconButton, DialogTitle, DialogContent } from '@mui/material';
+import {
+  Box,
+  Grid,
+  Typography,
+  IconButton,
+  DialogTitle,
+  DialogContent,
+} from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
 
 import styles from './style.module.css';
 
-export default function ViewRoomDialog({ id, onShowHideDialog }) {
-  const [room, setRoom] = useState({});
-  const openDialog = useCallback(
-    (mode) => {
-      //TODO handle in another way
-      onShowHideDialog({
-        id,
-        mode,
-        open: true,
-      });
-    },
-    [id, onShowHideDialog]
-  );
-
-  function getRoomInfo() {
-    /**
-     * Temporary get from backend.
-     */
-    setRoom({
-      id: 1,
-      beds: 2,
-      quantity: 12,
-      price: 30000,
-      type: 'Standard Single',
-    });
+export default function ViewRoomDialog({ data: { state: room, actions } }) {
+  function openDeleteDialog() {
+    actions.openDeleteCardDialog(room.id);
   }
 
-  useEffect(getRoomInfo, [id]);
+  function openEditDialog() {
+    actions.openEditCardDialog(room.id);
+  }
 
-  //TODO handle N/A cases and styles
   return (
-    <>
-      <DialogTitle>
-        <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography variant="h5">{room.type} / Details</Typography>
-          <Box className={`${styles.cardActions} ${styles.rightAligned}`}>
-            <IconButton onClick={() => openDialog('edit')}>
-              <Edit />
-            </IconButton>
-            <IconButton color="primary" onClick={() => openDialog('delete')}>
-              <Delete />
-            </IconButton>
-          </Box>
+    <Box className={styles.cardViewContainer}>
+      <DialogTitle className={styles.viewDialogTitle}>
+        <Typography className={styles.dialogTitle}>
+          {room.type.label} / Details
+        </Typography>
+        <Box className={`${styles.cardActions} ${styles.rightAligned}`}>
+          <IconButton onClick={openEditDialog}>
+            <Edit />
+          </IconButton>
+          <IconButton onClick={openDeleteDialog}>
+            <Delete />
+          </IconButton>
         </Box>
       </DialogTitle>
       <DialogContent>
-        <Box
-          style={{
-            width: 500,
-          }}
-        >
-          <Box style={{ display: 'flex' }}>
-            <Box>
-              <h6>Type</h6>
-              <p>{room.type}</p>
-            </Box>
-            <Box>
-              <h6>Quantity</h6>
-              <p>{room.quantity}</p>
-            </Box>
-            <Box>
-              <h6>Price</h6>
-              <p>{room.price}</p>
-            </Box>
-          </Box>
-          <Box style={{ display: 'flex' }}>
-            <Box>
-              <h6>Number of Beds</h6>
-              <p>{room.beds}</p>
-            </Box>
-            <Box>
-              <h6>Additional beds</h6>
-              <p>{room.beds}</p>
-            </Box>
-          </Box>
-          <Box>
-            <h6>Services</h6>
-            <p>Services/ Services/ Services/ Services/ Services/ </p>
-          </Box>
-        </Box>
+        <Grid container>
+          <Grid container item xs={8} spacing={2} mb={3}>
+            <Grid item xs={5}>
+              <Typography>Type</Typography>
+              <Typography className={styles.roomLabel}>{room.type.label}</Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Typography>Quantity</Typography>
+              <Typography className={styles.roomLabel}>{room.quantity}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography>Price</Typography>
+              <Typography className={styles.roomLabel}>
+                {room.price} {room.price && 'AMD'}
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid container item xs={8} spacing={2} mb={3}>
+            <Grid item xs={5}>
+              <Typography>Number of beds</Typography>
+              <Typography className={styles.roomLabel}>{room.beds}</Typography>
+            </Grid>
+            <Grid item xs={5}>
+              <Typography>additional beds</Typography>
+              <Typography className={styles.roomLabel}>{room.additionalBeds}</Typography>
+            </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography>Services</Typography>
+            <Typography className={styles.roomLabel}>
+              {room.services.map((item, index) => (
+                <Fragment key={index}>
+                  {index ? ' / ' : ''}
+                  {item.label}
+                </Fragment>
+              ))}
+            </Typography>
+          </Grid>
+        </Grid>
       </DialogContent>
-    </>
+    </Box>
   );
 }

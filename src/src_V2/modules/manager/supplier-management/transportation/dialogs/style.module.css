@@ -1,0 +1,51 @@
+/* Add Room */
+.dialogAction {
+  margin-top: 40px;
+}
+
+/* Card View */
+.cardActions {
+  margin-bottom: 12px;
+}
+
+.cardActions.rightAligned {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cardViewContainer {
+  min-width: 600px;
+  padding-bottom: 5px;
+}
+
+.viewDialogTitle {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 24px;
+  padding-bottom: 27px;
+}
+
+.viewDialogTitle .dialogTitle {
+  font-size: 24px;
+}
+
+.label {
+  opacity: 0.6;
+}
+
+
+.viewTitle {
+  padding-top: 10px !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
