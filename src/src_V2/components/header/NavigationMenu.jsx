@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import { Avatar, Button, Menu, MenuItem } from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import styles from './header.module.css';
 
 const StyledMenu = styled((props) => (
@@ -44,6 +44,13 @@ export default function CustomizedMenus() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
+    // console.log(open);
+    if (!open) {
+      console.log(event);
+      event.target.classList.add('bonjour');
+    }
+    // event.target.parentElement.classList.remove('moreVertIconTr');
+
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -60,7 +67,7 @@ export default function CustomizedMenus() {
         variant='contained'
         disableElevation
         onClick={handleClick}
-        endIcon={<KeyboardArrowDownIcon />}
+        endIcon={<ArrowDropDownIcon className={styles.arrowDropDownIcon} />}
         color='inherit'
         className={styles.userSection}
       >

@@ -7,7 +7,7 @@ import AddEditDriverDialog from './AddEditDriver.dialog';
 import Map from '../../components/dialogs/Map.dialog';
 import DeleteDialog from '../../components/dialogs/Delete.dialog';
 import AllFiltersDialog from './AllFilters.dialog';
-import TransportationDetailsDialog from './TransportationDetails.dialog';
+import TransportationDetailsDialog from './TransportationDetails/TransportationDetails.dialog';
 
 function CurrentDialog({ data, onClose }) {
   switch (data.mode) {
