@@ -6,7 +6,7 @@ import { AddCard, InfoCard } from '../../components';
 
 import styles from './style.module.css';
 
-export default function Drivers({ parentRef }) {
+export default function Rooms({ parentRef }) {
   const [drivers, setDrivers] = useState(parentRef.drivers);
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });
   const addDriversToTransportationData = () => (parentRef.drivers = drivers);
@@ -70,7 +70,7 @@ export default function Drivers({ parentRef }) {
     <Box className={styles.content}>
       <Grid container spacing={1}>
         <AddCard
-          title='Drivers'
+          title='Rooms'
           buttonText='ADD DRIVER'
           onOpenDialog={openAddCardDialog}
           disabled={drivers.length === 50}
