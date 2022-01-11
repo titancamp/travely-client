@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import { TabList, TabContext } from '@mui/lab';
@@ -8,7 +7,6 @@ import { Box, Tab, Dialog, IconButton, DialogTitle, DialogContent } from '@mui/m
 import Drivers from './Drivers';
 import Cars from './Cars';
 import MainInfo from './MainInfo';
-import DialogManager from '../Index';
 import Partnership from './Partnership';
 
 import styles from '../style.module.css';
