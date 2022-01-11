@@ -41,9 +41,7 @@ export default function TourDetails({ row }) {
           </Box>
           <Box className={styles.accordionDetailItems}>
             <Box>Tour Status</Box>
-            <Box className={styles.accordionDetailTxt}>
-              {PaymentStatus[row.status].toUpperCase()}
-            </Box>
+            <Box className={styles.accordionDetailTxt}>{PaymentStatus[row.status]}</Box>
           </Box>
         </Box>
       </AccordionDetails>

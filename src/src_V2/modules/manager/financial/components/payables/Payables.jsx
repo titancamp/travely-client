@@ -7,15 +7,19 @@ import { Container, Layout } from '../../../../../components';
 import ControlPanel from './control-panel/ControlPanel';
 import PayableTable from './table/PayableTable';
 
-const columns = payableColumns();
-
 export default function Payables() {
   const [payables, setPayables] = useState([]);
   const [payablesLoading, setPayablesLoading] = useState(false);
+  const [filteredPayables, setFilteredPayables] = useState([]);
+  const [searchTxt, setSearchTxt] = useState('');
 
   useEffect(() => {
     getPayables();
   }, []);
+
+  useEffect(() => {
+    filterPayables();
+  }, [searchTxt, payables]);
 
   // getting Payables from backend
   function getPayables() {
@@ -32,7 +36,7 @@ export default function Payables() {
   }
 
   function processPayables(payables) {
-    const processedPayables = [...payables].map((payable) => {
+    const processedPayables = payables.map((payable) => {
       payable.difference = payable.plannedCost - payable.actualCost;
       payable.remaining = payable.actualCost - payable.paidCost;
       return payable;
@@ -40,13 +44,28 @@ export default function Payables() {
     setPayables(processedPayables);
   }
 
+  function filterPayables() {
+    // filtering payables by Tour Name/ID/Supplier
+    const filteredPayables = payables.filter(
+      (item) =>
+        item.tourName.toLowerCase().includes(searchTxt) ||
+        item.paymentId.toString().includes(searchTxt) ||
+        item.supplier.toLowerCase().includes(searchTxt)
+    );
+    setFilteredPayables(filteredPayables);
+  }
+
+  const searchTxtChangedHandler = (value) => {
+    setSearchTxt(value);
+  };
+
   return (
     <Container managerSidebarConfig={managerSidebarConfig}>
       <Layout title="Payables">
-        <ControlPanel />
+        <ControlPanel searchTxt={searchTxt} searchTxtChangedHandler={searchTxtChangedHandler} />
         <PayableTable
-          payables={payables}
-          columns={columns}
+          payables={filteredPayables}
+          columns={payableColumns()}
           payablesLoading={payablesLoading}
           rowsPerPageOptions={rowsPerPageOptions}
         />

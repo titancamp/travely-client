@@ -3,11 +3,16 @@ import { FilterAlt, ViewColumn } from '@mui/icons-material';
 
 import styles from './ControlPanel.module.css';
 
-export default function ControlPanel() {
+export default function ControlPanel({ searchTxt, searchTxtChangedHandler }) {
   return (
     <Box className={styles.mainDiv}>
       <Paper className={styles.searchDiv}>
-        <InputBase className={styles.searchInput} placeholder="Search by Tour Name/ID/Supplier" />
+        <InputBase
+          className={styles.searchInput}
+          placeholder="Search by Tour Name/ID/Supplier"
+          value={searchTxt}
+          onChange={(e) => searchTxtChangedHandler(e.target.value)}
+        />
       </Paper>
 
       <Box className={styles.filterDiv}>
