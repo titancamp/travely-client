@@ -1,7 +1,50 @@
+export const RoomTypes = [
+  { id: 1, label: 'Standard Single' },
+  { id: 2, label: 'Standard Double' },
+  { id: 4, label: 'Twin' },
+  { id: 5, label: 'Queen' },
+  { id: 6, label: 'King' },
+  { id: 7, label: 'Suite' },
+  { id: 8, label: 'Presidential Suite' },
+  { id: 9, label: 'Villa' },
+];
+
+export const RoomServices = [
+  { id: 1, label: 'Breakfast ' },
+  { id: 2, label: 'Free Wifi' },
+  { id: 3, label: 'Room service' },
+  { id: 4, label: 'Hearing accessible' },
+  { id: 5, label: 'Accessible room' },
+  { id: 6, label: 'Pet friendly' },
+  { id: 7, label: 'Parking' },
+  { id: 8, label: 'Fitness' },
+  { id: 9, label: 'Massage' },
+  { id: 10, label: 'Smoking' },
+  { id: 11, label: 'Air conditioning' },
+  { id: 12, label: 'Heating' },
+  { id: 13, label: 'Private bathroom' },
+  { id: 14, label: 'Hair dryer' },
+];
+
 export const AccommodationTypes = [
   { id: 1, label: 'Hostels' },
   { id: 2, label: 'Guest Houses' },
   { id: 3, label: 'Private Houses' },
+  { id: 4, label: 'Hotel' },
+];
+
+export const Regions = [
+  { id: 1, label: 'Aragatsotn' },
+  { id: 2, label: 'Ararat' },
+  { id: 3, label: 'Armavir' },
+  { id: 4, label: 'Gegharkunik' },
+  { id: 5, label: 'Kotayk' },
+  { id: 5, label: 'Lori' },
+  { id: 7, label: 'Shirak' },
+  { id: 8, label: 'Syunik' },
+  { id: 9, label: 'Tavush' },
+  { id: 10, label: 'Vayots Dzor' },
+  { id: 11, label: 'Yerevan' },
 ];
 
 export const HotelServices = [

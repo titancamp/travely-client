@@ -4,6 +4,11 @@
   align-items: center;
   background-color: #2183d1;
   justify-content: space-between;
+  min-width: 700px;
+}
+
+.backArrowIcon {
+  color: white !important;
 }
 
 .contentLeft {
@@ -35,7 +40,8 @@
 }
 
 .actionBanner .addBtn:hover {
-  color: #000;
+  font-weight: 500;
+  opacity: 0.8;
 }
 
 .actionBanner .addBtn {

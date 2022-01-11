@@ -2,41 +2,53 @@ import { useState } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-import { Header, Sidebar } from '../';
-import styles from './Container.module.css';
+import Header from '../header/Header';
+import Sidebar from '../sidebar/Sidebar';
+
+import { CONTAINER_SIZES } from '../../utils';
 
 const Main = styled('main')(({ theme, open }) => ({
   flexGrow: 1,
+  minWidth: 1200,
   transition: theme.transitions.create('margin', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  marginLeft: 33,
   ...(open && {
     transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
+      easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    marginLeft: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
   }),
 }));
 
+const boxStyles = {
+  minWidth: 700,
+  width: '100%',
+};
+
 /**
- * @description - Container component which includes the following components in it, Sidebar, Appbar and Main component
- *                with some ui styles to support the Sidebars behavior(expand/collapse);
+ * @description - Container component which includes the following components in it, Sidebar, Appbar and Main
+                  component with some ui styles to support the Sidebars behavior(expand/collapse);
  * @param children - The children elements.
  * @param managerSidebarConfig - The configs for sidebar menu options.
  * @returns {JSX.Element}
  */
 export default function Enhancer({ children, managerSidebarConfig }) {
-  const [openSidebar, setOpenSidebar] = useState(true);
+  const [openSidebar, setOpenSidebar] = useState(false);
 
   return (
     <Box>
       <Header />
-      <Box className={styles.subBox}>
-        <Sidebar pageConfigs={managerSidebarConfig} open={openSidebar} setOpen={setOpenSidebar} />
-        <Main open={openSidebar} className={styles.main}>
-          {children}
-        </Main>
+      <Box style={boxStyles}>
+        <Sidebar
+          open={openSidebar}
+          setOpen={setOpenSidebar}
+          pageConfigs={managerSidebarConfig}
+        />
+        <Main open={openSidebar}>{children}</Main>
       </Box>
     </Box>
   );
