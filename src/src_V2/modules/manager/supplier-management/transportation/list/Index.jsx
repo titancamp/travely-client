@@ -138,7 +138,7 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+            align={'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -238,11 +238,11 @@ export default function TransportationList() {
                         <TableCell component='th' id={labelId} scope='row' padding='none'>
                           {row.name}
                         </TableCell>
-                        <TableCell align='right'>{row.car}</TableCell>
-                        <TableCell align='right'>{row.type}</TableCell>
-                        <TableCell align='right'>{row.city}</TableCell>
-                        <TableCell align='right'>{row.contactNumber}</TableCell>
-                        <TableCell align='right'>{row.contactPerson}</TableCell>
+                        <TableCell align='left'>{row.car}</TableCell>
+                        <TableCell align='left'>{row.type}</TableCell>
+                        <TableCell align='left'>{row.city}</TableCell>
+                        <TableCell align='left'>{row.contactNumber}</TableCell>
+                        <TableCell align='left'>{row.contactPerson}</TableCell>
                         <TableCell
                           align='right'
                           onClick={(event) => {

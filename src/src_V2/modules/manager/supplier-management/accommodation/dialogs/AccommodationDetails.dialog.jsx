@@ -1,9 +1,18 @@
 import * as React from 'react';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Box, Tab, Dialog, IconButton, DialogTitle, DialogContent } from '@mui/material';
+import {
+  Box,
+  Tab,
+  Grid,
+  Button,
+  Dialog,
+  Typography,
+  IconButton,
+  DialogTitle,
+  DialogContent,
+} from '@mui/material';
 import {
   Edit,
   Delete,

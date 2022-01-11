@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AddCircle, Tune } from '@mui/icons-material';
 import { Box, Grid, Button, TextField, Typography, Autocomplete } from '@mui/material';
-import { AccommodationTypes } from '../constants';
+import { TransportationTypes } from '../constants';
 import DialogManager from '../dialogs/Index';
+//TODO make this global for Supplier Management
+import { Regions } from '../../accommodation/constants';
 import styles from './style.module.css';
 
 export default function FilterBlock() {
@@ -25,28 +27,28 @@ export default function FilterBlock() {
           <Grid item>
             <Autocomplete
               className={styles.select}
-              options={AccommodationTypes}
+              options={TransportationTypes}
               renderInput={(params) => <TextField {...params} label='Type' />}
             />
           </Grid>
           <Grid item>
             <Autocomplete
               className={styles.select}
-              options={AccommodationTypes}
+              options={TransportationTypes}
               renderInput={(params) => <TextField {...params} label='Car' />}
             />
           </Grid>
           <Grid item>
             <Autocomplete
               className={styles.select}
-              options={AccommodationTypes}
+              options={Regions}
               renderInput={(params) => <TextField {...params} label='Region' />}
             />
           </Grid>
           <Grid item>
             <Autocomplete
               className={styles.select}
-              options={AccommodationTypes}
+              options={TransportationTypes}
               renderInput={(params) => <TextField {...params} label='City' />}
             />
           </Grid>
