@@ -1,5 +1,3 @@
-@import '../../styles/colors.css';
-
 .header {
   z-index: 9999999;
   display: flex;

@@ -1,5 +1,3 @@
-@import '../../styles/colors.css';
-
 .mainDiv {
   display: flex;
   flex-direction: column;

@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import notesImage from '../../../../../../../../assets/notes.png';
+import notesImage from '../../../../../../../../assets/icons/notes.png';
 import commonStyles from '../style.module.css';
 import styles from './Notes.module.css';
 

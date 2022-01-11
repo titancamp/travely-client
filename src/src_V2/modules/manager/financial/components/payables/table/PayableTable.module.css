@@ -1,5 +1,3 @@
-@import '../../../../../../styles/colors.css';
-
 .tableContainer {
   overflow-y: auto;
   background-color: var(--midGrey) !important;
