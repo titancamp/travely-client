@@ -1,6 +1,5 @@
 import { Box, Button, InputBase, Paper } from '@mui/material';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import ViewColumnIcon from '@mui/icons-material/ViewColumn';
+import { FilterAlt, ViewColumn } from '@mui/icons-material';
 
 import styles from './ControlPanel.module.css';
 
@@ -12,13 +11,13 @@ export default function ControlPanel() {
       </Paper>
 
       <Box className={styles.filterDiv}>
-        <Button variant="outlined" startIcon={<FilterAltIcon />}>
+        <Button variant="outlined" startIcon={<FilterAlt />}>
           Filter
         </Button>
       </Box>
 
       <Box className={styles.optionsDiv}>
-        <Button variant="outlined" startIcon={<ViewColumnIcon />}>
+        <Button variant="outlined" startIcon={<ViewColumn />}>
           Column option
         </Button>
       </Box>
