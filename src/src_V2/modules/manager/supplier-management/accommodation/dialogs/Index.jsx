@@ -4,7 +4,7 @@ import AllFiltersDialog from './AllFilters.dialog';
 import AddEditRoomDialog from './AddEditRoom.dialog';
 import Map from '../../components/dialogs/Map.dialog';
 import DeleteDialog from '../../components/dialogs/Delete.dialog';
-import AccommodationDetailsDialog from './AccommodationDetails.dialog';
+import AccommodationDetailsDialog from './AccommodationDetails/AccommodationDetails.dialog';
 
 function CurrentDialog({ data, onClose }) {
   switch (data.mode) {

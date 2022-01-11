@@ -24,10 +24,10 @@ import {
   LocationOn,
 } from '@mui/icons-material';
 import { TabList, TabPanel, TabContext } from '@mui/lab';
-import { InfoCard } from '../../components';
-import { RoomServices } from '../constants';
-import DialogManager from './Index';
-import styles from './style.module.css';
+import { InfoCard } from '../../../components';
+import { RoomServices } from '../../constants';
+import DialogManager from '../Index';
+import styles from '../style.module.css';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {

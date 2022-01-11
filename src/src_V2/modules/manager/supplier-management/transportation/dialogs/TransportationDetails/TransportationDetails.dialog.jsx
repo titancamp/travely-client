@@ -66,85 +66,10 @@ BootstrapDialogTitle.propTypes = {
 
 export default function TransportationDetailsDialog({ onClose, data: { open } }) {
   const [value, setValue] = React.useState('1');
-  const [rooms, setRooms] = useState([
-    {
-      beds: '6',
-      price: '8000',
-      type: {
-        id: 1,
-        label: 'Standard Single',
-      },
-      quantity: '11',
-      services: [],
-      additionalBeds: '',
-      id: 1,
-    },
-    {
-      beds: '5',
-      price: '3000',
-      type: {
-        id: 4,
-        label: 'Twin',
-      },
-      quantity: '17',
-      services: [],
-      additionalBeds: '',
-      id: 2,
-    },
-    {
-      beds: '4',
-      price: '2000',
-      type: {
-        id: 1,
-        label: 'Standard Single',
-      },
-      quantity: '22',
-      services: [],
-      additionalBeds: '',
-      id: 3,
-    },
-  ]);
-  const [dialogManagerState, onShowHideDialog] = useState({ open: false });
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  function deleteRoom(id) {
-    setRooms(rooms.filter((room) => room.id !== id));
-    onShowHideDialog({ open: false });
-  }
-
-  function editRoom(newRoom) {
-    setRooms(rooms.map((room) => (newRoom.id === room.id ? newRoom : room)));
-    onShowHideDialog({ open: false });
-  }
-
-  function openViewCardDialog(id) {
-    onShowHideDialog({
-      open: true,
-      mode: 'view',
-      state: rooms.find((room) => room.id === id),
-      actions: { openDeleteCardDialog, openEditCardDialog },
-    });
-  }
-
-  function openEditCardDialog(id) {
-    onShowHideDialog({
-      open: true,
-      mode: 'edit',
-      actions: editRoom,
-      state: rooms.find((room) => room.id === id),
-    });
-  }
-
-  function openDeleteCardDialog(id) {
-    onShowHideDialog({
-      open: true,
-      state: { id },
-      mode: 'delete',
-      actions: deleteRoom,
-    });
-  }
 
   return (
     <BootstrapDialog
@@ -180,7 +105,6 @@ export default function TransportationDetailsDialog({ onClose, data: { open } })
           </TabContext>
         </Box>
       </DialogContent>
-      {/*<DialogManager data={dialogManagerState} onShowHideDialog={onShowHideDialog} />*/}
     </BootstrapDialog>
   );
 }
