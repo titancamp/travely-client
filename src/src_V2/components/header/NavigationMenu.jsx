@@ -1,4 +1,5 @@
 import * as React from 'react';
+import classNames from 'classnames';
 import { styled, alpha } from '@mui/material/styles';
 import { Avatar, Button, Menu, MenuItem } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -44,13 +45,6 @@ export default function CustomizedMenus() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
-    // console.log(open);
-    if (!open) {
-      console.log(event);
-      event.target.classList.add('bonjour');
-    }
-    // event.target.parentElement.classList.remove('moreVertIconTr');
-
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -69,7 +63,10 @@ export default function CustomizedMenus() {
         onClick={handleClick}
         endIcon={<ArrowDropDownIcon className={styles.arrowDropDownIcon} />}
         color='inherit'
-        className={styles.userSection}
+        className={classNames({
+          [styles.userSection]: true,
+          [styles.userSectionBg]: open,
+        })}
       >
         <Avatar className={styles.avatar}>TM</Avatar>
       </Button>

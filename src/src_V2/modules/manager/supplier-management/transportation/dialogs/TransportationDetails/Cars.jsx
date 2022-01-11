@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useState } from 'react';
 import { TabPanel } from '@mui/lab';
 import { Grid } from '@mui/material';

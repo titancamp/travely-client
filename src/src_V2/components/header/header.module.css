@@ -36,12 +36,12 @@
   background: transparent !important;
 }
 
-.userSection:hover {
+.userSectionBg {
   background: #e0e0e0 !important;
 }
 
-.userAvatarSection .bonjour {
-    background: #e0e0e0 !important;
+.userSection:hover {
+  background: #e0e0e0 !important;
 }
 
 .userAvatarSection .avatar {
