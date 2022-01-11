@@ -8,6 +8,7 @@ import Button from '../../components/FormUI/Button';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SetNewPassword from './SetNewPassword';
+import VerifyEmail from '../../components/verifyEmail';
 
 const initialValues = {
   email: '',
@@ -33,7 +34,7 @@ export default function RestorePassword() {
   return params.get('token') ? (
     <SetNewPassword />
   ) : done ? (
-    <div>DONE</div>
+    <VerifyEmail />
   ) : (
     <AuthPageWrapper title={'Restore Password'}>
       <Formik

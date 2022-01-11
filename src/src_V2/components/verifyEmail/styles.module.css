@@ -1,0 +1,43 @@
+@import '../../styles/colors.css';
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper .logo {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  width: 160px;
+}
+
+.wrapper .illustration {
+  margin-bottom: 54px;
+}
+
+.wrapper .content {
+  text-align: center;
+  max-width: 396px;
+  margin: 0 auto;
+}
+
+.wrapper .title {
+  margin-bottom: 24px;
+}
+
+.wrapper .divider {
+  margin: 24px 0;
+}
+
+.wrapper .counter {
+  color: var(--primary);
+}
+
+.wrapper .disabledLink {
+  text-decoration: none;
+  color: #9e9e9e;
+  pointer-events: none;
+}
