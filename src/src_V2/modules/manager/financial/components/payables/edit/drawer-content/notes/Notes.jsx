@@ -14,7 +14,7 @@ import commonStyles from '../style.module.css';
 import styles from './Notes.module.css';
 
 export default function Notes({ row }) {
-  console.log(row);
+  // console.log(row);
   return (
     <Accordion className={commonStyles.accordion}>
       <AccordionSummary

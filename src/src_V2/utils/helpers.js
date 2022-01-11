@@ -5,7 +5,7 @@ export const generateDate = (dateStr) => {
   let mm = String(date.getMonth() + 1).padStart(2, '0'); // January is 0
   let yyyy = date.getFullYear();
 
-  return `${mm}/${dd}/${yyyy}`;
+  return dateStr ? `${mm}/${dd}/${yyyy}` : null;
 };
 
 export const generateArrayByRange = (start, end, conditionCallback = () => true) => {

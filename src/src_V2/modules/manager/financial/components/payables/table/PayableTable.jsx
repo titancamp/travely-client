@@ -68,7 +68,7 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-const EnhancedTableHead = (props) => {
+export const EnhancedTableHead = (props) => {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, columns } = props;
 
   const createSortHandler = (property) => (event) => {
@@ -115,11 +115,11 @@ const EnhancedTableHead = (props) => {
   );
 };
 
-const TableCellWrapper = ({ children }) => (
+export const TableCellWrapper = ({ children }) => (
   <TableCell className={styles.tableCell}>{children}</TableCell>
 );
 
-const TableBodyWrapper = ({ children, rowClassName }) => (
+export const TableBodyWrapper = ({ children, rowClassName }) => (
   <TableBody>
     <TableRow className={rowClassName && rowClassName}>
       <TableCell>{children}</TableCell>
@@ -130,7 +130,7 @@ const TableBodyWrapper = ({ children, rowClassName }) => (
 const EmptyTableCellWrapper = ({ count }) =>
   generateArrayByRange(1, count).map((el, index) => <TableCellWrapper key={index} />);
 
-const TooltipTableCell = ({ rowValue }) => {
+export const TooltipTableCell = ({ rowValue }) => {
   return (
     <TableCellWrapper>
       <TooltipText text={rowValue} />
