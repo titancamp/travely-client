@@ -2,7 +2,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 import { Container } from '../../../../../components';
-import accommodationImage from '../../../../../assets/accommodation.png';
+import accommodationImage from '../../../../../assets/images/accommodation.png';
 
 import { ROUTES } from '../routes';
 import { managerSidebarConfig } from '../../../config';

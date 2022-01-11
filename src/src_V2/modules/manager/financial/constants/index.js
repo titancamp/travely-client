@@ -1,2 +1,2 @@
-export { default as PaymentStatus } from './payment-status';
-export { default as PaymentType } from './payment-type';
+export { PaymentStatus, PaymentType } from './payment';
+export { rowsPerPageOptions, payableColumns } from './table-settings';

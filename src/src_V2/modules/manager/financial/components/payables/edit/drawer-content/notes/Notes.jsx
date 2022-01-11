@@ -3,13 +3,12 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
-  Button,
   TextField,
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import notesImage from '../../../../../../../../assets/notes.png';
+import notesImage from '../../../../../../../../assets/icons/notes.png';
 import commonStyles from '../style.module.css';
 import styles from './Notes.module.css';
 
@@ -33,18 +32,17 @@ export default function Notes({ row }) {
       </AccordionSummary>
       <AccordionDetails className={commonStyles.accordionDetails}>
         <TextField
-          placeholder="Type in..."
           minRows={3}
           multiline
           className={styles.notesTextArea}
           value={row.notes}
           fullWidth
+          label="Type in"
+          variant="outlined"
           InputProps={{
             endAdornment: (
-              <Box className={styles.saveSection}>
-                <Button variant="contained" className={styles.saveBtn}>
-                  Save Note
-                </Button>
+              <Box className={styles.lengthSection}>
+                <p>{row.notes?.length}/200 letter</p>
               </Box>
             ),
           }}

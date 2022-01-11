@@ -22,17 +22,19 @@
   padding-bottom: 17px;
 }
 
-/*.notesTextArea > div:hover .MuiOutlinedInput-notchedOutline {*/
-/*  border-color: var(--primary) !important;*/
-/*}*/
-
-.saveSection {
+.lengthSection {
   width: 100%;
+  height: 25px;
   background-color: var(--midLightGrey);
   border-radius: 0 0 3px 3px;
-  height: 62px;
   display: flex;
   flex-direction: row-reverse;
+  align-items: center;
+}
+
+.lengthSection p {
+  color: var(--midDarkGrey);
+  margin-right: 13px;
 }
 
 .saveBtn {

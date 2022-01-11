@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import { useState, useCallback } from 'react';
 
-import creditCard from '../../../../../../../../assets/credit-card.png';
+import creditCard from '../../../../../../../../assets/icons/credit-card.png';
 import commonStyles from '../style.module.css';
 import styles from './PaymentHistory.module.css';
 import tableStyles from '../../../table/PayableTable.module.css';

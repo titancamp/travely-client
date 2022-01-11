@@ -1,5 +1,3 @@
-@import '../../../../../../../styles/colors.css';
-
 .mainText {
   font-size: 17px;
 }
@@ -91,4 +89,16 @@
 
 .costTxt {
   font-size: 13px;
+}
+
+.primaryColor {
+  color: var(--primary);
+}
+
+.editableFields {
+  display: flex;
+}
+
+.editableFieldsInput {
+  margin-right: 26px !important;
 }

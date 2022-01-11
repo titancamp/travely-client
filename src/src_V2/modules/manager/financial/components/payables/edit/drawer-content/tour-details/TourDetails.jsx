@@ -1,7 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import pathImage from '../../../../../../../../assets/path.png';
+import pathImage from '../../../../../../../../assets/icons/path.png';
 import { generateDate } from '../../../../../../../../utils';
 import { PaymentStatus } from '../../../../../constants';
 

@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Stack } from '@mui/material';
+import { Box, Button, Divider, Stack, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 import TourDetails from './tour-details/TourDetails';
@@ -6,9 +6,9 @@ import PaymentHistory from './payment-history/PaymentHistory';
 import Notes from './notes/Notes';
 import styles from './RowList.module.css';
 
-const CostBox = ({ currency, cost, text }) => {
+const CostBox = ({ currency, cost, text, className }) => {
   return (
-    <Box className={styles.costBox}>
+    <Box className={`${styles.costBox} ${className && className}`}>
       <Box className={styles.costAmount}>
         {currency} {cost}
       </Box>
@@ -46,8 +46,33 @@ export default function RowList({ row, onClose }) {
             <CostBox currency={row.currency} cost={row.actualCost} text="Actual Cost" />
             <CostBox currency={row.currency} cost={row.difference} text="Difference" />
             <CostBox currency={row.currency} cost={row.paidCost} text="Paid Amount" />
-            <CostBox currency={row.currency} cost={row.remaining} text="Remaining" />
+            <CostBox
+              currency={row.currency}
+              cost={row.remaining}
+              text="Remaining"
+              className={styles.primaryColor}
+            />
           </Stack>
+        </Box>
+
+        <Box className={styles.layoutDistance}>
+          <Box className={styles.editableFields}>
+            <TextField
+              label="Actual Cost"
+              variant="outlined"
+              value={row.actualCost}
+              fullWidth
+              size="small"
+              className={styles.editableFieldsInput}
+            />
+            <TextField
+              label="Due date"
+              variant="outlined"
+              value={row.actualCost}
+              fullWidth
+              size="small"
+            />
+          </Box>
         </Box>
 
         <Box className={styles.layoutDistance}>

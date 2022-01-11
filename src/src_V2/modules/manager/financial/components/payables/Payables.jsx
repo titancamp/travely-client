@@ -1,32 +1,13 @@
 import { useEffect, useState } from 'react';
 
 import { managerSidebarConfig } from '../../../config';
+import { rowsPerPageOptions, payableColumns } from '../../constants';
 import payablesList from '../../mock/payable';
 import { Container, Layout } from '../../../../../components';
 import ControlPanel from './control-panel/ControlPanel';
 import PayableTable from './table/PayableTable';
 
-const rowsPerPageOptions = [20, 50, 100];
-
-const columns = [
-  { id: 'paymentId', label: 'Payment ID' },
-  { id: 'tourId', label: 'Tour ID' },
-  { id: 'tourNam', label: 'Tour name' },
-  { id: 'supplier', label: 'Supplier' },
-  { id: 'currency', label: 'Currency' },
-  { id: 'plannedCost', label: 'Planed cost' },
-  { id: 'actualCost', label: 'Actual cost' },
-  { id: 'difference', label: 'Difference' },
-  { id: 'paidCost', label: 'Paid' },
-  { id: 'remaining', label: 'Remaining' },
-  { id: 'status', label: 'Status' },
-  { id: 'createdDate', label: 'Created date' },
-  { id: 'invoiceId', label: 'Invoice ID' },
-  { id: 'dueDate', label: 'Due date' },
-  { id: 'paymentDate', label: 'Payment date' },
-  { id: 'paymentType', label: 'Payment type' },
-  { id: 'invoiceAttachment', label: 'Invoice Attachment' },
-];
+const columns = payableColumns();
 
 export default function Payables() {
   const [payables, setPayables] = useState([]);
@@ -54,7 +35,6 @@ export default function Payables() {
     const processedPayables = [...payables].map((payable) => {
       payable.difference = payable.plannedCost - payable.actualCost;
       payable.remaining = payable.actualCost - payable.paidCost;
-      payable.currency = 'AMD';
       return payable;
     });
     setPayables(processedPayables);

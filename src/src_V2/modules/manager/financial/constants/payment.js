@@ -1,4 +1,4 @@
-const PaymentStatus = {
+export const PaymentStatus = {
   'Partially Paid': 1,
   Paid: 2,
   Overdue: 3,
@@ -11,4 +11,9 @@ const PaymentStatus = {
   5: 'Unpaid',
 };
 
-export default PaymentStatus;
+export const PaymentType = {
+  Cash: 1,
+  Transfer: 2,
+  1: 'Cash',
+  2: 'Transfer',
+};

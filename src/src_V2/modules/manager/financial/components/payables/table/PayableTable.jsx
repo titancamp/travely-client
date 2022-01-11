@@ -22,7 +22,7 @@ import { generateArrayByRange, generateDate } from '../../../../../../utils';
 import { PaymentStatus, PaymentType } from '../../../constants';
 import { LoadingSpinner, NoData, TooltipText } from '../../../../../../components';
 import EditDrawer from '../edit/drawer/EditDrawer';
-import attachmentImage from '../../../../../../assets/attachment.png';
+import attachmentImage from '../../../../../../assets/icons/attachment.png';
 import styles from './PayableTable.module.css';
 
 function descendingComparator(a, b, orderBy) {
