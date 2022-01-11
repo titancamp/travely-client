@@ -25,6 +25,7 @@ import {
 } from '@mui/icons-material';
 import { TabList, TabPanel, TabContext } from '@mui/lab';
 import { InfoCard } from '../../components';
+import { RoomServices } from '../constants';
 import DialogManager from './Index';
 import styles from './style.module.css';
 
@@ -161,8 +162,6 @@ export default function AccommodationDetailsDialog({ onClose, data: { open } }) 
     });
   }
 
-  const services = ['Breakfast', 'Free Wifi', 'Room service', 'Hearing accessible'];
-
   return (
     <BootstrapDialog
       onClose={onClose}
@@ -229,14 +228,14 @@ export default function AccommodationDetailsDialog({ onClose, data: { open } }) 
               </Grid>
               <Grid className={styles.dashedBorder} />
               <Typography className={styles.roomTitle}>SERVICES</Typography>
-              {services.map((service) => (
+              {RoomServices.map((service) => (
                 <Button
                   variant='contained'
-                  key={service}
+                  key={service.id}
                   className={styles.detailsServiceBtns}
                   component='span'
                 >
-                  {service}
+                  {service.label}
                 </Button>
               ))}
               <Grid className={styles.dashedBorder} />

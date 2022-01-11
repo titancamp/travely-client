@@ -90,6 +90,7 @@ input[type=number] {
   border-radius: 16px;
   text-transform: capitalize;
   margin-right: 7px;
+  margin-bottom: 10px;
   height: 30px;
   cursor: inherit;
 }
