@@ -63,6 +63,9 @@ export default function MainInfo({ parentRef, isValidate }) {
   useEffect(validateForm, [isValidate]);
   useEffect(addMainInfoToParent, [values, isValid, touched]);
 
+  console.log(errors);
+  console.log(touched);
+
   return (
     <Box className={styles.mainInfo}>
       <form>

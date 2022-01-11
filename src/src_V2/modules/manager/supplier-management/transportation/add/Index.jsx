@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Cars from './Cars';
 import MainInfo from './MainInfo';
@@ -26,6 +27,7 @@ function TransportationSteps({ currentTab: { step, isValidate }, transportation 
 }
 
 export default function AddTransportation() {
+  const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState({ step: 1 });
   const { current: transportation } = useRef({
     cars: [],
@@ -40,7 +42,7 @@ export default function AddTransportation() {
     } else if (!transportation.partnership.isValid) {
       return setCurrentTab({ step: 4 });
     } else {
-      console.log(transportation);
+      navigate('../list');
     }
   }
 

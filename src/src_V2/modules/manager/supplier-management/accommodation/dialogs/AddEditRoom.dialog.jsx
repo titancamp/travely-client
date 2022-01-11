@@ -38,7 +38,7 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
   return (
     <form onSubmit={handleSubmit} autoComplete='off'>
       <DialogTitle id='alert-dialog-title'>{editMode ? 'Edit' : 'Add'} Room</DialogTitle>
-      <DialogContent style={styles.viewTitle}>
+      <DialogContent className={styles.viewTitle}>
         <Grid container spacing={2} rowSpacing={3}>
           <Grid item xs={6}>
             <Autocomplete

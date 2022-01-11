@@ -14,7 +14,6 @@ export function mainInfoInitialValues(initialValues) {
     checkIn: '',
     checkOut: '',
     region: null,
-    services: [],
     ...initialValues,
   };
 }
@@ -48,8 +47,8 @@ export function mainInfoSchema() {
     phone: BaseSchemas.phone,
     email: BaseSchemas.email,
     city: BaseSchemas.textField(),
-    region: BaseSchemas.textField(),
     address: BaseSchemas.textField(),
+    region: BaseSchemas.autocompleteField,
     notes: BaseSchemas.textField(500),
     person: BaseSchemas.textField(50),
     name: BaseSchemas.requiredText(50),
