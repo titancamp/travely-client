@@ -55,6 +55,9 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
                   onChange={handleChange}
                   error={errors.type && touched.type}
                   helperText={touched.type && errors.type}
+                  FormHelperTextProps={{
+                    className: styles.helperText,
+                  }}
                 />
               )}
             />
@@ -70,6 +73,9 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
               onChange={handleChange}
               error={errors.quantity && touched.quantity}
               helperText={touched.quantity && errors.quantity}
+              FormHelperTextProps={{
+                className: styles.helperText,
+              }}
             />
           </Grid>
           <Grid item xs={3}>
@@ -84,6 +90,9 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
               error={errors.price && touched.price}
               helperText={touched.price && errors.price}
               disabled={!values.quantity}
+              FormHelperTextProps={{
+                className: styles.helperText,
+              }}
             />
           </Grid>
           <Grid item xs={4}>
@@ -98,6 +107,9 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
               onChange={handleChange}
               error={errors.beds && touched.beds}
               helperText={touched.beds && errors.beds}
+              FormHelperTextProps={{
+                className: styles.helperText,
+              }}
             />
           </Grid>
           <Grid item xs={4}>
@@ -111,6 +123,9 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
               value={values.additionalBeds}
               error={errors.additionalBeds && touched.additionalBeds}
               helperText={touched.additionalBeds && errors.additionalBeds}
+              FormHelperTextProps={{
+                className: styles.helperText,
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -127,6 +142,9 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.services}
+                  FormHelperTextProps={{
+                    className: styles.helperText,
+                  }}
                 />
               )}
             />

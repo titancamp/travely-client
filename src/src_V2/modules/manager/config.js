@@ -49,19 +49,15 @@ export const managerSidebarConfig = [
       },
       {
         title: 'Food',
-        path: '/manager/food',
+        path: '/manager/tour-packages',
       },
       {
         title: 'Activities',
-        path: '/manager/activities',
+        path: '/manager/activity',
       },
       {
         title: 'Guides',
-        path: '/manager/guides',
-      },
-      {
-        title: 'Extra Services',
-        path: '/manager/extra-services',
+        path: '/manager/guide',
       },
     ],
   },
