@@ -3,6 +3,7 @@ import { ERROR_MESSAGES, PhoneRegex } from '../../constants';
 
 export const BaseSchemas = {
   email: string().email(ERROR_MESSAGES.email),
+  requiredEmail: string().email(ERROR_MESSAGES.email).required(ERROR_MESSAGES.required),
   requiredNumber: number()
     .typeError(ERROR_MESSAGES.number)
     .required(ERROR_MESSAGES.required)

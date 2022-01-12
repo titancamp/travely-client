@@ -16,6 +16,8 @@
 
 .wrapper .illustration {
   margin-bottom: 54px;
+  user-select: none;
+  pointer-events: none;
 }
 
 .wrapper .content {
@@ -30,6 +32,10 @@
 
 .wrapper .divider {
   margin: 24px 0;
+}
+
+.wrapper .link {
+  cursor: pointer;
 }
 
 .wrapper .counter {

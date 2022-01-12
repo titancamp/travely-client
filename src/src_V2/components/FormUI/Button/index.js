@@ -14,6 +14,7 @@ const ButtonWrapper = ({ children, ...otherProps }) => {
     color: 'primary',
     fullWidth: true,
     size: 'large',
+    type: 'submit',
     onClick: handleSubmit,
     disabled: context.isSubmitting,
     ...otherProps,

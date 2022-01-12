@@ -1,32 +1,31 @@
 import { TextField } from '@mui/material';
-// import { useField } from 'formik';
 import { useState } from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { Field } from 'formik';
+import { Field, useFormikContext } from 'formik';
 
 const PasswordFieldWrapper = ({ name, validate, ...otherProps }) => {
   const [showPassword, setShowPassword] = useState(false);
-  // const [field, meta] = useField(name);
+  const ctx = useFormikContext();
 
-  const handleClickShowPassword = () => {
+  const toggleShowHandler = () => {
     setShowPassword((prevValue) => !prevValue);
   };
 
   return (
-    <Field name={name} validate={validate}>
+    <Field name={name} validate={validate && ((value) => validate(value, ctx.values))}>
       {({ field, meta }) => {
         const configTextField = {
           fullWidth: true,
           variant: 'outlined',
-          margin: 'dense',
+          margin: 'normal',
           type: showPassword ? 'text' : 'password',
           InputProps: {
             endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={handleClickShowPassword} edge="end">
+              <InputAdornment position='end'>
+                <IconButton onClick={toggleShowHandler} edge='end'>
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>

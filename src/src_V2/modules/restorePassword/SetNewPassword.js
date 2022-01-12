@@ -1,23 +1,18 @@
 import AuthPageWrapper from '../../components/authWrapper/authPageWrapper';
-import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import Button from '../../components/FormUI/Button';
 import { useNavigate } from 'react-router-dom';
 import PasswordField from '../../components/FormUI/PasswordField';
 // import { useState } from 'react';
-import { validatePassword } from '../../utils';
-import PasswordValidator from '../../components/passwordValidator';
+import { ERROR_MESSAGES, getPasswordStrengthLevel } from '../../utils';
+import PasswordValidator from '../../components/passwordValidator/PasswordValidator';
 import { useState } from 'react';
+import styles from './RestorePassword.module.css';
 
 const initialValues = {
   password: '',
   repeatPassword: '',
 };
-
-const validationSchema = Yup.object({
-  // password: Yup.string().required('Required'),
-  repeatPassword: Yup.string().required('Required'),
-});
 
 export default function SetNewPassword() {
   const [passwordStrengthLevel, setPasswordStrengthLevel] = useState(0);
@@ -28,28 +23,40 @@ export default function SetNewPassword() {
       setTimeout(res, 1000);
     });
     if (Math.random() > 0.5) {
-      submitProps.setErrors({ password: 'Wrong password type' });
+      submitProps.setErrors({ password: 'Password error' });
     } else {
       navigate('/manager/dashboard');
     }
   };
 
-  const passwordValidateHandler = (password) => {
-    const strengthLevel = validatePassword(password);
+  const validatePasswordHandler = (password) => {
+    const strengthLevel = getPasswordStrengthLevel(password);
     setPasswordStrengthLevel(strengthLevel);
-    if (strengthLevel < 31) return 'Wrong strength';
+    if (!password) return ERROR_MESSAGES.required;
+    if (strengthLevel < 31) return ERROR_MESSAGES.password;
+  };
+
+  const validateRepeatPasswordHandler = (repeatPassword, values) => {
+    if (!repeatPassword) return ERROR_MESSAGES.required;
+    if (repeatPassword !== values.password) return ERROR_MESSAGES.repeatPassword;
   };
 
   return (
     <AuthPageWrapper title={'Set new password'}>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={submitHandler}
-      >
+      <Formik initialValues={initialValues} onSubmit={submitHandler}>
         <Form>
-          <PasswordField name={'password'} label={'Password'} validate={passwordValidateHandler} />
-          <PasswordField name={'repeatPassword'} label={'Repeat Password'} />
+          <div className={styles.fieldsWrapper}>
+            <PasswordField
+              name={'password'}
+              label={'Password'}
+              validate={validatePasswordHandler}
+            />
+            <PasswordField
+              name={'repeatPassword'}
+              label={'Repeat Password'}
+              validate={validateRepeatPasswordHandler}
+            />
+          </div>
           <PasswordValidator passedLevel={passwordStrengthLevel} />
           <Button>CONFIRM</Button>
         </Form>

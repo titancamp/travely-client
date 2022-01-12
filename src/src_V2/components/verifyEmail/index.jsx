@@ -5,12 +5,10 @@ import useTimer from '../../hooks/useTimer';
 import verifyIllustration from '../../assets/verifyIllustration.svg';
 import logo from '../../assets/Travely.png';
 
-const mockEmail = 'werty@gmail.com';
-
 // Temporary fix, no date formatting utils
 const addZero = (num) => (num > 10 ? num : '0' + num);
 
-export default function VerifyEmail() {
+export default function VerifyEmail(props) {
   const [secondsRemain, resetTimer] = useTimer(59);
 
   return (
@@ -23,15 +21,16 @@ export default function VerifyEmail() {
           Verify Your Email Address
         </Typography>
         <Typography variant='subtitle1'>
-          Please check your <b>{mockEmail}</b> email inbox for a verification email.
+          Please check your <b>{props.email}</b> email inbox for a verification email.
         </Typography>
         <Typography variant='subtitle1'>
           Didn&apos;t receive an email?{' '}
           <Link
-            className={clsx({ [styles.disabledLink]: secondsRemain > 0 })}
-            href='#'
-            onClick={(e) => {
-              e.preventDefault();
+            className={clsx({
+              [styles.link]: true,
+              [styles.disabledLink]: secondsRemain > 0,
+            })}
+            onClick={() => {
               resetTimer();
             }}
           >
@@ -44,7 +43,7 @@ export default function VerifyEmail() {
         <Divider className={styles.divider} />
         <Typography variant='body2'>
           Wrong email?{' '}
-          <Link href='#' onClick={(e) => e.preventDefault()}>
+          <Link underline='none' className={styles.link} onClick={props.onGoBack}>
             Change
           </Link>
         </Typography>

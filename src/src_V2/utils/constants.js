@@ -9,8 +9,26 @@ export const ERROR_MESSAGES = {
   email: 'The field is not a valid email',
   integer: 'The filed must be an integer',
   phone: 'The field is not a valid phone number',
+  password: 'All validation levels must be passed',
+  repeatPassword: 'Passwords doesn\'t match',
   maxNumberField: (max) => `The value must be at most ${max}`,
   maxTextField: (max) => `The filed must be at most ${max} characters`,
+};
+
+export const PasswordValidationNames = {
+  1: 'One lowercase character',
+  2: 'One uppercase character',
+  4: 'One number',
+  8: 'One special character',
+  16: '8-20 characters',
+};
+
+export const PasswordStrengthLevels = {
+  1: /^.*[a-z]/,
+  2: /^.*[A-Z]/,
+  4: /^.*[0-9]/,
+  8: /^.*[!@#$%^&*]/,
+  16: /^.{8,20}$/,
 };
 
 //Armenian Phone regexp
