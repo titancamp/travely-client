@@ -1,18 +1,13 @@
-import AuthPageWrapper from '../../components/authWrapper/authPageWrapper';
+import AuthPageWrapper from '../../../components/authWrapper/authPageWrapper';
 import { Formik, Form } from 'formik';
-import Button from '../../components/FormUI/Button';
+import Button from '../../../components/formUI/Button';
 import { useNavigate } from 'react-router-dom';
-import PasswordField from '../../components/FormUI/PasswordField';
-// import { useState } from 'react';
-import { ERROR_MESSAGES, getPasswordStrengthLevel } from '../../utils';
-import PasswordValidator from '../../components/passwordValidator/PasswordValidator';
+import PasswordField from '../../../components/formUI/PasswordField';
+import { ERROR_MESSAGES, getPasswordStrengthLevel } from '../../../utils';
+import PasswordValidator from '../../../components/passwordValidator/PasswordValidator';
 import { useState } from 'react';
 import styles from './RestorePassword.module.css';
-
-const initialValues = {
-  password: '',
-  repeatPassword: '',
-};
+import { setNewPasswordInitialValues } from '../../../utils/schemas/auth/auth';
 
 export default function SetNewPassword() {
   const [passwordStrengthLevel, setPasswordStrengthLevel] = useState(0);
@@ -42,18 +37,18 @@ export default function SetNewPassword() {
   };
 
   return (
-    <AuthPageWrapper title={'Set new password'}>
-      <Formik initialValues={initialValues} onSubmit={submitHandler}>
+    <AuthPageWrapper title='Set new password'>
+      <Formik initialValues={setNewPasswordInitialValues()} onSubmit={submitHandler}>
         <Form>
           <div className={styles.fieldsWrapper}>
             <PasswordField
-              name={'password'}
-              label={'Password'}
+              name='password'
+              label='Password'
               validate={validatePasswordHandler}
             />
             <PasswordField
-              name={'repeatPassword'}
-              label={'Repeat Password'}
+              name='repeatPassword'
+              label='Repeat Password'
               validate={validateRepeatPasswordHandler}
             />
           </div>

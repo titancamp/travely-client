@@ -1,17 +1,17 @@
 import { Typography } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-import AuthPageWrapper from '../../components/authWrapper/authPageWrapper';
+import AuthPageWrapper from '../../../components/authWrapper/authPageWrapper';
 import { Formik, Form } from 'formik';
-import TextField from '../../components/FormUI/TextField';
-import Button from '../../components/FormUI/Button';
+import TextField from '../../../components/formUI/TextField';
+import Button from '../../../components/formUI/Button';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SetNewPassword from './SetNewPassword';
-import VerifyEmail from '../../components/verifyEmail';
+import VerifyEmail from '../../../components/verifyEmail';
 import {
   restorePasswordInitialValues,
   restorePasswordSchema,
-} from '../../utils/schemas/auth/auth';
+} from '../../../utils/schemas/auth/auth';
 import styles from './RestorePassword.module.css';
 
 export default function RestorePassword() {
@@ -38,20 +38,21 @@ export default function RestorePassword() {
   ) : done ? (
     <VerifyEmail onGoBack={goBackHandler} email={enteredEmail} />
   ) : (
-    <AuthPageWrapper title={'Restore Password'}>
+    <AuthPageWrapper title='Restore Password'>
       <Formik
         initialValues={restorePasswordInitialValues()}
         validationSchema={restorePasswordSchema()}
         onSubmit={submitHandler}
+        validateOnMount
       >
         <Form>
-          <TextField name={'email'} label={'Email'} type={'email'} />
+          <TextField name='email' label='Email' type='email' />
           <Button>SEND</Button>
           <div className={styles.goBackWrapper}>
             <Typography
               className={styles.goBack}
               variant='body2'
-              align={'center'}
+              align='center'
               onClick={() => navigate(-1)}
             >
               &#8592; Back to Login
