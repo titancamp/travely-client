@@ -3,7 +3,7 @@ import { CssBaseline } from '@mui/material';
 
 import routesConfig from './routes';
 
-import '../styles/common.css';
+import './styles.css';
 
 /**
  * @description I don't know why we need separate wrapper for useRoutes bu it didn't work as mentioned in doc.
