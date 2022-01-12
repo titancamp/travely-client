@@ -1,0 +1,14 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.wrapper .logo {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  width: 160px;
+}

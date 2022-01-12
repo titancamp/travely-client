@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import styles from './styles.module.css';
 import useTimer from '../../hooks/useTimer';
 import verifyIllustration from '../../assets/verifyIllustration.svg';
-import logo from '../../assets/Travely.png';
+import AuthInfoWrapper from '../authInfoWrapper';
 
 // Temporary fix, no date formatting utils
 const addZero = (num) => (num > 10 ? num : '0' + num);
@@ -12,9 +12,7 @@ export default function VerifyEmail(props) {
   const [secondsRemain, resetTimer] = useTimer(59);
 
   return (
-    <div className={styles.wrapper}>
-      <img className={styles.logo} src={logo} alt='' />
-
+    <AuthInfoWrapper>
       <div className={styles.content}>
         <img src={verifyIllustration} alt='' className={styles.illustration} />
         <Typography variant='h4' className={styles.title}>
@@ -48,6 +46,6 @@ export default function VerifyEmail(props) {
           </Link>
         </Typography>
       </div>
-    </div>
+    </AuthInfoWrapper>
   );
 }
