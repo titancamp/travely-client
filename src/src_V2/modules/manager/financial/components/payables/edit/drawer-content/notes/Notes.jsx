@@ -12,19 +12,19 @@ import notesImage from '../../../../../../../../assets/icons/notes.png';
 import commonStyles from '../style.module.css';
 import styles from './Notes.module.css';
 
-export default function Notes({ row }) {
+export default function Notes({ rowListForm }) {
   // console.log(row);
   return (
     <Accordion className={commonStyles.accordion}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
+        aria-controls='panel1a-content'
+        id='panel1a-header'
         className={commonStyles.accordionSummary}
       >
         <Box
-          component="img"
-          alt="Notes"
+          component='img'
+          alt='Notes'
           src={notesImage}
           className={`${styles.notesImg} ${commonStyles.panelImg}`}
         />
@@ -32,17 +32,22 @@ export default function Notes({ row }) {
       </AccordionSummary>
       <AccordionDetails className={commonStyles.accordionDetails}>
         <TextField
+          name='notes'
           minRows={3}
           multiline
           className={styles.notesTextArea}
-          value={row.notes}
+          value={rowListForm.values.notes}
+          onChange={rowListForm.handleChange}
           fullWidth
-          label="Type in"
-          variant="outlined"
+          label='Type in'
+          variant='outlined'
           InputProps={{
             endAdornment: (
               <Box className={styles.lengthSection}>
-                <p>{row.notes?.length}/200 letter</p>
+                <p>
+                  {!!rowListForm.values?.notes?.length &&
+                    `${rowListForm.values.notes.length}/200 letter`}
+                </p>
               </Box>
             ),
           }}

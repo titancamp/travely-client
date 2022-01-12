@@ -53,27 +53,41 @@ const EditableTableCell = ({ rowValue, type, inputLabel }) => {
             return (
               <TextField
                 label={inputLabel}
-                size="small"
-                variant="outlined"
+                size='small'
+                variant='outlined'
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
               />
             );
           case inputTypes.price:
-            return <TextField label={inputLabel} size="small" variant="outlined" value={input} />;
+            return (
+              <TextField
+                label={inputLabel}
+                size='small'
+                variant='outlined'
+                value={input}
+              />
+            );
           case inputTypes.date:
-            return <TextField label={inputLabel} size="small" variant="outlined" value={input} />;
+            return (
+              <TextField
+                label={inputLabel}
+                size='small'
+                variant='outlined'
+                value={input}
+              />
+            );
           case inputTypes.select:
             return (
               <>
-                <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                <InputLabel id='demo-simple-select-label'>Type</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
+                  labelId='demo-simple-select-label'
+                  id='demo-simple-select'
                   value={rowValue}
                   onChange={(e) => setInput(e.value)}
                   autoWidth
-                  label="Type"
+                  label='Type'
                 >
                   <MenuItem value={'Cash'}>Cash</MenuItem>
                   <MenuItem value={'Transfer'}>Transfer</MenuItem>
@@ -81,7 +95,14 @@ const EditableTableCell = ({ rowValue, type, inputLabel }) => {
               </>
             );
           case inputTypes.file:
-            return <TextField label={inputLabel} size="small" variant="outlined" value={input} />;
+            return (
+              <TextField
+                label={inputLabel}
+                size='small'
+                variant='outlined'
+                value={input}
+              />
+            );
           default:
             return <TooltipText text={input || ''} />;
         }
@@ -93,8 +114,6 @@ const EditableTableCell = ({ rowValue, type, inputLabel }) => {
 export default function PaymentHistory({ history }) {
   const loading = false;
   const [data, setData] = useState(history || []);
-
-  console.log(data);
 
   const addPayment = useCallback(() => {
     setData((d) => {
@@ -113,7 +132,7 @@ export default function PaymentHistory({ history }) {
 
   const AddPaymentBtn = useCallback(() => {
     return (
-      <Button variant="contained" onClick={addPayment}>
+      <Button variant='contained' onClick={addPayment}>
         + Add payment
       </Button>
     );
@@ -122,14 +141,14 @@ export default function PaymentHistory({ history }) {
   return (
     <Accordion className={commonStyles.accordion} expanded={true}>
       <AccordionSummary
-        aria-controls="panel1a-content"
-        id="panel1a-header"
+        aria-controls='panel1a-content'
+        id='panel1a-header'
         className={`${commonStyles.accordionSummary} ${styles.accordionBox}`}
       >
         <Box className={styles.paymentBox}>
           <Box
-            component="img"
-            alt="Payment History"
+            component='img'
+            alt='Payment History'
             src={creditCard}
             className={`${styles.cardImg} ${commonStyles.panelImg}`}
           />
@@ -148,12 +167,12 @@ export default function PaymentHistory({ history }) {
       <AccordionDetails className={commonStyles.accordionDetails}>
         <Box>
           <TableContainer className={tableStyles.tableContainer}>
-            <Table aria-labelledby="tableTitle" padding="none">
+            <Table aria-labelledby='tableTitle' padding='none'>
               <TableHead className={tableStyles.tableHead}>
                 <TableRow>
                   {columns.map((headCell) => (
                     <TableCell
-                      align="left"
+                      align='left'
                       key={headCell.id}
                       className={`${tableStyles.tableCell} ${tableStyles.tableHeaderCell}`}
                     >
