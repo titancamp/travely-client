@@ -30,3 +30,13 @@
   margin-right: 10px;
   color: var(--secondary);
 }
+
+.userSection {
+  width: 76px;
+}
+
+.userAvatarSection .avatar {
+  width: 34px;
+  height: 34px;
+  font-size: 14px;
+}

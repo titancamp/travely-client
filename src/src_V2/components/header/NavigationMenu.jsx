@@ -2,6 +2,7 @@ import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import { Avatar, Button, Menu, MenuItem } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import styles from './header.module.css';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -30,7 +31,10 @@ const StyledMenu = styled((props) => (
     },
     '& .MuiMenuItem-root': {
       '&:active': {
-        backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
+        backgroundColor: alpha(
+          theme.palette.primary.main,
+          theme.palette.action.selectedOpacity
+        ),
       },
     },
   },
@@ -47,22 +51,23 @@ export default function CustomizedMenus() {
   };
 
   return (
-    <div>
+    <div className={styles.userAvatarSection}>
       <Button
-        id="demo-customized-button"
-        aria-controls="demo-customized-menu"
-        aria-haspopup="true"
+        id='demo-customized-button'
+        aria-controls='demo-customized-menu'
+        aria-haspopup='true'
         aria-expanded={open ? 'true' : undefined}
-        variant="contained"
+        variant='contained'
         disableElevation
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
-        color="inherit"
+        color='inherit'
+        className={styles.userSection}
       >
-        <Avatar>TM</Avatar>
+        <Avatar className={styles.avatar}>TM</Avatar>
       </Button>
       <StyledMenu
-        id="demo-customized-menu"
+        id='demo-customized-menu'
         MenuListProps={{
           'aria-labelledby': 'demo-customized-button',
         }}

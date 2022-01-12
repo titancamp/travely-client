@@ -1,0 +1,19 @@
+.mnRow {
+  display: flex;
+}
+
+.label {
+  width: 100px;
+  font-size: 14px;
+  text-align: right;
+  margin-right: 24px;
+}
+
+.ctField {
+  margin-bottom: 25px !important;
+  max-width: 400px;
+}
+
+.outline {
+  border-color: red !important;
+}
