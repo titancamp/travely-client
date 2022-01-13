@@ -41,6 +41,6 @@ export function rowListSchema() {
     //   paymentType: '',
     //   // attachment: '',
     // }),
-    notes: BaseSchemas.textField(200),
+    notes: BaseSchemas.textField(500),
   });
 }

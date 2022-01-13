@@ -22,10 +22,11 @@ const CostBox = ({ currency, cost, text, className }) => {
 };
 
 export default function RowList({ row, onClose }) {
-  const { values, errors, handleBlur, handleChange, handleSubmit } = useFormik({
-    validationSchema: rowListSchema,
-    initialValues: rowListInitialValues(row),
-  });
+  const { values, errors, handleBlur, handleChange, handleSubmit, setFieldValue } =
+    useFormik({
+      validationSchema: rowListSchema,
+      initialValues: rowListInitialValues(row),
+    });
 
   return (
     <form onSubmit={handleSubmit}>
@@ -112,6 +113,7 @@ export default function RowList({ row, onClose }) {
             errors={errors}
             handleChange={handleChange}
             handleBlur={handleBlur}
+            setFieldValue={setFieldValue}
           />
         </Box>
       </Box>

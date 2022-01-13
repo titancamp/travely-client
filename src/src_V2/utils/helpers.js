@@ -1,5 +1,5 @@
 export const generateDate = (dateStr) => {
-  if (!dateStr) return null;
+  if (!dateStr) return '';
 
   const date = new Date(dateStr);
 

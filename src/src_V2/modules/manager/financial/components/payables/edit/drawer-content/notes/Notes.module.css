@@ -42,3 +42,9 @@
 .saveBtn {
   margin: 10px !important;
 }
+
+.clearNote {
+  position: absolute !important; /* todo change absolute position not to cover all text */
+  right: 5px;
+  top: 5px;
+}
