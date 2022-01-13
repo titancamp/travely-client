@@ -32,7 +32,7 @@ const PasswordFieldWrapper = ({ name, validate, ...otherProps }) => {
           ...otherProps,
         };
 
-        if (meta && meta.touched && meta.error) {
+        if (meta?.touched && meta?.error) {
           configTextField.error = true;
           configTextField.helperText = meta.error;
         }
