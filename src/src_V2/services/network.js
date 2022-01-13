@@ -6,7 +6,7 @@ import CacheService from './storage';
 function refreshToken() {}
 
 const baseConfig = {
-  baseURL: 'http://localhost:8000',
+  baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -27,11 +27,13 @@ function requestInterceptionHandler(config) {
 
 async function responseFailureInterceptionHandler(error) {
   if (!error.response || error.response.status === 500) {
+    //TODO handle redirection to IntervalServer page correctly
     return history.push('/INTERNAL_SERVER_PAGE');
   }
 
   const originalConfig = error.config;
 
+  //TODO check the expiration case correctly.
   if (error.response.status === 401 && originalConfig.url !== 'url of auth-> sigin') {
     try {
       if (!isRefreshing) {
