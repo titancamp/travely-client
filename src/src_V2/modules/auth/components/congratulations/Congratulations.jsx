@@ -4,6 +4,7 @@ import { CircularProgress, Typography } from '@mui/material';
 
 import AuthInfoWrapper from '../authInfoWrapper/AuthInfoWrapper';
 
+import { ROUTES } from '../../routes';
 import styles from './Congratulations.module.css';
 import congratsIllusration from '../../../../assets/congratsIllustration.svg';
 
@@ -13,7 +14,7 @@ export default function Congratulations({ urlToRedirect, timeout }) {
 
   useEffect(() => {
     if (!params.get('token')) {
-      navigate('/login', { replace: true });
+      navigate(`/${ROUTES.LOGIN}`, { replace: true });
     } else {
       setTimeout(() => navigate(urlToRedirect, { replace: true }), timeout);
     }

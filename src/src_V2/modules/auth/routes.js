@@ -6,9 +6,9 @@ import RestorePassword from './restorePassword/RestorePassword';
 
 export const ROUTES = {
   LOGIN: 'login',
-  SIGN_UP: 'signUp',
-  REGISTER_AGENCY: 'registerAgency',
-  RESTORE_PASSWORD: 'restorePassword',
+  SIGN_UP: 'sign-up',
+  REGISTER_AGENCY: 'register-agency',
+  RESTORE_PASSWORD: 'restore-password',
 };
 
 /**
