@@ -3,6 +3,7 @@ import {
   Box,
   Card,
   Grid,
+  Avatar,
   Button,
   Tooltip,
   IconButton,
@@ -74,6 +75,7 @@ export function AddCard({
 
 export function InfoCard({
   id,
+  image,
   disabled,
   areaAction,
   sectionData,
@@ -100,6 +102,11 @@ export function InfoCard({
   return (
     <Grid className={styles.gridItem} item xs={3}>
       <Card className={styles.card}>
+        {image && (
+          <Box className={styles.avatarContainer}>
+            <Avatar className={styles.avatar} src={image} />
+          </Box>
+        )}
         <CardActionArea
           disabled={disabled}
           className={styles.cardContent}
