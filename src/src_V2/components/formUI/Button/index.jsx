@@ -5,17 +5,13 @@ const ButtonWrapper = ({ children, ...otherProps }) => {
   const context = useFormikContext();
   const { submitForm } = context;
 
-  const handleSubmit = () => {
-    submitForm();
-  };
-
   const configButton = {
     variant: 'contained',
     color: 'primary',
     fullWidth: true,
     size: 'large',
     type: 'submit',
-    onClick: handleSubmit,
+    onClick: submitForm,
     disabled: context.isSubmitting,
     ...otherProps,
   };
