@@ -97,8 +97,19 @@
 
 .editableFields {
   display: flex;
+  justify-content: space-between;
 }
 
-.editableFieldsInput {
-  margin-right: 26px !important;
+.actualCostControl {
+  width: 25.3vw;
+}
+
+.actualCostControl > div {
+  display: flex;
+  align-items: baseline;
+}
+
+.dueDatePicker > div > div {
+  height: 40px;
+  width: 25.3vw;
 }

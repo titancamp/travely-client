@@ -1,6 +1,10 @@
-import { Box, Button, Divider, Stack, TextField } from '@mui/material';
+import { Box, Button, Divider, InputAdornment, Stack, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { useFormik } from 'formik';
 
+import { rowListInitialValues, rowListSchema } from '../../../../../../../utils/schemas';
 import TourDetails from './tour-details/TourDetails';
 import PaymentHistory from './payment-history/PaymentHistory';
 import Notes from './notes/Notes';
@@ -18,8 +22,13 @@ const CostBox = ({ currency, cost, text, className }) => {
 };
 
 export default function RowList({ row, onClose }) {
+  const { values, errors, handleBlur, handleChange, handleSubmit } = useFormik({
+    validationSchema: rowListSchema,
+    initialValues: rowListInitialValues(row),
+  });
+
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       {/*Header*/}
       <Box className={styles.mainBox}>
         <div className={styles.textDiv}>
@@ -38,18 +47,18 @@ export default function RowList({ row, onClose }) {
         <Box className={styles.layoutDistance}>
           <Stack
             className={styles.generalInfo}
-            direction="row"
-            divider={<Divider orientation="vertical" flexItem />}
+            direction='row'
+            divider={<Divider orientation='vertical' flexItem />}
             spacing={2}
           >
-            <CostBox currency={row.currency} cost={row.plannedCost} text="Planned Cost" />
-            <CostBox currency={row.currency} cost={row.actualCost} text="Actual Cost" />
-            <CostBox currency={row.currency} cost={row.difference} text="Difference" />
-            <CostBox currency={row.currency} cost={row.paidCost} text="Paid Amount" />
+            <CostBox currency={row.currency} cost={row.plannedCost} text='Planned Cost' />
+            <CostBox currency={row.currency} cost={row.actualCost} text='Actual Cost' />
+            <CostBox currency={row.currency} cost={row.difference} text='Difference' />
+            <CostBox currency={row.currency} cost={row.paidCost} text='Paid Amount' />
             <CostBox
               currency={row.currency}
               cost={row.remaining}
-              text="Remaining"
+              text='Remaining'
               className={styles.primaryColor}
             />
           </Stack>
@@ -58,20 +67,34 @@ export default function RowList({ row, onClose }) {
         <Box className={styles.layoutDistance}>
           <Box className={styles.editableFields}>
             <TextField
-              label="Actual Cost"
-              variant="outlined"
-              value={row.actualCost}
-              fullWidth
-              size="small"
-              className={styles.editableFieldsInput}
+              name='actualCost'
+              label='Actual Cost'
+              variant='outlined'
+              size='small'
+              className={styles.actualCostControl}
+              value={values.actualCost}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={!!errors.actualCost}
+              helperText={errors.actualCost}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position='start'>{row.currency}</InputAdornment>
+                ),
+              }}
             />
-            <TextField
-              label="Due date"
-              variant="outlined"
-              value={row.actualCost}
-              fullWidth
-              size="small"
-            />
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <Box className={styles.dueDatePicker}>
+                <DesktopDatePicker
+                  name='dueDate'
+                  label='Due date'
+                  inputFormat='dd/MM/yyyy'
+                  value={values.dueDate}
+                  onChange={handleChange}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </Box>
+            </LocalizationProvider>
           </Box>
         </Box>
 
@@ -84,21 +107,26 @@ export default function RowList({ row, onClose }) {
         </Box>
 
         <Box className={styles.layoutDistance}>
-          <Notes row={row} />
+          <Notes
+            values={values}
+            errors={errors}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+          />
         </Box>
       </Box>
 
       {/*Footer*/}
       <Box className={`${styles.mainBox} ${styles.footerBox}`}>
         <div className={styles.btnDiv}>
-          <Button variant="outlined" onClick={onClose}>
+          <Button variant='outlined' onClick={onClose}>
             Cancel
           </Button>
-          <Button className={styles.saveBtn} variant="contained">
+          <Button className={styles.saveBtn} variant='contained'>
             Save
           </Button>
         </div>
       </Box>
-    </>
+    </form>
   );
 }

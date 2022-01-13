@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useFormik } from 'formik';
 
 import { managerSidebarConfig } from '../../../config';
 import { rowsPerPageOptions, payableColumns } from '../../constants';
@@ -11,7 +12,12 @@ export default function Payables() {
   const [payables, setPayables] = useState([]);
   const [payablesLoading, setPayablesLoading] = useState(false);
   const [filteredPayables, setFilteredPayables] = useState([]);
-  const [searchTxt, setSearchTxt] = useState('');
+  const searchForm = useFormik({
+    initialValues: {
+      search: '',
+    },
+  });
+  const searchTxt = searchForm.values.search;
 
   useEffect(() => {
     getPayables();
@@ -55,14 +61,10 @@ export default function Payables() {
     setFilteredPayables(filteredPayables);
   }
 
-  const searchTxtChangedHandler = (value) => {
-    setSearchTxt(value);
-  };
-
   return (
     <Container managerSidebarConfig={managerSidebarConfig}>
-      <Layout title="Payables">
-        <ControlPanel searchTxt={searchTxt} searchTxtChangedHandler={searchTxtChangedHandler} />
+      <Layout title='Payables'>
+        <ControlPanel searchForm={searchForm} />
         <PayableTable
           payables={filteredPayables}
           columns={payableColumns()}

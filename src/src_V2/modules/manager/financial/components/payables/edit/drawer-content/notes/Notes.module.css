@@ -3,11 +3,13 @@
 }
 
 .notesTextArea {
-  border: 1px solid var(--midLightGrey) !important;
   border-radius: 4px;
   display: flex !important;
   flex-direction: column;
   align-items: flex-end;
+}
+
+.notesTextArea > div {
   background-color: var(--white);
 }
 
