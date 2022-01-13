@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CircularProgress, Typography } from '@mui/material';
 
-import AuthInfoWrapper from '../authInfoWrapper';
+import AuthInfoWrapper from '../authInfoWrapper/AuthInfoWrapper';
 
-import styles from './styles.module.css';
-import congratsIllusration from '../../assets/congratsIllustration.svg';
+import styles from './Congratulations.module.css';
+import congratsIllusration from '../../../../assets/congratsIllustration.svg';
 
 export default function Congratulations({ urlToRedirect, timeout }) {
   const params = new URLSearchParams(location.search);

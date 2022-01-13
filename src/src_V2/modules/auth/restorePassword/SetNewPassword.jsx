@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../components/formUI/Button';
 import PasswordField from '../../../components/formUI/PasswordField';
-import AuthPageWrapper from '../../../components/authWrapper/authPageWrapper';
-import PasswordValidator from '../../../components/passwordValidator/PasswordValidator';
+import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
+import PasswordValidator from '../components/passwordValidator/PasswordValidator';
 
 import styles from './RestorePassword.module.css';
 import { ERROR_MESSAGES, getPasswordStrengthLevel } from '../../../utils';

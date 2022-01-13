@@ -5,9 +5,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import SetNewPassword from './SetNewPassword';
 import Button from '../../../components/formUI/Button';
-import VerifyEmail from '../../../components/verifyEmail';
 import TextField from '../../../components/formUI/TextField';
-import AuthPageWrapper from '../../../components/authWrapper/authPageWrapper';
+import VerifyEmail from '../components/verifyEmail/VerifyEmail';
+import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
 
 import {
   restorePasswordSchema,

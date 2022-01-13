@@ -1,8 +1,8 @@
 import { Typography } from '@mui/material';
 
-import logo from '../../assets/Travely.png';
+import logo from '../../../../assets/Travely.png';
 import styles from './authPageWrapper.module.css';
-import loginIllustration from '../../assets/login_illustration.svg';
+import loginIllustration from '../../../../assets/login_illustration.svg';
 
 const authPageWrapper = ({ title, description, children }) => {
   return (

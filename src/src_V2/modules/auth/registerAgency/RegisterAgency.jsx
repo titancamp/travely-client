@@ -4,11 +4,11 @@ import { Link, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
 import Button from '../../../components/formUI/Button';
-import VerifyEmail from '../../../components/verifyEmail';
 import TextField from '../../../components/formUI/TextField';
+import VerifyEmail from '../components/verifyEmail/VerifyEmail';
 import PasswordField from '../../../components/formUI/PasswordField';
-import AuthPageWrapper from '../../../components/authWrapper/authPageWrapper';
-import PasswordValidator from '../../../components/passwordValidator/PasswordValidator';
+import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
+import PasswordValidator from '../components/passwordValidator/PasswordValidator';
 
 import {
   registerAgencySchema,

@@ -5,7 +5,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Button from '../../../components/formUI/Button';
 import TextField from '../../../components/formUI/TextField';
 import PasswordField from '../../../components/formUI/PasswordField';
-import AuthPageWrapper from '../../../components/authWrapper/authPageWrapper';
+import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
 
 import styles from './Login.module.css';
 import {

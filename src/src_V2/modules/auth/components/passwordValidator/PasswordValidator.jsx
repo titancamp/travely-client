@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { Check } from '@mui/icons-material';
 
 import styles from './PasswordValidator.module.css';
-import { PasswordValidationNames } from '../../utils/';
+import { PasswordValidationNames } from '../../../../utils';
 
 export default function PasswordValidator(props) {
   return (
