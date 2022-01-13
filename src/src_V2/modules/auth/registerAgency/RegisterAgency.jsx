@@ -10,11 +10,11 @@ import PasswordField from '../../../components/formUI/PasswordField';
 import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
 import PasswordValidator from '../components/passwordValidator/PasswordValidator';
 
+import { ROUTES } from '../routes';
 import {
   registerAgencySchema,
   registerAgencyInitialValues,
 } from '../../../utils/schemas/auth/auth';
-import { ROUTES } from '../../../app/routes';
 import styles from './RegisterAgency.module.css';
 import { ERROR_MESSAGES, getPasswordStrengthLevel } from '../../../utils';
 
@@ -82,8 +82,8 @@ export default function RegisterAgency() {
           <Button>REGISTER</Button>
           <Typography>
             {'Already have an account? '}
-            <Link component={RouterLink} to={ROUTES.LOGIN}>
-              {'Log in'}
+            <Link component={RouterLink} to={`/${ROUTES.LOGIN}`}>
+              Log in
             </Link>
           </Typography>
         </Form>

@@ -7,12 +7,12 @@ import TextField from '../../../components/formUI/TextField';
 import PasswordField from '../../../components/formUI/PasswordField';
 import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
 
+import { ROUTES } from '../routes';
 import styles from './Login.module.css';
 import {
   LoginInitialValues,
   loginPasswordSchema,
 } from '../../../utils/schemas/auth/auth';
-import { ROUTES } from '../../../app/routes';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ export default function Login() {
   };
 
   return (
-    <AuthPageWrapper title='Welcome to Travelly'>
+    <AuthPageWrapper title='Welcome to Travely'>
       <Formik
         initialValues={LoginInitialValues()}
         validationSchema={loginPasswordSchema()}
@@ -44,7 +44,7 @@ export default function Login() {
               variant='body2'
               underline='none'
               component={RouterLink}
-              to={ROUTES.RESTORE_PASSWORD}
+              to={`/${ROUTES.RESTORE_PASSWORD}`}
             >
               Forgot Password?
             </Link>
@@ -52,8 +52,8 @@ export default function Login() {
           <Button>LOGIN</Button>
           <Typography>
             {"Don't have an account? "}
-            <Link component={RouterLink} to={ROUTES.REGISTER_AGENCY}>
-              {'Sign Up'}
+            <Link component={RouterLink} to={`/${ROUTES.REGISTER_AGENCY}`}>
+              Sign Up
             </Link>
           </Typography>
         </Form>

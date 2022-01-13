@@ -43,7 +43,7 @@ export default function SignUp() {
   return (
     params.get('token') && (
       <AuthPageWrapper
-        title='Welcome to Travelly'
+        title='Welcome to Travely'
         description='Please set a password for your account'
       >
         <Formik initialValues={setNewPasswordInitialValues()} onSubmit={submitHandler}>
