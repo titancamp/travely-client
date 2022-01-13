@@ -4,6 +4,7 @@ import {
   AccordionSummary,
   Box,
   Button,
+  FormControl,
   InputLabel,
   MenuItem,
   Select,
@@ -16,17 +17,19 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useState, useCallback } from 'react';
+
+import { useState } from 'react';
 
 import creditCard from '../../../../../../../../assets/icons/credit-card.png';
 import commonStyles from '../style.module.css';
 import styles from './PaymentHistory.module.css';
 import tableStyles from '../../../table/PayableTable.module.css';
-import { generateDate } from '../../../../../../../../utils';
+// import { generateDate } from '../../../../../../../../utils';
 import { NoData, LoadingSpinner, TooltipText } from '../../../../../../../../components';
-import { TableBodyWrapper, TableCellWrapper } from '../../../table/PayableTable';
+import { TableBodyWrapper /* TableCellWrapper */ } from '../../../table/PayableTable';
+import Upload from '../../../../../../supplier-management/components/add-attachment/AddAttachment';
 
-const inputTypes = {
+const columnTypes = {
   text: 'text',
   price: 'price',
   date: 'date',
@@ -34,60 +37,72 @@ const inputTypes = {
   file: 'file',
 };
 
-const columns = [
-  { id: 'invoiceId', label: 'Invoice ID' },
-  { id: 'paidAmount', label: 'Paid Amount' },
-  { id: 'paymentDate', label: 'Payment Date' },
-  { id: 'paymentType', label: 'Payment Type' },
-  { id: 'attachment', label: 'Attachment' },
-];
+const columns = {
+  invoiceId: {
+    label: 'Invoice ID',
+    type: columnTypes.text,
+  },
+  paidAmount: {
+    label: 'Paid Amount',
+    type: columnTypes.price,
+  },
+  paymentDate: {
+    label: 'Payment Date',
+    type: columnTypes.date,
+  },
+  paymentType: {
+    label: 'Payment Type',
+    type: columnTypes.select,
+  },
+  attachment: {
+    label: 'Attachment',
+    type: columnTypes.file,
+  },
+};
 
-const EditableTableCell = ({ rowValue, type, inputLabel }) => {
-  const [input, setInput] = useState(rowValue);
+const EditableTableCell = ({ data, text }) => {
+  // const [input, setInput] = useState(data);
 
-  return (
-    <TableCellWrapper>
-      {(() => {
-        switch (type) {
-          case inputTypes.text:
-            return (
-              <TextField
-                label={inputLabel}
-                size="small"
-                variant="outlined"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-              />
-            );
-          case inputTypes.price:
-            return <TextField label={inputLabel} size="small" variant="outlined" value={input} />;
-          case inputTypes.date:
-            return <TextField label={inputLabel} size="small" variant="outlined" value={input} />;
-          case inputTypes.select:
-            return (
-              <>
-                <InputLabel id="demo-simple-select-label">Type</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={rowValue}
-                  onChange={(e) => setInput(e.value)}
-                  autoWidth
-                  label="Type"
-                >
-                  <MenuItem value={'Cash'}>Cash</MenuItem>
-                  <MenuItem value={'Transfer'}>Transfer</MenuItem>
-                </Select>
-              </>
-            );
-          case inputTypes.file:
-            return <TextField label={inputLabel} size="small" variant="outlined" value={input} />;
-          default:
-            return <TooltipText text={input || ''} />;
-        }
-      })()}
-    </TableCellWrapper>
-  );
+  const onChange = ({ target: { value } }) => {
+    console.log(value);
+
+    // setInput(value);
+  };
+
+  return {
+    [columnTypes.text]: (
+      <TextField
+        label={text}
+        size='small'
+        variant='outlined'
+        value={data}
+        onChange={(e) => onChange(e)}
+      />
+    ),
+    [columnTypes.price]: (
+      <TextField label={text} size='small' variant='outlined' value={data} />
+    ),
+    [columnTypes.date]: null,
+    [columnTypes.select]: (
+      <FormControl fullWidth>
+        <InputLabel id='demo-simple-select-label'>Type</InputLabel>
+        <Select
+          labelId='demo-simple-select-label'
+          id='demo-simple-select'
+          value={data}
+          onChange={(e) => onChange(e)}
+          label='Type'
+          size='small'
+          variant='outlined'
+        >
+          <MenuItem value={'Cash'}>Cash</MenuItem>
+          <MenuItem value={'Transfer'}>Transfer</MenuItem>
+        </Select>
+      </FormControl>
+    ),
+    [columnTypes.file]: <Upload formikRef={{ errors: {} }} label='Upload' />,
+    // [columnTypes.icon]: <AttachFile />
+  };
 };
 
 export default function PaymentHistory({ history }) {
@@ -96,7 +111,7 @@ export default function PaymentHistory({ history }) {
 
   console.log(data);
 
-  const addPayment = useCallback(() => {
+  const addPayment = () => {
     setData((d) => {
       return [
         {
@@ -109,27 +124,29 @@ export default function PaymentHistory({ history }) {
         ...d,
       ];
     });
-  }, [data]);
+  };
 
-  const AddPaymentBtn = useCallback(() => {
+  const AddPaymentBtn = () => {
     return (
-      <Button variant="contained" onClick={addPayment}>
+      <Button variant='contained' onClick={addPayment}>
         + Add payment
       </Button>
     );
-  }, [addPayment]);
+  };
+
+  const columnKeys = Object.keys(columns);
 
   return (
     <Accordion className={commonStyles.accordion} expanded={true}>
       <AccordionSummary
-        aria-controls="panel1a-content"
-        id="panel1a-header"
+        aria-controls='panel1a-content'
+        id='panel1a-header'
         className={`${commonStyles.accordionSummary} ${styles.accordionBox}`}
       >
         <Box className={styles.paymentBox}>
           <Box
-            component="img"
-            alt="Payment History"
+            component='img'
+            alt='Payment History'
             src={creditCard}
             className={`${styles.cardImg} ${commonStyles.panelImg}`}
           />
@@ -148,57 +165,46 @@ export default function PaymentHistory({ history }) {
       <AccordionDetails className={commonStyles.accordionDetails}>
         <Box>
           <TableContainer className={tableStyles.tableContainer}>
-            <Table aria-labelledby="tableTitle" padding="none">
+            <Table aria-labelledby='tableTitle' padding='none'>
               <TableHead className={tableStyles.tableHead}>
                 <TableRow>
-                  {columns.map((headCell) => (
+                  {columnKeys.map((c) => (
                     <TableCell
-                      align="left"
-                      key={headCell.id}
+                      align='left'
+                      key={c}
                       className={`${tableStyles.tableCell} ${tableStyles.tableHeaderCell}`}
                     >
-                      <TooltipText text={headCell.label} />
+                      <TooltipText text={columns[c].label} />
                     </TableCell>
                   ))}
                 </TableRow>
               </TableHead>
               {data.length ? (
-                <>
-                  {/*Usual Rows*/}
-                  <TableBody className={`${tableStyles.tableBody}`}>
-                    {data.map((row) => {
-                      return (
-                        <>
-                          <TableRow key={row.invoiceId} className={tableStyles.tableRow}>
-                            <EditableTableCell
-                              rowValue={row.invoiceId}
-                              type={inputTypes.text}
-                              inputLabel={'Invoice ID'}
-                            />
-                            <EditableTableCell
-                              rowValue={row.paidAmount}
-                              type={inputTypes.text}
-                              inputLabel={'Paid Amount'}
-                            />
-                            <EditableTableCell
-                              rowValue={generateDate(row.paymentDate)}
-                              /* type={inputTypes.date} */ inputLabel={'Payment Date'}
-                            />
-                            <EditableTableCell
-                              rowValue={row.paymentType}
-                              type={inputTypes.select}
-                              inputLabel={'Payment Type'}
-                            />
-                            <EditableTableCell
-                              rowValue={row.attachment}
-                              /* type={inputTypes.file} */ inputLabel={'Attachment'}
-                            />
-                          </TableRow>
-                        </>
-                      );
-                    })}
-                  </TableBody>
-                </>
+                /*Usual Rows*/
+                <TableBody className={`${tableStyles.tableBody}`}>
+                  {data.map((row, i) => {
+                    return (
+                      <TableRow key={`${row.id}_${i}`} className={tableStyles.tableRow}>
+                        {columnKeys.map((c) => {
+                          const column = columns[c];
+                          const cell = EditableTableCell({
+                            data: row[c],
+                            text: column.label,
+                          });
+
+                          return (
+                            <TableCell
+                              key={`${c}_${row.id}_${i}`}
+                              className={tableStyles.tableCell}
+                            >
+                              {cell[column.type]}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
               ) : loading ? (
                 // todo hide scroll when loading and there is no data
                 <TableBodyWrapper>
@@ -207,12 +213,16 @@ export default function PaymentHistory({ history }) {
                   <LoadingSpinner />
                 </TableBodyWrapper>
               ) : (
-                <TableBodyWrapper rowClassName={tableStyles.whiteTableCell}>
-                  {/*No Data*/}
-                  <Box className={tableStyles.noData}>
-                    <NoData />
-                  </Box>
-                </TableBodyWrapper>
+                /*No Data*/
+                <TableBody>
+                  <TableRow className={tableStyles.whiteTableCell}>
+                    <TableCell colSpan={columnKeys.length}>
+                      <Box className={tableStyles.noDataBox}>
+                        <NoData className={styles.noData} />
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
               )}
             </Table>
           </TableContainer>

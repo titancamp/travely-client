@@ -15,6 +15,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import { AttachFile } from '@mui/icons-material';
 import { visuallyHidden } from '@mui/utils';
 import { deepPurple, green, orange, pink } from '@mui/material/colors';
 
@@ -22,7 +23,7 @@ import { generateArrayByRange, generateDate } from '../../../../../../utils';
 import { PaymentStatus, PaymentType } from '../../../constants';
 import { LoadingSpinner, NoData, TooltipText } from '../../../../../../components';
 import EditDrawer from '../edit/drawer/EditDrawer';
-import attachmentImage from '../../../../../../assets/icons/attachment.png';
+// import attachmentImage from '../../../../../../assets/icons/attachment.png';
 import styles from './PayableTable.module.css';
 
 function descendingComparator(a, b, orderBy) {
@@ -59,7 +60,7 @@ const EnhancedTableToolbar = (props) => {
   return (
     <Toolbar className={styles.toolbar}>
       {!!numSelected && (
-        <Typography component="div">
+        <Typography component='div'>
           <span className={styles.selectedCountText}>Selected rows</span>{' '}
           <span className={styles.selectedCountNum}>{numSelected}</span>
         </Typography>
@@ -69,7 +70,15 @@ const EnhancedTableToolbar = (props) => {
 };
 
 export const EnhancedTableHead = (props) => {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, columns } = props;
+  const {
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort,
+    columns,
+  } = props;
 
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -78,9 +87,9 @@ export const EnhancedTableHead = (props) => {
   return (
     <TableHead className={styles.tableHead}>
       <TableRow>
-        <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
+        <TableCell padding='checkbox' className={styles.tableCheckboxCell}>
           <Checkbox
-            color="primary"
+            color='primary'
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
@@ -91,7 +100,7 @@ export const EnhancedTableHead = (props) => {
         </TableCell>
         {columns.map((headCell) => (
           <TableCell
-            align="left"
+            align='left'
             key={headCell.id}
             className={`${styles.tableCell} ${styles.tableHeaderCell}`}
             sortDirection={orderBy === headCell.id ? order : false}
@@ -103,7 +112,7 @@ export const EnhancedTableHead = (props) => {
             >
               <TooltipText text={headCell.label} />
               {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
+                <Box component='span' sx={visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </Box>
               ) : null}
@@ -176,19 +185,25 @@ const PayableStatuses = ({ statusNum }) => {
 const InvoiceAttachment = ({ attachment }) => (
   <>
     {attachment ? (
-      <Box
-        component="img"
-        alt="Attachment"
-        src={attachmentImage}
-        className={styles.attachmentImg}
-      />
+      <AttachFile />
     ) : (
+      // <Box
+      //   component="img"
+      //   alt="Attachment"
+      //   src={attachmentImage}
+      //   className={styles.attachmentImg}
+      // />
       '--'
     )}
   </>
 );
 
-export default function PayableTable({ payables, columns, payablesLoading, rowsPerPageOptions }) {
+export default function PayableTable({
+  payables,
+  columns,
+  payablesLoading,
+  rowsPerPageOptions,
+}) {
   const [order, setOrder] = useState('desc');
   const [orderBy, setOrderBy] = useState('createdDate');
   const [selected, setSelected] = useState([]);
@@ -202,7 +217,8 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
   const [clickedRow, setClickedRow] = useState({});
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - payables.length) : 0;
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - payables.length) : 0;
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
@@ -287,7 +303,7 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
     <Box>
       <Paper>
         <TableContainer className={styles.tableContainer}>
-          <Table aria-labelledby="tableTitle" padding="none">
+          <Table aria-labelledby='tableTitle' padding='none'>
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
@@ -310,18 +326,23 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
                         <TableRow
                           hover
                           onClick={(event) => handleRowClick(event, row)}
-                          role="checkbox"
+                          role='checkbox'
                           aria-checked={isItemSelected}
                           tabIndex={-1}
                           key={row.paymentId}
                           selected={isItemSelected}
                           className={styles.tableRow}
                         >
-                          <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
+                          <TableCell
+                            padding='checkbox'
+                            className={styles.tableCheckboxCell}
+                          >
                             <Checkbox
-                              color="primary"
+                              color='primary'
                               checked={isItemSelected}
-                              onClick={(event) => handleCheckboxChange(event, row.paymentId)}
+                              onClick={(event) =>
+                                handleCheckboxChange(event, row.paymentId)
+                              }
                               inputProps={{
                                 'aria-labelledby': labelId,
                               }}
@@ -335,7 +356,9 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
                           <TooltipTableCell rowValue={row.plannedCost} />
                           <TooltipTableCell rowValue={row.actualCost} />
                           <TableCell
-                            className={`${styles.tableCell} ${colorCondition(row.difference)}`}
+                            className={`${styles.tableCell} ${colorCondition(
+                              row.difference
+                            )}`}
                           >
                             <TooltipText text={row.difference} />
                           </TableCell>
@@ -372,7 +395,7 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
                 <TableBody className={`${styles.tableBody} ${styles.tableStickyBox}`}>
                   {showPayablesCondition && (
                     <TableRow className={styles.totalFooter}>
-                      <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
+                      <TableCell padding='checkbox' className={styles.tableCheckboxCell}>
                         <Checkbox className={styles.totalFooterChkBox} />
                       </TableCell>
                       <TableCellWrapper>Total AMD</TableCellWrapper>
@@ -380,7 +403,9 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
                       <TooltipTableCell rowValue={totalSum('plannedCost')} />
                       <TooltipTableCell rowValue={totalSum('actualCost')} />
                       <TableCell
-                        className={`${styles.tableCell} ${colorCondition(totalSum('difference'))}`}
+                        className={`${styles.tableCell} ${colorCondition(
+                          totalSum('difference')
+                        )}`}
                       >
                         <TooltipText text={totalSum('difference')} />
                       </TableCell>
@@ -414,13 +439,15 @@ export default function PayableTable({ payables, columns, payablesLoading, rowsP
             <TablePagination
               className={styles.tablePagination}
               rowsPerPageOptions={rowsPerPageOptions}
-              component="div"
+              component='div'
               count={payables.length}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
-              labelRowsPerPage={<span className={styles.tablePaginationText}>Rows per page:</span>}
+              labelRowsPerPage={
+                <span className={styles.tablePaginationText}>Rows per page:</span>
+              }
             />
           </div>
         )}
