@@ -12,8 +12,7 @@ import notesImage from '../../../../../../../../assets/icons/notes.png';
 import commonStyles from '../style.module.css';
 import styles from './Notes.module.css';
 
-export default function Notes({ rowListForm }) {
-  // console.log(row);
+export default function Notes({ values, errors, handleChange, handleBlur }) {
   return (
     <Accordion className={commonStyles.accordion}>
       <AccordionSummary
@@ -33,21 +32,21 @@ export default function Notes({ rowListForm }) {
       <AccordionDetails className={commonStyles.accordionDetails}>
         <TextField
           name='notes'
-          minRows={3}
-          multiline
-          className={styles.notesTextArea}
-          value={rowListForm.values.notes}
-          onChange={rowListForm.handleChange}
-          fullWidth
           label='Type in'
           variant='outlined'
+          minRows={3}
+          multiline
+          fullWidth
+          className={styles.notesTextArea}
+          value={values.notes}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          error={!!errors.notes}
+          helperText={errors.notes}
           InputProps={{
             endAdornment: (
               <Box className={styles.lengthSection}>
-                <p>
-                  {!!rowListForm.values?.notes?.length &&
-                    `${rowListForm.values.notes.length}/200 letter`}
-                </p>
+                <p>{!!values?.notes?.length && `${values.notes.length}/200 letter`}</p>
               </Box>
             ),
           }}

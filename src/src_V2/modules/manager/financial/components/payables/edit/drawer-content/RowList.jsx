@@ -1,9 +1,10 @@
-import { Box, Button, Divider, Stack, TextField } from '@mui/material';
+import { Box, Button, Divider, InputAdornment, Stack, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { useFormik } from 'formik';
 
+import { rowListInitialValues, rowListSchema } from '../../../../../../../utils/schemas';
 import TourDetails from './tour-details/TourDetails';
 import PaymentHistory from './payment-history/PaymentHistory';
 import Notes from './notes/Notes';
@@ -21,28 +22,13 @@ const CostBox = ({ currency, cost, text, className }) => {
 };
 
 export default function RowList({ row, onClose }) {
-  // const {
-  //   rowListInitialValues = {
-  //     actualCost: '',
-  //     dueDate: '',
-  //     paymentHistory: {
-  //       invoiceId: '',
-  //       paidAmount: '',
-  //       paymentDate: '',
-  //       paymentType: '',
-  //       attachment: '',
-  //     },
-  //     notes: '',
-  //   },
-  // } = row;
-
-  const rowListForm = useFormik({
-    initialValues: row,
-    enableReinitialize: true,
+  const { values, errors, handleBlur, handleChange, handleSubmit } = useFormik({
+    validationSchema: rowListSchema,
+    initialValues: rowListInitialValues(row),
   });
 
   return (
-    <form onSubmit={rowListForm.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       {/*Header*/}
       <Box className={styles.mainBox}>
         <div className={styles.textDiv}>
@@ -84,21 +70,30 @@ export default function RowList({ row, onClose }) {
               name='actualCost'
               label='Actual Cost'
               variant='outlined'
-              fullWidth
               size='small'
-              className={styles.editableFieldsInput}
-              value={rowListForm.values.actualCost}
-              onChange={rowListForm.handleChange}
+              className={styles.actualCostControl}
+              value={values.actualCost}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={!!errors.actualCost}
+              helperText={errors.actualCost}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position='start'>{row.currency}</InputAdornment>
+                ),
+              }}
             />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DesktopDatePicker
-                name='dueDate'
-                label='Due date'
-                inputFormat='dd/MM/yyyy'
-                value={rowListForm.values.dueDate}
-                onChange={rowListForm.handleChange}
-                renderInput={(params) => <TextField {...params} />}
-              />
+              <Box className={styles.dueDatePicker}>
+                <DesktopDatePicker
+                  name='dueDate'
+                  label='Due date'
+                  inputFormat='dd/MM/yyyy'
+                  value={values.dueDate}
+                  onChange={handleChange}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </Box>
             </LocalizationProvider>
           </Box>
         </Box>
@@ -112,7 +107,12 @@ export default function RowList({ row, onClose }) {
         </Box>
 
         <Box className={styles.layoutDistance}>
-          <Notes rowListForm={rowListForm} />
+          <Notes
+            values={values}
+            errors={errors}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+          />
         </Box>
       </Box>
 
