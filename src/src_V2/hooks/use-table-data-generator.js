@@ -1,8 +1,7 @@
 import { useMemo } from 'react';
 
-// eslint-disable-next-line no-prototype-builtins
 const isColumnVisible = (visibleColumns, key) =>
-  visibleColumns.hasOwnProperty(key) && visibleColumns[key];
+    Object.prototype.hasOwnProperty.call(visibleColumns, key) && visibleColumns[key];
 
 const useTableDataGenerator = (tableDataNormalizer, deps, visibleColumns) => {
   return useMemo(() => {
