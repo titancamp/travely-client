@@ -1,4 +1,4 @@
-.mnRow {
+.attachmentContainer {
   display: flex !important;
 }
 
@@ -13,7 +13,7 @@
   margin-right: 24px !important;
 }
 
-.addAttachmentContainer .addAttachment {
+.attachmentContainer .addAttachment {
   width: 320px;
   height: 45px;
   font-size: 15px;
@@ -25,6 +25,11 @@
 
 .addAttachmentIcon {
   margin-left: 10px !important;
+}
+
+.attachmentContainer .helperText {
+  margin-top: 10px;
+  margin-left: 16px;
 }
 
 .ptField {
@@ -44,6 +49,10 @@
 .filesSection {
   width: 600px;
   margin-left: 20px;
+}
+
+.filesSection .chip {
+  margin: 5px;
 }
 
 .input {

@@ -105,3 +105,13 @@
 .icon {
     color: #757575;
 }
+
+.card .avatarContainer {
+    position: relative;
+}
+
+.avatarContainer .avatar {
+    top: 12px !important;
+    right: 12px !important;
+    position: absolute;
+}

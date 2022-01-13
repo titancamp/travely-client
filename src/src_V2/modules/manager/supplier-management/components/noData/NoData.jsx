@@ -7,7 +7,7 @@ import { managerSidebarConfig } from '../../../config';
 
 import styles from './style.module.css';
 
-export default function NoData({ pageName, helperText, image }) {
+export default function NoData({ pageName, helperText, image, buttonContent }) {
   return (
     <Container managerSidebarConfig={managerSidebarConfig}>
       <Box className={styles.landing}>
@@ -21,7 +21,7 @@ export default function NoData({ pageName, helperText, image }) {
             variant='contained'
             className={styles.addBtn}
           >
-            Add My First {pageName.toUpperCase()}
+            {buttonContent || `Add My First ${pageName.toUpperCase()}`}
           </Button>
         </Box>
         <Box alt={pageName} component='img' className={styles.img} src={image} />
