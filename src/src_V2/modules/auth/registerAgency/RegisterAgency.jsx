@@ -1,20 +1,22 @@
+import { useState } from 'react';
+import { Formik, Form } from 'formik';
 import { Link, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import AuthPageWrapper from '../../../components/authWrapper/authPageWrapper';
-import { Formik, Form } from 'formik';
-import TextField from '../../../components/formUI/TextField';
+
 import Button from '../../../components/formUI/Button';
-import PasswordField from '../../../components/formUI/PasswordField';
-import {
-  registerAgencyInitialValues,
-  registerAgencySchema,
-} from '../../../utils/schemas/auth/auth';
-import styles from './RegisterAgency.module.css';
-import { ROUTES } from '../../../app/routes';
-import PasswordValidator from '../../../components/passwordValidator/PasswordValidator';
-import { ERROR_MESSAGES, getPasswordStrengthLevel } from '../../../utils';
-import { useState } from 'react';
 import VerifyEmail from '../../../components/verifyEmail';
+import TextField from '../../../components/formUI/TextField';
+import PasswordField from '../../../components/formUI/PasswordField';
+import AuthPageWrapper from '../../../components/authWrapper/authPageWrapper';
+import PasswordValidator from '../../../components/passwordValidator/PasswordValidator';
+
+import {
+  registerAgencySchema,
+  registerAgencyInitialValues,
+} from '../../../utils/schemas/auth/auth';
+import { ROUTES } from '../../../app/routes';
+import styles from './RegisterAgency.module.css';
+import { ERROR_MESSAGES, getPasswordStrengthLevel } from '../../../utils';
 
 export default function RegisterAgency() {
   const [passwordStrengthLevel, setPasswordStrengthLevel] = useState(0);

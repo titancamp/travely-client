@@ -1,9 +1,10 @@
+import { Navigate } from 'react-router-dom';
+
 import Manager from '../modules/manager';
 import Login from '../modules/auth/login/Login';
-import RestorePassword from '../modules/auth/restorePassword/RestorePassword';
-import RegisterAgency from '../modules/auth/registerAgency/RegisterAgency';
 import SignUp from '../modules/auth/signUp/SignUp';
-import { Navigate } from 'react-router-dom';
+import RegisterAgency from '../modules/auth/registerAgency/RegisterAgency';
+import RestorePassword from '../modules/auth/restorePassword/RestorePassword';
 /** Global Routes */
 
 export const ROUTES = {

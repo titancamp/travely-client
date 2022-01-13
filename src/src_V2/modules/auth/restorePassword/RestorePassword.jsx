@@ -1,16 +1,17 @@
-import { Typography } from '@mui/material';
-import { useLocation } from 'react-router-dom';
-import AuthPageWrapper from '../../../components/authWrapper/authPageWrapper';
-import { Formik, Form } from 'formik';
-import TextField from '../../../components/formUI/TextField';
-import Button from '../../../components/formUI/Button';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Formik, Form } from 'formik';
+import { Typography } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import SetNewPassword from './SetNewPassword';
+import Button from '../../../components/formUI/Button';
 import VerifyEmail from '../../../components/verifyEmail';
+import TextField from '../../../components/formUI/TextField';
+import AuthPageWrapper from '../../../components/authWrapper/authPageWrapper';
+
 import {
-  restorePasswordInitialValues,
   restorePasswordSchema,
+  restorePasswordInitialValues,
 } from '../../../utils/schemas/auth/auth';
 import styles from './RestorePassword.module.css';
 

@@ -1,14 +1,16 @@
-import { Divider, Link, Typography } from '@mui/material';
 import clsx from 'clsx';
+import { Divider, Link, Typography } from '@mui/material';
+
+import AuthInfoWrapper from '../authInfoWrapper';
+
 import styles from './styles.module.css';
 import useTimer from '../../hooks/useTimer';
 import verifyIllustration from '../../assets/verifyIllustration.svg';
-import AuthInfoWrapper from '../authInfoWrapper';
 
 // Temporary fix, no date formatting utils
 const addZero = (num) => (num > 10 ? num : '0' + num);
 
-export default function VerifyEmail(props) {
+export default function VerifyEmail({ email, onGoBack }) {
   const [secondsRemain, resetTimer] = useTimer(59);
 
   return (
@@ -19,7 +21,7 @@ export default function VerifyEmail(props) {
           Verify Your Email Address
         </Typography>
         <Typography variant='subtitle1'>
-          Please check your <b>{props.email}</b> email inbox for a verification email.
+          Please check your <b>{email}</b> email inbox for a verification email.
         </Typography>
         <Typography variant='subtitle1'>
           Didn&apos;t receive an email?{' '}
@@ -41,7 +43,7 @@ export default function VerifyEmail(props) {
         <Divider className={styles.divider} />
         <Typography variant='body2'>
           Wrong email?{' '}
-          <Link underline='none' className={styles.link} onClick={props.onGoBack}>
+          <Link underline='none' className={styles.link} onClick={onGoBack}>
             Change
           </Link>
         </Typography>

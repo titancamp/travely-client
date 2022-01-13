@@ -1,12 +1,14 @@
-import AuthPageWrapper from '../../../components/authWrapper/authPageWrapper';
-import { Formik, Form } from 'formik';
-import Button from '../../../components/formUI/Button';
-import { useLocation, useNavigate } from 'react-router-dom';
-import PasswordField from '../../../components/formUI/PasswordField';
-import { ERROR_MESSAGES, getPasswordStrengthLevel } from '../../../utils';
-import PasswordValidator from '../../../components/passwordValidator/PasswordValidator';
 import { useState } from 'react';
+import { Formik, Form } from 'formik';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import Button from '../../../components/formUI/Button';
+import PasswordField from '../../../components/formUI/PasswordField';
+import AuthPageWrapper from '../../../components/authWrapper/authPageWrapper';
+import PasswordValidator from '../../../components/passwordValidator/PasswordValidator';
+
 import styles from './SignUp.module.css';
+import { ERROR_MESSAGES, getPasswordStrengthLevel } from '../../../utils';
 import { setNewPasswordInitialValues } from '../../../utils/schemas/auth/auth';
 
 export default function SignUp() {

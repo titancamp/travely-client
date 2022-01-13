@@ -1,8 +1,9 @@
-import { Typography } from '@mui/material';
-import { PasswordValidationNames } from '../../utils/';
-import styles from './PasswordValidator.module.css';
 import clsx from 'clsx';
-import CheckIcon from '@mui/icons-material/Check';
+import { Typography } from '@mui/material';
+import { Check } from '@mui/icons-material';
+
+import styles from './PasswordValidator.module.css';
+import { PasswordValidationNames } from '../../utils/';
 
 export default function PasswordValidator(props) {
   return (
@@ -19,9 +20,7 @@ export default function PasswordValidator(props) {
             {PasswordValidationNames[validationLevel]}
           </Typography>
           <Typography variant='subtitle1'>
-            {validationLevel & props.passedLevel ? (
-              <CheckIcon fontSize={'inherit'} />
-            ) : null}
+            {validationLevel & props.passedLevel ? <Check fontSize={'inherit'} /> : null}
           </Typography>
         </div>
       ))}

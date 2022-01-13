@@ -1,9 +1,10 @@
-import styles from './authPageWrapper.module.css';
-import logo from '../../assets/Travely.png';
-import loginIllustration from '../../assets/login_illustration.svg';
 import { Typography } from '@mui/material';
 
-const authPageWrapper = (props) => {
+import logo from '../../assets/Travely.png';
+import styles from './authPageWrapper.module.css';
+import loginIllustration from '../../assets/login_illustration.svg';
+
+const authPageWrapper = ({ title, description, children }) => {
   return (
     <div className={styles.authWrapper}>
       <div className={styles.illustrationWrapper}>
@@ -15,15 +16,15 @@ const authPageWrapper = (props) => {
       <div className={styles.mainWrapper}>
         <div className={styles.titleWrapper}>
           <Typography variant='h4' color='primary'>
-            {props.title}
+            {title}
           </Typography>
-          {props.description && (
+          {description && (
             <Typography className={styles.description} variant='body1'>
-              {props.description}
+              {description}
             </Typography>
           )}
         </div>
-        <div className={styles.formWrapper}>{props.children}</div>
+        <div className={styles.formWrapper}>{children}</div>
       </div>
     </div>
   );
