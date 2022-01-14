@@ -19,12 +19,12 @@ import {
 import { useState, useCallback } from 'react';
 
 import creditCard from '../../../../../../../../assets/icons/credit-card.png';
-import commonStyles from '../style.module.css';
-import styles from './PaymentHistory.module.css';
-import tableStyles from '../../../table/PayableTable.module.css';
 import { generateDate } from '../../../../../../../../utils';
 import { NoData, LoadingSpinner, TooltipText } from '../../../../../../../../components';
 import { TableBodyWrapper, TableCellWrapper } from '../../../table/PayableTable';
+import commonStyles from '../style.module.css';
+import styles from './PaymentHistory.module.css';
+import tableStyles from '../../../table/PayableTable.module.css';
 
 const inputTypes = {
   text: 'text',
@@ -154,7 +154,7 @@ export default function PaymentHistory({ history }) {
           />
           <Typography className={commonStyles.detailsTxt}>
             Payment History{' '}
-            {history?.length && (
+            {!!history?.length && (
               <span className={commonStyles.detailsCount}>({history.length})</span>
             )}
           </Typography>

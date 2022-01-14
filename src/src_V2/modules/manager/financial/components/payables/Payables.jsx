@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import { managerSidebarConfig } from '../../../config';
 import { rowsPerPageOptions, payableColumns } from '../../constants';
 import payablesList from '../../mock/payable';
+import { differenceCost, remainingCost } from '../../utils/cost';
 import { Container, Layout } from '../../../../../components';
 import ControlPanel from './control-panel/ControlPanel';
 import PayableTable from './table/PayableTable';
@@ -43,8 +44,8 @@ export default function Payables() {
 
   function processPayables(payables) {
     const processedPayables = payables.map((payable) => {
-      payable.difference = payable.plannedCost - payable.actualCost;
-      payable.remaining = payable.actualCost - payable.paidCost;
+      payable.difference = differenceCost(payable.plannedCost, payable.actualCost);
+      payable.remaining = remainingCost(payable.actualCost, payable.paidCost);
       return payable;
     });
     setPayables(processedPayables);
