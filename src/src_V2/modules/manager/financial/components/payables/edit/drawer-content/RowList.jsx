@@ -115,6 +115,7 @@ export default function RowList({ row, onClose }) {
             errors={errors}
             handleChange={handleChange}
             handleBlur={handleBlur}
+            setFieldValue={setFieldValue}
           />
         </Box>
       </Box>

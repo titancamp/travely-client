@@ -4,7 +4,7 @@ import { Box, Button, Chip, FormHelperText } from '@mui/material';
 
 import styles from './style.module.css';
 
-export default function AddAttachment({ formikRef, label }) {
+export default function AddAttachment({ formikRef: parentRef, label }) {
   const hiddenFileInput = useRef(null);
   const [files, setFiles] = useState([]);
   const acceptedFileTypes = [
@@ -25,8 +25,8 @@ export default function AddAttachment({ formikRef, label }) {
   };
 
   function errorHandler(key, message) {
-    formikRef.setFieldError(key, message);
-    setTimeout(() => formikRef.setFieldError(key, null), 5000);
+    parentRef.setFieldError(key, message);
+    setTimeout(() => parentRef.setFieldError(key, null), 5000);
   }
 
   function handleChange(event) {
@@ -51,25 +51,25 @@ export default function AddAttachment({ formikRef, label }) {
   }
 
   return (
-    <Box className={styles.mnRow}>
+    <Box className={styles.attachmentContainer}>
       <Box>
         <Button className={styles.addAttachment} onClick={handleClick}>
           {label ? label : ''}
-          <CloudUpload style={{ marginLeft: 10 }} />
+          <CloudUpload className={styles.addAttachmentIcon} />
         </Button>
-        {formikRef.errors.attachments && (
-          <FormHelperText error sx={{ marginTop: 2 }}>
-            {formikRef.errors.attachments}
+        {parentRef.errors.attachments && (
+          <FormHelperText error className={styles.helperText}>
+            {parentRef.errors.attachments}
           </FormHelperText>
         )}
       </Box>
-      <Box style={{ marginLeft: 20, width: 600 }}>
+      <Box className={styles.filesSection}>
         <Box>
           {files.map((file) => (
             <Chip
               key={file.id}
               label={file.name}
-              style={{ margin: 5 }}
+              className={styles.chip}
               onDelete={handleDelete(file.id)}
             />
           ))}
@@ -80,8 +80,8 @@ export default function AddAttachment({ formikRef, label }) {
         type='file'
         ref={hiddenFileInput}
         onChange={handleChange}
-        style={{ display: 'none' }}
-        accept='.png, .jpeg, .jpg, .doc,.docx, .pdf, .xls, .xlsx'
+        className={styles.input}
+        accept='image/*, .doc,.docx, .pdf, .xls, .xlsx'
       />
     </Box>
   );

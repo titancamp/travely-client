@@ -3,20 +3,32 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  IconButton,
+  InputAdornment,
   TextField,
   Typography,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { ExpandMore, Close } from '@mui/icons-material';
 
 import notesImage from '../../../../../../../../assets/icons/notes.png';
 import commonStyles from '../style.module.css';
 import styles from './Notes.module.css';
 
-export default function Notes({ values, errors, handleChange, handleBlur }) {
+export default function Notes({
+  values,
+  errors,
+  handleChange,
+  handleBlur,
+  setFieldValue,
+}) {
+  const handleClearNotes = () => {
+    setFieldValue('notes', '');
+  };
+
   return (
     <Accordion className={commonStyles.accordion}>
       <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
+        expandIcon={<ExpandMore />}
         aria-controls='panel1a-content'
         id='panel1a-header'
         className={commonStyles.accordionSummary}
@@ -46,8 +58,15 @@ export default function Notes({ values, errors, handleChange, handleBlur }) {
           InputProps={{
             endAdornment: (
               <Box className={styles.lengthSection}>
-                <p>{!!values?.notes?.length && `${values.notes.length}/200 letter`}</p>
+                <p>{!!values?.notes?.length && `${values.notes.length}/500 letter`}</p>
               </Box>
+            ),
+            startAdornment: (
+              <InputAdornment position='end' onClick={handleClearNotes}>
+                <IconButton aria-label='close' className={styles.clearNote}>
+                  <Close />
+                </IconButton>
+              </InputAdornment>
             ),
           }}
         />

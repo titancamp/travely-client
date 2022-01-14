@@ -1,7 +1,5 @@
-/* Add food styles*/
-
 .container {
-  padding: 40px 120px 0;
+  padding: 40px 120px 0 70px;
 }
 
 .content {
@@ -20,8 +18,12 @@
   display: flex;
 }
 
+.helper {
+  margin-bottom: 20px !important;
+}
+
 .label {
-  width: 100px;
+  width: 150px;
   font-size: 14px;
   text-align: right;
   margin-right: 24px;

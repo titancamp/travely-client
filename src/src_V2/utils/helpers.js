@@ -1,5 +1,5 @@
 export const generateDate = (dateStr) => {
-  if (!dateStr) return null;
+  if (!dateStr) return '';
 
   const date = new Date(dateStr);
 
@@ -18,3 +18,18 @@ export const generateArrayByRange = (start, end, conditionCallback = () => true)
     .map((_, index) => start + index)
     .filter(conditionCallback);
 };
+
+export const noop = () => {};
+
+export const createTableColumn = (key, content, defaultContent, columnStyles) => ({
+  key,
+  content,
+  defaultContent,
+  columnStyles,
+});
+
+export const createTableRow = (key, columns, data) => ({
+  key,
+  columns,
+  data,
+});

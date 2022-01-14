@@ -96,7 +96,7 @@ export default function MainInfo({ parentRef, isValidate }) {
                   label='Check In Time'
                   value={values.checkIn}
                   onChange={handleChange}
-                  inputProps={{ step: 60, min: 10, placeholder: 'aaa' }}
+                  inputProps={{ step: 60, min: 10 }}
                   InputLabelProps={{ shrink: true }}
                 />
               </Grid>

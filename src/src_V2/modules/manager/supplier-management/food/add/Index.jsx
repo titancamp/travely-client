@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Container } from '../../../../../components';
 import { Banner, Contact, Partnership } from '../../components';
@@ -7,6 +8,7 @@ import { Banner, Contact, Partnership } from '../../components';
 import styles from './style.module.css';
 import { managerSidebarConfig } from '../../../config';
 import MainInfo from './MainInfo';
+import Menu from './Menu';
 
 function TransportationSteps({ currentTab: { step, isValidate }, food }) {
   switch (step) {
@@ -15,7 +17,7 @@ function TransportationSteps({ currentTab: { step, isValidate }, food }) {
     case 2:
       return <Contact parentRef={food} />;
     case 3:
-      return <>Menu</>;
+      return <Menu parentRef={food} />;
     case 4:
       return <Partnership parentRef={food} />;
     default:
@@ -24,6 +26,7 @@ function TransportationSteps({ currentTab: { step, isValidate }, food }) {
 }
 
 export default function AddFood() {
+  const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState({ step: 1 });
   const { current: food } = useRef({
     menu: {},
@@ -40,7 +43,7 @@ export default function AddFood() {
     } else if (!food.partnership.isValid) {
       return setCurrentTab({ step: 4 });
     } else {
-      console.log(food);
+      navigate('../list');
     }
   }
 
