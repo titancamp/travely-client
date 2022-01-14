@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { CircularProgress, Typography } from '@mui/material';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import AuthInfoWrapper from '../authInfoWrapper/AuthInfoWrapper';
 
@@ -9,11 +9,11 @@ import styles from './Congratulations.module.css';
 import congratsIllusration from '../../../../assets/congratsIllustration.svg';
 
 export default function Congratulations({ urlToRedirect, timeout }) {
-  const params = new URLSearchParams(location.search);
-  let navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!params.get('token')) {
+    if (!searchParams.get('token')) {
       navigate(`/${ROUTES.LOGIN}`, { replace: true });
     } else {
       setTimeout(() => navigate(urlToRedirect, { replace: true }), timeout);

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Formik, Form } from 'formik';
 import { Typography } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import SetNewPassword from './SetNewPassword';
 import Button from '../../../components/formUI/Button';
@@ -16,8 +16,8 @@ import {
 import styles from './RestorePassword.module.css';
 
 export default function RestorePassword() {
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token');
   const [done, setIsDone] = useState(false);
   const [enteredEmail, setEnteredEmail] = useState('');
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ export default function RestorePassword() {
     setIsDone(false);
   };
 
-  return params.get('token') ? (
+  return token ? (
     <SetNewPassword />
   ) : done ? (
     <VerifyEmail onGoBack={goBackHandler} email={enteredEmail} />
