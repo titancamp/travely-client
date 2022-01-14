@@ -1,6 +1,6 @@
 import { Formik, Form } from 'formik';
 import { Link, Typography } from '@mui/material';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 import Button from '../../../components/formUI/Button';
 import TextField from '../../../components/formUI/TextField';
@@ -15,25 +15,12 @@ import {
 } from '../../../utils/schemas/auth/auth';
 
 export default function Login() {
-  const navigate = useNavigate();
-
-  const submitHandler = async (_, submitProps) => {
-    await new Promise((res) => {
-      setTimeout(res, 1000);
-    });
-    if (Math.random() > 0.5) {
-      submitProps.setErrors({ email: ' ', password: 'Password Error' });
-    } else {
-      navigate('/manager/dashboard');
-    }
-  };
-
   return (
     <AuthPageWrapper title='Welcome to Travely'>
       <Formik
         initialValues={LoginInitialValues()}
         validationSchema={loginPasswordSchema()}
-        onSubmit={submitHandler}
+        onSubmit={() => {}}
       >
         <Form>
           <TextField name='email' label='Email' type='email' />

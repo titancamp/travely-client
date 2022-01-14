@@ -24,16 +24,9 @@ export default function RegisterAgency() {
 
   const [done, setIsDone] = useState(false);
 
-  const submitHandler = async (values, submitProps) => {
-    await new Promise((res) => {
-      setTimeout(res, 1000);
-    });
-    if (Math.random() > 0.5) {
-      submitProps.setErrors({ email: 'Email Error' });
-    } else {
-      setEnteredEmail(values.email);
-      setIsDone(true);
-    }
+  const submitHandler = ({ email }) => {
+    setEnteredEmail(email);
+    setIsDone(true);
   };
 
   const validatePasswordHandler = (password) => {
@@ -43,9 +36,9 @@ export default function RegisterAgency() {
     if (strengthLevel < 31) return ERROR_MESSAGES.password;
   };
 
-  const validateRepeatPasswordHandler = (repeatPassword, values) => {
+  const validateRepeatPasswordHandler = (repeatPassword, { password }) => {
     if (!repeatPassword) return ERROR_MESSAGES.required;
-    if (repeatPassword !== values.password) return ERROR_MESSAGES.repeatPassword;
+    if (repeatPassword !== password) return ERROR_MESSAGES.repeatPassword;
   };
 
   const goBackHandler = () => {

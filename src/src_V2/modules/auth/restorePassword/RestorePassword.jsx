@@ -22,11 +22,8 @@ export default function RestorePassword() {
   const [enteredEmail, setEnteredEmail] = useState('');
   const navigate = useNavigate();
 
-  const submitHandler = async (values) => {
-    await new Promise((res) => {
-      setTimeout(res, 1000);
-    });
-    setEnteredEmail(values.email);
+  const submitHandler = ({ email }) => {
+    setEnteredEmail(email);
     setIsDone(true);
   };
 

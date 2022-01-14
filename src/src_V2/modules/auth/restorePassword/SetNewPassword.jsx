@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Formik, Form } from 'formik';
-import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../components/formUI/Button';
 import PasswordField from '../../../components/formUI/PasswordField';
@@ -13,18 +12,6 @@ import { setNewPasswordInitialValues } from '../../../utils/schemas/auth/auth';
 
 export default function SetNewPassword() {
   const [passwordStrengthLevel, setPasswordStrengthLevel] = useState(0);
-  const navigate = useNavigate();
-
-  const submitHandler = async (_, submitProps) => {
-    await new Promise((res) => {
-      setTimeout(res, 1000);
-    });
-    if (Math.random() > 0.5) {
-      submitProps.setErrors({ password: 'Password error' });
-    } else {
-      navigate('/manager/dashboard');
-    }
-  };
 
   const validatePasswordHandler = (password) => {
     const strengthLevel = getPasswordStrengthLevel(password);
@@ -33,14 +20,14 @@ export default function SetNewPassword() {
     if (strengthLevel < 31) return ERROR_MESSAGES.password;
   };
 
-  const validateRepeatPasswordHandler = (repeatPassword, values) => {
+  const validateRepeatPasswordHandler = (repeatPassword, { password }) => {
     if (!repeatPassword) return ERROR_MESSAGES.required;
-    if (repeatPassword !== values.password) return ERROR_MESSAGES.repeatPassword;
+    if (repeatPassword !== password) return ERROR_MESSAGES.repeatPassword;
   };
 
   return (
     <AuthPageWrapper title='Set new password'>
-      <Formik initialValues={setNewPasswordInitialValues()} onSubmit={submitHandler}>
+      <Formik initialValues={setNewPasswordInitialValues()} onSubmit={() => {}}>
         <Form>
           <div className={styles.fieldsWrapper}>
             <PasswordField

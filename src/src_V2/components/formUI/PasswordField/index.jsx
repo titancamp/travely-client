@@ -5,14 +5,14 @@ import { IconButton, TextField, InputAdornment } from '@mui/material';
 
 const PasswordFieldWrapper = ({ name, validate, ...otherProps }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const ctx = useFormikContext();
+  const { values } = useFormikContext();
 
   const toggleShowHandler = () => {
     setShowPassword((prevValue) => !prevValue);
   };
 
   return (
-    <Field name={name} validate={validate && ((value) => validate(value, ctx.values))}>
+    <Field name={name} validate={validate && ((value) => validate(value, values))}>
       {({ field, meta }) => {
         const configTextField = {
           fullWidth: true,

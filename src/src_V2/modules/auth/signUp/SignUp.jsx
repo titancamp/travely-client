@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Formik, Form } from 'formik';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import Button from '../../../components/formUI/Button';
 import PasswordField from '../../../components/formUI/PasswordField';
@@ -15,18 +15,6 @@ export default function SignUp() {
   const [passwordStrengthLevel, setPasswordStrengthLevel] = useState(0);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const navigate = useNavigate();
-
-  const submitHandler = async (_, submitProps) => {
-    await new Promise((res) => {
-      setTimeout(res, 1000);
-    });
-    if (Math.random() > 0.5) {
-      submitProps.setErrors({ password: 'Password error' });
-    } else {
-      navigate('/manager/dashboard');
-    }
-  };
 
   const validatePasswordHandler = (password) => {
     const strengthLevel = getPasswordStrengthLevel(password);
@@ -35,9 +23,9 @@ export default function SignUp() {
     if (strengthLevel < 31) return ERROR_MESSAGES.password;
   };
 
-  const validateRepeatPasswordHandler = (repeatPassword, values) => {
+  const validateRepeatPasswordHandler = (repeatPassword, { password }) => {
     if (!repeatPassword) return ERROR_MESSAGES.required;
-    if (repeatPassword !== values.password) return ERROR_MESSAGES.repeatPassword;
+    if (repeatPassword !== password) return ERROR_MESSAGES.repeatPassword;
   };
 
   return (
@@ -46,7 +34,7 @@ export default function SignUp() {
         title='Welcome to Travely'
         description='Please set a password for your account'
       >
-        <Formik initialValues={setNewPasswordInitialValues()} onSubmit={submitHandler}>
+        <Formik initialValues={setNewPasswordInitialValues()} onSubmit={() => {}}>
           <Form>
             <div className={styles.fieldsWrapper}>
               <PasswordField
