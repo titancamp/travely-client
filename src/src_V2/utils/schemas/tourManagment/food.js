@@ -1,5 +1,5 @@
 import { object } from 'yup';
-import { BaseSchemas } from './BaseSchemas';
+import { BaseSchemas } from '../BaseSchemas';
 
 /**
  * Initial values for transportation.

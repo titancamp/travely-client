@@ -1,3 +1,4 @@
+import Reporting from './reporting';
 import Todo from './todo';
 import Dashboard from './dashboard';
 import Food from './supplier-management/food';
@@ -18,6 +19,7 @@ export const ROUTES = {
   TOUR_PACKAGE: 'tour-package/*',
   ACCOMMODATION: 'accommodation/*',
   TRANSPORTATION: 'transportation/*',
+  REPORTING: 'reporting',
 };
 
 /**
@@ -34,5 +36,6 @@ export default function routeConfigs() {
     { path: ROUTES.TOUR_PACKAGE, element: <TourPackage /> },
     { path: ROUTES.ACCOMMODATION, element: <Accommodation /> },
     { path: ROUTES.TRANSPORTATION, element: <Transportation /> },
+    { path: ROUTES.REPORTING, element: <Reporting /> },
   ];
 }

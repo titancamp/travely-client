@@ -1,5 +1,5 @@
 import { object } from 'yup';
-import { BaseSchemas } from '../tourManagment/BaseSchemas';
+import { BaseSchemas } from '../BaseSchemas';
 import { ERROR_MESSAGES } from '../../constants';
 
 /**
