@@ -16,29 +16,17 @@ import {
   registerAgencyInitialValues,
 } from '../../../utils/schemas/auth/auth';
 import styles from './RegisterAgency.module.css';
-import { ERROR_MESSAGES, getPasswordStrengthLevel } from '../../../utils';
+import { usePasswordValidation } from '../../../hooks';
 
 export default function RegisterAgency() {
-  const [passwordStrengthLevel, setPasswordStrengthLevel] = useState(0);
-  const [enteredEmail, setEnteredEmail] = useState('');
-
   const [done, setIsDone] = useState(false);
+  const [enteredEmail, setEnteredEmail] = useState('');
+  const { passwordStrengthLevel, validatePassword, validateRepeatPassword } =
+    usePasswordValidation();
 
   const submitHandler = ({ email }) => {
     setEnteredEmail(email);
     setIsDone(true);
-  };
-
-  const validatePasswordHandler = (password) => {
-    const strengthLevel = getPasswordStrengthLevel(password);
-    setPasswordStrengthLevel(strengthLevel);
-    if (!password) return ERROR_MESSAGES.required;
-    if (strengthLevel < 31) return ERROR_MESSAGES.password;
-  };
-
-  const validateRepeatPasswordHandler = (repeatPassword, { password }) => {
-    if (!repeatPassword) return ERROR_MESSAGES.required;
-    if (repeatPassword !== password) return ERROR_MESSAGES.repeatPassword;
   };
 
   const goBackHandler = () => {
@@ -60,15 +48,11 @@ export default function RegisterAgency() {
             <TextField name='agencyName' label='Agency Name' />
             <TextField name='email' label='Email' type='email' />
             <TextField name='ownerName' label='Your Name' />
-            <PasswordField
-              name='password'
-              label='Password'
-              validate={validatePasswordHandler}
-            />
+            <PasswordField name='password' label='Password' validate={validatePassword} />
             <PasswordField
               name='repeatPassword'
               label='Repeat Password'
-              validate={validateRepeatPasswordHandler}
+              validate={validateRepeatPassword}
             />
           </div>
           <PasswordValidator passedLevel={passwordStrengthLevel} />

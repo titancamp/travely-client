@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export default function useTimer(initialSeconds) {
+export function useTimer(initialSeconds) {
   const [seconds, setSeconds] = useState(initialSeconds);
   const [isActive, setIsActive] = useState(false);
 
