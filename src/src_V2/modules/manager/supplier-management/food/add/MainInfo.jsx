@@ -1,7 +1,15 @@
+import {
+  Box,
+  Grid,
+  Button,
+  Checkbox,
+  TextField,
+  Autocomplete,
+  FormControlLabel,
+} from '@mui/material';
 import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Map } from '@mui/icons-material';
-import { Box, Grid, Button, TextField, Autocomplete } from '@mui/material';
 
 import {
   mainInfoSchema,
@@ -121,7 +129,7 @@ export default function MainInfo({ parentRef, isValidate }) {
                 helperText={touched.city && errors.city}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} mb={3}>
               <TextField
                 fullWidth
                 name='address'
@@ -137,6 +145,96 @@ export default function MainInfo({ parentRef, isValidate }) {
           </Grid>
         </Box>
         <Box className={styles.mnRow}>
+          <label className={styles.label}>Working Hours</label>
+          <Grid container mb={3} rowSpacing={3} spacing={2}>
+            <Grid item container spacing={3}>
+              <Grid item xs={2.6}>
+                <FormControlLabel
+                  control={
+                    <Checkbox checked={true} onChange={handleChange} name='gilad' />
+                  }
+                  label='Working Days'
+                />
+              </Grid>
+              <Grid item xs={3.2}>
+                <TextField
+                  fullWidth
+                  type='time'
+                  name='checkIn'
+                  label='Check In Time'
+                  value={values.checkIn}
+                  onChange={handleChange}
+                  inputProps={{ step: 60, min: 10 }}
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+              <Grid item xs={3.2}>
+                <TextField
+                  fullWidth
+                  type='time'
+                  name='checkIn'
+                  label='Check In Time'
+                  value={values.checkIn}
+                  onChange={handleChange}
+                  inputProps={{ step: 60, min: 10 }}
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+            </Grid>{' '}
+            <Grid item container spacing={3}>
+              <Grid item xs={2.6}>
+                <FormControlLabel
+                  control={
+                    <Checkbox checked={true} onChange={handleChange} name='gilad' />
+                  }
+                  label='Weekend'
+                />
+              </Grid>
+              <Grid item xs={3.2}>
+                <TextField
+                  fullWidth
+                  type='time'
+                  name='checkIn'
+                  label='Check In Time'
+                  value={values.checkIn}
+                  onChange={handleChange}
+                  inputProps={{ step: 60, min: 10 }}
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+              <Grid item xs={3.2}>
+                <TextField
+                  fullWidth
+                  type='time'
+                  name='checkIn'
+                  label='Check In Time'
+                  value={values.checkIn}
+                  onChange={handleChange}
+                  inputProps={{ step: 60, min: 10 }}
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Box>
+        <Box className={styles.mnRow}>
+          <label className={styles.label}>Cost</label>
+          <Grid item xs={12} mb={3}>
+            <TextField
+              fullWidth
+              name='price'
+              type='number'
+              variant='outlined'
+              onBlur={handleBlur}
+              value={values.notes}
+              error={!!errors.notes}
+              onChange={handleChange}
+              label='Price Per Persons'
+              helperText={errors.notes}
+            />
+          </Grid>
+        </Box>
+        <Box className={`${styles.mnRow} ${errors.notes ? '' : styles.helper}`}>
           <label className={styles.label}>Notes</label>
           <Grid container spacing={4}>
             <Grid item xs={12}>
@@ -151,6 +249,7 @@ export default function MainInfo({ parentRef, isValidate }) {
                 onChange={handleChange}
                 error={!!errors.notes}
                 helperText={errors.notes}
+                FormHelperTextProps={{ className: styles.helper }}
               />
             </Grid>
           </Grid>

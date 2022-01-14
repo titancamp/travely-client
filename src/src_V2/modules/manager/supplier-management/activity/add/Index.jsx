@@ -2,46 +2,37 @@ import { Box } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import MainInfo from './MainInfo';
 import { Container } from '../../../../../components';
-import { Banner, Contact, Partnership } from '../../components';
+import { Banner, Partnership } from '../../components';
 
 import styles from './style.module.css';
 import { managerSidebarConfig } from '../../../config';
-import MainInfo from './MainInfo';
-import Menu from './Menu';
 
-function TransportationSteps({ currentTab: { step, isValidate }, food }) {
+function ActivitySteps({ currentTab: { step }, activity }) {
   switch (step) {
     case 1:
-      return <MainInfo isValidate={isValidate} parentRef={food} />;
+      return <MainInfo parentRef={activity} />;
     case 2:
-      return <Contact parentRef={food} />;
-    case 3:
-      return <Menu parentRef={food} />;
-    case 4:
-      return <Partnership parentRef={food} />;
+      return <Partnership parentRef={activity} />;
     default:
       return null;
   }
 }
 
-export default function AddFood() {
+export default function AddActivity() {
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState({ step: 1 });
-  const { current: food } = useRef({
-    menu: {},
-    contact: {},
+  const { current: activity } = useRef({
     mainInfo: {},
     partnership: { isValid: true },
   });
 
   function onSubmit() {
-    if (!food.mainInfo.isValid) {
+    if (!activity.mainInfo.isValid) {
       return setCurrentTab({ step: 1, isValidate: true });
-    } else if (!food.contact.isValid) {
+    } else if (!activity.contact.isValid) {
       return setCurrentTab({ step: 2 });
-    } else if (!food.partnership.isValid) {
-      return setCurrentTab({ step: 4 });
     } else {
       navigate('../list');
     }
@@ -52,12 +43,12 @@ export default function AddFood() {
       <Banner
         onSubmit={onSubmit}
         currentTab={currentTab}
-        pageName='Food Supplier'
+        pageName='Activity'
         setCurrentTab={setCurrentTab}
-        subMenus={['MAIN INFO', 'CONTACT', 'MENU', 'PARTNERSHIP']}
+        subMenus={['MAIN INFO', 'PARTNERSHIP']}
       />
       <Box className={styles.container}>
-        <TransportationSteps currentTab={currentTab} food={food} />
+        <ActivitySteps currentTab={currentTab} activity={activity} />
       </Box>
     </Container>
   );

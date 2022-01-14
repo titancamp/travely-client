@@ -2,13 +2,9 @@
   padding: 40px 120px 0 70px;
 }
 
-.content {
-  margin-right: 234px;
-}
+/* Tour Info */
 
-/* Main Info */
-
-.mainInfo {
+.tourInfo {
   max-width: 930px;
   min-width: 700px;
   min-height: 600px;
@@ -27,16 +23,4 @@
   font-size: 14px;
   text-align: right;
   margin-right: 24px;
-}
-
-.map {
-  padding: 0;
-  border: none;
-  color: black !important;
-  font-weight: bold;
-}
-
-.ctField {
-  margin-bottom: 25px !important;
-  max-width: 400px;
 }

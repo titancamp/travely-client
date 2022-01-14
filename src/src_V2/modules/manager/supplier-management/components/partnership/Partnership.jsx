@@ -1,7 +1,6 @@
 import { useFormik } from 'formik';
-import { CloudUpload } from '@mui/icons-material';
-import { useEffect, useRef, useState } from 'react';
-import { Box, Grid, Button, TextField, Chip, FormHelperText } from '@mui/material';
+import { useEffect } from 'react';
+import { Box, Grid, TextField } from '@mui/material';
 
 import {
   partnershipSchema,
@@ -9,6 +8,7 @@ import {
 } from '../../../../../utils/schemas/tourManagment/components';
 
 import styles from './style.module.css';
+import AddAttachment from '../add-attachment/AddAttachment';
 
 export default function Partnership({ parentRef }) {
   const formik = useFormik({
@@ -62,7 +62,7 @@ export default function Partnership({ parentRef }) {
           </Grid>
           <Box className={styles.mnRow}>
             <Box className={styles.addAttachmentContainer}>
-              <FileUploader formikRef={formik} />
+              <AddAttachment formikRef={formik} />
             </Box>
           </Box>
         </Grid>
@@ -101,86 +101,3 @@ export default function Partnership({ parentRef }) {
     </Box>
   );
 }
-
-const FileUploader = ({ formikRef }) => {
-  const hiddenFileInput = useRef(null);
-  const [files, setFiles] = useState([]);
-  const acceptedFileTypes = [
-    'image/png',
-    'image/jpg',
-    'image/jpeg',
-    'application/pdf',
-    '.doc',
-    '.docx',
-    '.xls',
-    '.xlsx',
-  ];
-
-  const handleClick = () => hiddenFileInput.current.click();
-  const handleDelete = (id) => () => {
-    const a = files.filter((item) => item.id !== id);
-    setFiles(a);
-  };
-
-  function errorHandler(key, message) {
-    formikRef.setFieldError(key, message);
-    setTimeout(() => formikRef.setFieldError(key, null), 5000);
-  }
-
-  function handleChange(event) {
-    try {
-      if (event.target.files.length + files.length > 5) {
-        throw new Error('Maximum files count is 5');
-      } else if (event.target.files.length) {
-        const newFiles = [...event.target.files].map((file, index) => {
-          if (!acceptedFileTypes.includes(file.type) || file.size / 1024 ** 2 > 20) {
-            throw new Error(
-              'Supported file types are .png, .jpeg, .jpg, .doc,.docx, .pdf, .xls, .xlsx'
-            );
-          }
-          file.id = (files[files.length - 1]?.id + 1 || 1) + index;
-          return file;
-        });
-        setFiles([...files, ...newFiles]);
-      }
-    } catch (error) {
-      errorHandler('attachments', error.message);
-    }
-  }
-
-  return (
-    <Box className={styles.mnRow}>
-      <Box>
-        <Button className={styles.addAttachment} onClick={handleClick}>
-          ADD ATTACHMENTS
-          <CloudUpload style={{ marginLeft: 10 }} />
-        </Button>
-        {formikRef.errors.attachments && (
-          <FormHelperText error sx={{ marginTop: 2 }}>
-            {formikRef.errors.attachments}
-          </FormHelperText>
-        )}
-      </Box>
-      <Box style={{ marginLeft: 20, width: 600 }}>
-        <Box>
-          {files.map((file) => (
-            <Chip
-              key={file.id}
-              label={file.name}
-              style={{ margin: 5 }}
-              onDelete={handleDelete(file.id)}
-            />
-          ))}
-        </Box>
-      </Box>
-      <input
-        multiple
-        type='file'
-        ref={hiddenFileInput}
-        onChange={handleChange}
-        style={{ display: 'none' }}
-        accept='.png, .jpeg, .jpg, .doc,.docx, .pdf, .xls, .xlsx'
-      />
-    </Box>
-  );
-};
