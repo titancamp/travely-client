@@ -18,6 +18,9 @@ import {
   Typography,
 } from '@mui/material';
 
+import { DatePicker, LocalizationProvider } from '@mui/lab';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+
 import { useState } from 'react';
 
 import creditCard from '../../../../../../../../assets/icons/credit-card.png';
@@ -82,7 +85,22 @@ const EditableTableCell = ({ data, text }) => {
     [columnTypes.price]: (
       <TextField label={text} size='small' variant='outlined' value={data} />
     ),
-    [columnTypes.date]: null,
+    [columnTypes.date]: (
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <Box className={styles.dueDatePicker}>
+          <DatePicker
+            name='dueDate'
+            label='Due date'
+            inputFormat='dd/MM/yyyy'
+            value={data}
+            // onChange={newDate => {
+            //   setFieldValue('date', newDate);
+            // }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </Box>
+      </LocalizationProvider>
+    ),
     [columnTypes.select]: (
       <FormControl fullWidth>
         <InputLabel id='demo-simple-select-label'>Type</InputLabel>
@@ -101,7 +119,6 @@ const EditableTableCell = ({ data, text }) => {
       </FormControl>
     ),
     [columnTypes.file]: <Upload formikRef={{ errors: {} }} label='Upload' />,
-    // [columnTypes.icon]: <AttachFile />
   };
 };
 

@@ -1,6 +1,6 @@
 import { Box, Button, Divider, InputAdornment, Stack, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
+import { DatePicker, LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { useFormik } from 'formik';
 
@@ -22,10 +22,11 @@ const CostBox = ({ currency, cost, text, className }) => {
 };
 
 export default function RowList({ row, onClose }) {
-  const { values, errors, handleBlur, handleChange, handleSubmit } = useFormik({
-    validationSchema: rowListSchema,
-    initialValues: rowListInitialValues(row),
-  });
+  const { values, errors, handleBlur, handleChange, handleSubmit, setFieldValue } =
+    useFormik({
+      validationSchema: rowListSchema,
+      initialValues: rowListInitialValues(row),
+    });
 
   return (
     <form onSubmit={handleSubmit}>
@@ -85,12 +86,14 @@ export default function RowList({ row, onClose }) {
             />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <Box className={styles.dueDatePicker}>
-                <DesktopDatePicker
+                <DatePicker
                   name='dueDate'
                   label='Due date'
                   inputFormat='dd/MM/yyyy'
                   value={values.dueDate}
-                  onChange={handleChange}
+                  onChange={(newDate) => {
+                    setFieldValue('date', newDate);
+                  }}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </Box>
