@@ -30,7 +30,7 @@ export const managerSidebarConfig = [
       },
       {
         title: 'Tour Packages',
-        path: '/manager/tour-packages',
+        path: '/manager/tour-package',
       },
     ],
   },
@@ -53,11 +53,11 @@ export const managerSidebarConfig = [
       },
       {
         title: 'Activities',
-        path: '/manager/activities',
+        path: '/manager/activity',
       },
       {
         title: 'Guides',
-        path: '/manager/guides',
+        path: '/manager/guide',
       },
     ],
   },

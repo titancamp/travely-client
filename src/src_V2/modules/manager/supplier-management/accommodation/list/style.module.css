@@ -18,6 +18,10 @@
 
 /* FilterBlock */
 
+.filterBtnIcon {
+  margin-right: 8px;
+}
+
 .select {
   width: 170px !important;
 }
@@ -46,13 +50,18 @@
   margin-right: 82px;
 }
 
-.title {
-  font-size: 24px !important;
-  margin-right: 24px !important;
+.leftSection .title {
+  font-size: 24px;
+  margin-right: 24px;
 }
 
-.addBtn {
-  margin-left: 22px !important;
+.rightSection .addBtn {
+  margin-left: 22px;
+}
+
+.rightSection .addBtn a {
+  color: white;
+  text-decoration: none;
 }
 
 .filterBtnsBlock > span {

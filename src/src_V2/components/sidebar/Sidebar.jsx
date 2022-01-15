@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import {
   styled,
   Fab,
@@ -13,32 +13,41 @@ import {
   ListItemText,
   Drawer as MuiDrawer,
 } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { ExpandLess, ExpandMore, ChevronLeft, ChevronRight } from '@mui/icons-material';
-import { blue } from '@mui/material/colors';
 
-import { CONTAINER_SIZES } from '../../utils';
 import styles from './Sidebar.module.css';
+import { CONTAINER_SIZES } from '../../utils';
 
 const listStyles = (open) => ({
-  marginTop: '28px',
+  marginTop: '24px',
+  width: '100%',
   ...(!open && { display: 'none' }),
 });
 
+const listItemStyles = {
+  paddingLeft: '32px',
+  backgroundColor: grey[50],
+};
+
 const openedMixin = (theme) => ({
-  position: 'relative',
+  top: '78px',
   width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.standard,
+    duration: theme.transitions.duration.enteringScreen,
   }),
   overflowX: 'hidden',
+  ' ~ .MuiFab-root': {
+    left: '300px',
+  },
 });
 
 const closedMixin = (theme) => ({
-  position: 'relative',
+  top: '78px',
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.standard,
+    duration: theme.transitions.duration.enteringScreen,
   }),
   overflowX: 'hidden',
   width: `calc(${theme.spacing(7)} + 1px)`,
@@ -49,6 +58,10 @@ const closedMixin = (theme) => ({
     width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
     ul: {
       display: 'initial !important',
+    },
+    ' ~ .MuiFab-root': {
+      left: '300px',
+      pointerEvents: 'none',
     },
   },
 });
@@ -68,18 +81,19 @@ const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
   }),
 }));
 
-function MenuItem({ page, selected }) {
-  const color = selected && blue[700];
+function MenuItem({ page, pathname }) {
+  const classMenuItem = page.path === pathname ? styles.menuItem : '';
+  const classMenuIcon = page.path === pathname ? styles.icon : '';
 
   return (
-    <ListItem button to={page.path} component={NavLink} selected={selected}>
-      <ListItemIcon sx={{ color }}>{page.icon}</ListItemIcon>
-      <ListItemText sx={{ color }} primary={page.title} />
+    <ListItem button to={page.path} component={NavLink} className={classMenuItem}>
+      <ListItemIcon className={classMenuIcon}>{page.icon}</ListItemIcon>
+      <ListItemText primary={page.title} />
     </ListItem>
   );
 }
 
-function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
+function ExpandableMenuItem({ open, page, expanded, setExpandedState, pathname }) {
   function mouseEnterHandler() {
     if (!open && !expanded[page.collapsibleId]) {
       setExpandedState(page.collapsibleId);
@@ -98,24 +112,20 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
         {expanded[page.collapsibleId] ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={expanded[page.collapsibleId]}>
-        <List component="div" disablePadding>
-          {page.subPages.map(({ title, path }) => {
-            const selected = path === location.pathname;
-            const color = selected && blue[700];
-
-            return (
-              <ListItem
-                button
-                className={styles.subListItem}
-                to={path}
-                key={title}
-                component={NavLink}
-                selected={selected}
-              >
-                <ListItemText primary={title} sx={{ color }} />
-              </ListItem>
-            );
-          })}
+        <List component='div' disablePadding>
+          {page.subPages.map(({ title, path }) => (
+            <ListItem
+              button
+              to={path}
+              key={title}
+              sx={listItemStyles}
+              pathname={pathname}
+              component={NavLink}
+              className={path === pathname ? styles.menuItem : ''}
+            >
+              <ListItemText primary={title} />
+            </ListItem>
+          ))}
         </List>
       </Collapse>
     </>
@@ -123,8 +133,15 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState }) {
 }
 
 export default function Sidebar({ pageConfigs, open, setOpen }) {
+  const { pathname } = useLocation();
   const [expanded, setExpanded] = useState({});
-  const openCloseHandler = useCallback(() => setOpen(!open), [open, setOpen]);
+  const openCloseHandler = useCallback(
+    (e) => {
+      e.stopPropagation();
+      setOpen(!open);
+    },
+    [open, setOpen]
+  );
 
   const setExpandedState = useCallback(
     (id) => {
@@ -138,23 +155,17 @@ export default function Sidebar({ pageConfigs, open, setOpen }) {
 
   return (
     <Box className={styles.mainBox}>
-      <Tooltip placement={'right'} TransitionComponent={Zoom} title={!open ? 'Expand' : 'Collapse'}>
-        <Fab onClick={openCloseHandler} className={styles.fabToggle}>
-          {open ? <ChevronLeft /> : <ChevronRight />}
-        </Fab>
-      </Tooltip>
-      <Drawer variant="permanent" anchor="left" open={open}>
+      <Drawer variant='permanent' anchor='left' open={open}>
         <List style={listStyles(open)}>
           {pageConfigs.map((page) => {
-            const selected = page.path === location.pathname;
-
             return page.path ? (
-              <MenuItem page={page} key={page.title} selected={selected} />
+              <MenuItem page={page} key={page.title} pathname={pathname} />
             ) : (
               <ExpandableMenuItem
                 open={open}
                 page={page}
                 key={page.title}
+                pathname={pathname}
                 expanded={expanded}
                 setExpandedState={setExpandedState}
               />
@@ -162,6 +173,15 @@ export default function Sidebar({ pageConfigs, open, setOpen }) {
           })}
         </List>
       </Drawer>
+      <Tooltip
+        placement={'right'}
+        TransitionComponent={Zoom}
+        title={!open ? 'Expand' : 'Collapse'}
+      >
+        <Fab onClick={openCloseHandler} color={'inherit'} className={styles.fab}>
+          {open ? <ChevronLeft /> : <ChevronRight />}
+        </Fab>
+      </Tooltip>
     </Box>
   );
 }
