@@ -1,5 +1,5 @@
 import { object, string, number, array } from 'yup';
-import { ERROR_MESSAGES, PhoneRegex } from '../../constants';
+import { ERROR_MESSAGES, PhoneRegex } from '../constants';
 
 export const BaseSchemas = {
   email: string().email(ERROR_MESSAGES.email),
