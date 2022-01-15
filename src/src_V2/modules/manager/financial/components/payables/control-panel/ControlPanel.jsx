@@ -3,7 +3,7 @@ import { FilterAlt, ViewColumn } from '@mui/icons-material';
 
 import styles from './ControlPanel.module.css';
 
-export default function ControlPanel({ searchForm }) {
+export default function ControlPanel({ searchValue, handleSearchChange }) {
   return (
     <Box className={styles.mainDiv}>
       <Paper className={styles.searchDiv}>
@@ -11,8 +11,8 @@ export default function ControlPanel({ searchForm }) {
           name='search'
           className={styles.searchInput}
           placeholder='Search by Tour Name/ID/Supplier'
-          value={searchForm.values.search}
-          onChange={searchForm.handleChange}
+          value={searchValue}
+          onChange={handleSearchChange}
         />
       </Paper>
 

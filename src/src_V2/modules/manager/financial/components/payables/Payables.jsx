@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useFormik } from 'formik';
+import { useCallback, useEffect, useState } from 'react';
 
 import { managerSidebarConfig } from '../../../config';
 import { rowsPerPageOptions, payableColumns } from '../../constants';
@@ -13,12 +12,7 @@ export default function Payables() {
   const [payables, setPayables] = useState([]);
   const [payablesLoading, setPayablesLoading] = useState(false);
   const [filteredPayables, setFilteredPayables] = useState([]);
-  const searchForm = useFormik({
-    initialValues: {
-      search: '',
-    },
-  });
-  const searchTxt = searchForm.values.search;
+  const [searchTxt, setSearchTxt] = useState('');
 
   // getting Payables from backend
   function getPayables() {
@@ -27,7 +21,7 @@ export default function Payables() {
     const timeout = setTimeout(() => {
       processPayables(payablesList());
       setPayablesLoading(false);
-    }, 0);
+    }, 500);
 
     return () => {
       clearTimeout(timeout);
@@ -43,7 +37,7 @@ export default function Payables() {
     setPayables(processedPayables);
   }
 
-  function filterPayables() {
+  const filterPayables = useCallback(() => {
     // filtering payables by Tour Name/ID/Supplier
     const filteredPayables = payables.filter(
       (item) =>
@@ -52,7 +46,7 @@ export default function Payables() {
         item.supplier.toLowerCase().includes(searchTxt)
     );
     setFilteredPayables(filteredPayables);
-  }
+  });
 
   useEffect(getPayables, []);
 
@@ -61,7 +55,10 @@ export default function Payables() {
   return (
     <Container managerSidebarConfig={managerSidebarConfig}>
       <Layout title='Payables'>
-        <ControlPanel searchForm={searchForm} />
+        <ControlPanel
+          searchValue={searchTxt}
+          handleSearchChange={(e) => setSearchTxt(e.target.value)}
+        />
         <PayableTable
           payables={filteredPayables}
           columns={payableColumns()}
