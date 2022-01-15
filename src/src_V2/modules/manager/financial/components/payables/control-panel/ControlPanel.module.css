@@ -1,6 +1,6 @@
 .mainDiv {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   margin: 10px 0;
   flex-wrap: wrap;
 }

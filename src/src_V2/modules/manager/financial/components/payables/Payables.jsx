@@ -20,14 +20,6 @@ export default function Payables() {
   });
   const searchTxt = searchForm.values.search;
 
-  useEffect(() => {
-    getPayables();
-  }, []);
-
-  useEffect(() => {
-    filterPayables();
-  }, [searchTxt, payables]);
-
   // getting Payables from backend
   function getPayables() {
     setPayablesLoading(true);
@@ -61,6 +53,10 @@ export default function Payables() {
     );
     setFilteredPayables(filteredPayables);
   }
+
+  useEffect(getPayables, []);
+
+  useEffect(filterPayables, [searchTxt, payables]);
 
   return (
     <Container managerSidebarConfig={managerSidebarConfig}>

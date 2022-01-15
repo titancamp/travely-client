@@ -1,8 +1,6 @@
 import { Box, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { useFormik } from 'formik';
 
-import { rowListInitialValues, rowListSchema } from '../../../../../../../utils/schemas';
 import GeneralInfo from './general-info/GeneralInfo';
 import EditableInfo from './editable-info/EditableInfo';
 import TourDetails from './tour-details/TourDetails';
@@ -10,7 +8,8 @@ import PaymentHistory from './payment-history/PaymentHistory';
 import Notes from './notes/Notes';
 import styles from './RowList.module.css';
 
-export default function RowList({ row, onClose }) {
+export default function RowList({ row, rowEditForm, onClose, onSave }) {
+  // not using context due to future replacement of redux
   const {
     values,
     errors,
@@ -19,10 +18,7 @@ export default function RowList({ row, onClose }) {
     handleChange,
     handleSubmit,
     setFieldValue,
-  } = useFormik({
-    validationSchema: rowListSchema,
-    initialValues: rowListInitialValues(row),
-  });
+  } = rowEditForm;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -82,7 +78,7 @@ export default function RowList({ row, onClose }) {
           <Button variant='outlined' onClick={onClose}>
             Cancel
           </Button>
-          <Button className={styles.saveBtn} variant='contained'>
+          <Button className={styles.saveBtn} onClick={onSave} variant='contained'>
             Save
           </Button>
         </div>
