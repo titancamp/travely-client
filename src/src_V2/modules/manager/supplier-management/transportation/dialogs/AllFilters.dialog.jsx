@@ -6,14 +6,19 @@ import {
   Button,
   Dialog,
   TextField,
-  Typography,
   IconButton,
   DialogTitle,
   Autocomplete,
   DialogContent,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  Typography,
 } from '@mui/material';
-import MultipleSelectCheckmarks from '../list/MultipleSelectCheckmarks';
 import styles from './style.module.css';
+import { Languages, License } from '../constants';
+import { EndAdornment } from '../../components/endAdornment';
+import { AirlineSeatReclineNormal, EventSeat } from '@mui/icons-material';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
@@ -22,6 +27,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
+    paddingTop: 30,
+    paddingBottom: 50,
   },
   '& .MuiDialogActions-root': {
     padding: theme.spacing(1),
@@ -37,7 +44,9 @@ const BootstrapDialogTitle = (props) => {
       {onClose ? (
         <div className={styles.filterHeader}>
           <div>
-            <Button className={styles.resetBtn}>RESET</Button>
+            <Button className={styles.resetBtn} onClick={handleReset}>
+              RESET
+            </Button>
           </div>
           <IconButton
             aria-label='close'
@@ -62,127 +71,84 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-const options = [
-  'Parking',
-  'Free Wifi',
-  'Room Service',
-  '24-Hour Guest Reception',
-  'Complimentary Toiletries',
-  'Healthy Breakfast',
-  'Ample Wall Outlets',
-  'Hair Styling Tools',
-  'Flexible Checkout',
-  'Pool',
-  'Mini-fridge',
-  'Complimentary Electronics Chargers',
-  'Clothing Iron',
-  'Business Facilities',
-  'Transportation Information',
-  'Free Breakfast',
-  'Laundry Services',
-  'Spa & Wellness Amenities',
-  ' Exercise Facilities and Accessories',
-  'Daily Newspaper',
-  'Entertainment',
-  'Complimentary Luggage storage',
-  'Cribs & Cots for Children',
-  'Custom Offers',
-  'Curated Experiences',
-  'Fancy Bathrobes',
-  'Kid-friendly Rooms and Products',
-  'Premium Bedding',
-  'Stain Remover Wipes',
-  'Pet-friendly Rooms',
-  'Champagne Bar',
-];
+const handleReset = () => {
+  //TODO reset form values
+};
 
 export default function AllFiltersDialog({ onClose, data: { open } }) {
   return (
-    <BootstrapDialog
-      onClose={onClose}
-      aria-labelledby='customized-dialog-title'
-      open={open}
-    >
-      <BootstrapDialogTitle
-        id='customized-dialog-title'
+    <form autoComplete='off'>
+      <BootstrapDialog
         onClose={onClose}
-        className={`${styles.container} ${styles.header}`}
+        aria-labelledby='customized-dialog-title'
+        open={open}
       >
-        Filters
-      </BootstrapDialogTitle>
-      <DialogContent dividers className={styles.container}>
-        <MultipleSelectCheckmarks options={options} width={782} />
-        <Grid container item xs={6} spacing={2} className={styles.timeBlock}>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              type='time'
-              defaultValue='00:00'
-              label='Check In Time'
-              inputProps={{ step: 300 }}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              type='time'
-              defaultValue='00:00'
-              hiddenLabel={true}
-              label='Check In Time'
-              inputProps={{ step: 300 }}
-            />
-          </Grid>
-        </Grid>
-        <Grid className={styles.dashedBorder} />
-        <Typography className={styles.roomTitle}>ROOMS</Typography>
-        <Grid container spacing={2} rowSpacing={3}>
+        <BootstrapDialogTitle
+          id='customized-dialog-title'
+          onClose={onClose}
+          className={`${styles.container} ${styles.header}`}
+        >
+          Filters
+        </BootstrapDialogTitle>
+        <DialogContent dividers className={styles.container}>
           <Grid item xs={4}>
             <Autocomplete
-              className={styles.roomType}
+              className={styles.input}
               disablePortal
               id='combo-box-demo'
-              options={[
-                { label: 'The Shawshank Redemption', year: 1994 },
-                { label: 'The Godfather', year: 1972 },
-              ]}
-              renderInput={(params) => <TextField {...params} label='Type*' />}
+              options={License}
+              name='license'
+              renderInput={(params) => <TextField {...params} label='License Type' />}
             />
           </Grid>
-          <Grid item xs={2}>
-            <TextField
-              className={styles.roomQuantity}
-              label='Quantity'
-              placeholder='Quantity'
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <TextField className={styles.roomPrice} label='Price' placeholder='Price' />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              className={styles.beds}
-              label='Number of Beds'
-              placeholder='Number of Beds'
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              className={styles.beds}
-              label='Additional Beds'
-              placeholder='Additional Beds'
-            />
-          </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={8}>
             <Autocomplete
-              options={[
-                { label: 'The Godfather', year: 1972 },
-                { label: 'The Shawshank Redemption', year: 1994 },
-              ]}
-              renderInput={(params) => <TextField {...params} label='Room Services' />}
+              className={styles.input}
+              multiple
+              options={Languages}
+              name='languages'
+              renderInput={(params) => (
+                <TextField {...params} name='languages' label='Languages' />
+              )}
             />
           </Grid>
-        </Grid>
-      </DialogContent>
-    </BootstrapDialog>
+          <Grid className={styles.dashedBorder} />
+          <Typography className={styles.roomTitle}>CARS</Typography>
+          <Grid item xs={4}>
+            <TextField
+              fullWidth
+              name='model'
+              label='Model'
+              placeholder='Model'
+              className={styles.input}
+            />
+          </Grid>
+          <Grid container item xs={12} spacing={3}>
+            <Grid item xs={4}>
+              <FormControl fullWidth>
+                <InputLabel>Number of Seats</InputLabel>
+                <OutlinedInput
+                  name='seats'
+                  label='Number of Seats'
+                  endAdornment={<EndAdornment icon={<EventSeat />} />}
+                  className={styles.input}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl fullWidth>
+                <InputLabel>Number of Car Seats</InputLabel>
+                <OutlinedInput
+                  name='carSeats'
+                  label='Number of Car Seats'
+                  endAdornment={<EndAdornment icon={<AirlineSeatReclineNormal />} />}
+                  className={styles.input}
+                />
+              </FormControl>
+            </Grid>
+          </Grid>
+        </DialogContent>
+      </BootstrapDialog>
+    </form>
   );
 }

@@ -206,4 +206,7 @@ input[type=number] {
   width: 159px;
 }
 
+.input {
+  margin-bottom: 20px !important;
+}
 
