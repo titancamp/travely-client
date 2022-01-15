@@ -14,7 +14,9 @@ export default function ConfirmDialog({
   title = '',
   message = '',
   confirmButton,
+  cancelButton,
   onClose,
+  onCancel,
   onConfirm,
 }) {
   const confirmBtn = {
@@ -23,6 +25,14 @@ export default function ConfirmDialog({
     focus: true,
     ...confirmButton,
   };
+
+  const cancelBtn = {
+    variant: 'outlined',
+    txt: 'Cancel',
+    ...cancelButton,
+  };
+
+  const cancelHandler = onCancel ? onCancel : onClose;
 
   return (
     <Dialog
@@ -52,8 +62,12 @@ export default function ConfirmDialog({
         <DialogContentText id='alert-dialog-description'>{message}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} autoFocus={!confirmBtn.focus} variant='outlined'>
-          Cancel
+        <Button
+          onClick={cancelHandler}
+          autoFocus={!confirmBtn.focus}
+          variant={cancelBtn.variant}
+        >
+          {cancelBtn.txt}
         </Button>
         <Button
           onClick={onConfirm}

@@ -1,6 +1,5 @@
 import { Box, InputAdornment, TextField } from '@mui/material';
-import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { DatePicker } from '@mui/lab';
 
 import styles from './EditableInfo.module.css';
 
@@ -10,6 +9,7 @@ export default function EditableInfo({
   touched,
   handleBlur,
   handleChange,
+  setFieldValue,
   currency,
 }) {
   return (
@@ -30,18 +30,16 @@ export default function EditableInfo({
           startAdornment: <InputAdornment position='start'>{currency}</InputAdornment>,
         }}
       />
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <Box className={styles.dueDatePicker}>
-          <DesktopDatePicker
-            name='dueDate'
-            label='Due date'
-            inputFormat='dd/MM/yyyy'
-            value={values.dueDate}
-            onChange={handleChange}
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </Box>
-      </LocalizationProvider>
+      <Box className={styles.dueDatePicker}>
+        <DatePicker
+          name='dueDate'
+          label='Due date'
+          inputFormat='dd/MM/yyyy'
+          value={values.dueDate}
+          onChange={(newValue) => setFieldValue('dueDate', newValue.toString())}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      </Box>
     </Box>
   );
 }

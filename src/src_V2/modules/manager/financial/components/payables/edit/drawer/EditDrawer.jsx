@@ -63,6 +63,12 @@ export default function EditDrawer({ drawerState, clickedRow, isOpenedChangeHand
     isOpenedChangeHandler(false);
   };
 
+  const closePopupsAndDrawer = () => {
+    closeUnsavedChangesPopup();
+    closeApplyPopup();
+    closeDrawer();
+  };
+
   const handleCloseDrawer = () => {
     if (rowEditForm.dirty) {
       openUnsavedChangesPopup();
@@ -71,16 +77,20 @@ export default function EditDrawer({ drawerState, clickedRow, isOpenedChangeHand
     }
   };
 
+  const handleDiscardUnsavedChanges = () => {
+    closePopupsAndDrawer();
+  };
+
   const handleSaveApplyClick = () => {
-    openApplyPopup();
+    if (rowEditForm.dirty) {
+      openApplyPopup();
+    }
   };
 
   const handleSaveChanges = () => {
     // first - backend save request, then...
     console.log('saved');
-    closeUnsavedChangesPopup();
-    closeApplyPopup();
-    closeDrawer();
+    closePopupsAndDrawer();
   };
 
   useEffect(() => toggleDrawer(isOpened), [isOpened]);
@@ -108,6 +118,8 @@ export default function EditDrawer({ drawerState, clickedRow, isOpenedChangeHand
         open={unsavedPopupOpened}
         message='Please note that you have unsaved changes. Do you want to save the changes?'
         confirmButton={{ focus: true, txt: 'Save' }}
+        cancelButton={{ txt: 'Discard' }}
+        onCancel={handleDiscardUnsavedChanges}
         onClose={closeUnsavedChangesPopup}
         onConfirm={handleSaveChanges}
       />

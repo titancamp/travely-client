@@ -49,6 +49,7 @@ export default function RowList({ row, rowEditForm, onClose, onSave }) {
             handleBlur={handleBlur}
             handleChange={handleChange}
             currency={row.currency}
+            setFieldValue={setFieldValue}
           />
         </Box>
 
