@@ -1,12 +1,20 @@
 import { useCallback, useState } from 'react';
-import {
-  ERROR_MESSAGES,
-  PasswordStrengthLevels,
-  getPasswordStrengthLevel,
-} from '../utils';
+import { ERROR_MESSAGES, PasswordStrengthLevels } from '../utils';
 
-export function usePasswordValidation() {
+export default function usePasswordValidation() {
   const [passwordStrengthLevel, setPasswordStrengthLevel] = useState(0);
+
+  const getPasswordStrengthLevel = (password) => {
+    let currentLevel = 0;
+
+    Object.keys(PasswordStrengthLevels).forEach((strengthLevel) => {
+      if (PasswordStrengthLevels[strengthLevel].test(password)) {
+        currentLevel |= strengthLevel;
+      }
+    });
+
+    return currentLevel;
+  };
 
   const validatePassword = useCallback((password) => {
     const strengthLevel = getPasswordStrengthLevel(password);

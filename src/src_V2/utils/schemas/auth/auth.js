@@ -1,5 +1,5 @@
 import { object } from 'yup';
-import { BaseSchemas } from '../tourManagment/BaseSchemas';
+import { BaseSchemas } from '../BaseSchemas';
 
 export function LoginInitialValues(initialValues) {
   return {
