@@ -45,14 +45,19 @@ input[type=number] {
   padding-top: 10px !important;
 }
 
+.helperText {
+  margin-left: 2px !important;
+  margin-right: 2px !important;
+}
+
 /* Filter */
 
 .filterHeader .resetBtn {
-  margin-right: 60px;
-  padding: 8px 22px;
-  font-width: 500;
-  line-height: 26px;
   font-size: 15px;
+  font-weight: 500;
+  padding: 8px 22px;
+  line-height: 26px;
+  margin-right: 60px;
 }
 
 .container {
