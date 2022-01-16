@@ -1,2 +1,7 @@
 export { PaymentStatus, PaymentType } from './payment';
-export { rowsPerPageOptions, payableColumns } from './table-settings';
+export { rowsPerPageOptions } from './table-settings';
+export {
+  payableColumns,
+  paymentHistoryColumns,
+  paymentHistoryColumnTypes,
+} from './payable-table';

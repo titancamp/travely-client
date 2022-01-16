@@ -4,8 +4,10 @@ import {
   AccordionSummary,
   Box,
   Button,
+  FormControl,
   InputLabel,
   MenuItem,
+  Paper,
   Select,
   Table,
   TableBody,
@@ -16,127 +18,117 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useState, useCallback } from 'react';
+import { DatePicker } from '@mui/lab';
 
 import creditCard from '../../../../../../../../assets/icons/credit-card.png';
-import { generateDate } from '../../../../../../../../utils';
-import { NoData, LoadingSpinner, TooltipText } from '../../../../../../../../components';
-import { TableBodyWrapper, TableCellWrapper } from '../../../table/PayableTable';
+import { NoData } from '../../../../../../../../components';
+// import Upload from '../../../../../../supplier-management/components/add-attachment/AddAttachment';
+import { paymentHistoryInitialValues } from '../../../../../../../../utils/schemas';
+import {
+  paymentHistoryColumns as columns,
+  paymentHistoryColumnTypes as columnTypes,
+  PaymentType,
+} from '../../../../../constants';
 import commonStyles from '../style.module.css';
 import styles from './PaymentHistory.module.css';
-import tableStyles from '../../../table/PayableTable.module.css';
 
-const inputTypes = {
-  text: 'text',
-  price: 'price',
-  date: 'date',
-  select: 'select',
-  file: 'file',
-};
-
-const columns = [
-  { id: 'invoiceId', label: 'Invoice ID' },
-  { id: 'paidAmount', label: 'Paid Amount' },
-  { id: 'paymentDate', label: 'Payment Date' },
-  { id: 'paymentType', label: 'Payment Type' },
-  { id: 'attachment', label: 'Attachment' },
-];
-
-const EditableTableCell = ({ rowValue, type, inputLabel }) => {
-  const [input, setInput] = useState(rowValue);
-
-  return (
-    <TableCellWrapper>
-      {(() => {
-        switch (type) {
-          case inputTypes.text:
-            return (
-              <TextField
-                label={inputLabel}
-                size='small'
-                variant='outlined'
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-              />
-            );
-          case inputTypes.price:
-            return (
-              <TextField
-                label={inputLabel}
-                size='small'
-                variant='outlined'
-                value={input}
-              />
-            );
-          case inputTypes.date:
-            return (
-              <TextField
-                label={inputLabel}
-                size='small'
-                variant='outlined'
-                value={input}
-              />
-            );
-          case inputTypes.select:
-            return (
-              <>
-                <InputLabel id='demo-simple-select-label'>Type</InputLabel>
-                <Select
-                  labelId='demo-simple-select-label'
-                  id='demo-simple-select'
-                  value={rowValue}
-                  onChange={(e) => setInput(e.value)}
-                  autoWidth
-                  label='Type'
-                >
-                  <MenuItem value={'Cash'}>Cash</MenuItem>
-                  <MenuItem value={'Transfer'}>Transfer</MenuItem>
-                </Select>
-              </>
-            );
-          case inputTypes.file:
-            return (
-              <TextField
-                label={inputLabel}
-                size='small'
-                variant='outlined'
-                value={input}
-              />
-            );
-          default:
-            return <TooltipText text={input || ''} />;
-        }
-      })()}
-    </TableCellWrapper>
-  );
-};
-
-export default function PaymentHistory({ history }) {
-  const loading = false;
-  const [data, setData] = useState(history || []);
-
-  const addPayment = useCallback(() => {
-    setData((d) => {
-      return [
-        {
-          invoiceId: '',
-          paidAmount: '',
-          paymentDate: '',
-          paymentType: 'Cash',
-          attachment: null,
-        },
-        ...d,
-      ];
+const EditableTableCell = ({
+  value,
+  label,
+  columnName,
+  id,
+  paymentHistory,
+  setFieldValue,
+}) => {
+  const handleChange = (newValue, name) => {
+    paymentHistory.forEach((history) => {
+      if (history.id === id) {
+        history[name] = newValue;
+      }
     });
-  }, [data]);
+    setFieldValue('paymentHistory', paymentHistory);
+  };
 
-  const AddPaymentBtn = useCallback(() => {
-    return (
-      <Button variant='contained' onClick={addPayment}>
-        + Add payment
-      </Button>
-    );
-  }, [addPayment]);
+  return {
+    [columnTypes.text]: (
+      <TextField
+        size='small'
+        variant='outlined'
+        label={label}
+        name={columnName}
+        value={value}
+        key={id}
+        onChange={({ target: { value } }) => handleChange(value, columnName)}
+      />
+    ),
+    [columnTypes.price]: (
+      <TextField
+        size='small'
+        variant='outlined'
+        label={label}
+        name={columnName}
+        value={value}
+        key={id}
+        onChange={({ target: { value } }) => handleChange(value, columnName)}
+      />
+    ),
+    [columnTypes.date]: (
+      <Box className={commonStyles.dueDatePicker}>
+        <DatePicker
+          inputFormat='dd/MM/yyyy'
+          label={label}
+          name={columnName}
+          value={value}
+          key={id}
+          onChange={(newValue) => handleChange(newValue.toString(), columnName)}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      </Box>
+    ),
+    [columnTypes.select]: (
+      <FormControl fullWidth>
+        <InputLabel id='demo-simple-select-label'>Payment Type</InputLabel>
+        <Select
+          size='small'
+          variant='outlined'
+          label={label}
+          name={columnName}
+          value={value}
+          key={id}
+          onChange={({ target: { value } }) => handleChange(value, columnName)}
+        >
+          <MenuItem value={PaymentType.Cash}>{PaymentType[1]}</MenuItem>
+          <MenuItem value={PaymentType.Transfer}>{PaymentType[2]}</MenuItem>
+        </Select>
+      </FormControl>
+    ),
+    // [columnTypes.file]: <Upload formikRef={{ errors: {} }} label='Upload' />,
+  };
+};
+
+const AddPaymentBtn = ({ addPaymentHandler }) => (
+  <Button variant='contained' onClick={addPaymentHandler}>
+    + Add payment
+  </Button>
+);
+
+export default function PaymentHistory({
+  values,
+  // errors,
+  // touched,
+  // handleBlur,
+  setFieldValue,
+}) {
+  const paymentHistory = values?.paymentHistory || [];
+  const historyColumns = columns();
+  const columnKeys = Object.keys(historyColumns);
+
+  const handleAddPayment = () => {
+    setFieldValue('paymentHistory', [
+      ...paymentHistory,
+      paymentHistoryInitialValues(paymentHistory.length + 1),
+    ]);
+  };
 
   return (
     <Accordion className={commonStyles.accordion} expanded={true}>
@@ -154,94 +146,64 @@ export default function PaymentHistory({ history }) {
           />
           <Typography className={commonStyles.detailsTxt}>
             Payment History{' '}
-            {!!history?.length && (
-              <span className={commonStyles.detailsCount}>({history.length})</span>
+            {!!paymentHistory?.length && (
+              <span className={commonStyles.detailsCount}>({paymentHistory.length})</span>
             )}
           </Typography>
         </Box>
-        {/* <Box>{history?.length && <AddPaymentBtn />}</Box> */}
         <Box>
-          <AddPaymentBtn />
+          {!!paymentHistory?.length && (
+            <AddPaymentBtn addPaymentHandler={handleAddPayment} />
+          )}
         </Box>
       </AccordionSummary>
       <AccordionDetails className={commonStyles.accordionDetails}>
-        <Box>
-          <TableContainer className={tableStyles.tableContainer}>
-            <Table aria-labelledby='tableTitle' padding='none'>
-              <TableHead className={tableStyles.tableHead}>
-                <TableRow>
-                  {columns.map((headCell) => (
-                    <TableCell
-                      align='left'
-                      key={headCell.id}
-                      className={`${tableStyles.tableCell} ${tableStyles.tableHeaderCell}`}
-                    >
-                      <TooltipText text={headCell.label} />
-                    </TableCell>
-                  ))}
+        <TableContainer component={Paper}>
+          <Table className={styles.historyTable}>
+            <TableHead>
+              <TableRow>
+                {columnKeys.map((c) => (
+                  <TableCell align='left' key={c}>
+                    {historyColumns[c].label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {paymentHistory.map((row, i) => (
+                <TableRow
+                  key={row.name}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  {columnKeys.map((columnKey) => {
+                    const column = historyColumns[columnKey];
+
+                    const cell = EditableTableCell({
+                      value: row[columnKey],
+                      label: column.label,
+                      columnName: columnKey,
+                      id: i + 1,
+                      paymentHistory,
+                      setFieldValue,
+                    });
+
+                    return (
+                      <TableCell key={`${columnKey}_${row.id}_${i}`}>
+                        {cell[column.type]}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
-              </TableHead>
-              {data.length ? (
-                <>
-                  {/*Usual Rows*/}
-                  <TableBody className={`${tableStyles.tableBody}`}>
-                    {data.map((row) => {
-                      return (
-                        <>
-                          <TableRow key={row.invoiceId} className={tableStyles.tableRow}>
-                            <EditableTableCell
-                              rowValue={row.invoiceId}
-                              type={inputTypes.text}
-                              inputLabel={'Invoice ID'}
-                            />
-                            <EditableTableCell
-                              rowValue={row.paidAmount}
-                              type={inputTypes.text}
-                              inputLabel={'Paid Amount'}
-                            />
-                            <EditableTableCell
-                              rowValue={generateDate(row.paymentDate)}
-                              /* type={inputTypes.date} */ inputLabel={'Payment Date'}
-                            />
-                            <EditableTableCell
-                              rowValue={row.paymentType}
-                              type={inputTypes.select}
-                              inputLabel={'Payment Type'}
-                            />
-                            <EditableTableCell
-                              rowValue={row.attachment}
-                              /* type={inputTypes.file} */ inputLabel={'Attachment'}
-                            />
-                          </TableRow>
-                        </>
-                      );
-                    })}
-                  </TableBody>
-                </>
-              ) : loading ? (
-                // todo hide scroll when loading and there is no data
-                <TableBodyWrapper>
-                  {/*Loading*/}
-                  {/*todo correct loading styles*/}
-                  <LoadingSpinner />
-                </TableBodyWrapper>
-              ) : (
-                <TableBodyWrapper rowClassName={tableStyles.whiteTableCell}>
-                  {/*No Data*/}
-                  <Box className={tableStyles.noData}>
-                    <NoData />
-                  </Box>
-                </TableBodyWrapper>
-              )}
-            </Table>
-          </TableContainer>
-          {/* {!history?.length && (
-            <Box className={styles.noDataBox}>
-              <NoData className={styles.noData} />
-              <AddPaymentBtn />
-            </Box>
-          )} */}
-        </Box>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        {!paymentHistory?.length && (
+          <Box className={styles.noDataBox}>
+            <NoData className={styles.noData} />
+            <AddPaymentBtn addPaymentHandler={handleAddPayment} />
+          </Box>
+        )}
       </AccordionDetails>
     </Accordion>
   );

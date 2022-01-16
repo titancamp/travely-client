@@ -1,6 +1,7 @@
 import { Box, InputAdornment, TextField } from '@mui/material';
 import { DatePicker } from '@mui/lab';
 
+import commonStyles from '../style.module.css';
 import styles from './EditableInfo.module.css';
 
 export default function EditableInfo({
@@ -30,7 +31,7 @@ export default function EditableInfo({
           startAdornment: <InputAdornment position='start'>{currency}</InputAdornment>,
         }}
       />
-      <Box className={styles.dueDatePicker}>
+      <Box className={`${commonStyles.dueDatePicker} ${styles.dueDatePickerInput}`}>
         <DatePicker
           name='dueDate'
           label='Due date'

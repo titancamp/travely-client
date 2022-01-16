@@ -39,3 +39,8 @@
 .primaryColor {
   color: var(--primary);
 }
+
+/* DatePicker */
+.dueDatePicker > div > div {
+  height: 40px;
+}

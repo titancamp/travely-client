@@ -1,6 +1,6 @@
 .mainDiv {
   padding: 24px;
-  height: 115vh;
+  min-height: 100vh;
   background-color: var(--lightGrey);
 }
 
