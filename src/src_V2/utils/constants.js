@@ -10,12 +10,12 @@ export const ERROR_MESSAGES = {
   integer: 'The filed must be an integer',
   phone: 'The field is not a valid phone number',
   password: 'All validation levels must be passed',
-  repeatPassword: 'Passwords doesn\'t match',
+  repeatPassword: "Passwords doesn't match",
   maxNumberField: (max) => `The value must be at most ${max}`,
   maxTextField: (max) => `The filed must be at most ${max} characters`,
 };
 
-export const PasswordValidationNames = {
+export const PasswordStrengthNames = {
   1: 'One lowercase character',
   2: 'One uppercase character',
   4: 'One number',
@@ -23,7 +23,7 @@ export const PasswordValidationNames = {
   16: '8-20 characters',
 };
 
-export const PasswordStrengthLevels = {
+export const PasswordStrengthRegexes = {
   1: /^.*[a-z]/,
   2: /^.*[A-Z]/,
   4: /^.*[0-9]/,

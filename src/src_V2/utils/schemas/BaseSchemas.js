@@ -1,5 +1,5 @@
 import { object, string, number, array } from 'yup';
-import { ERROR_MESSAGES, PasswordStrengthLevels, PhoneRegex } from '../constants';
+import { ERROR_MESSAGES, PasswordStrengthRegexes, PhoneRegex } from '../constants';
 
 export const BaseSchemas = {
   email: string().email(ERROR_MESSAGES.email),
@@ -7,9 +7,9 @@ export const BaseSchemas = {
   password: string()
     .required(ERROR_MESSAGES.required)
     .test('password-strength', ERROR_MESSAGES.password, function (password) {
-      const strengthLevels = Object.values(PasswordStrengthLevels);
-      for (let i = 0; i < strengthLevels.length; ++i) {
-        if (!strengthLevels[i].test(password)) {
+      const strengthRegexes = Object.values(PasswordStrengthRegexes);
+      for (let i = 0; i < strengthRegexes.length; ++i) {
+        if (!strengthRegexes[i].test(password)) {
           return false;
         }
       }

@@ -4,20 +4,20 @@ import { Typography } from '@mui/material';
 import { Check } from '@mui/icons-material';
 
 import styles from './PasswordValidator.module.css';
-import { PasswordStrengthLevels, PasswordValidationNames } from '../../../../utils';
+import { PasswordStrengthRegexes, PasswordStrengthNames } from '../../../../utils';
 
 export default memo(function PasswordValidator({ password }) {
   let currentStrengthLevel = 0;
 
-  Object.keys(PasswordStrengthLevels).forEach((strengthLevel) => {
-    if (PasswordStrengthLevels[strengthLevel].test(password)) {
+  Object.keys(PasswordStrengthRegexes).forEach((strengthLevel) => {
+    if (PasswordStrengthRegexes[strengthLevel].test(password)) {
       currentStrengthLevel |= strengthLevel;
     }
   });
 
   return (
     <div className={styles.wrapper}>
-      {Object.keys(PasswordValidationNames).map((strengthLevel) => (
+      {Object.keys(PasswordStrengthNames).map((strengthLevel) => (
         <div
           key={strengthLevel}
           className={clsx({
@@ -26,7 +26,7 @@ export default memo(function PasswordValidator({ password }) {
           })}
         >
           <Typography variant='subtitle1'>
-            {PasswordValidationNames[strengthLevel]}
+            {PasswordStrengthNames[strengthLevel]}
           </Typography>
           <Typography variant='subtitle1'>
             {strengthLevel & currentStrengthLevel ? <Check fontSize={'inherit'} /> : null}
