@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Accordion,
   AccordionDetails,
@@ -24,7 +25,7 @@ import { Error, Delete } from '@mui/icons-material';
 import { DatePicker } from '@mui/lab';
 
 import creditCard from '../../../../../../../../assets/icons/credit-card.png';
-import { NoData } from '../../../../../../../../components';
+import { ConfirmDialog, NoData } from '../../../../../../../../components';
 import { paymentHistoryInitialValues } from '../../../../../../../../utils/schemas';
 import {
   paymentHistoryColumns as columns,
@@ -95,7 +96,7 @@ const EditableTableCell = ({
           name={columnName}
           value={value}
           key={id}
-          onChange={(newValue) => handleChange(newValue.toString(), columnName)}
+          onChange={(newValue) => handleChange(newValue?.toString(), columnName)}
           renderInput={(params) => <TextField {...params} />}
         />
       </Box>
@@ -131,6 +132,8 @@ export default function PaymentHistory({
   setFieldValue,
   currency,
 }) {
+  const [deletePopupOpened, setDeletePopupOpened] = useState(false);
+  const [historyIndex, setHistoryIndex] = useState(null);
   const historyColumns = columns();
   const columnKeys = Object.keys(historyColumns);
 
@@ -141,9 +144,27 @@ export default function PaymentHistory({
     ]);
   };
 
-  const handleDeleteHistory = (index) => {
-    paymentHistory.splice(index, 1);
+  const openDeletePopup = () => {
+    setDeletePopupOpened(true);
+  };
+
+  const closeDeletePopup = () => {
+    setDeletePopupOpened(false);
+  };
+
+  const deleteHistoryByIndex = () => {
+    paymentHistory.splice(historyIndex, 1);
     setFieldValue('paymentHistory', [...paymentHistory]);
+  };
+
+  const deleteHistory = () => {
+    closeDeletePopup();
+    deleteHistoryByIndex();
+  };
+
+  const handleDeleteHistory = (index) => {
+    setHistoryIndex(index);
+    openDeletePopup();
   };
 
   return (
@@ -181,7 +202,7 @@ export default function PaymentHistory({
                 {columnKeys.map((c) => {
                   const tooltipTxt = historyColumns[c].tooltip;
                   return (
-                    <TableCell align='left' key={c}>
+                    <TableCell align='left' key={c} className={styles.headerTableCell}>
                       <Box className={tooltipTxt && styles.attachmentTableCell}>
                         {historyColumns[c].label}
                         {tooltipTxt && (
@@ -241,6 +262,16 @@ export default function PaymentHistory({
           </Box>
         )}
       </AccordionDetails>
+
+      {/*Delete History popup*/}
+      <ConfirmDialog
+        open={deletePopupOpened}
+        title='Delete Item'
+        message='Are you sure you want to delete selected payment?'
+        confirmButton={{ focus: false, txt: 'Delete', color: 'error' }}
+        onClose={closeDeletePopup}
+        onConfirm={deleteHistory}
+      />
     </Accordion>
   );
 }

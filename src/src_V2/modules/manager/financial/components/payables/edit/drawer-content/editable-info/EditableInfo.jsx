@@ -37,7 +37,7 @@ export default function EditableInfo({
           label='Due date'
           inputFormat='dd/MM/yyyy'
           value={values.dueDate}
-          onChange={(newValue) => setFieldValue('dueDate', newValue.toString())}
+          onChange={(newValue) => setFieldValue('dueDate', newValue?.toString())}
           renderInput={(params) => <TextField {...params} />}
         />
       </Box>

@@ -38,3 +38,7 @@
   display: flex !important;
   align-items: center;
 }
+
+.headerTableCell {
+  min-width: 140px;
+}

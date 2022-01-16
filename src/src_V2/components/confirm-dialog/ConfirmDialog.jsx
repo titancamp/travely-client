@@ -9,6 +9,8 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
+import styles from './ConfirmDialog.module.css';
+
 export default function ConfirmDialog({
   open = false,
   title = '',
@@ -23,6 +25,7 @@ export default function ConfirmDialog({
     variant: 'contained',
     txt: 'Confirm',
     focus: true,
+    color: 'primary',
     ...confirmButton,
   };
 
@@ -44,16 +47,7 @@ export default function ConfirmDialog({
       <DialogTitle id='alert-dialog-title'>
         {title}
         {onClose && (
-          <IconButton
-            aria-label='close'
-            onClick={onClose}
-            sx={{
-              position: 'absolute',
-              right: 8,
-              top: 8,
-              color: (theme) => theme.palette.grey[500],
-            }}
-          >
+          <IconButton aria-label='close' onClick={onClose} className={styles.closeIcon}>
             <CloseIcon />
           </IconButton>
         )}
@@ -73,6 +67,7 @@ export default function ConfirmDialog({
           onClick={onConfirm}
           autoFocus={confirmBtn.focus}
           variant={confirmBtn.variant}
+          color={confirmBtn.color}
         >
           {confirmBtn.txt}
         </Button>

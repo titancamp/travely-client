@@ -88,7 +88,7 @@ const payablesList = () => [
     false,
     17887,
     '2021-12-26T09:36:19Z',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+    [paymentHistory(1, '134252-89', '8000', '2021-12-26T09:36:19Z', 2)]
   ),
   createPayable(
     262,
