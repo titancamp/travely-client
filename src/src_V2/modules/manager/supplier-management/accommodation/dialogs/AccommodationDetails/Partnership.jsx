@@ -1,7 +1,8 @@
 import { TabPanel } from '@mui/lab';
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
 import styles from '../style.module.css';
+import { CalendarToday } from '@mui/icons-material';
 
 export default function Partnership() {
   return (
@@ -10,11 +11,14 @@ export default function Partnership() {
         <Typography className={styles.partnershipSectionTitle}>Details</Typography>
         <Box className={styles.partnershipDetailsSection}>
           <Box className={styles.partnershipSectionBlock}>
-            <Typography>Sign Date</Typography>
+            <Box className={styles.datesSection}>
+              <CalendarToday className={styles.calendarIcon} />
+              <Typography>Sign Date</Typography>
+            </Box>
             <Typography>12.03.2021</Typography>
           </Box>
           <Box className={styles.partnershipSectionBlock}>
-            <Typography>Expiry Date</Typography>
+            <Typography marginBottom='5px'>Expiry Date</Typography>
             <Typography>12.03.2021</Typography>
           </Box>
           <Box className={styles.partnershipSectionBlock}>
@@ -34,20 +38,6 @@ export default function Partnership() {
             >
               Mariot-Related Documents
             </Button>
-          </Box>
-        </Box>
-      </Box>
-      <Grid className={styles.dashedBorder} />
-      <Box>
-        <Typography className={styles.partnershipSectionTitle}>Details</Typography>
-        <Box className={styles.partnershipDetailsSection}>
-          <Box className={styles.partnershipSectionBlock}>
-            <Typography>Percentage</Typography>
-            <Typography> 10%</Typography>
-          </Box>
-          <Box className={styles.partnershipSectionBlock}>
-            <Typography>Fixed Price</Typography>
-            <Typography>10000 AMD</Typography>
           </Box>
         </Box>
       </Box>

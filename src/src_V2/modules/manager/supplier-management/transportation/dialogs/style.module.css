@@ -162,6 +162,16 @@ input[type=number] {
   margin-right: 25px;
 }
 
+.datesSection {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.calendarIcon {
+  color: rgba(0, 0, 0, 0.54);
+  margin-right: 15px;
+}
+
 /* Filter */
 
 .filterHeader .resetBtn {
