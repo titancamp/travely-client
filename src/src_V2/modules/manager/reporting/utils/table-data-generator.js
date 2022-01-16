@@ -1,6 +1,6 @@
 import { createTableColumn, createTableRow } from '../../../../utils';
 
-const tourReportTableDataGenerator = (entries) => ({
+export const tourReportTableDataGenerator = (entries) => ({
   head: [
     createTableColumn('Tour Name', 'Tour Name'),
     createTableColumn('Participants', 'Participants'),
@@ -21,4 +21,27 @@ const tourReportTableDataGenerator = (entries) => ({
   ),
 });
 
-export default tourReportTableDataGenerator;
+export const userManagementTableDataGenerator = (entries) => ({
+  head: [
+    createTableColumn('Name', 'Name'),
+    createTableColumn('User Position', 'User Position'),
+    createTableColumn('Email', 'Email'),
+    createTableColumn('Phone Number', 'Phone Number'),
+    createTableColumn('Status', 'Status'),
+    createTableColumn('editBtn', ''),
+  ],
+  rows: entries.map((data) =>
+    createTableRow(
+      data.id,
+      [
+        createTableColumn('name', data.name),
+        createTableColumn('position', data.position),
+        createTableColumn('email', data.email),
+        createTableColumn('phone', data.phone),
+        createTableColumn('status', data.status),
+        createTableColumn('editBtn', data.editBtn),
+      ],
+      data
+    )
+  ),
+});

@@ -15,4 +15,4 @@ export const ERROR_MESSAGES = {
 
 //Armenian Phone regexp
 export const PhoneRegex =
-  /^(([+374]{4}|[0]{1}))?(\s|-)?([1-9]{2})(\s|-)?(\d{2})(\s|-)?(\d{2})(\s|-)?(\d{2})$/;
+  /^(([+374]{4}|[0]{1}))?(\s|-)?(\d{2})(\s|-)?(\d{2})(\s|-)?(\d{2})(\s|-)?(\d{2})$/;

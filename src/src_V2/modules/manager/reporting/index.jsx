@@ -1,5 +1,5 @@
 import { Table } from '../../../components';
-import tourReportTableDataGenerator from './utils/table-data-generator';
+import { tourReportTableDataGenerator } from './utils/table-data-generator';
 import { useTableDataGenerator } from '../../../hooks';
 import { Container } from '../../../components';
 

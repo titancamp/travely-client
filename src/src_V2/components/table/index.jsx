@@ -12,6 +12,7 @@ import {
   TableRow,
   Typography,
   Table as MuiTable,
+  Paper,
 } from '@mui/material';
 import { noop } from '../../utils';
 import styles from './styles';
@@ -38,7 +39,7 @@ const Table = ({
 }) => {
   const { head, rows } = data;
   return (
-    <TableContainer sx={styles.tableContainer}>
+    <TableContainer component={Paper} elevation='1'>
       <MuiTable>
         <TableHead>
           {head.map(({ content, key, styles: style = {} }) => (

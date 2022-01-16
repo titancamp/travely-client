@@ -9,6 +9,7 @@ import Accommodation from './supplier-management/accommodation';
 import Payables from './financial/components/payables/Payables';
 import Account from './account';
 import Transportation from './supplier-management/transportation';
+import UserManagement from './user-management';
 
 export const ROUTES = {
   TODO: 'todo',
@@ -22,6 +23,7 @@ export const ROUTES = {
   TRANSPORTATION: 'transportation/*',
   REPORTING: 'reporting',
   ACCOUNT: 'account',
+  USER_MANAGEMENT: 'user-management/*',
 };
 
 /**
@@ -40,5 +42,6 @@ export default function routeConfigs() {
     { path: ROUTES.TRANSPORTATION, element: <Transportation /> },
     { path: ROUTES.REPORTING, element: <Reporting /> },
     { path: ROUTES.ACCOUNT, element: <Account /> },
+    { path: ROUTES.USER_MANAGEMENT, element: <UserManagement /> },
   ];
 }

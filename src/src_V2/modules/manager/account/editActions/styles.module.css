@@ -1,0 +1,15 @@
+.btns-wrapper {
+  height: 104px;
+  padding: 0 44px;
+  margin: 40px -40px -24px -40px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.btns-wrapper .submit-btn {
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-left: 12px;
+}

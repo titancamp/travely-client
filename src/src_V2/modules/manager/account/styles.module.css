@@ -1,0 +1,39 @@
+.wrapper {
+  padding: 24px 40px;
+  min-height: calc(100vh - 78px);
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.wrapper-with-actions {
+  padding-bottom: 120px;
+}
+
+.wrapper .title {
+  margin-bottom: 40px;
+}
+
+.wrapper .form-wrapper {
+  max-width: 1056px;
+}
+
+.wrapper .divider {
+  margin: 56px 0 36px;
+}
+
+.wrapper .uploadBtn-wrapper {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+}
+
+.wrapper .uploadBtn {
+  background-color: #fff;
+  color: #000;
+}
+
+.wrapper .uploadBtn:hover {
+  background-color: #f0f0f0;
+}
