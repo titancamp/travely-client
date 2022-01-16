@@ -48,5 +48,7 @@ export const paymentHistoryColumns = () => ({
   attachment: {
     label: 'Attachment',
     type: paymentHistoryColumnTypes.file,
+    tooltip:
+      'Please upload png, jpg, jpeg, gif, pdf file type. File size should be 10 MB.',
   },
 });

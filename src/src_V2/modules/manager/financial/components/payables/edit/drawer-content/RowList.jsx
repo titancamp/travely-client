@@ -58,7 +58,13 @@ export default function RowList({ row, rowEditForm, onClose, onSave }) {
         </Box>
 
         <Box className={styles.layoutDistance}>
-          <PaymentHistory values={values} setFieldValue={setFieldValue} />
+          <PaymentHistory
+            paymentHistory={values.paymentHistory}
+            errors={errors.paymentHistory}
+            touched={touched}
+            setFieldValue={setFieldValue}
+            currency={row.currency}
+          />
         </Box>
 
         <Box className={styles.layoutDistance}>

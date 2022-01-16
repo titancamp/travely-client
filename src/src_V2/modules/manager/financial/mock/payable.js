@@ -108,7 +108,7 @@ const payablesList = () => [
     false,
     17887,
     '2021-12-26T09:36:19Z',
-    [paymentHistory(4, '134252-89', '1000', '2021-12-26T09:36:19Z', 2)],
+    [paymentHistory(1, '134252-89', '8000', '2021-12-26T09:36:19Z', 1)],
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget faucibus augue purus, faucibus rhoncus. Laoreet iaculis pharetra fringilla facilisis suscipit dui pellentesque. Fringilla quam mauris sed ornare. Consectetur ac gravida sollicitudin sed ut ultrices. Ut eleifend ultrices orci.'
   ),
   createPayable(

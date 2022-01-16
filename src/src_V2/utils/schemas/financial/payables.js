@@ -23,7 +23,7 @@ export function paymentHistoryInitialValues(id) {
     id,
     invoiceId: '',
     paidAmount: '',
-    paymentType: '',
+    paymentType: PaymentType.Cash,
     paymentDate: '',
     attachment: '',
   };

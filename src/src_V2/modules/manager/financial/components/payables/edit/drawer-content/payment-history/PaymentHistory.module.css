@@ -28,3 +28,13 @@
 .historyTable {
   min-width: 650px;
 }
+
+.price > div {
+  display: flex;
+  align-items: baseline;
+}
+
+.attachmentTableCell {
+  display: flex !important;
+  align-items: center;
+}

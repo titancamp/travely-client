@@ -5,7 +5,8 @@ import {
   Box,
   Button,
   FormControl,
-  InputLabel,
+  IconButton,
+  InputAdornment,
   MenuItem,
   Paper,
   Select,
@@ -16,13 +17,14 @@ import {
   TableHead,
   TableRow,
   TextField,
+  Tooltip,
   Typography,
 } from '@mui/material';
+import { Error, Delete } from '@mui/icons-material';
 import { DatePicker } from '@mui/lab';
 
 import creditCard from '../../../../../../../../assets/icons/credit-card.png';
 import { NoData } from '../../../../../../../../components';
-// import Upload from '../../../../../../supplier-management/components/add-attachment/AddAttachment';
 import { paymentHistoryInitialValues } from '../../../../../../../../utils/schemas';
 import {
   paymentHistoryColumns as columns,
@@ -34,49 +36,62 @@ import styles from './PaymentHistory.module.css';
 
 const EditableTableCell = ({
   value,
-  label,
   columnName,
   id,
   paymentHistory,
   setFieldValue,
+  touched,
+  errors,
+  currency,
 }) => {
+  const error = errors && Object.keys(errors).length && errors[id - 1];
+
   const handleChange = (newValue, name) => {
-    paymentHistory.forEach((history) => {
+    const newHistories = paymentHistory.map((history) => {
       if (history.id === id) {
         history[name] = newValue;
       }
+      return history;
     });
-    setFieldValue('paymentHistory', paymentHistory);
+    setFieldValue('paymentHistory', JSON.parse(JSON.stringify(newHistories)));
   };
+
+  // todo almost all error handlers are the same - write wrapper
+  // console.log(error, 'ERROR');
 
   return {
     [columnTypes.text]: (
       <TextField
         size='small'
         variant='outlined'
-        label={label}
         name={columnName}
         value={value}
         key={id}
         onChange={({ target: { value } }) => handleChange(value, columnName)}
+        error={touched[columnName] && error[columnName]}
+        helperText={touched[columnName] && error[columnName]}
       />
     ),
     [columnTypes.price]: (
       <TextField
         size='small'
         variant='outlined'
-        label={label}
         name={columnName}
         value={value}
         key={id}
+        className={styles.price}
         onChange={({ target: { value } }) => handleChange(value, columnName)}
+        error={touched[columnName] && error[columnName]}
+        helperText={touched[columnName] && error[columnName]}
+        InputProps={{
+          startAdornment: <InputAdornment position='start'>{currency}</InputAdornment>,
+        }}
       />
     ),
     [columnTypes.date]: (
       <Box className={commonStyles.dueDatePicker}>
         <DatePicker
           inputFormat='dd/MM/yyyy'
-          label={label}
           name={columnName}
           value={value}
           key={id}
@@ -87,14 +102,11 @@ const EditableTableCell = ({
     ),
     [columnTypes.select]: (
       <FormControl fullWidth>
-        <InputLabel id='demo-simple-select-label'>Payment Type</InputLabel>
         <Select
           size='small'
           variant='outlined'
-          label={label}
           name={columnName}
           value={value}
-          key={id}
           onChange={({ target: { value } }) => handleChange(value, columnName)}
         >
           <MenuItem value={PaymentType.Cash}>{PaymentType[1]}</MenuItem>
@@ -102,7 +114,7 @@ const EditableTableCell = ({
         </Select>
       </FormControl>
     ),
-    // [columnTypes.file]: <Upload formikRef={{ errors: {} }} label='Upload' />,
+    [columnTypes.file]: <Button variant='outlined'>Upload</Button>,
   };
 };
 
@@ -113,13 +125,12 @@ const AddPaymentBtn = ({ addPaymentHandler }) => (
 );
 
 export default function PaymentHistory({
-  values,
-  // errors,
-  // touched,
-  // handleBlur,
+  paymentHistory = [],
+  errors,
+  touched,
   setFieldValue,
+  currency,
 }) {
-  const paymentHistory = values?.paymentHistory || [];
   const historyColumns = columns();
   const columnKeys = Object.keys(historyColumns);
 
@@ -128,6 +139,11 @@ export default function PaymentHistory({
       ...paymentHistory,
       paymentHistoryInitialValues(paymentHistory.length + 1),
     ]);
+  };
+
+  const handleDeleteHistory = (index) => {
+    paymentHistory.splice(index, 1);
+    setFieldValue('paymentHistory', [...paymentHistory]);
   };
 
   return (
@@ -162,15 +178,27 @@ export default function PaymentHistory({
           <Table className={styles.historyTable}>
             <TableHead>
               <TableRow>
-                {columnKeys.map((c) => (
-                  <TableCell align='left' key={c}>
-                    {historyColumns[c].label}
-                  </TableCell>
-                ))}
+                {columnKeys.map((c) => {
+                  const tooltipTxt = historyColumns[c].tooltip;
+                  return (
+                    <TableCell align='left' key={c}>
+                      <Box className={tooltipTxt && styles.attachmentTableCell}>
+                        {historyColumns[c].label}
+                        {tooltipTxt && (
+                          <Tooltip title={tooltipTxt}>
+                            <IconButton>
+                              <Error />
+                            </IconButton>
+                          </Tooltip>
+                        )}
+                      </Box>
+                    </TableCell>
+                  );
+                })}
               </TableRow>
             </TableHead>
             <TableBody>
-              {paymentHistory.map((row, i) => (
+              {paymentHistory?.map((row, i) => (
                 <TableRow
                   key={row.name}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -180,11 +208,13 @@ export default function PaymentHistory({
 
                     const cell = EditableTableCell({
                       value: row[columnKey],
-                      label: column.label,
                       columnName: columnKey,
                       id: i + 1,
                       paymentHistory,
                       setFieldValue,
+                      touched,
+                      errors,
+                      currency,
                     });
 
                     return (
@@ -193,6 +223,12 @@ export default function PaymentHistory({
                       </TableCell>
                     );
                   })}
+                  {/*Delete Row*/}
+                  <TableCell>
+                    <IconButton onClick={() => handleDeleteHistory(i)}>
+                      <Delete />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
