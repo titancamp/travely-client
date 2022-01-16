@@ -1,29 +1,38 @@
+import { memo } from 'react';
 import clsx from 'clsx';
 import { Typography } from '@mui/material';
 import { Check } from '@mui/icons-material';
 
 import styles from './PasswordValidator.module.css';
-import { PasswordValidationNames } from '../../../../utils';
+import { PasswordStrengthLevels, PasswordValidationNames } from '../../../../utils';
 
-export default function PasswordValidator(props) {
+export default memo(function PasswordValidator({ password }) {
+  let currentStrengthLevel = 0;
+
+  Object.keys(PasswordStrengthLevels).forEach((strengthLevel) => {
+    if (PasswordStrengthLevels[strengthLevel].test(password)) {
+      currentStrengthLevel |= strengthLevel;
+    }
+  });
+
   return (
     <div className={styles.wrapper}>
-      {Object.keys(PasswordValidationNames).map((validationLevel) => (
+      {Object.keys(PasswordValidationNames).map((strengthLevel) => (
         <div
-          key={validationLevel}
+          key={strengthLevel}
           className={clsx({
             [styles.validationField]: true,
-            [styles.success]: validationLevel & props.passedLevel,
+            [styles.success]: strengthLevel & currentStrengthLevel,
           })}
         >
           <Typography variant='subtitle1'>
-            {PasswordValidationNames[validationLevel]}
+            {PasswordValidationNames[strengthLevel]}
           </Typography>
           <Typography variant='subtitle1'>
-            {validationLevel & props.passedLevel ? <Check fontSize={'inherit'} /> : null}
+            {strengthLevel & currentStrengthLevel ? <Check fontSize={'inherit'} /> : null}
           </Typography>
         </div>
       ))}
     </div>
   );
-}
+});

@@ -35,23 +35,32 @@ export function setNewPasswordInitialValues(initialValues) {
   };
 }
 
-export function loginPasswordSchema() {
-  return object().shape({
+export function loginValidationSchema() {
+  return object({
     email: BaseSchemas.requiredEmail,
     password: BaseSchemas.requiredText(),
   });
 }
 
-export function restorePasswordSchema() {
-  return object().shape({
+export function registerAgencyValidationSchema() {
+  return object({
+    agencyName: BaseSchemas.requiredText(),
+    email: BaseSchemas.requiredEmail,
+    ownerName: BaseSchemas.requiredText(),
+    password: BaseSchemas.password,
+    repeatPassword: BaseSchemas.repeatPassword('password'),
+  });
+}
+
+export function restorePasswordValidationSchema() {
+  return object({
     email: BaseSchemas.requiredEmail,
   });
 }
 
-export function registerAgencySchema() {
-  return object().shape({
-    agencyName: BaseSchemas.requiredText(),
-    email: BaseSchemas.requiredEmail,
-    ownerName: BaseSchemas.requiredText(),
+export function setNewPasswordValidationSchema() {
+  return object({
+    password: BaseSchemas.password,
+    repeatPassword: BaseSchemas.repeatPassword('password'),
   });
 }

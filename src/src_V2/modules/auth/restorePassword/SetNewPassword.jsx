@@ -1,34 +1,56 @@
-import { Formik, Form } from 'formik';
+import { useFormik } from 'formik';
+import { Button } from '@mui/material';
 
-import Button from '../../../components/formUI/Button';
 import PasswordField from '../../../components/formUI/PasswordField';
 import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
 import PasswordValidator from '../components/passwordValidator/PasswordValidator';
 
 import styles from './RestorePassword.module.css';
-import { usePasswordValidation } from '../../../hooks';
-import { setNewPasswordInitialValues } from '../../../utils/schemas/auth/auth';
+import {
+  setNewPasswordInitialValues,
+  setNewPasswordValidationSchema,
+} from '../../../utils/schemas/auth/auth';
 
 export default function SetNewPassword() {
-  const { passwordStrengthLevel, validatePassword, validateRepeatPassword } =
-    usePasswordValidation();
+  const { getFieldProps, errors, touched, isSubmitting, handleSubmit } = useFormik({
+    initialValues: setNewPasswordInitialValues(),
+    validationSchema: setNewPasswordValidationSchema(),
+  });
 
   return (
     <AuthPageWrapper title='Set new password'>
-      <Formik initialValues={setNewPasswordInitialValues()} onSubmit={() => {}}>
-        <Form>
-          <div className={styles.fieldsWrapper}>
-            <PasswordField name='password' label='Password' validate={validatePassword} />
-            <PasswordField
-              name='repeatPassword'
-              label='Repeat Password'
-              validate={validateRepeatPassword}
-            />
-          </div>
-          <PasswordValidator passedLevel={passwordStrengthLevel} />
-          <Button>CONFIRM</Button>
-        </Form>
-      </Formik>
+      <form onSubmit={handleSubmit}>
+        <div className={styles.fieldsWrapper}>
+          <PasswordField
+            name='password'
+            label='Password'
+            fullWidth
+            margin='normal'
+            error={!!(touched.password && errors.password)}
+            helperText={touched.password && errors.password}
+            {...getFieldProps('password')}
+          />
+          <PasswordField
+            name='repeatPassword'
+            label='Repeat Password'
+            fullWidth
+            margin='normal'
+            error={!!(touched.repeatPassword && errors.repeatPassword)}
+            helperText={touched.repeatPassword && errors.repeatPassword}
+            {...getFieldProps('repeatPassword')}
+          />
+        </div>
+        <PasswordValidator password={getFieldProps('password').value} />
+        <Button
+          type='submit'
+          variant='contained'
+          fullWidth
+          size={'large'}
+          disabled={isSubmitting}
+        >
+          CONFIRM
+        </Button>
+      </form>
     </AuthPageWrapper>
   );
 }
