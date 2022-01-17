@@ -1,0 +1,33 @@
+@import '../../../../styles/colors.css';
+
+.content {
+  max-width: 396px;
+}
+
+.content .illustration {
+  margin-bottom: 54px;
+  user-select: none;
+  pointer-events: none;
+}
+
+.content .title {
+  margin-bottom: 24px;
+}
+
+.content .divider {
+  margin: 24px 0;
+}
+
+.content .link {
+  cursor: pointer;
+}
+
+.content .counter {
+  color: var(--primary);
+}
+
+.content .disabledLink {
+  text-decoration: none;
+  color: #9e9e9e;
+  pointer-events: none;
+}
