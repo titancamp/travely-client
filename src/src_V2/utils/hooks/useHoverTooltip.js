@@ -4,7 +4,8 @@ export function useHoverTooltip(text, textElementRef) {
   const [hoverStatus, setHover] = useState(false);
 
   const compareSize = () => {
-    const compare = textElementRef.current.scrollWidth > textElementRef.current.clientWidth;
+    const compare =
+      textElementRef.current.scrollWidth > textElementRef.current.clientWidth;
     setHover(compare);
   };
 
