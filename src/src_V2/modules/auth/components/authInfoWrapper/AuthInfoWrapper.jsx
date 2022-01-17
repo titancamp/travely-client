@@ -1,5 +1,5 @@
 import styles from './AuthInfoWrapper.module.css';
-import logo from '../../../../assets/Travely.png';
+import logo from '../../../../assets/images/Travely.png';
 
 export default function AuthInfoWrapper({ children }) {
   return (
