@@ -32,10 +32,6 @@
   color: var(--secondary);
 }
 
-.panelImg {
-  margin-right: 10px;
-}
-
 .primaryColor {
   color: var(--primary);
 }

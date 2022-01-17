@@ -1,7 +1,3 @@
-.cardImg {
-  height: 16px;
-}
-
 .accordionBox div {
   justify-content: space-between !important;
 }
@@ -39,6 +35,11 @@
   align-items: center;
 }
 
-.headerTableCell {
-  min-width: 140px;
+.historyCell {
+  max-width: 150px;
+}
+
+.uploadBtn {
+  display: flex;
+  align-items: flex-start;
 }

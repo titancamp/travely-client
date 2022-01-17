@@ -21,10 +21,9 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { Error, Delete } from '@mui/icons-material';
+import { Error, Delete, CloudUpload, Payment } from '@mui/icons-material';
 import { DatePicker } from '@mui/lab';
 
-import creditCard from '../../../../../../../../assets/icons/credit-card.png';
 import { ConfirmDialog, NoData } from '../../../../../../../../components';
 import { paymentHistoryInitialValues } from '../../../../../../../../utils/schemas';
 import {
@@ -115,7 +114,11 @@ const EditableTableCell = ({
         </Select>
       </FormControl>
     ),
-    [columnTypes.file]: <Button variant='outlined'>Upload</Button>,
+    [columnTypes.file]: (
+      <Button variant='outlined' endIcon={<CloudUpload />} className={styles.uploadBtn}>
+        Upload
+      </Button>
+    ),
   };
 };
 
@@ -175,12 +178,9 @@ export default function PaymentHistory({
         className={`${commonStyles.accordionSummary} ${styles.accordionBox}`}
       >
         <Box className={styles.paymentBox}>
-          <Box
-            component='img'
-            alt='Payment History'
-            src={creditCard}
-            className={`${styles.cardImg} ${commonStyles.panelImg}`}
-          />
+          <IconButton>
+            <Payment />
+          </IconButton>
           <Typography className={commonStyles.detailsTxt}>
             Payment History{' '}
             {!!paymentHistory?.length && (
@@ -202,7 +202,7 @@ export default function PaymentHistory({
                 {columnKeys.map((c) => {
                   const tooltipTxt = historyColumns[c].tooltip;
                   return (
-                    <TableCell align='left' key={c} className={styles.headerTableCell}>
+                    <TableCell align='left' key={c}>
                       <Box className={tooltipTxt && styles.attachmentTableCell}>
                         {historyColumns[c].label}
                         {tooltipTxt && (
@@ -239,7 +239,10 @@ export default function PaymentHistory({
                     });
 
                     return (
-                      <TableCell key={`${columnKey}_${row.id}_${i}`}>
+                      <TableCell
+                        key={`${columnKey}_${row.id}_${i}`}
+                        className={styles.historyCell}
+                      >
                         {cell[column.type]}
                       </TableCell>
                     );

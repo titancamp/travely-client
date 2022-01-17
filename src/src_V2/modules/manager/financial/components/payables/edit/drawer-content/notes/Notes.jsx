@@ -8,9 +8,8 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { ExpandMore, Close } from '@mui/icons-material';
+import { ExpandMore, Close, RateReview } from '@mui/icons-material';
 
-import notesImage from '../../../../../../../../assets/icons/notes.png';
 import commonStyles from '../style.module.css';
 import styles from './Notes.module.css';
 
@@ -34,12 +33,9 @@ export default function Notes({
         id='panel1a-header'
         className={commonStyles.accordionSummary}
       >
-        <Box
-          component='img'
-          alt='Notes'
-          src={notesImage}
-          className={`${styles.notesImg} ${commonStyles.panelImg}`}
-        />
+        <IconButton>
+          <RateReview />
+        </IconButton>
         <Typography className={commonStyles.detailsTxt}>Notes</Typography>
       </AccordionSummary>
       <AccordionDetails className={commonStyles.accordionDetails}>
