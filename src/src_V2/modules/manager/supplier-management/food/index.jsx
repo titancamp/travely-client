@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import AddFood from './add/Index';
 import FoodNoData from './FoodNoData';
+import FoodList from './list/Index';
 
 export const ROUTES = {
   ADD: 'add',
@@ -15,6 +16,7 @@ function routeConfigs() {
   return [
     { index: true, element: <FoodNoData /> },
     { path: ROUTES.ADD, element: <AddFood /> },
+    { path: ROUTES.LIST, element: <FoodList /> },
   ];
 }
 
