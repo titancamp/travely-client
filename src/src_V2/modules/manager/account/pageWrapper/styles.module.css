@@ -1,0 +1,12 @@
+.wrapper {
+  padding: 24px 40px;
+  min-height: calc(100vh - 78px);
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.wrapper-with-actions {
+  padding-bottom: 120px;
+}

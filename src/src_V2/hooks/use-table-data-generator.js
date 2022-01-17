@@ -5,7 +5,6 @@ const isColumnVisible = (visibleColumns, key) =>
 
 const useTableDataGenerator = (tableDataNormalizer, deps, visibleColumns) => {
   return useMemo(() => {
-    console.log(deps);
     const data = tableDataNormalizer(...deps);
     let { head, rows } = data;
 

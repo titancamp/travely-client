@@ -1,3 +1,22 @@
+@import '../../../styles/colors.css';
+
+.table {
+  table-layout: fixed;
+}
+
 .title {
   margin-bottom: 24px;
+}
+
+.select-btn {
+  color: var(--secondary);
+  min-width: 220px;
+}
+
+.table [class~='MuiTableCell-root'] {
+  height: 52px;
+}
+
+.select {
+  padding: 9.5px 32px 9.5px 14px !important;
 }

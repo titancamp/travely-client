@@ -1,57 +1,15 @@
-/* eslint-disable */
-
+import { useEffect, useState } from 'react';
+import { Button, Select, IconButton, Box, MenuItem, Typography } from '@mui/material';
 import { Edit } from '@mui/icons-material';
-import { IconButton, Typography } from '@mui/material';
-import { Box } from '@mui/system';
-// import { Box } from '@mui/system';
-import { Container, Table } from '../../../components';
-import { useTableDataGenerator } from '../../../hooks';
-import { managerSidebarConfig } from '../config';
-import { userManagementTableDataGenerator } from '../reporting/utils/table-data-generator';
-import styles from './styles.module.css';
 
-const mockData = [
-  {
-    id: 0,
-    name: 'Theresa Webb',
-    position: 'Tour Manager',
-    email: 'chrwin@me.com',
-    phone: '(319) 555-0115',
-    status: 'Pending',
-  },
-  {
-    id: 1,
-    name: 'Wade Warren',
-    position: 'Tour Manager',
-    email: 'shaffei@me.com',
-    phone: '(319) 555-0115',
-    status: 'Active',
-  },
-  {
-    id: 2,
-    name: 'Brooklyn Simmons',
-    position: 'Tour Manager',
-    email: 'dbrobins@outlook.com',
-    phone: '(319) 555-0115',
-    status: 'Active',
-  },
-  {
-    id: 3,
-    name: 'Ronald Richards',
-    position: 'Tour Manager',
-    email: 'iapetus@aol.com',
-    phone: '(319) 555-0115',
-    status: 'Pending',
-  },
-  {
-    id: 4,
-    name: 'Brooklyn Simmons',
-    position: 'Tour Manager',
-    email: 'seasweb@me.com',
-    phone: '(319) 555-0115',
-    status: 'Active',
-  },
-];
+import { Container, Table } from '../../../components';
+import PageWrapper from '../account/pageWrapper';
+
+import { useTableDataGenerator } from '../../../hooks';
+import { userManagementTableDataGenerator } from '../reporting/utils/table-data-generator';
+import { managerSidebarConfig } from '../config';
+import { mockData } from './mock/data';
+import styles from './styles.module.css';
 
 const EditBtn = ({ rowData, handleEdit }) => (
   <span>
@@ -76,25 +34,65 @@ const StatusIndicator = ({ status }) => {
 };
 
 function UserManagementContent() {
-  const handleEdit = (id) => {
-    console.log(id);
+  const handleEdit = () => {
+    // Redirect to edit page
   };
 
-  const tableData = useTableDataGenerator(userManagementTableDataGenerator, [
-    mockData.map((row) => ({
+  const [tableData, setTableData] = useState([]);
+
+  const generatedTableData = useTableDataGenerator(userManagementTableDataGenerator, [
+    tableData.map((row) => ({
       ...row,
       status: <StatusIndicator status={row.status} />,
       editBtn: <EditBtn rowData={row} handleEdit={handleEdit} />,
     })),
   ]);
 
+  const [currentTab, setCurrentTab] = useState('active');
+
+  const handleChange = (event) => {
+    setCurrentTab(event.target.value);
+  };
+
+  useEffect(() => {
+    setTableData(mockData[currentTab]);
+  }, [currentTab]);
+
   return (
-    <div>
+    <PageWrapper>
       <Typography className={styles['title']} variant='h6'>
-        My Account
+        User Management
       </Typography>
-      <Table isLoading={false} data={tableData} />
-    </div>
+      <Box display='flex' justifyContent='space-between' mt={2.5} mb={3}>
+        <Select
+          className={styles['select-btn']}
+          classes={{
+            select: styles['select'],
+          }}
+          value={currentTab}
+          onChange={handleChange}
+        >
+          <MenuItem value='active'>Active</MenuItem>
+          <MenuItem value='inactive'>Inactive</MenuItem>
+        </Select>
+        <Button
+          style={{
+            paddingLeft: '64px',
+            paddingRight: '64px',
+            paddingTop: '8px',
+            paddingBottom: '8px',
+          }}
+          variant='contained'
+        >
+          Add new user
+        </Button>
+      </Box>
+      <Table
+        customTableClass={styles['table']}
+        isLoading={false}
+        data={generatedTableData}
+      />
+    </PageWrapper>
   );
 }
 

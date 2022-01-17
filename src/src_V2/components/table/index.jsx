@@ -36,13 +36,14 @@ const Table = ({
   handleChangeRowsPerPage = noop,
   data,
   rowsPerPageOptions = [10, 20, 30, 40, 50],
+  customTableClass,
 }) => {
   const { head, rows } = data;
   return (
-    <TableContainer component={Paper} elevation='1'>
+    <TableContainer component={Paper} elevation='1' className={customTableClass}>
       <MuiTable>
         <TableHead>
-          {head.map(({ content, key, styles: style = {} }) => (
+          {head.map(({ content, key, defaultContent, columnStyles: style = {} }) => (
             <TableCell
               component='div'
               key={key}
@@ -50,7 +51,7 @@ const Table = ({
               variant='head'
               size='small'
             >
-              {typeof content === 'function' ? content() : content}
+              {typeof content === 'function' ? content() : content ?? defaultContent}
             </TableCell>
           ))}
         </TableHead>
@@ -64,13 +65,17 @@ const Table = ({
             )}
             {rows.map(({ data, columns }) => (
               <TableRow onClick={() => onRowClick(data)} key={data.id}>
-                {columns.map(({ key, content, defaultContent, styles }) => (
-                  <TableCell sx={styles} key={key} variant='body' size='small'>
-                    {typeof content === 'function'
-                      ? content(data)
-                      : content ?? defaultContent}
-                  </TableCell>
-                ))}
+                {columns.map(
+                  ({ key, content, defaultContent, columnStyles: style = {} }) => {
+                    return (
+                      <TableCell sx={style} key={key} variant='body' size='small'>
+                        {typeof content === 'function'
+                          ? content(data)
+                          : content ?? defaultContent}
+                      </TableCell>
+                    );
+                  }
+                )}
               </TableRow>
             ))}
           </>

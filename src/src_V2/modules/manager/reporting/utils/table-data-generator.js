@@ -28,7 +28,7 @@ export const userManagementTableDataGenerator = (entries) => ({
     createTableColumn('Email', 'Email'),
     createTableColumn('Phone Number', 'Phone Number'),
     createTableColumn('Status', 'Status'),
-    createTableColumn('editBtn', ''),
+    createTableColumn('editBtn', '', '', { width: 66 }),
   ],
   rows: entries.map((data) =>
     createTableRow(
@@ -39,7 +39,7 @@ export const userManagementTableDataGenerator = (entries) => ({
         createTableColumn('email', data.email),
         createTableColumn('phone', data.phone),
         createTableColumn('status', data.status),
-        createTableColumn('editBtn', data.editBtn),
+        createTableColumn('editBtn', data.editBtn, '', { width: 66 }),
       ],
       data
     )
