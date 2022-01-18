@@ -18,3 +18,18 @@ export const setQueryParams = (query) => {
     const queryString = `?${Object.entries(query).filter(([, v]) => v).map(([k, v]) => `${k}=${v}`).join('&')}`;
     window.history.replaceState(null, null, queryString);
 };
+
+export const noop = () => {};
+
+export const createTableColumn = (key, content, defaultContent, columnStyles) => ({
+  key,
+  content,
+  defaultContent,
+  columnStyles,
+});
+
+export const createTableRow = (key, columns, data) => ({
+  key,
+  columns,
+  data,
+});

@@ -1,38 +1,61 @@
-import { useRef, useState } from 'react';
 import { Box } from '@mui/material';
+import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Rooms from './Rooms';
-import Banner from '../banner/Banner';
-import Contact from './Contact';
 import MainInfo from './MainInfo';
-import Partnership from './Partnership';
 import { Container } from '../../../../../components';
+import { Banner, Partnership, Contact } from '../../components';
 
 import styles from './style.module.css';
 import { managerSidebarConfig } from '../../../config';
 
-function AccommodationStep({ currentTab, accommodation }) {
-  switch (currentTab) {
+function AccommodationStep({ accommodation, currentTab: { step, isValidate } }) {
+  switch (step) {
     case 1:
-      return <MainInfo accommodation={accommodation} />;
+      return <MainInfo isValidate={isValidate} parentRef={accommodation} />;
     case 2:
-      return <Rooms />;
+      return <Rooms parentRef={accommodation} />;
     case 3:
-      return <Contact />;
+      return <Contact parentRef={accommodation} />;
     case 4:
-      return <Partnership />;
+      return <Partnership parentRef={accommodation} />;
     default:
       return null;
   }
 }
 
 export default function AddAccommodation() {
-  const [currentTab, setCurrentTab] = useState(1);
-  const { current: accommodation } = useRef({});
+  const navigate = useNavigate();
+  const [currentTab, setCurrentTab] = useState({ step: 1 });
+  const { current: accommodation } = useRef({
+    rooms: [],
+    mainInfo: {},
+    contact: { isValid: true },
+    partnership: { isValid: true },
+  });
+
+  function onSubmit() {
+    if (!accommodation.mainInfo.isValid) {
+      setCurrentTab({ step: 1, isValidate: true });
+    } else if (!accommodation.contact.isValid) {
+      setCurrentTab({ step: 3 });
+    } else if (!accommodation.partnership.isValid) {
+      setCurrentTab({ step: 4 });
+    } else {
+      navigate('../list');
+    }
+  }
 
   return (
     <Container managerSidebarConfig={managerSidebarConfig}>
-      <Banner currentTab={currentTab} setCurrentTab={setCurrentTab} />
+      <Banner
+        onSubmit={onSubmit}
+        currentTab={currentTab}
+        pageName='Accommodation'
+        setCurrentTab={setCurrentTab}
+        subMenus={['MAIN INFO', 'ROOMS', 'CONTACT', 'PARTNERSHIP']}
+      />
       <Box className={styles.container}>
         <AccommodationStep currentTab={currentTab} accommodation={accommodation} />
       </Box>
