@@ -1,8 +1,26 @@
 import { object, string, number, array } from 'yup';
-import { ERROR_MESSAGES, PhoneRegex } from '../constants';
+import { ERROR_MESSAGES, PasswordStrengthRegexes, PhoneRegex } from '../constants';
 
 export const BaseSchemas = {
   email: string().email(ERROR_MESSAGES.email),
+  requiredEmail: string().email(ERROR_MESSAGES.email).required(ERROR_MESSAGES.required),
+  password: string()
+    .required(ERROR_MESSAGES.required)
+    .test('password-strength', ERROR_MESSAGES.password, function (password) {
+      const strengthRegexes = Object.values(PasswordStrengthRegexes);
+      for (let i = 0; i < strengthRegexes.length; ++i) {
+        if (!strengthRegexes[i].test(password)) {
+          return false;
+        }
+      }
+      return true;
+    }),
+  repeatPassword: (passwordKey) =>
+    string()
+      .required(ERROR_MESSAGES.required)
+      .test('password-match', ERROR_MESSAGES.repeatPassword, function (repeatPassword) {
+        return repeatPassword === this.parent[passwordKey];
+      }),
   requiredNumber: number()
     .typeError(ERROR_MESSAGES.number)
     .required(ERROR_MESSAGES.required)
