@@ -35,7 +35,6 @@
         "max-len": 100,
         "semi": false
       }
-    ],
-    "indent": ["warn", 4]
+    ]
   }
 }

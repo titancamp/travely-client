@@ -1,145 +1,134 @@
 import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    Menu,
-    MenuItem
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  Menu,
+  MenuItem,
 } from '@mui/material';
 import { KeyboardArrowDown } from '@mui/icons-material';
 import { TaskStatus } from '../utils';
-import {
-    useAnchor,
-    useToggle
-} from '../../../../hooks';
-import TodoClient from '../../../../../api/todo-client';
+import { useAnchor, useToggle } from '../../../../hooks';
+import TodoClient from '../../../../services/todo-client';
 import { updateTodo } from '../../../../store/actions/todo.actions';
 import { useDispatch } from 'react-redux';
 import useStyles from './styles';
 
 const mapToStatus = {
-    [TaskStatus.TODO]: {
-        color: 'primary',
-        title: 'To-do'
-    },
-    [TaskStatus.IN_PROGRESS]: {
-        color: 'warning',
-        title: 'In Progress',
-    },
-    [TaskStatus.DONE]: {
-        color: 'success',
-        title: 'Done',
-    }
+  [TaskStatus.TODO]: {
+    color: 'primary',
+    title: 'To-do',
+  },
+  [TaskStatus.IN_PROGRESS]: {
+    color: 'warning',
+    title: 'In Progress',
+  },
+  [TaskStatus.DONE]: {
+    color: 'success',
+    title: 'Done',
+  },
 };
 
 const TaskStatusMenu = ({ todo, getTodos }) => {
-    const {
-        handleClick,
-        anchorEl,
-        open,
-        handleClose,
-    } = useAnchor();
-    const {
-        open: dialogOpen,
-        toggle,
-    } = useToggle();
+  const { handleClick, anchorEl, open, handleClose } = useAnchor();
+  const { open: dialogOpen, toggle } = useToggle();
 
-    const styles = useStyles();
+  const styles = useStyles();
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const handleTaskStatusChange = async (status) => {
-        await TodoClient.updateTodo({
-            ...todo,
-            status,
-        });
-        const response = await TodoClient.getTodoById(todo.id);
-        dispatch(updateTodo(response));
-    };
+  const handleTaskStatusChange = async (status) => {
+    await TodoClient.updateTodo({
+      ...todo,
+      status,
+    });
+    const response = await TodoClient.getTodoById(todo.id);
+    dispatch(updateTodo(response));
+  };
 
-    const handleArchivedClick = async () => {
-        await handleTaskStatusChange(TaskStatus.ARCHIVED);
-        toggle();
-        getTodos();
-    };
+  const handleArchivedClick = async () => {
+    await handleTaskStatusChange(TaskStatus.ARCHIVED);
+    toggle();
+    getTodos();
+  };
 
-    return (<>
-        <Button
-            variant='outlined'
-            sx={styles.taskStatus}
-            endIcon={<KeyboardArrowDown />}
-            color={mapToStatus[todo.status].color}
-            onClick={handleClick}
+  return (
+    <>
+      <Button
+        variant='outlined'
+        sx={styles.taskStatus}
+        endIcon={<KeyboardArrowDown />}
+        color={mapToStatus[todo.status].color}
+        onClick={handleClick}
+      >
+        {mapToStatus[todo.status].title}
+      </Button>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          sx: styles.menuPaper,
+        }}
+        MenuListProps={{
+          sx: styles.menuList,
+        }}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <MenuItem
+          sx={styles.menuItem}
+          selected={todo.status === TaskStatus.TODO}
+          onClick={() => handleTaskStatusChange(TaskStatus.TODO)}
         >
-            {mapToStatus[todo.status].title}
-        </Button>
-        <Menu
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            PaperProps={{
-                sx: styles.menuPaper,
-            }}
-            MenuListProps={{
-                sx: styles.menuList,
-            }}
-            anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
-            }}
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
+          To-Do
+        </MenuItem>
+        <MenuItem
+          sx={styles.menuItem}
+          selected={todo.status === TaskStatus.IN_PROGRESS}
+          onClick={() => handleTaskStatusChange(TaskStatus.IN_PROGRESS)}
         >
-            <MenuItem
-                sx={styles.menuItem}
-                selected={todo.status === TaskStatus.TODO}
-                onClick={() => handleTaskStatusChange(TaskStatus.TODO)}
-            >
-              To-Do
-            </MenuItem>
-            <MenuItem
-                sx={styles.menuItem}
-                selected={todo.status === TaskStatus.IN_PROGRESS}
-                onClick={() => handleTaskStatusChange(TaskStatus.IN_PROGRESS)}
-            >
-              In Progress
-            </MenuItem>
-            <MenuItem
-                sx={styles.menuItem}
-                selected={todo.status === TaskStatus.DONE}
-                onClick={() => handleTaskStatusChange(TaskStatus.DONE)}
-            >
-              Done
-            </MenuItem>
-            <MenuItem
-                sx={styles.menuItem}
-                selected={todo.status === TaskStatus.ARCHIVED}
-                onClick={() => {
-                    toggle();
-                    handleClose();
-                }}
-            >
-              Archive
-            </MenuItem>
-        </Menu>
-        <Dialog
-            open={dialogOpen}
-            onClose={toggle}
+          In Progress
+        </MenuItem>
+        <MenuItem
+          sx={styles.menuItem}
+          selected={todo.status === TaskStatus.DONE}
+          onClick={() => handleTaskStatusChange(TaskStatus.DONE)}
         >
-            <DialogContent>
-                <DialogContentText>
-                    Archiving an item will move it to Archive section and cancel the pending reminder notification.
-                </DialogContentText>
-                <DialogActions>
-                    <Button onClick={toggle}>Cancel</Button>
-                    <Button onClick={handleArchivedClick}>Archive</Button>
-                </DialogActions>
-            </DialogContent>
-        </Dialog>
-    </>);
+          Done
+        </MenuItem>
+        <MenuItem
+          sx={styles.menuItem}
+          selected={todo.status === TaskStatus.ARCHIVED}
+          onClick={() => {
+            toggle();
+            handleClose();
+          }}
+        >
+          Archive
+        </MenuItem>
+      </Menu>
+      <Dialog open={dialogOpen} onClose={toggle}>
+        <DialogContent>
+          <DialogContentText>
+            Archiving an item will move it to Archive section and cancel the pending
+            reminder notification.
+          </DialogContentText>
+          <DialogActions>
+            <Button onClick={toggle}>Cancel</Button>
+            <Button onClick={handleArchivedClick}>Archive</Button>
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
 };
 
 export default TaskStatusMenu;

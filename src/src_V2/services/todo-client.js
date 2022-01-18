@@ -1,10 +1,10 @@
-import ApiClient from './api';
+import ApiClient from './network';
 import {
     ReminderStatus,
     TaskPriority,
     TaskStatus
-} from '../src_V2/modules/manager/todo/utils';
-import { generateDate } from '../src_V2/utils';
+} from '../modules/manager/todo/utils';
+import { generateDate } from '../utils';
 
 const transformReminder = {
     '5m': date => {
@@ -124,7 +124,7 @@ const TodoClient = {
                 }
             });
 
-        return data.data.map(todoAdapterClient);
+        return data?.data ? data.data.map(todoAdapterClient) : [];
     },
     addTodo: (values) => {
         return ApiClient
