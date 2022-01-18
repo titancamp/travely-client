@@ -140,7 +140,6 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
             <Autocomplete
               className={styles.roomType}
               disablePortal
-              id='combo-box-demo'
               options={[
                 { label: 'The Shawshank Redemption', year: 1994 },
                 { label: 'The Godfather', year: 1972 },
@@ -158,19 +157,21 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
           <Grid item xs={3}>
             <TextField className={styles.roomPrice} label='Price' placeholder='Price' />
           </Grid>
-          <Grid item xs={4}>
-            <TextField
-              className={styles.beds}
-              label='Number of Beds'
-              placeholder='Number of Beds'
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              className={styles.beds}
-              label='Additional Beds'
-              placeholder='Additional Beds'
-            />
+          <Grid item container xs={8}>
+            <Grid item xs={4}>
+              <TextField
+                className={styles.beds}
+                label='Number of Beds'
+                placeholder='Number of Beds'
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                className={styles.beds}
+                label='Additional Beds'
+                placeholder='Additional Beds'
+              />
+            </Grid>
           </Grid>
           <Grid item xs={12}>
             <Autocomplete

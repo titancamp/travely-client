@@ -48,7 +48,7 @@ export default function AddAccommodation() {
   }
 
   return (
-    <Container managerSidebarConfig={managerSidebarConfig}>
+    <>
       <Banner
         onSubmit={onSubmit}
         currentTab={currentTab}
@@ -59,6 +59,6 @@ export default function AddAccommodation() {
       <Box className={styles.container}>
         <AccommodationStep currentTab={currentTab} accommodation={accommodation} />
       </Box>
-    </Container>
+    </>
   );
 }

@@ -38,7 +38,7 @@ export default function AddTourPackage() {
   }
 
   return (
-    <Container managerSidebarConfig={managerSidebarConfig}>
+    <>
       <Banner
         pageName='Tour Package'
         onSubmit={onSubmit}
@@ -49,6 +49,6 @@ export default function AddTourPackage() {
       <Box className={styles.container}>
         <TourPackageSteps currentTab={currentTab} tourPackage={tourPackage} />
       </Box>
-    </Container>
+    </>
   );
 }
