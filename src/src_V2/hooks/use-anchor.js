@@ -1,25 +1,22 @@
-import {
-    useCallback,
-    useState
-} from 'react';
+import { useCallback, useState } from 'react';
 
 const useAnchor = () => {
-    const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleClick = useCallback(event => setAnchorEl(event.currentTarget), []);
+  const handleClick = useCallback((event) => setAnchorEl(event.currentTarget), []);
 
-    const handleClose = useCallback(() => {
-        setAnchorEl(null);
-    }, []);
+  const handleClose = useCallback(() => {
+    setAnchorEl(null);
+  }, []);
 
-    const open = !!anchorEl;
+  const open = !!anchorEl;
 
-    return {
-        anchorEl,
-        handleClick,
-        handleClose,
-        open,
-    };
+  return {
+    anchorEl,
+    handleClick,
+    handleClose,
+    open,
+  };
 };
 
 export default useAnchor;
