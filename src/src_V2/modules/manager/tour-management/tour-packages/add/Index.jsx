@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Container } from '../../../../../components';
 import { Banner } from '../../../supplier-management/components';
-import Finance from './Finance';
+import Finance from './Finance/Finance';
 import TourInfo from './TourInfo';
 
 import { managerSidebarConfig } from '../../../config';

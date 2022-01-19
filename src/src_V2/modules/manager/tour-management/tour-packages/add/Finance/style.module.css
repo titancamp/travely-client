@@ -1,0 +1,202 @@
+.tableContainer {
+  overflow-y: auto;
+  background-color: var(--midGrey) !important;
+}
+
+.tableHead,
+.tableRow {
+  height: 56px !important;
+  width: 100%;
+  background-color: var(--white);
+}
+/* sticky table head */
+.tableHead {
+  background-color: var(--midGrey) !important;
+  position: sticky !important;
+  top: 0;
+  z-index: 1;
+  width: calc(100% - 1em);
+}
+
+.tableBody {
+  font-weight: 400;
+}
+.tableCell {
+  min-width: 140px !important;
+}
+
+.groupRow {
+  background-color: var(--primary);
+  position: sticky;
+  top: 0;
+}
+
+.groupRow th {
+  color: #fff !important;
+}
+
+.groupTotal {
+  color: #1976d2;
+  font-weight: bold;
+}
+
+.totalCost {
+  color: #1976d2 !important;
+}
+
+.mainText {
+  font-size: 22px;
+}
+
+.mainBox {
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 3px 1px -2px var(--midDarkGrey), 0 2px 2px var(--midAvgGrey),
+    0 1px 5px var(--midLightGrey);
+}
+
+.textDiv {
+  margin-left: 25px;
+}
+
+.payableId {
+  color: var(--darkGrey);
+  font-weight: 600;
+}
+
+.paymentBox {
+  display: flex;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.contentData {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.contentFooter {
+  position: sticky;
+  bottom: 0;
+  background-color: var(--midAvgGrey);
+  padding: 15px;
+  z-index: 1;
+  box-shadow: 0px 0px 10px -5px #000;
+  color: #000;
+}
+
+.flex {
+  display: flex;
+  /* flex: 1 1 100%; */
+  justify-content: space-between;
+}
+.flex6 {
+  flex-basis: 60%;
+}
+.flex5 {
+  flex-basis: 50%;
+}
+.flex4 {
+  flex-basis: 40%;
+}
+.bold {
+  font-weight: bold;
+}
+
+.contentSummary {
+  flex-basis: 25%;
+  margin-left: 20px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px -5px black;
+  border-radius: 0px;
+}
+
+.wrapper {
+  margin: 20px;
+}
+
+.noDataBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.noData {
+  margin: 12px;
+}
+
+/* Accordions */
+
+.accordion {
+  border-radius: 10px !important;
+  overflow: hidden;
+  margin: 0 0 10px 0 !important;
+}
+
+.accordionBox {
+  min-height: 50px !important;
+}
+
+.accordionBox div {
+  justify-content: space-between !important;
+  margin: 0 !important;
+  align-items: center;
+}
+
+.accordionSummary {
+  min-height: 50px !important;
+  background-color: var(--midGrey) !important;
+  border-bottom: 1px solid var(--midLightGrey) !important;
+}
+
+.accordionSummary:hover {
+  background-color: var(--midLightGrey) !important;
+}
+
+.accordionSummary div {
+  align-items: center;
+  margin: 0 !important;
+}
+
+.accordionSummaryDetails {
+  background-color: var(--white) !important;
+}
+
+.accordionDetails {
+  padding: 0 !important;
+}
+
+.accordionDetailItems {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.totalPrice {
+  font-size: 20px;
+  margin: 20px 0;
+  font-weight: bold;
+  color: #646464;
+}
+
+.detailsTxt {
+  font-size: 20px !important;
+  color: var(--darkGrey);
+}
+
+.detailsCount {
+  color: var(--secondary);
+}
+
+.green {
+  color: var(--success);
+}
