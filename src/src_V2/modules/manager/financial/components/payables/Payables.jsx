@@ -15,10 +15,9 @@ import {
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 
-import { Container, Layout, NoData } from '../../../../../components';
+import { Layout, NoData } from '../../../../../components';
 import { useHoverTooltip } from '../../../../../hooks';
 import payablesList from '../../mock/payable';
-import { managerSidebarConfig } from '../../../config';
 import styles from './Payables.module.css';
 
 const rowsPerPageOptions = [20, 50, 100];
@@ -109,7 +108,8 @@ function TooltipText({ text }) {
 }
 
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
+    props;
 
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -118,9 +118,9 @@ function EnhancedTableHead(props) {
   return (
     <TableHead className={styles.tableHead}>
       <TableRow>
-        <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
+        <TableCell padding='checkbox' className={styles.tableCheckboxCell}>
           <Checkbox
-            color="primary"
+            color='primary'
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
@@ -131,7 +131,7 @@ function EnhancedTableHead(props) {
         </TableCell>
         {columns.map((headCell) => (
           <TableCell
-            align="left"
+            align='left'
             key={headCell.id}
             className={`${styles.tableCell} ${styles.tableHeaderCell}`}
             sortDirection={orderBy === headCell.id ? order : false}
@@ -143,7 +143,7 @@ function EnhancedTableHead(props) {
             >
               <TooltipText text={headCell.label} />
               {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
+                <Box component='span' sx={visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </Box>
               ) : null}
@@ -211,13 +211,14 @@ const PayableTable = () => {
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - payables.length) : 0;
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - payables.length) : 0;
 
   return (
     <Box>
       <Paper>
         <TableContainer className={styles.tableContainer}>
-          <Table aria-labelledby="tableTitle" padding="none">
+          <Table aria-labelledby='tableTitle' padding='none'>
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
@@ -239,16 +240,16 @@ const PayableTable = () => {
                     <TableRow
                       hover
                       onClick={(event) => handleClick(event, row.paymentId)}
-                      role="checkbox"
+                      role='checkbox'
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.name}
                       selected={isItemSelected}
                       className={styles.tableRow}
                     >
-                      <TableCell padding="checkbox" className={styles.tableCheckboxCell}>
+                      <TableCell padding='checkbox' className={styles.tableCheckboxCell}>
                         <Checkbox
-                          color="primary"
+                          color='primary'
                           checked={isItemSelected}
                           inputProps={{
                             'aria-labelledby': labelId,
@@ -279,7 +280,7 @@ const PayableTable = () => {
         {!!payables.length && (
           <TablePagination
             rowsPerPageOptions={rowsPerPageOptions}
-            component="div"
+            component='div'
             count={payables.length}
             rowsPerPage={rowsPerPage}
             page={page}
@@ -294,10 +295,10 @@ const PayableTable = () => {
 
 export default function Payables() {
   return (
-    <Container managerSidebarConfig={managerSidebarConfig}>
-      <Layout title="Payables">
+    <>
+      <Layout title='Payables'>
         <PayableTable />
       </Layout>
-    </Container>
+    </>
   );
 }

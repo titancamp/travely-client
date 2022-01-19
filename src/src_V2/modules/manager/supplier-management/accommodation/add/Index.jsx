@@ -4,11 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 import Rooms from './Rooms';
 import MainInfo from './MainInfo';
-import { Container } from '../../../../../components';
 import { Banner, Partnership, Contact } from '../../components';
 
 import styles from './style.module.css';
-import { managerSidebarConfig } from '../../../config';
 
 function AccommodationStep({ accommodation, currentTab: { step, isValidate } }) {
   switch (step) {
@@ -48,7 +46,7 @@ export default function AddAccommodation() {
   }
 
   return (
-    <Container managerSidebarConfig={managerSidebarConfig}>
+    <>
       <Banner
         onSubmit={onSubmit}
         currentTab={currentTab}
@@ -59,6 +57,6 @@ export default function AddAccommodation() {
       <Box className={styles.container}>
         <AccommodationStep currentTab={currentTab} accommodation={accommodation} />
       </Box>
-    </Container>
+    </>
   );
 }
