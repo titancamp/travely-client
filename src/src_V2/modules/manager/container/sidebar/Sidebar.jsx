@@ -17,7 +17,7 @@ import { grey } from '@mui/material/colors';
 import { ExpandLess, ExpandMore, ChevronLeft, ChevronRight } from '@mui/icons-material';
 
 import styles from './Sidebar.module.css';
-import { CONTAINER_SIZES } from '../../utils';
+import { CONTAINER_SIZES } from '../../../../utils';
 
 const listStyles = (open) => ({
   marginTop: '24px',
@@ -155,7 +155,7 @@ export default function Sidebar({ pageConfigs, open, setOpen }) {
 
   return (
     <Box className={styles.mainBox}>
-      <Drawer variant='permanent' anchor='left' open={open}>
+      <Drawer variant='permanent' anchor='left' open={open} className={styles.drawer}>
         <List style={listStyles(open)}>
           {pageConfigs.map((page) => {
             return page.path ? (

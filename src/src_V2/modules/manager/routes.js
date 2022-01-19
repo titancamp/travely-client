@@ -36,6 +36,6 @@ export default function routeConfigs() {
     { path: ROUTES.TOUR_PACKAGE, element: <TourPackage /> },
     { path: ROUTES.ACCOMMODATION, element: <Accommodation /> },
     { path: ROUTES.TRANSPORTATION, element: <Transportation /> },
-    { path: ROUTES.REPORTING, element: <Reporting />}
+    { path: ROUTES.REPORTING, element: <Reporting /> },
   ];
 }

@@ -2,13 +2,11 @@ import { Box } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import MainInfo from './MainInfo';
 import Guide from './Guide';
-import { Container } from '../../../../../components';
+import MainInfo from './MainInfo';
 import { Banner, Partnership } from '../../components';
 
 import styles from './style.module.css';
-import { managerSidebarConfig } from '../../../config';
 
 function GuideSteps({ currentTab: { step }, guide }) {
   switch (step) {
@@ -43,7 +41,7 @@ export default function AddGuide() {
   }
 
   return (
-    <Container managerSidebarConfig={managerSidebarConfig}>
+    <>
       <Banner
         onSubmit={onSubmit}
         currentTab={currentTab}
@@ -54,6 +52,6 @@ export default function AddGuide() {
       <Box className={styles.container}>
         <GuideSteps currentTab={currentTab} guide={guide} />
       </Box>
-    </Container>
+    </>
   );
 }

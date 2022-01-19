@@ -2,8 +2,17 @@
 
 :root {
   --white: #fff; /* common.white */
-  --lightGray: #fafafa; /* grey[50] */
-  --midGray: #f5f5f5; /* grey[100] */
+  --lightGrey: #fafafa; /* grey[50] */
+  --midGrey: #f5f5f5; /* grey[100] */
+  --midLightGrey: #eeeeee; /* grey[200] */
+  --midAvgGrey: #e0e0e0; /* grey[300] */
+  --midDarkGrey: #bdbdbd; /* grey[400] */
   --secondary: #757575; /* grey[600] */
+  --darkGrey: #212121; /* grey[900] */
   --primary: #1976d2; /* blue[700] */
+  --darkPrimary: #4527a0; /* deepPurple[800] */
+  --success: #43a047; /* green[600] */
+  --error: #f44336; /* red[500] */
+  --warningDark: #e65100; /* orange[900] */
+  --overdue: #c2185b; /* pink[700] */
 }

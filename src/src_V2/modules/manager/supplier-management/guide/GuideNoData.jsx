@@ -1,5 +1,5 @@
 import { NoData } from '../components';
-import image from '../../../../assets/guide.png';
+import image from '../../../../assets/images/guide.png';
 
 export default function GuideLandingPage() {
   return (
