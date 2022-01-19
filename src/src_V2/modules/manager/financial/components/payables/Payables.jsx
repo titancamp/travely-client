@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { managerSidebarConfig } from '../../../config';
 import { rowsPerPageOptions, payableColumns } from '../../constants';
 import payablesList from '../../mock/payable';
 import { differenceCost, remainingCost } from '../../utils/cost';
-import { Container, Layout } from '../../../../../components';
+import { Layout } from '../../../../../components';
 import ControlPanel from './control-panel/ControlPanel';
 import PayableTable from './table/PayableTable';
 
@@ -53,7 +52,7 @@ export default function Payables() {
   useEffect(filterPayables, [searchTxt, payables]);
 
   return (
-    <Container managerSidebarConfig={managerSidebarConfig}>
+    <>
       <Layout title='Payables'>
         <ControlPanel
           searchValue={searchTxt}
@@ -66,6 +65,6 @@ export default function Payables() {
           rowsPerPageOptions={rowsPerPageOptions}
         />
       </Layout>
-    </Container>
+    </>
   );
 }
