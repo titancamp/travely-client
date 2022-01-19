@@ -223,7 +223,6 @@ export default function FinanceSummary() {
                                       return (
                                         <TableCell key={`${groupItem.id}_${c}`}>
                                           <TextField
-                                            label={groupColumns[c].label}
                                             size='small'
                                             variant='outlined'
                                             type='number'
@@ -325,7 +324,7 @@ export default function FinanceSummary() {
             </AccordionSummary>
             <AccordionDetails className={styles.accordionSummaryDetails}>
               <Box className={styles.accordionSummaryDetails}>
-                <Box autoComplete='off' className={styles.accordionDetailItems}>
+                <Box autoComplete='off' className={styles.flexInputs}>
                   <TextField
                     label={'Margin'}
                     size='small'
@@ -391,9 +390,8 @@ export default function FinanceSummary() {
                     Set currency and exchange rate to calculate total price.
                   </Alert>
                 </Collapse>
-                <Box autoComplete='off' className={styles.accordionDetailItems}>
+                <Box autoComplete='off' className={styles.flexInputs}>
                   <TextField
-                    className={styles.flex}
                     select
                     label={'Currency'}
                     size='small'
@@ -408,7 +406,7 @@ export default function FinanceSummary() {
                     ))}
                   </TextField>
                   <TextField
-                    label={'Exchange Rate'}
+                    label={'Rate'}
                     size='small'
                     variant='outlined'
                     type='number'
