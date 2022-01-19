@@ -3,7 +3,7 @@ import { Divider, Link, Typography } from '@mui/material';
 
 import AuthInfoWrapper from '../authInfoWrapper/AuthInfoWrapper';
 
-import { useTimer } from '../../../../utils/hooks';
+import { useTimer } from '../../../../hooks';
 import styles from './VerifyEmail.module.css';
 import verifyIllustration from '../../../../assets/verifyIllustration.svg';
 

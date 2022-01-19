@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Container } from '../../../components';
+import Container from '../container/Container';
 import { FixedSizeList as List } from 'react-window';
 
 import { Typography } from '@mui/material';
