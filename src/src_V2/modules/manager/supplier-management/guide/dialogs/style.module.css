@@ -1,20 +1,20 @@
 .ctField {
-    margin-bottom: 25px !important;
-    max-width: 400px;
+  margin-bottom: 25px !important;
+  max-width: 400px;
 }
 
 .uploadImageContainer {
-    width: 232px;
-    height: 232px;
-    cursor: pointer;
-    border: 1px solid;
+  width: 232px;
+  height: 232px;
+  cursor: pointer;
+  border: 1px solid;
 }
 
 .errorMessageColor {
-    color: #f50057;
+  color: #f50057;
 }
 
 .previewImage {
-    width: 232px;
-    height: 232px;
+  width: 232px;
+  height: 232px;
 }

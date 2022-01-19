@@ -1,6 +1,6 @@
 import { Table } from '../../../components';
 import tourReportTableDataGenerator from './utils/table-data-generator';
-import { useTableDataGenerator } from '../../../hooks';
+import { useTableDataGenerator } from '../../../utils/hooks';
 
 import { Typography } from '@mui/material';
 

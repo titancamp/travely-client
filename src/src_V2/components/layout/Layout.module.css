@@ -1,9 +1,7 @@
-@import '../../styles/colors.css';
-
 .mainDiv {
   padding: 24px;
-  height: 100%;
-  background-color: var(--lightGray);
+  min-height: 100vh;
+  background-color: var(--lightGrey);
 }
 
 .title {
