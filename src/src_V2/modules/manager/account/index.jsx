@@ -37,7 +37,7 @@ function AccountContent() {
   const [initialData, setInitialData] = useState({});
 
   const submitHandler = () => {
-    navigate('/' + ROUTES.DASHBOARD);
+    navigate('/manager/' + ROUTES.DASHBOARD);
   };
 
   const formikData = {

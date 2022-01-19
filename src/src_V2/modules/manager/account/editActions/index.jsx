@@ -11,7 +11,10 @@ export default function EditActions() {
     <>
       <Box flexGrow={1}></Box>
       <div className={styles['btns-wrapper']}>
-        <Button variant='outlined' onClick={() => navigate('/' + ROUTES.DASHBOARD)}>
+        <Button
+          variant='outlined'
+          onClick={() => navigate('/manager/' + ROUTES.DASHBOARD)}
+        >
           Cancel
         </Button>
         <Button className={styles['submit-btn']} type='submit' variant='contained'>

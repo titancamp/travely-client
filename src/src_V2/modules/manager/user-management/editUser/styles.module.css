@@ -1,0 +1,15 @@
+.content {
+    max-width: 1516px;
+}
+
+.content .title {
+    margin-bottom: 24px;
+}
+
+.content .form-fields-wrapper {
+    max-width: 656px;
+}
+
+.content .divider {
+    margin: 56px 0 36px;
+}

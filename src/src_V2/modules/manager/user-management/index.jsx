@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Button, Select, IconButton, Box, MenuItem, Typography } from '@mui/material';
 import { Edit } from '@mui/icons-material';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import { Container, Table } from '../../../components';
 import PageWrapper from '../account/pageWrapper';
+import UserEditContent from './editUser/EditUser';
 
 import { useTableDataGenerator } from '../../../hooks';
 import { userManagementTableDataGenerator } from '../reporting/utils/table-data-generator';
@@ -34,8 +36,10 @@ const StatusIndicator = ({ status }) => {
 };
 
 function UserManagementContent() {
-  const handleEdit = () => {
-    // Redirect to edit page
+  const navigate = useNavigate();
+
+  const handleEdit = (id) => {
+    navigate(`${id}`);
   };
 
   const [tableData, setTableData] = useState([]);
@@ -59,7 +63,7 @@ function UserManagementContent() {
   }, [currentTab]);
 
   return (
-    <PageWrapper>
+    <>
       <Typography className={styles['title']} variant='h6'>
         User Management
       </Typography>
@@ -92,14 +96,20 @@ function UserManagementContent() {
         isLoading={false}
         data={generatedTableData}
       />
-    </PageWrapper>
+    </>
   );
 }
 
 export default function UserManagement() {
   return (
     <Container managerSidebarConfig={managerSidebarConfig}>
-      <UserManagementContent />
+      <PageWrapper>
+        <Routes>
+          <Route path='' element={<UserManagementContent />} />
+          <Route path='add-user' element={<div>ADD USER</div>} />
+          <Route path=':userId' element={<UserEditContent />} />
+        </Routes>
+      </PageWrapper>
     </Container>
   );
 }
