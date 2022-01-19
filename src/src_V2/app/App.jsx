@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
+import { LocalizationProvider } from '@mui/lab';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
 import routesConfig from './routes';
 
@@ -17,7 +19,9 @@ const AppWrapper = () => {
   return (
     <Router>
       <CssBaseline />
-      <App />
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <App />
+      </LocalizationProvider>
     </Router>
   );
 };

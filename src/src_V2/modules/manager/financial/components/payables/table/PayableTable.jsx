@@ -3,6 +3,7 @@ import {
   Box,
   Checkbox,
   Chip,
+  CircularProgress,
   Paper,
   Table,
   TableBody,
@@ -21,9 +22,8 @@ import { deepPurple, green, orange, pink } from '@mui/material/colors';
 
 import { generateArrayByRange, generateDate } from '../../../../../../utils';
 import { PaymentStatus, PaymentType } from '../../../constants';
-import { LoadingSpinner, NoData, TooltipText } from '../../../../../../components';
+import { NoData, TooltipText } from '../../../../../../components';
 import EditDrawer from '../edit/drawer/EditDrawer';
-// import attachmentImage from '../../../../../../assets/icons/attachment.png';
 import styles from './PayableTable.module.css';
 
 function descendingComparator(a, b, orderBy) {
@@ -183,19 +183,7 @@ const PayableStatuses = ({ statusNum }) => {
 };
 
 const InvoiceAttachment = ({ attachment }) => (
-  <>
-    {attachment ? (
-      <AttachFile />
-    ) : (
-      // <Box
-      //   component="img"
-      //   alt="Attachment"
-      //   src={attachmentImage}
-      //   className={styles.attachmentImg}
-      // />
-      '--'
-    )}
-  </>
+  <>{attachment ? <AttachFile className={styles.attachmentImg} /> : '--'}</>
 );
 
 export default function PayableTable({
@@ -214,7 +202,7 @@ export default function PayableTable({
     isOpened: false,
     drawerEvent: null,
   });
-  const [clickedRow, setClickedRow] = useState({});
+  const [clickedRow, setClickedRow] = useState(null);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -222,7 +210,7 @@ export default function PayableTable({
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
-  const showPayablesCondition = !payablesLoading && !!payables.length;
+  const showTableCondition = !payablesLoading && !!payables.length;
 
   const rowsAfterPagingAndSorting = () => {
     return payables
@@ -293,6 +281,10 @@ export default function PayableTable({
   };
 
   const handleDrawerOpen = (opened) => {
+    if (!opened) {
+      setClickedRow(null);
+    }
+
     setDrawerState({
       ...drawerState,
       isOpened: opened,
@@ -302,7 +294,11 @@ export default function PayableTable({
   return (
     <Box>
       <Paper>
-        <TableContainer className={styles.tableContainer}>
+        <TableContainer
+          className={`${styles.tableContainer} ${
+            !showTableCondition && styles.hiddenOverflow
+          }`}
+        >
           <Table aria-labelledby='tableTitle' padding='none'>
             <EnhancedTableHead
               numSelected={selected.length}
@@ -393,7 +389,7 @@ export default function PayableTable({
 
                 {/*Total Sticky Row*/}
                 <TableBody className={`${styles.tableBody} ${styles.tableStickyBox}`}>
-                  {showPayablesCondition && (
+                  {showTableCondition && (
                     <TableRow className={styles.totalFooter}>
                       <TableCell padding='checkbox' className={styles.tableCheckboxCell}>
                         <Checkbox className={styles.totalFooterChkBox} />
@@ -417,11 +413,9 @@ export default function PayableTable({
                 </TableBody>
               </>
             ) : payablesLoading ? (
-              // todo hide scroll when loading and there is no data
-              <TableBodyWrapper>
+              <TableBodyWrapper rowClassName={styles.whiteTableCell}>
                 {/*Loading*/}
-                {/*todo correct loading styles*/}
-                <LoadingSpinner />
+                <CircularProgress className={styles.loadingSpinner} size={100} />
               </TableBodyWrapper>
             ) : (
               <TableBodyWrapper rowClassName={styles.whiteTableCell}>
@@ -433,7 +427,7 @@ export default function PayableTable({
             )}
           </Table>
         </TableContainer>
-        {showPayablesCondition && (
+        {showTableCondition && (
           <div className={styles.tableFooter}>
             <EnhancedTableToolbar numSelected={selected.length} />
             <TablePagination
@@ -453,11 +447,13 @@ export default function PayableTable({
         )}
       </Paper>
 
-      <EditDrawer
-        drawerState={drawerState}
-        clickedRow={clickedRow}
-        isOpenedChangeHandler={handleDrawerOpen}
-      />
+      {!!clickedRow && (
+        <EditDrawer
+          drawerState={drawerState}
+          clickedRow={clickedRow}
+          isOpenedChangeHandler={handleDrawerOpen}
+        />
+      )}
     </Box>
   );
 }

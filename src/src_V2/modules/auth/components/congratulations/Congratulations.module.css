@@ -1,0 +1,13 @@
+.content .illustration {
+  margin-bottom: 40px;
+}
+
+.content .title,
+.content .subtitle {
+  margin-bottom: 16px;
+}
+
+.content .progress {
+  color: #000;
+  margin-bottom: 8px;
+}

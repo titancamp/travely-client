@@ -4,7 +4,7 @@ import { Box, Button, Chip, FormHelperText } from '@mui/material';
 
 import styles from './style.module.css';
 
-export default function AddAttachment({ formikRef: parentRef, label }) {
+export default function AddAttachment({ formikRef: parentRef }) {
   const hiddenFileInput = useRef(null);
   const [files, setFiles] = useState([]);
   const acceptedFileTypes = [
@@ -54,7 +54,7 @@ export default function AddAttachment({ formikRef: parentRef, label }) {
     <Box className={styles.attachmentContainer}>
       <Box>
         <Button className={styles.addAttachment} onClick={handleClick}>
-          {label ? label : ''}
+          ADD ATTACHMENTS
           <CloudUpload className={styles.addAttachmentIcon} />
         </Button>
         {parentRef.errors.attachments && (

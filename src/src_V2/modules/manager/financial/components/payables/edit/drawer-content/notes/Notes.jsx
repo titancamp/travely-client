@@ -8,15 +8,15 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { ExpandMore, Close } from '@mui/icons-material';
+import { ExpandMore, Close, RateReview } from '@mui/icons-material';
 
-import notesImage from '../../../../../../../../assets/icons/notes.png';
 import commonStyles from '../style.module.css';
 import styles from './Notes.module.css';
 
 export default function Notes({
   values,
   errors,
+  touched,
   handleChange,
   handleBlur,
   setFieldValue,
@@ -33,12 +33,9 @@ export default function Notes({
         id='panel1a-header'
         className={commonStyles.accordionSummary}
       >
-        <Box
-          component='img'
-          alt='Notes'
-          src={notesImage}
-          className={`${styles.notesImg} ${commonStyles.panelImg}`}
-        />
+        <IconButton>
+          <RateReview />
+        </IconButton>
         <Typography className={commonStyles.detailsTxt}>Notes</Typography>
       </AccordionSummary>
       <AccordionDetails className={commonStyles.accordionDetails}>
@@ -53,20 +50,20 @@ export default function Notes({
           value={values.notes}
           onBlur={handleBlur}
           onChange={handleChange}
-          error={!!errors.notes}
-          helperText={errors.notes}
+          error={touched.notes && errors.notes}
+          helperText={touched.notes && errors.notes}
           InputProps={{
             endAdornment: (
-              <Box className={styles.lengthSection}>
-                <p>{!!values?.notes?.length && `${values.notes.length}/500 letter`}</p>
-              </Box>
-            ),
-            startAdornment: (
-              <InputAdornment position='end' onClick={handleClearNotes}>
-                <IconButton aria-label='close' className={styles.clearNote}>
-                  <Close />
-                </IconButton>
-              </InputAdornment>
+              <>
+                <Box className={styles.lengthSection}>
+                  <p>{!!values?.notes?.length && `${values.notes.length}/500 letter`}</p>
+                </Box>
+                <InputAdornment position='end' onClick={handleClearNotes}>
+                  <IconButton aria-label='close' className={styles.clearNote}>
+                    <Close />
+                  </IconButton>
+                </InputAdornment>
+              </>
             ),
           }}
         />

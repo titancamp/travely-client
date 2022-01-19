@@ -1,10 +1,15 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  IconButton,
+  Typography,
+} from '@mui/material';
+import { Map, ExpandMore } from '@mui/icons-material';
 
-import pathImage from '../../../../../../../../assets/icons/path.png';
 import { generateDate } from '../../../../../../../../utils';
 import { PaymentStatus } from '../../../../../constants';
-
 import commonStyles from '../style.module.css';
 import styles from './TourDetails.module.css';
 
@@ -12,17 +17,14 @@ export default function TourDetails({ row }) {
   return (
     <Accordion className={commonStyles.accordion}>
       <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
+        expandIcon={<ExpandMore />}
+        aria-controls='panel1a-content'
+        id='panel1a-header'
         className={commonStyles.accordionSummary}
       >
-        <Box
-          component="img"
-          alt="Tour Details"
-          src={pathImage}
-          className={`${styles.pathImg} ${commonStyles.panelImg}`}
-        />
+        <IconButton>
+          <Map />
+        </IconButton>
         <Typography className={commonStyles.detailsTxt}>Tour Details</Typography>
       </AccordionSummary>
       <AccordionDetails className={commonStyles.accordionDetails}>

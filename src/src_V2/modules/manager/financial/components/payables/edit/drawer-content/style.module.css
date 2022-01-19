@@ -25,12 +25,18 @@
 .detailsTxt {
   font-size: 20px !important;
   color: var(--darkGrey);
+  font-weight: 500 !important;
 }
 
 .detailsCount {
   color: var(--secondary);
 }
 
-.panelImg {
-  margin-right: 10px;
+.primaryColor {
+  color: var(--primary);
+}
+
+/* DatePicker */
+.dueDatePicker > div > div {
+  height: 40px;
 }

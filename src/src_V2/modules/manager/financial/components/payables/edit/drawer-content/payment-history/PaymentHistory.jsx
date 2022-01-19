@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Accordion,
   AccordionDetails,
@@ -5,8 +6,10 @@ import {
   Box,
   Button,
   FormControl,
-  InputLabel,
+  IconButton,
+  InputAdornment,
   MenuItem,
+  Paper,
   Select,
   Table,
   TableBody,
@@ -15,143 +18,157 @@ import {
   TableHead,
   TableRow,
   TextField,
+  Tooltip,
   Typography,
 } from '@mui/material';
+import { Error, Delete, CloudUpload, Payment } from '@mui/icons-material';
+import { DatePicker } from '@mui/lab';
 
-import { DatePicker, LocalizationProvider } from '@mui/lab';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-
-import { useState } from 'react';
-
-import creditCard from '../../../../../../../../assets/icons/credit-card.png';
+import { ConfirmDialog, NoData } from '../../../../../../../../components';
+import { paymentHistoryInitialValues } from '../../../../../../../../utils/schemas';
+import {
+  paymentHistoryColumns as columns,
+  paymentHistoryColumnTypes as columnTypes,
+  PaymentType,
+} from '../../../../../constants';
 import commonStyles from '../style.module.css';
 import styles from './PaymentHistory.module.css';
-import tableStyles from '../../../table/PayableTable.module.css';
-// import { generateDate } from '../../../../../../../../utils';
-import { NoData, LoadingSpinner, TooltipText } from '../../../../../../../../components';
-import { TableBodyWrapper /* TableCellWrapper */ } from '../../../table/PayableTable';
-import Upload from '../../../../../../supplier-management/components/add-attachment/AddAttachment';
 
-const columnTypes = {
-  text: 'text',
-  price: 'price',
-  date: 'date',
-  select: 'select',
-  file: 'file',
-};
+const EditableTableCell = ({
+  value,
+  columnName,
+  id,
+  paymentHistory,
+  setFieldValue,
+  touched,
+  errors,
+  currency,
+}) => {
+  const error = errors && Object.keys(errors).length && errors[id - 1];
 
-const columns = {
-  invoiceId: {
-    label: 'Invoice ID',
-    type: columnTypes.text,
-  },
-  paidAmount: {
-    label: 'Paid Amount',
-    type: columnTypes.price,
-  },
-  paymentDate: {
-    label: 'Payment Date',
-    type: columnTypes.date,
-  },
-  paymentType: {
-    label: 'Payment Type',
-    type: columnTypes.select,
-  },
-  attachment: {
-    label: 'Attachment',
-    type: columnTypes.file,
-  },
-};
-
-const EditableTableCell = ({ data, text }) => {
-  // const [input, setInput] = useState(data);
-
-  const onChange = ({ target: { value } }) => {
-    console.log(value);
-
-    // setInput(value);
+  const handleChange = (newValue, name) => {
+    const newHistories = paymentHistory.map((history) => {
+      if (history.id === id) {
+        history[name] = newValue;
+      }
+      return history;
+    });
+    setFieldValue('paymentHistory', JSON.parse(JSON.stringify(newHistories)));
   };
+
+  // todo almost all error handlers are the same - write wrapper
+  // console.log(error, 'ERROR');
 
   return {
     [columnTypes.text]: (
       <TextField
-        label={text}
         size='small'
         variant='outlined'
-        value={data}
-        onChange={(e) => onChange(e)}
+        name={columnName}
+        value={value}
+        key={id}
+        onChange={({ target: { value } }) => handleChange(value, columnName)}
+        error={touched[columnName] && error[columnName]}
+        helperText={touched[columnName] && error[columnName]}
       />
     ),
     [columnTypes.price]: (
-      <TextField label={text} size='small' variant='outlined' value={data} />
+      <TextField
+        size='small'
+        variant='outlined'
+        name={columnName}
+        value={value}
+        key={id}
+        className={styles.price}
+        onChange={({ target: { value } }) => handleChange(value, columnName)}
+        error={touched[columnName] && error[columnName]}
+        helperText={touched[columnName] && error[columnName]}
+        InputProps={{
+          startAdornment: <InputAdornment position='start'>{currency}</InputAdornment>,
+        }}
+      />
     ),
     [columnTypes.date]: (
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <Box className={styles.dueDatePicker}>
-          <DatePicker
-            name='dueDate'
-            label='Due date'
-            inputFormat='dd/MM/yyyy'
-            value={data}
-            // onChange={newDate => {
-            //   setFieldValue('date', newDate);
-            // }}
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </Box>
-      </LocalizationProvider>
+      <Box className={commonStyles.dueDatePicker}>
+        <DatePicker
+          inputFormat='dd/MM/yyyy'
+          name={columnName}
+          value={value}
+          key={id}
+          onChange={(newValue) => handleChange(newValue?.toString(), columnName)}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      </Box>
     ),
     [columnTypes.select]: (
       <FormControl fullWidth>
-        <InputLabel id='demo-simple-select-label'>Type</InputLabel>
         <Select
-          labelId='demo-simple-select-label'
-          id='demo-simple-select'
-          value={data}
-          onChange={(e) => onChange(e)}
-          label='Type'
           size='small'
           variant='outlined'
+          name={columnName}
+          value={value}
+          onChange={({ target: { value } }) => handleChange(value, columnName)}
         >
-          <MenuItem value={'Cash'}>Cash</MenuItem>
-          <MenuItem value={'Transfer'}>Transfer</MenuItem>
+          <MenuItem value={PaymentType.Cash}>{PaymentType[1]}</MenuItem>
+          <MenuItem value={PaymentType.Transfer}>{PaymentType[2]}</MenuItem>
         </Select>
       </FormControl>
     ),
-    [columnTypes.file]: <Upload formikRef={{ errors: {} }} label='Upload' />,
+    [columnTypes.file]: (
+      <Button variant='outlined' endIcon={<CloudUpload />} className={styles.uploadBtn}>
+        Upload
+      </Button>
+    ),
   };
 };
 
-export default function PaymentHistory({ history }) {
-  const loading = false;
-  const [data, setData] = useState(history || []);
+const AddPaymentBtn = ({ addPaymentHandler }) => (
+  <Button variant='contained' onClick={addPaymentHandler}>
+    + Add payment
+  </Button>
+);
 
-  console.log(data);
+export default function PaymentHistory({
+  paymentHistory = [],
+  errors,
+  touched,
+  setFieldValue,
+  currency,
+}) {
+  const [deletePopupOpened, setDeletePopupOpened] = useState(false);
+  const [historyIndex, setHistoryIndex] = useState(null);
+  const historyColumns = columns();
+  const columnKeys = Object.keys(historyColumns);
 
-  const addPayment = () => {
-    setData((d) => {
-      return [
-        {
-          invoiceId: '',
-          paidAmount: '',
-          paymentDate: '',
-          paymentType: 'Cash',
-          attachment: null,
-        },
-        ...d,
-      ];
-    });
+  const handleAddPayment = () => {
+    setFieldValue('paymentHistory', [
+      ...paymentHistory,
+      paymentHistoryInitialValues(paymentHistory.length + 1),
+    ]);
   };
 
-  const AddPaymentBtn = () => {
-    return (
-      <Button variant='contained' onClick={addPayment}>
-        + Add payment
-      </Button>
-    );
+  const openDeletePopup = () => {
+    setDeletePopupOpened(true);
   };
 
-  const columnKeys = Object.keys(columns);
+  const closeDeletePopup = () => {
+    setDeletePopupOpened(false);
+  };
+
+  const deleteHistoryByIndex = () => {
+    paymentHistory.splice(historyIndex, 1);
+    setFieldValue('paymentHistory', [...paymentHistory]);
+  };
+
+  const deleteHistory = () => {
+    closeDeletePopup();
+    deleteHistoryByIndex();
+  };
+
+  const handleDeleteHistory = (index) => {
+    setHistoryIndex(index);
+    openDeletePopup();
+  };
 
   return (
     <Accordion className={commonStyles.accordion} expanded={true}>
@@ -161,96 +178,103 @@ export default function PaymentHistory({ history }) {
         className={`${commonStyles.accordionSummary} ${styles.accordionBox}`}
       >
         <Box className={styles.paymentBox}>
-          <Box
-            component='img'
-            alt='Payment History'
-            src={creditCard}
-            className={`${styles.cardImg} ${commonStyles.panelImg}`}
-          />
+          <IconButton>
+            <Payment />
+          </IconButton>
           <Typography className={commonStyles.detailsTxt}>
             Payment History{' '}
-            {history?.length && (
-              <span className={commonStyles.detailsCount}>({history.length})</span>
+            {!!paymentHistory?.length && (
+              <span className={commonStyles.detailsCount}>({paymentHistory.length})</span>
             )}
           </Typography>
         </Box>
-        {/* <Box>{history?.length && <AddPaymentBtn />}</Box> */}
         <Box>
-          <AddPaymentBtn />
+          {!!paymentHistory?.length && (
+            <AddPaymentBtn addPaymentHandler={handleAddPayment} />
+          )}
         </Box>
       </AccordionSummary>
       <AccordionDetails className={commonStyles.accordionDetails}>
-        <Box>
-          <TableContainer className={tableStyles.tableContainer}>
-            <Table aria-labelledby='tableTitle' padding='none'>
-              <TableHead className={tableStyles.tableHead}>
-                <TableRow>
-                  {columnKeys.map((c) => (
-                    <TableCell
-                      align='left'
-                      key={c}
-                      className={`${tableStyles.tableCell} ${tableStyles.tableHeaderCell}`}
-                    >
-                      <TooltipText text={columns[c].label} />
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              {data.length ? (
-                /*Usual Rows*/
-                <TableBody className={`${tableStyles.tableBody}`}>
-                  {data.map((row, i) => {
-                    return (
-                      <TableRow key={`${row.id}_${i}`} className={tableStyles.tableRow}>
-                        {columnKeys.map((c) => {
-                          const column = columns[c];
-                          const cell = EditableTableCell({
-                            data: row[c],
-                            text: column.label,
-                          });
-
-                          return (
-                            <TableCell
-                              key={`${c}_${row.id}_${i}`}
-                              className={tableStyles.tableCell}
-                            >
-                              {cell[column.type]}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              ) : loading ? (
-                // todo hide scroll when loading and there is no data
-                <TableBodyWrapper>
-                  {/*Loading*/}
-                  {/*todo correct loading styles*/}
-                  <LoadingSpinner />
-                </TableBodyWrapper>
-              ) : (
-                /*No Data*/
-                <TableBody>
-                  <TableRow className={tableStyles.whiteTableCell}>
-                    <TableCell colSpan={columnKeys.length}>
-                      <Box className={tableStyles.noDataBox}>
-                        <NoData className={styles.noData} />
+        <TableContainer component={Paper}>
+          <Table className={styles.historyTable}>
+            <TableHead>
+              <TableRow>
+                {columnKeys.map((c) => {
+                  const tooltipTxt = historyColumns[c].tooltip;
+                  return (
+                    <TableCell align='left' key={c}>
+                      <Box className={tooltipTxt && styles.attachmentTableCell}>
+                        {historyColumns[c].label}
+                        {tooltipTxt && (
+                          <Tooltip title={tooltipTxt}>
+                            <IconButton>
+                              <Error />
+                            </IconButton>
+                          </Tooltip>
+                        )}
                       </Box>
                     </TableCell>
-                  </TableRow>
-                </TableBody>
-              )}
-            </Table>
-          </TableContainer>
-          {/* {!history?.length && (
-            <Box className={styles.noDataBox}>
-              <NoData className={styles.noData} />
-              <AddPaymentBtn />
-            </Box>
-          )} */}
-        </Box>
+                  );
+                })}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {paymentHistory?.map((row, i) => (
+                <TableRow
+                  key={row.name}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  {columnKeys.map((columnKey) => {
+                    const column = historyColumns[columnKey];
+
+                    const cell = EditableTableCell({
+                      value: row[columnKey],
+                      columnName: columnKey,
+                      id: i + 1,
+                      paymentHistory,
+                      setFieldValue,
+                      touched,
+                      errors,
+                      currency,
+                    });
+
+                    return (
+                      <TableCell
+                        key={`${columnKey}_${row.id}_${i}`}
+                        className={styles.historyCell}
+                      >
+                        {cell[column.type]}
+                      </TableCell>
+                    );
+                  })}
+                  {/*Delete Row*/}
+                  <TableCell>
+                    <IconButton onClick={() => handleDeleteHistory(i)}>
+                      <Delete />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        {!paymentHistory?.length && (
+          <Box className={styles.noDataBox}>
+            <NoData className={styles.noData} />
+            <AddPaymentBtn addPaymentHandler={handleAddPayment} />
+          </Box>
+        )}
       </AccordionDetails>
+
+      {/*Delete History popup*/}
+      <ConfirmDialog
+        open={deletePopupOpened}
+        title='Delete Item'
+        message='Are you sure you want to delete selected payment?'
+        confirmButton={{ focus: false, txt: 'Delete', color: 'error' }}
+        onClose={closeDeletePopup}
+        onConfirm={deleteHistory}
+      />
     </Accordion>
   );
 }

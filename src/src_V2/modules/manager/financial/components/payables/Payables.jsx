@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useFormik } from 'formik';
+import { useCallback, useEffect, useState } from 'react';
 
-import { managerSidebarConfig } from '../../../config';
 import { rowsPerPageOptions, payableColumns } from '../../constants';
 import payablesList from '../../mock/payable';
-import { Container, Layout } from '../../../../../components';
+import { differenceCost, remainingCost } from '../../utils/cost';
+import { Layout } from '../../../../../components';
 import ControlPanel from './control-panel/ControlPanel';
 import PayableTable from './table/PayableTable';
 
@@ -12,20 +11,7 @@ export default function Payables() {
   const [payables, setPayables] = useState([]);
   const [payablesLoading, setPayablesLoading] = useState(false);
   const [filteredPayables, setFilteredPayables] = useState([]);
-  const searchForm = useFormik({
-    initialValues: {
-      search: '',
-    },
-  });
-  const searchTxt = searchForm.values.search;
-
-  useEffect(() => {
-    getPayables();
-  }, []);
-
-  useEffect(() => {
-    filterPayables();
-  }, [searchTxt, payables]);
+  const [searchTxt, setSearchTxt] = useState('');
 
   // getting Payables from backend
   function getPayables() {
@@ -34,7 +20,7 @@ export default function Payables() {
     const timeout = setTimeout(() => {
       processPayables(payablesList());
       setPayablesLoading(false);
-    }, 0);
+    }, 500);
 
     return () => {
       clearTimeout(timeout);
@@ -43,14 +29,14 @@ export default function Payables() {
 
   function processPayables(payables) {
     const processedPayables = payables.map((payable) => {
-      payable.difference = payable.plannedCost - payable.actualCost;
-      payable.remaining = payable.actualCost - payable.paidCost;
+      payable.difference = differenceCost(payable.plannedCost, payable.actualCost);
+      payable.remaining = remainingCost(payable.actualCost, payable.paidCost);
       return payable;
     });
     setPayables(processedPayables);
   }
 
-  function filterPayables() {
+  const filterPayables = useCallback(() => {
     // filtering payables by Tour Name/ID/Supplier
     const filteredPayables = payables.filter(
       (item) =>
@@ -59,12 +45,19 @@ export default function Payables() {
         item.supplier.toLowerCase().includes(searchTxt)
     );
     setFilteredPayables(filteredPayables);
-  }
+  });
+
+  useEffect(getPayables, []);
+
+  useEffect(filterPayables, [searchTxt, payables]);
 
   return (
-    <Container managerSidebarConfig={managerSidebarConfig}>
+    <>
       <Layout title='Payables'>
-        <ControlPanel searchForm={searchForm} />
+        <ControlPanel
+          searchValue={searchTxt}
+          handleSearchChange={(e) => setSearchTxt(e.target.value)}
+        />
         <PayableTable
           payables={filteredPayables}
           columns={payableColumns()}
@@ -72,6 +65,6 @@ export default function Payables() {
           rowsPerPageOptions={rowsPerPageOptions}
         />
       </Layout>
-    </Container>
+    </>
   );
 }

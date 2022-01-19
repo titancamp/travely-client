@@ -2,12 +2,10 @@ import { Box } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Container } from '../../../../../components';
 import { Banner } from '../../../supplier-management/components';
 import Finance from './Finance/Finance';
 import TourInfo from './TourInfo';
 
-import { managerSidebarConfig } from '../../../config';
 import styles from './style.module.css';
 
 function TourPackageSteps({ currentTab: { step, isValidate }, tourPackage }) {
@@ -38,7 +36,7 @@ export default function AddTourPackage() {
   }
 
   return (
-    <Container managerSidebarConfig={managerSidebarConfig}>
+    <>
       <Banner
         pageName='Tour Package'
         onSubmit={onSubmit}
@@ -49,6 +47,6 @@ export default function AddTourPackage() {
       <Box className={styles.container}>
         <TourPackageSteps currentTab={currentTab} tourPackage={tourPackage} />
       </Box>
-    </Container>
+    </>
   );
 }
