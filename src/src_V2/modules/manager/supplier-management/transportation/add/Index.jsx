@@ -5,11 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import Cars from './Cars';
 import MainInfo from './MainInfo';
 import Drivers from './Drivers';
-import { Container } from '../../../../../components';
 import { Banner, Partnership } from '../../components';
 
 import styles from './style.module.css';
-import { managerSidebarConfig } from '../../../config';
 
 function TransportationSteps({ currentTab: { step, isValidate }, transportation }) {
   switch (step) {
@@ -47,7 +45,7 @@ export default function AddTransportation() {
   }
 
   return (
-    <Container managerSidebarConfig={managerSidebarConfig}>
+    <>
       <Banner
         onSubmit={onSubmit}
         currentTab={currentTab}
@@ -58,6 +56,6 @@ export default function AddTransportation() {
       <Box className={styles.container}>
         <TransportationSteps currentTab={currentTab} transportation={transportation} />
       </Box>
-    </Container>
+    </>
   );
 }
