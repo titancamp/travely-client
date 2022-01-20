@@ -5,7 +5,12 @@ import {
   editAccountInitialValues,
   editAccountValidationSchema,
 } from '../../../../utils/schemas/userManagement/userManagement';
-import { actionLevels, mockData, resources, mockResourceDescription } from '../mock/data';
+import {
+  actionLevels,
+  mockUserManagementData,
+  resources,
+  mockResourceDescription,
+} from '../mock/data';
 import { Grid, TextField, Typography } from '@mui/material';
 import styles from './styles.module.css';
 import clsx from 'clsx';
@@ -13,7 +18,7 @@ import clsx from 'clsx';
 export default function UserEditContent() {
   const userId = +useParams().userId;
 
-  const userData = mockData['active'].find((user) => user.id === userId); // 'active' will probably be removed
+  const userData = mockUserManagementData.find((user) => user.id === userId);
 
   const { errors, touched, handleSubmit, getFieldProps, setFieldValue, values } =
     useFormik({

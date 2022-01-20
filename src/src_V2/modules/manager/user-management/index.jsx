@@ -10,7 +10,7 @@ import UserEditContent from './editUser/EditUser';
 import { useTableDataGenerator } from '../../../hooks';
 import { userManagementTableDataGenerator } from '../reporting/utils/table-data-generator';
 import { managerSidebarConfig } from '../config';
-import { mockData } from './mock/data';
+import { mockUserManagementData } from './mock/data';
 import styles from './styles.module.css';
 
 const EditBtn = ({ rowData, handleEdit }) => (
@@ -43,23 +43,25 @@ function UserManagementContent() {
   };
 
   const [tableData, setTableData] = useState([]);
+  const [currentTab, setCurrentTab] = useState('active');
+  const filteredData = tableData.filter((user) =>
+    currentTab === 'active' ? user.status !== 'Inactive' : user.status === 'Inactive'
+  );
 
   const generatedTableData = useTableDataGenerator(userManagementTableDataGenerator, [
-    tableData.map((row) => ({
+    filteredData.map((row) => ({
       ...row,
       status: <StatusIndicator status={row.status} />,
       editBtn: <EditBtn rowData={row} handleEdit={handleEdit} />,
     })),
   ]);
 
-  const [currentTab, setCurrentTab] = useState('active');
-
   const handleChange = (event) => {
     setCurrentTab(event.target.value);
   };
 
   useEffect(() => {
-    setTableData(mockData[currentTab]);
+    setTableData(mockUserManagementData);
   }, [currentTab]);
 
   return (
