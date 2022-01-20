@@ -12,7 +12,7 @@ import {
   OutlinedInput,
   FormHelperText,
 } from '@mui/material';
-import { Person, LocalPhone, Email } from '@mui/icons-material';
+import { Person, Email } from '@mui/icons-material';
 
 import DialogManager from '../dialogs/Index';
 import { EndAdornment } from '../../components/endAdornment';
@@ -136,8 +136,8 @@ export default function MainInfo({ parentRef, isValidate }) {
                   value={values.phone}
                   label='Contact Phone'
                   onChange={handleChange}
+                  startAdornment={<>+374&nbsp;</>}
                   error={errors.phone && touched.phone}
-                  endAdornment={<EndAdornment icon={<LocalPhone />} />}
                 />
                 {errors.phone && touched.phone && (
                   <FormHelperText error>{errors.phone}</FormHelperText>
@@ -229,7 +229,7 @@ export default function MainInfo({ parentRef, isValidate }) {
               <TextField
                 fullWidth
                 multiline
-                maxRows={4}
+                rows={4}
                 name='notes'
                 label='Notes'
                 onBlur={handleBlur}

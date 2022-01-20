@@ -80,8 +80,10 @@ export default function Guide({ parentRef }) {
             (prev, { label }, index) => prev + (index ? ' / ' : '') + label,
             ''
           );
+
           return (
             <InfoCard
+              defaultImage
               id={guide.id}
               key={guide.id}
               image={guide.image?.previewImage}
@@ -100,7 +102,7 @@ export default function Guide({ parentRef }) {
                 },
                 4: {
                   value: guide.phone,
-                  label: '',
+                  label: guide.phone ? '+374 ' : '',
                 },
               }}
               areaAction={openViewCardDialog}

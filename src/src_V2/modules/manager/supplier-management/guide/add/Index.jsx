@@ -8,10 +8,10 @@ import { Banner, Partnership } from '../../components';
 
 import styles from './style.module.css';
 
-function GuideSteps({ currentTab: { step }, guide }) {
+function GuideSteps({ currentTab: { step, isValidate }, guide }) {
   switch (step) {
     case 1:
-      return <MainInfo parentRef={guide} />;
+      return <MainInfo parentRef={guide} isValidate={isValidate} />;
     case 2:
       return <Guide parentRef={guide} />;
     case 3:

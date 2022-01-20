@@ -12,7 +12,7 @@ import {
   CardActionArea,
 } from '@mui/material';
 
-import { Info } from '@mui/icons-material';
+import { Info, AccountCircle } from '@mui/icons-material';
 
 import styles from './style.module.css';
 
@@ -79,6 +79,7 @@ export function InfoCard({
   disabled,
   areaAction,
   sectionData,
+  defaultImage,
   firstCardAction,
   secondCardAction,
   seeDetailsAction,
@@ -102,11 +103,19 @@ export function InfoCard({
   return (
     <Grid className={styles.gridItem} item xs={3}>
       <Card className={styles.card}>
-        {image && (
-          <Box className={styles.avatarContainer}>
-            <Avatar className={styles.avatar} src={image} />
+        <Box className={styles.avatarContainer}>
+          <Box className={styles.avatar}>
+            {image ? (
+              <Avatar src={image} />
+            ) : (
+              <>
+                {defaultImage && (
+                  <AccountCircle sx={{ fontSize: 45, color: 'primary', opacity: 0.55 }} />
+                )}
+              </>
+            )}
           </Box>
-        )}
+        </Box>
         <CardActionArea
           disabled={disabled}
           className={styles.cardContent}

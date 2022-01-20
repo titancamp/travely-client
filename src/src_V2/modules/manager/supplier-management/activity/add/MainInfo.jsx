@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useFormik } from 'formik';
-import { Box, Grid, TextField } from '@mui/material';
+import { Box, Grid, TextField, InputAdornment } from '@mui/material';
 
 import {
   mainInfoSchema,
@@ -37,7 +37,7 @@ export default function MainInfo({ parentRef, isValidate }) {
 
   return (
     <Box className={styles.mainInfo}>
-      <form>
+      <form autoComplete='off'>
         <Box className={styles.mnRow}>
           <label className={styles.label}>Details</label>
           <Grid container rowSpacing={3} spacing={2} mb={3}>
@@ -97,6 +97,28 @@ export default function MainInfo({ parentRef, isValidate }) {
             </Grid>
           </Grid>
         </Box>
+        <Box className={styles.mnRow}>
+          <label className={styles.label}>Details</label>
+          <Grid container mb={3}>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                name='price'
+                type='number'
+                variant='outlined'
+                onBlur={handleBlur}
+                value={values.price}
+                error={!!errors.price}
+                onChange={handleChange}
+                label='Price Per Persons'
+                helperText={errors.price}
+                InputProps={{
+                  startAdornment: <InputAdornment position='start'>AMD ~</InputAdornment>,
+                }}
+              />
+            </Grid>
+          </Grid>
+        </Box>
         <Box className={`${styles.mnRow} ${errors.notes ? '' : styles.helper}`}>
           <label className={styles.label}>Notes</label>
           <Grid container spacing={4}>
@@ -104,7 +126,7 @@ export default function MainInfo({ parentRef, isValidate }) {
               <TextField
                 fullWidth
                 multiline
-                maxRows={4}
+                rows={4}
                 name='notes'
                 label='Notes'
                 onBlur={handleBlur}

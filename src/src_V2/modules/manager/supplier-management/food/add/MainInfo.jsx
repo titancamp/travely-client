@@ -248,7 +248,7 @@ export default function MainInfo({ parentRef, isValidate }) {
               <TextField
                 fullWidth
                 multiline
-                maxRows={4}
+                rows={4}
                 name='notes'
                 label='Notes'
                 onBlur={handleBlur}

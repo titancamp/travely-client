@@ -10,11 +10,12 @@ import {
   OutlinedInput,
   DialogActions,
   DialogContent,
+  // InputAdornment,
   FormHelperText,
 } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useFormik } from 'formik';
-import { LocalPhone, Person, Email } from '@mui/icons-material';
+import { Person, Email, CloudUpload } from '@mui/icons-material';
 
 import {
   addGuideSchema,
@@ -25,6 +26,7 @@ import { EndAdornment } from '../../components/endAdornment';
 import styles from './style.module.css';
 import { AddGuide, Sex } from '../constants';
 import { Languages } from '../../transportation/constants';
+import TagsInput from '../../components/tag/Tag';
 
 export default function AddEditGuideDialog({ onClose, onSuccess, guide, editMode }) {
   const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
@@ -40,15 +42,17 @@ export default function AddEditGuideDialog({ onClose, onSuccess, guide, editMode
     errors,
     touched,
     handleBlur,
+    submitForm,
     handleSubmit,
     handleChange,
     setFieldValue,
+    setFieldError,
   } = formik;
 
   return (
     <form onSubmit={handleSubmit} autoComplete='off'>
       <DialogTitle id='alert-dialog-title'>{editMode ? 'Edit' : 'Add'} Guide</DialogTitle>
-      <DialogContent>
+      <DialogContent className={styles.viewTitle}>
         <Grid container rowSpacing={3}>
           <Grid item container xs={11}>
             <Grid item xs={6}>
@@ -70,7 +74,9 @@ export default function AddEditGuideDialog({ onClose, onSuccess, guide, editMode
                     endAdornment={<EndAdornment icon={<Person />} />}
                   />
                   {touched.person && errors.person && (
-                    <FormHelperText error>{errors.person}</FormHelperText>
+                    <FormHelperText className={styles.helperText} error>
+                      {errors.person}
+                    </FormHelperText>
                   )}
                 </FormControl>
               </Grid>
@@ -89,7 +95,9 @@ export default function AddEditGuideDialog({ onClose, onSuccess, guide, editMode
                     endAdornment={<EndAdornment icon={<Email />} />}
                   />
                   {errors.email && touched.email && (
-                    <FormHelperText error>{errors.email}</FormHelperText>
+                    <FormHelperText error className={styles.helperText}>
+                      {errors.email}
+                    </FormHelperText>
                   )}
                 </FormControl>
               </Grid>
@@ -104,11 +112,13 @@ export default function AddEditGuideDialog({ onClose, onSuccess, guide, editMode
                     value={values.phone}
                     label='Contact Phone'
                     onChange={handleChange}
+                    startAdornment={<>+374&nbsp;</>}
                     error={errors.phone && touched.phone}
-                    endAdornment={<EndAdornment icon={<LocalPhone />} />}
                   />
                   {errors.phone && touched.phone && (
-                    <FormHelperText error>{errors.phone}</FormHelperText>
+                    <FormHelperText error className={styles.helperText}>
+                      {errors.phone}
+                    </FormHelperText>
                   )}
                 </FormControl>
               </Grid>
@@ -135,7 +145,7 @@ export default function AddEditGuideDialog({ onClose, onSuccess, guide, editMode
             />
           </Grid>
           <Grid container item xs={14} spacing={2}>
-            <Grid item xs={4}>
+            <Grid item xs={6}>
               <TextField
                 fullWidth
                 name='experience'
@@ -147,19 +157,7 @@ export default function AddEditGuideDialog({ onClose, onSuccess, guide, editMode
                 helperText={touched.experience && errors.experience}
               />
             </Grid>
-            <Grid item xs={4}>
-              <TextField
-                fullWidth
-                name='age'
-                label='Age'
-                value={values.age}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={errors.age && touched.age}
-                helperText={touched.age && errors.age}
-              />
-            </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={6}>
               <Autocomplete
                 options={Sex}
                 value={values.sex}
@@ -180,22 +178,23 @@ export default function AddEditGuideDialog({ onClose, onSuccess, guide, editMode
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <TextField
+            <TagsInput
               fullWidth
               name='skills'
               label='Skills'
-              value={values.skills}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              error={errors.skills && touched.skills}
-              helperText={touched.skills && errors.skills}
+              variant='outlined'
+              placeholder='Add skill'
+              tags={values.skills}
+              error={errors.skills}
+              setFieldValue={setFieldValue}
+              setFieldError={setFieldError}
             />
           </Grid>
         </Grid>
       </DialogContent>
       <DialogActions className={styles.dialogAction}>
         <Button onClick={onClose}>Cancel</Button>
-        <Button type='submit' variant='contained'>
+        <Button onClick={submitForm} variant='contained'>
           {editMode ? 'Edit' : 'Add'}
         </Button>
       </DialogActions>
@@ -230,7 +229,7 @@ function UploadImage({ parentRef }) {
     <Box
       onClick={handleClick}
       className={`${styles.uploadImageContainer} ${
-        error ? styles.errorMessageColor : ''
+        error && !parentRef.values.image?.previewImage ? styles.errorColor : ''
       }`}
     >
       <input
@@ -240,14 +239,32 @@ function UploadImage({ parentRef }) {
         style={{ display: 'none' }}
         accept={AddGuide.acceptedFileTypes.join(', ')}
       />
-      {error && <>{error}</>}
-      {parentRef.values.image?.previewImage && (
-        <Box
-          component='img'
-          className={styles.previewImage}
-          alt='The house from the offer.'
-          src={parentRef.values.image?.previewImage}
-        />
+      {parentRef.values.image?.previewImage ? (
+        <>
+          <Box
+            component='img'
+            className={styles.previewImage}
+            alt='Guide profile picture.'
+            src={parentRef.values.image?.previewImage}
+          />
+          {error && (
+            <p className={styles.attachmentHelperText}>
+              Compatible formats are .png, .jpg and file size limit is 20mb.
+            </p>
+          )}
+        </>
+      ) : (
+        <Box className={styles.addAttachmentContent}>
+          <Button
+            className={`${styles.addAttachment} ${error ? styles.errorMessageColor : ''}`}
+          >
+            UPLOAD IMG
+            <CloudUpload className={styles.addAttachmentIcon} />
+          </Button>
+          <p className={styles.attachmentText}>
+            Compatible formats are .png, .jpg and file size limit is 20mb.
+          </p>
+        </Box>
       )}
     </Box>
   );

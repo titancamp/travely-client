@@ -1,9 +1,8 @@
 import { object } from 'yup';
 import { BaseSchemas } from '../BaseSchemas';
-// import { ERROR_MESSAGES } from '../../constants';
 
 /**
- * Initial values for activity.
+ * Initial values for activity page.
  */
 export function mainInfoInitialValues(initialValues) {
   return {
@@ -17,13 +16,14 @@ export function mainInfoInitialValues(initialValues) {
 }
 
 /**
- * Yup schemas for activity.
+ * Yup schemas for activity page.
  */
 export function mainInfoSchema() {
   return object().shape({
-    duration: BaseSchemas.integer(),
+    duration: BaseSchemas.floatingNumber(999),
     notes: BaseSchemas.textField(500),
     name: BaseSchemas.requiredText(50),
     description: BaseSchemas.textField(500),
+    price: BaseSchemas.floatingNumber(99999999.99),
   });
 }

@@ -33,7 +33,8 @@ export default function TagsInput({
       setInputValue('');
       setFieldValue(name, [...tags, event.target.value.trim()]);
     } else if (tags.length && !inputValue.length && event.key === 'Backspace') {
-      setFieldValue(name, tags.slice(0, tags.length - 1));
+      //TODO handle the 30 character valid case
+      // setFieldValue(name, tags.slice(0, tags.length - 1));
     }
   }
 

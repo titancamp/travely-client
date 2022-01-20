@@ -20,9 +20,9 @@
 
 .viewDialogTitle {
   display: flex;
-  justify-content: space-between;
   padding-top: 24px;
   padding-bottom: 27px;
+  justify-content: space-between;
 }
 
 .viewDialogTitle .dialogTitle {
