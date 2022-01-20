@@ -9,7 +9,7 @@
   width: 100%;
   background-color: var(--white);
 }
-/* sticky table head */
+
 .tableHead {
   background-color: var(--midGrey) !important;
   position: sticky !important;
@@ -23,6 +23,9 @@
 }
 .tableCell {
   min-width: 140px !important;
+  color: rgba(0, 0, 0, 0.87);
+  letter-spacing: 0.15px;
+  font-size: 14px;
 }
 
 .groupRow {
@@ -35,17 +38,32 @@
   color: #fff !important;
 }
 
+.noDataBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.noData {
+  margin: 12px;
+}
+
 .groupTotal {
   color: #1976d2;
-  font-weight: bold;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.15px;
 }
 
 .totalCost {
   color: #1976d2 !important;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  font-size: 14px;
 }
 
 .mainText {
-  font-size: 22px;
+  font-size: 24px;
 }
 
 .mainBox {
@@ -59,15 +77,6 @@
 
 .textDiv {
   margin-left: 25px;
-}
-
-.payableId {
-  color: var(--darkGrey);
-  font-weight: 600;
-}
-
-.paymentBox {
-  display: flex;
 }
 
 .container {
@@ -93,6 +102,12 @@
   color: #000;
 }
 
+.contentFooter div {
+  font-weight: 500;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
 .flex {
   display: flex;
   /* flex: 1 1 100%; */
@@ -112,7 +127,7 @@
 }
 
 .contentSummary {
-  flex-basis: 25%;
+  flex-basis: 30%;
   margin-left: 20px;
   background-color: #fff;
   box-shadow: 0px 0px 10px -5px black;
@@ -123,14 +138,9 @@
   margin: 20px;
 }
 
-.noDataBox {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.noData {
-  margin: 12px;
+.summaryHeader {
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: normal;
 }
 
 /* Accordions */
@@ -146,9 +156,16 @@
 }
 
 .accordionBox div {
+  display: flex;
   justify-content: space-between !important;
   margin: 0 !important;
   align-items: center;
+}
+
+.accordionBox .name {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.15px;
 }
 
 .accordionSummary {
@@ -168,6 +185,7 @@
 
 .accordionSummaryDetails {
   background-color: var(--white) !important;
+  padding: 8px 16px 16px;
 }
 
 .accordionDetails {
@@ -182,16 +200,26 @@
   margin: 5px 0;
 }
 
-.totalPrice {
-  font-size: 20px;
-  margin: 20px 0;
-  font-weight: bold;
-  color: #646464;
+.accordionDetailTxt {
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.15px;
 }
 
-.detailsTxt {
-  font-size: 20px !important;
+.totalPrice {
+  font-size: 16px;
+  margin: 20px 0;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.15px;
+}
+
+.accordionSummary .detailsTxt {
+  font-size: 15px !important;
+  font-weight: 500;
   color: var(--darkGrey);
+  letter-spacing: 0.46px;
+  text-transform: uppercase;
 }
 
 .detailsCount {

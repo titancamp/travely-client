@@ -20,7 +20,7 @@ export const columns = (() => ({
       type: columnTypes.text,
     },
     count: {
-      label: 'Count',
+      label: 'Number of Rooms',
       type: columnTypes.text,
     },
     days: {
@@ -49,7 +49,7 @@ export const columns = (() => ({
       label: 'Price Type',
       type: columnTypes.text,
     },
-    distance: {
+    /* distance: {
       label: 'Distance',
       type: columnTypes.text,
     },
@@ -64,15 +64,15 @@ export const columns = (() => ({
     days: {
       label: 'Days',
       type: columnTypes.text,
-    },
+    }, */
     currency: {
       label: 'Currency',
       type: columnTypes.text,
     },
-    costPerDay: {
+    /* costPerDay: {
       label: 'Cost Per Day',
       type: columnTypes.text,
-    },
+    }, */
     totalCost: {
       label: 'Total Cost',
       type: columnTypes.text,
