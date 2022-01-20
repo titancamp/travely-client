@@ -7,6 +7,12 @@ export const mockData = {
       email: 'chrwin@me.com',
       phone: '(319) 555-0115',
       status: 'Pending',
+      permissions: {
+        templates: 1,
+        packages: 3,
+        receivable: 0,
+        payable: 1,
+      },
     },
     {
       id: 1,
@@ -15,6 +21,12 @@ export const mockData = {
       email: 'shaffei@me.com',
       phone: '(319) 555-0115',
       status: 'Active',
+      permissions: {
+        templates: 1,
+        packages: 3,
+        receivable: 0,
+        payable: 1,
+      },
     },
     {
       id: 2,
@@ -23,6 +35,12 @@ export const mockData = {
       email: 'dbrobins@outlook.com',
       phone: '(319) 555-0115',
       status: 'Active',
+      permissions: {
+        templates: 1,
+        packages: 3,
+        receivable: 0,
+        payable: 1,
+      },
     },
     {
       id: 3,
@@ -31,6 +49,12 @@ export const mockData = {
       email: 'iapetus@aol.com',
       phone: '(319) 555-0115',
       status: 'Pending',
+      permissions: {
+        templates: 1,
+        packages: 3,
+        receivable: 0,
+        payable: 1,
+      },
     },
     {
       id: 4,
@@ -39,6 +63,12 @@ export const mockData = {
       email: 'seasweb@me.com',
       phone: '(319) 555-0115',
       status: 'Active',
+      permissions: {
+        templates: 1,
+        packages: 3,
+        receivable: 0,
+        payable: 1,
+      },
     },
   ],
   inactive: [
@@ -49,6 +79,12 @@ export const mockData = {
       email: 'chrwin@me.com',
       phone: '(319) 555-0115',
       status: 'Inactive',
+      permissions: {
+        templates: 1,
+        packages: 3,
+        receivable: 0,
+        payable: 1,
+      },
     },
     {
       id: 6,
@@ -57,6 +93,12 @@ export const mockData = {
       email: 'shaffei@me.com',
       phone: '(319) 555-0115',
       status: 'Inactive',
+      permissions: {
+        templates: 1,
+        packages: 3,
+        receivable: 0,
+        payable: 1,
+      },
     },
     {
       id: 7,
@@ -65,6 +107,12 @@ export const mockData = {
       email: 'dbrobins@outlook.com',
       phone: '(319) 555-0115',
       status: 'Inactive',
+      permissions: {
+        templates: 1,
+        packages: 3,
+        receivable: 0,
+        payable: 1,
+      },
     },
     {
       id: 8,
@@ -73,6 +121,12 @@ export const mockData = {
       email: 'iapetus@aol.com',
       phone: '(319) 555-0115',
       status: 'Inactive',
+      permissions: {
+        templates: 1,
+        packages: 3,
+        receivable: 0,
+        payable: 1,
+      },
     },
     {
       id: 9,
@@ -81,6 +135,12 @@ export const mockData = {
       email: 'seasweb@me.com',
       phone: '(319) 555-0115',
       status: 'Inactive',
+      permissions: {
+        templates: 1,
+        packages: 3,
+        receivable: 0,
+        payable: 1,
+      },
     },
   ],
 };

@@ -15,16 +15,41 @@ export default function UserEditContent() {
 
   const userData = mockData['active'].find((user) => user.id === userId); // 'active' will probably be removed
 
-  const { errors, touched, handleSubmit, getFieldProps } = useFormik({
-    initialValues: editAccountInitialValues({
-      name: userData.name,
-      email: userData.email,
-      position: userData.position,
-      phone: userData.phone,
-    }),
-    validationSchema: editAccountValidationSchema,
-    onSubmit: (values) => console.log(values),
-  });
+  const { errors, touched, handleSubmit, getFieldProps, setFieldValue, values } =
+    useFormik({
+      initialValues: editAccountInitialValues({
+        name: userData.name,
+        email: userData.email,
+        position: userData.position,
+        phone: userData.phone,
+        permissions: userData.permissions,
+      }),
+      validationSchema: editAccountValidationSchema,
+      onSubmit: (values) => console.log(values),
+    });
+
+  const handlePermissionChange = (checked, resourceKey, currentActionLevel) => {
+    let newActionLevel;
+
+    if (checked) {
+      if (currentActionLevel === actionLevels.view) {
+        newActionLevel = actionLevels.view;
+      } else if (currentActionLevel === actionLevels.edit) {
+        newActionLevel = actionLevels.view | actionLevels.edit;
+      }
+    } else {
+      if (currentActionLevel === actionLevels.view) {
+        newActionLevel = 0;
+      } else if (currentActionLevel === actionLevels.edit) {
+        newActionLevel = actionLevels.view;
+      }
+    }
+
+    setFieldValue('permissions', {
+      ...values.permissions,
+      [resourceKey]: newActionLevel,
+    });
+  };
 
   return (
     <div className={clsx(styles['content'])}>
@@ -78,7 +103,7 @@ export default function UserEditContent() {
           Permissions
         </Typography>
         <Grid container className={styles['permission-wrapper']}>
-          <Grid container sx={12} item className={styles['permission-row']}>
+          <Grid container xs={12} item className={styles['permission-row']}>
             {Object.keys(actionLevels).map((action) => (
               <Grid item xs={1} key={action}>
                 <div className={styles['permission-action']}>
@@ -90,21 +115,28 @@ export default function UserEditContent() {
           {Object.keys(resources).map((resourceKey) => (
             <Grid
               container
-              sx={12}
+              xs={12}
               item
               className={styles['permission-row']}
               key={resourceKey}
             >
-              <Grid item xs={1}>
-                <div className={styles['permission-action']}>
-                  <Checkbox />
-                </div>
-              </Grid>
-              <Grid item xs={1}>
-                <div className={styles['permission-action']}>
-                  <Checkbox />
-                </div>
-              </Grid>
+              {Object.values(actionLevels).map((actionLevel) => (
+                <Grid item xs={1} key={actionLevel}>
+                  <div className={styles['permission-action']}>
+                    <Checkbox
+                      name={`permissions.${resourceKey}`}
+                      onChange={(event) =>
+                        handlePermissionChange(
+                          event.target.checked,
+                          resourceKey,
+                          actionLevel
+                        )
+                      }
+                      checked={!!(values.permissions[resourceKey] & actionLevel)}
+                    />
+                  </div>
+                </Grid>
+              ))}
               <Grid item xs={10}>
                 <div className={styles['resource']}>
                   <Typography className={styles['resource-title']}>
