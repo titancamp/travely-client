@@ -8,10 +8,10 @@ export const editAccountInitialValues = (initialValues) => ({
   phone: '',
   companyName: '',
   permissions: {
-    templates: '',
-    packages: '',
-    receivable: '',
-    payable: '',
+    templates: 0,
+    packages: 0,
+    receivable: 0,
+    payable: 0,
   },
   ...initialValues,
 });
