@@ -72,10 +72,9 @@ export default function Drivers({ parentRef }) {
         <AddCard
           title='Drivers'
           buttonText='ADD DRIVER'
-          onOpenDialog={openAddCardDialog}
-          disabled={drivers.length === 50}
-          subTitle='Add Button bellow to add driver to your accommodation'
           tooltipKeyWord={'driver'}
+          disabled={drivers.length === 50}
+          onOpenDialog={openAddCardDialog}
         />
         {drivers.map((driver) => {
           let license = driver.license?.reduce(

@@ -16,14 +16,7 @@ import { Info, AccountCircle } from '@mui/icons-material';
 
 import styles from './style.module.css';
 
-export function AddCard({
-  title,
-  disabled,
-  subTitle,
-  buttonText,
-  onOpenDialog,
-  tooltipKeyWord,
-}) {
+export function AddCard({ title, disabled, buttonText, onOpenDialog, tooltipKeyWord }) {
   function openDialog() {
     if (!disabled) {
       onOpenDialog();
@@ -52,7 +45,9 @@ export function AddCard({
             <Typography className={styles.title} variant='h5'>
               {title}
             </Typography>
-            <Typography className={styles.subTitle}>{subTitle}</Typography>
+            <Typography className={styles.subTitle}>
+              Click the button below to add a new {tooltipKeyWord} and fill details
+            </Typography>
           </CardContent>
           <Box className={styles.addButtonContainer}>
             <Typography

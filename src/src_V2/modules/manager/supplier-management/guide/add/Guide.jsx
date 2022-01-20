@@ -70,10 +70,9 @@ export default function Guide({ parentRef }) {
         <AddCard
           title='Guides'
           buttonText='ADD GUIDE'
-          onOpenDialog={openAddCardDialog}
-          disabled={guides.length === 50}
-          subTitle='Add Button bellow to add guides to your accommodation'
           tooltipKeyWord={'guide'}
+          disabled={guides.length === 50}
+          onOpenDialog={openAddCardDialog}
         />
         {guides.map((guide) => {
           let languages = guide.languages?.reduce(
