@@ -14,13 +14,11 @@ import {
 } from '@mui/material';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
-import { Container } from '../../../components';
 import EditActions from './editActions';
 import CompanyInfo from './companyInfo';
 import ImgPlaceholder from './imgPlaceholder';
-import ResetPasswordDialog from './resetPasswordDialog';
+import ChangePasswordDialog from './changePasswordDialog';
 
-import { managerSidebarConfig } from '../config';
 import styles from './styles.module.css';
 import { getBase64 } from '../../../utils';
 import {
@@ -52,8 +50,16 @@ function AccountContent() {
     setInitialData(accountMockData);
   }, []);
 
-  const { values, errors, touched, handleSubmit, handleChange, setFieldValue } =
+  const { values, errors, touched, handleSubmit, getFieldProps, setFieldValue } =
     useFormik(formikData);
+
+  const handleFileUpload = (e) => {
+    if (e.currentTarget.files[0]) {
+      getBase64(e.currentTarget.files[0]).then((res) => {
+        setFieldValue('companyLogo', res);
+      });
+    }
+  };
 
   const [searchParams] = useSearchParams();
 
@@ -80,45 +86,45 @@ function AccountContent() {
               <Grid item xs={4}>
                 <TextField
                   fullWidth
-                  value={values.name}
-                  onChange={handleChange}
-                  error={!!(touched.name && errors.name)}
                   name={'name'}
                   label={'Name'}
+                  error={!!(touched.name && errors.name)}
+                  helperText={touched.name && errors.name}
+                  {...getFieldProps('name')}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
                   fullWidth
-                  value={values.position}
-                  onChange={handleChange}
-                  error={!!(touched.position && errors.position)}
                   name={'position'}
                   label={'Position'}
+                  error={!!(touched.position && errors.position)}
+                  helperText={touched.position && errors.position}
+                  {...getFieldProps('position')}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
                   fullWidth
-                  value={values.email}
-                  onChange={handleChange}
-                  error={!!(touched.email && errors.email)}
                   name={'email'}
                   label={'Email'}
+                  error={!!(touched.email && errors.email)}
+                  helperText={touched.email && errors.email}
                   disabled
                   inputProps={{
                     type: 'email',
                   }}
+                  {...getFieldProps('email')}
                 />
               </Grid>
               <Grid item xs={4}>
                 <TextField
                   fullWidth
-                  value={values.phone}
-                  onChange={handleChange}
-                  error={!!(touched.phone && errors.phone)}
                   name={'phone'}
                   label={'Phone number'}
+                  error={!!(touched.phone && errors.phone)}
+                  helperText={touched.phone && errors.phone}
+                  {...getFieldProps('phone')}
                   // InputProps={{ startAdornment: '+374' }}
                 />
               </Grid>
@@ -153,11 +159,7 @@ function AccountContent() {
                           id='agency-logo'
                           name='agencyLogo'
                           type='file'
-                          onChange={(event) => {
-                            getBase64(event.currentTarget.files[0]).then((res) => {
-                              setFieldValue('companyLogo', res);
-                            });
-                          }}
+                          onChange={handleFileUpload}
                         />
                         <IconButton
                           className={styles['uploadBtn']}
@@ -174,45 +176,45 @@ function AccountContent() {
                       <Grid item xs={6}>
                         <TextField
                           fullWidth
-                          value={values.companyName}
-                          onChange={handleChange}
-                          error={!!(touched.companyName && errors.companyName)}
                           name={'companyName'}
                           label={'Name'}
+                          error={!!(touched.companyName && errors.companyName)}
+                          helperText={touched.companyName && errors.companyName}
+                          {...getFieldProps('companyName')}
                         />
                       </Grid>
                       <Grid item xs={6}>
                         <TextField
                           fullWidth
-                          value={values.companyEmail}
-                          onChange={handleChange}
-                          error={!!(touched.companyEmail && errors.companyEmail)}
                           name={'companyEmail'}
                           label={'Email'}
+                          error={!!(touched.companyEmail && errors.companyEmail)}
+                          helperText={touched.companyEmail && errors.companyEmail}
                           inputProps={{
                             type: 'email',
                           }}
+                          {...getFieldProps('companyEmail')}
                         />
                       </Grid>
                       <Grid item xs={6}>
                         <TextField
                           fullWidth
-                          value={values.companyPhone}
-                          onChange={handleChange}
-                          error={!!(touched.companyPhone && errors.companyPhone)}
                           name={'companyPhone'}
                           label={'Phone number'}
+                          error={!!(touched.companyPhone && errors.companyPhone)}
+                          helperText={touched.companyPhone && errors.companyPhone}
+                          {...getFieldProps('companyPhone')}
                           // InputProps={{ startAdornment: '+374' }}
                         />
                       </Grid>
                       <Grid item xs={6}>
                         <TextField
                           fullWidth
-                          value={values.companyAddress}
-                          onChange={handleChange}
-                          error={!!(touched.companyAddress && errors.companyAddress)}
                           name={'companyAddress'}
                           label={'Address'}
+                          error={!!(touched.companyAddress && errors.companyAddress)}
+                          helperText={touched.companyAddress && errors.companyAddress}
+                          {...getFieldProps('companyAddress')}
                         />
                       </Grid>
                     </Grid>
@@ -233,15 +235,11 @@ function AccountContent() {
           )}
         </div>
       </PageWrapper>
-      <ResetPasswordDialog open={open} handleClose={handleClose} />
+      <ChangePasswordDialog open={open} handleClose={handleClose} />
     </>
   );
 }
 
 export default function Account() {
-  return (
-    <Container managerSidebarConfig={managerSidebarConfig}>
-      <AccountContent />
-    </Container>
-  );
+  return <AccountContent />;
 }

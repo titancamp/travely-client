@@ -18,12 +18,26 @@ export const accountIntialValues = (initialValues) => ({
 
 export const accountValidationSchema = () =>
   object().shape({
-    name: BaseSchemas.textField(),
+    name: BaseSchemas.requiredText(),
     email: BaseSchemas.email,
-    position: BaseSchemas.textField(),
+    position: BaseSchemas.requiredText(),
     phone: BaseSchemas.phone,
     companyName: BaseSchemas.textField(),
     companyAddress: BaseSchemas.textField(),
     companyEmail: BaseSchemas.email,
     companyPhone: BaseSchemas.phone,
+  });
+
+export const changePasswordInitialValues = (initialValues) => ({
+  oldPassword: '',
+  newPassword: '',
+  confirmNewPassword: '',
+  ...initialValues,
+});
+
+export const changePasswordValidationSchema = () =>
+  object().shape({
+    oldPassword: BaseSchemas.requiredText(),
+    newPassword: BaseSchemas.password,
+    confirmNewPassword: BaseSchemas.repeatPassword('newPassword'),
   });

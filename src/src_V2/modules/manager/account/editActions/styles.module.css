@@ -4,15 +4,17 @@
   justify-content: space-between;
   height: 104px;
   padding: 0 44px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background-color: #fff;
-  flex-grow: 1;
-  margin: 0 -40px -24px -40px;
 }
 
 .deactivate {
   display: flex;
   gap: 8px;
-  color: #E31B0C;
+  color: #e31b0c;
 }
 
 .btns-wrapper {

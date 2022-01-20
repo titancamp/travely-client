@@ -4,7 +4,7 @@ import { styled, alpha } from '@mui/material/styles';
 import { Avatar, Button, Menu, MenuItem } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import styles from './header.module.css';
-import { ROUTES } from '../../modules/manager/routes';
+import { ROUTES } from '../../routes';
 
 const StyledMenu = styled((props) => (
   <Menu

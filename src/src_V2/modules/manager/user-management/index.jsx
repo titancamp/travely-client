@@ -3,13 +3,12 @@ import { Button, Select, IconButton, Box, MenuItem, Typography } from '@mui/mate
 import { Edit } from '@mui/icons-material';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-import { Container, Table } from '../../../components';
+import { Table } from '../../../components';
 import PageWrapper from '../account/pageWrapper';
 import UserEditContent from './editUser/EditUser';
 
-import { useTableDataGenerator } from '../../../hooks';
-import { userManagementTableDataGenerator } from '../reporting/utils/table-data-generator';
-import { managerSidebarConfig } from '../config';
+import { useTableDataGenerator } from '../../../utils/hooks';
+import userManagementTableDataGenerator from './utils/table-data-generator';
 import { mockUserManagementData } from './mock/data';
 import styles from './styles.module.css';
 
@@ -65,11 +64,11 @@ function UserManagementContent() {
   }, [currentTab]);
 
   return (
-    <>
+    <div className={styles['content']}>
       <Typography className={styles['title']} variant='h6'>
         User Management
       </Typography>
-      <Box display='flex' justifyContent='space-between' mt={2.5} mb={3}>
+      <div className={styles['toolbar']}>
         <Select
           className={styles['select-btn']}
           classes={{
@@ -81,37 +80,27 @@ function UserManagementContent() {
           <MenuItem value='active'>Active</MenuItem>
           <MenuItem value='inactive'>Inactive</MenuItem>
         </Select>
-        <Button
-          style={{
-            paddingLeft: '64px',
-            paddingRight: '64px',
-            paddingTop: '8px',
-            paddingBottom: '8px',
-          }}
-          variant='contained'
-        >
+        <Button className={styles['add-btn']} variant='contained'>
           Add new user
         </Button>
-      </Box>
+      </div>
       <Table
         customTableClass={styles['table']}
         isLoading={false}
         data={generatedTableData}
       />
-    </>
+    </div>
   );
 }
 
 export default function UserManagement() {
   return (
-    <Container managerSidebarConfig={managerSidebarConfig}>
-      <PageWrapper>
-        <Routes>
-          <Route path='' element={<UserManagementContent />} />
-          <Route path='add-user' element={<div>ADD USER</div>} />
-          <Route path=':userId' element={<UserEditContent />} />
-        </Routes>
-      </PageWrapper>
-    </Container>
+    <PageWrapper>
+      <Routes>
+        <Route path='' element={<UserManagementContent />} />
+        <Route path='add-user' element={<div>ADD USER</div>} />
+        <Route path=':userId' element={<UserEditContent />} />
+      </Routes>
+    </PageWrapper>
   );
 }
