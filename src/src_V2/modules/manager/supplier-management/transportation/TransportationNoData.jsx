@@ -6,7 +6,7 @@ export default function TransportationLandingPage() {
     <NoData
       image={image}
       pageName='Transportation'
-      helperText='Here will be helper text, for case when there is not data yet'
+      helperText='Create and view information about your partner transportation agencies. You can add saved transportation methods to your tour packages.'
     />
   );
 }

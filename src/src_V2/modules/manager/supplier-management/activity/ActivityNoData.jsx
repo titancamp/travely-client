@@ -6,7 +6,7 @@ export default function ActivityLandingPage() {
     <NoData
       image={image}
       pageName='Activity'
-      helperText='Here will be helper text, for case when there is not data yet'
+      helperText='Create and view activity types your tourists love. You can add saved activities to your tour packages.'
     />
   );
 }

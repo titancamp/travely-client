@@ -6,7 +6,7 @@ export default function AccommodationLandingPage() {
     <NoData
       image={image}
       pageName='Accommodation'
-      helperText='Here will be helper text, for case when there is not data yet'
+      helperText='Create and view all your most used accommodations here. You can add saved accommodations to your tour packages.'
     />
   );
 }

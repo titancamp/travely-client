@@ -113,19 +113,24 @@ function ExpandableMenuItem({ open, page, expanded, setExpandedState, pathname }
       </ListItem>
       <Collapse in={expanded[page.collapsibleId]}>
         <List component='div' disablePadding>
-          {page.subPages.map(({ title, path }) => (
-            <ListItem
-              button
-              to={path}
-              key={title}
-              sx={listItemStyles}
-              pathname={pathname}
-              component={NavLink}
-              className={path === pathname ? styles.menuItem : ''}
-            >
-              <ListItemText primary={title} />
-            </ListItem>
-          ))}
+          {page.subPages.map(({ title, path }) => {
+            const className = pathname.includes(path.split('/')[2])
+              ? styles.menuItem
+              : '';
+            return (
+              <ListItem
+                button
+                to={path}
+                key={title}
+                sx={listItemStyles}
+                pathname={pathname}
+                component={NavLink}
+                className={className}
+              >
+                <ListItemText primary={title} />
+              </ListItem>
+            );
+          })}
         </List>
       </Collapse>
     </>

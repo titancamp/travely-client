@@ -229,7 +229,6 @@ export default function AccommodationList() {
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });
 
   const addClass = (e) => {
-    console.log(e);
     e.target.parentElement.classList.add('moreVertIconTr');
   };
 

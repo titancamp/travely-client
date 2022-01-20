@@ -14,10 +14,11 @@ import { Map } from '@mui/icons-material';
 import {
   mainInfoSchema,
   mainInfoInitialValues,
-} from '../../../../../utils/schemas/tourManagment/transportation';
+} from '../../../../../utils/schemas/tourManagment/food';
 
 import styles from './style.module.css';
 import { Regions } from '../../accommodation/constants';
+import { FoodTypes } from '../constant';
 
 export default function MainInfo({ parentRef, isValidate }) {
   const {
@@ -35,15 +36,10 @@ export default function MainInfo({ parentRef, isValidate }) {
     initialValues: mainInfoInitialValues(parentRef.mainInfo.values),
   });
 
+  const validateForm = () => isValidate && submitForm();
   const initializeTouchState = () => setTouched({ ...parentRef.mainInfo.touched });
   const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
   const addMainInfoToParent = () => (parentRef.mainInfo = { values, isValid, touched });
-
-  function validateForm() {
-    if (isValidate) {
-      submitForm();
-    }
-  }
 
   useEffect(initializeTouchState, []);
   useEffect(validateForm, [isValidate]);
@@ -58,7 +54,7 @@ export default function MainInfo({ parentRef, isValidate }) {
             <Grid item xs={6}>
               <Autocomplete
                 value={values.type}
-                options={[]}
+                options={FoodTypes}
                 onChange={autoCompleteChangeHandler('type')}
                 renderInput={(params) => (
                   <TextField
@@ -93,8 +89,8 @@ export default function MainInfo({ parentRef, isValidate }) {
           <Grid container mb={3} rowSpacing={3} spacing={2}>
             <Grid item xs={12}>
               <Button
-                className={styles.map}
                 onClick={() => ''}
+                className={styles.map}
                 startIcon={<Map color='primary' />}
               >
                 PIN ON MAP
@@ -150,20 +146,25 @@ export default function MainInfo({ parentRef, isValidate }) {
             <Grid item container spacing={3}>
               <Grid item xs={2.6}>
                 <FormControlLabel
-                  control={
-                    <Checkbox checked={true} onChange={handleChange} name='gilad' />
-                  }
                   label='Working Days'
+                  control={
+                    <Checkbox
+                      name='workingDays'
+                      checked={values.workingDays}
+                      onChange={handleChange}
+                    />
+                  }
                 />
               </Grid>
               <Grid item xs={3.2}>
                 <TextField
                   fullWidth
                   type='time'
-                  name='checkIn'
                   label='Check In Time'
-                  value={values.checkIn}
+                  name='checkInWorkingDay'
                   onChange={handleChange}
+                  disabled={!values.workingDays}
+                  value={values.checkInWorkingDay}
                   inputProps={{ step: 60, min: 10 }}
                   InputLabelProps={{ shrink: true }}
                 />
@@ -172,10 +173,11 @@ export default function MainInfo({ parentRef, isValidate }) {
                 <TextField
                   fullWidth
                   type='time'
-                  name='checkIn'
-                  label='Check In Time'
-                  value={values.checkIn}
+                  label='Check Out Time'
+                  name='checkOutWorkingDay'
                   onChange={handleChange}
+                  disabled={!values.workingDays}
+                  value={values.checkOutWorkingDay}
                   inputProps={{ step: 60, min: 10 }}
                   InputLabelProps={{ shrink: true }}
                 />
@@ -185,7 +187,11 @@ export default function MainInfo({ parentRef, isValidate }) {
               <Grid item xs={2.6}>
                 <FormControlLabel
                   control={
-                    <Checkbox checked={true} onChange={handleChange} name='gilad' />
+                    <Checkbox
+                      name='weekends'
+                      onChange={handleChange}
+                      checked={values.weekends}
+                    />
                   }
                   label='Weekend'
                 />
@@ -194,10 +200,11 @@ export default function MainInfo({ parentRef, isValidate }) {
                 <TextField
                   fullWidth
                   type='time'
-                  name='checkIn'
+                  name='checkInWeekend'
                   label='Check In Time'
-                  value={values.checkIn}
                   onChange={handleChange}
+                  value={values.checkInWeekend}
+                  disabled={!values.weekends}
                   inputProps={{ step: 60, min: 10 }}
                   InputLabelProps={{ shrink: true }}
                 />
@@ -206,10 +213,11 @@ export default function MainInfo({ parentRef, isValidate }) {
                 <TextField
                   fullWidth
                   type='time'
-                  name='checkIn'
-                  label='Check In Time'
-                  value={values.checkIn}
+                  name='checkOutWeekend'
+                  label='Check Out Time'
                   onChange={handleChange}
+                  disabled={!values.weekends}
+                  value={values.checkOutWeekend}
                   inputProps={{ step: 60, min: 10 }}
                   InputLabelProps={{ shrink: true }}
                 />
@@ -223,14 +231,13 @@ export default function MainInfo({ parentRef, isValidate }) {
             <TextField
               fullWidth
               name='price'
-              type='number'
               variant='outlined'
               onBlur={handleBlur}
-              value={values.notes}
-              error={!!errors.notes}
+              value={values.price}
+              error={!!errors.price}
               onChange={handleChange}
-              label='Price Per Persons'
-              helperText={errors.notes}
+              helperText={errors.price}
+              label='~ Price per Persons'
             />
           </Grid>
         </Box>
@@ -239,15 +246,15 @@ export default function MainInfo({ parentRef, isValidate }) {
           <Grid container spacing={4}>
             <Grid item xs={12}>
               <TextField
-                rows={4}
                 fullWidth
                 multiline
+                maxRows={4}
                 name='notes'
                 label='Notes'
                 onBlur={handleBlur}
                 value={values.notes}
-                onChange={handleChange}
                 error={!!errors.notes}
+                onChange={handleChange}
                 helperText={errors.notes}
                 FormHelperTextProps={{ className: styles.helper }}
               />

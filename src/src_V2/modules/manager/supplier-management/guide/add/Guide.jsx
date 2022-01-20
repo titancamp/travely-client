@@ -64,8 +64,6 @@ export default function Guide({ parentRef }) {
 
   useEffect(addGuidesToTransportationData, [guides]);
 
-  console.log(guides);
-
   return (
     <Box className={styles.content}>
       <Grid container spacing={1}>

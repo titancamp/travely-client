@@ -6,7 +6,7 @@ export default function GuideLandingPage() {
     <NoData
       image={image}
       pageName='Guide'
-      helperText='Here will be helper text, for case when there is not data yet'
+      helperText='Create and view information about your partner guides and agencies. You can assign guides to your tour packages.'
     />
   );
 }

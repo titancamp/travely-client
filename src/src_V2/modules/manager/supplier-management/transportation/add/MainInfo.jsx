@@ -63,9 +63,6 @@ export default function MainInfo({ parentRef, isValidate }) {
   useEffect(validateForm, [isValidate]);
   useEffect(addMainInfoToParent, [values, isValid, touched]);
 
-  console.log(errors);
-  console.log(touched);
-
   return (
     <Box className={styles.mainInfo}>
       <form>
@@ -230,9 +227,9 @@ export default function MainInfo({ parentRef, isValidate }) {
           <Grid container spacing={4}>
             <Grid item xs={12}>
               <TextField
-                rows={4}
                 fullWidth
                 multiline
+                maxRows={4}
                 name='notes'
                 label='Notes'
                 onBlur={handleBlur}
