@@ -17,21 +17,34 @@ import clsx from 'clsx';
 
 export default function UserEditContent() {
   const userId = +useParams().userId;
-
   const userData = mockUserManagementData.find((user) => user.id === userId);
 
-  const { errors, touched, handleSubmit, getFieldProps, setFieldValue, values } =
-    useFormik({
-      initialValues: editAccountInitialValues({
-        name: userData.name,
-        email: userData.email,
-        position: userData.position,
-        phone: userData.phone,
-        permissions: userData.permissions,
-      }),
-      validationSchema: editAccountValidationSchema,
-      onSubmit: (values) => console.log(values),
-    });
+  const {
+    errors,
+    touched,
+    handleSubmit,
+    getFieldProps,
+    setFieldValue,
+    values,
+    setValues,
+  } = useFormik({
+    initialValues: editAccountInitialValues({
+      name: userData.name,
+      email: userData.email,
+      position: userData.position,
+      phone: userData.phone,
+      status: userData.status,
+      permissions: userData.permissions,
+    }),
+    validationSchema: editAccountValidationSchema,
+    onSubmit: (values) => submitHandler(values),
+  });
+
+  const inactive = values.status === 'Inactive';
+
+  const submitHandler = (values) => {
+    inactive ? setFieldValue('status', 'Reactivated') : setValues(values);
+  };
 
   const handlePermissionChange = (checked, resourceKey, currentActionLevel) => {
     let newActionLevel;
@@ -68,6 +81,7 @@ export default function UserEditContent() {
               fullWidth
               name={'name'}
               label={'Name'}
+              disabled={inactive}
               error={!!(touched.name && errors.name)}
               helperText={touched.name && errors.name}
               {...getFieldProps('name')}
@@ -76,30 +90,33 @@ export default function UserEditContent() {
           <Grid item xs={6}>
             <TextField
               fullWidth
-              error={!!(touched.email && errors.email)}
-              helperText={touched.email && errors.email}
               name={'email'}
               label={'Email'}
+              disabled={inactive}
+              error={!!(touched.email && errors.email)}
+              helperText={touched.email && errors.email}
               {...getFieldProps('email')}
             />
           </Grid>
           <Grid item xs={6}>
             <TextField
               fullWidth
-              error={!!(touched.position && errors.position)}
-              helperText={touched.position && errors.position}
               name={'position'}
               label={'Position'}
+              disabled={inactive}
+              error={!!(touched.position && errors.position)}
+              helperText={touched.position && errors.position}
               {...getFieldProps('position')}
             />
           </Grid>
           <Grid item xs={6}>
             <TextField
               fullWidth
-              error={!!(touched.phone && errors.phone)}
-              helperText={touched.phone && errors.phone}
               name={'phone'}
               label={'Phone Number'}
+              disabled={inactive}
+              error={!!(touched.phone && errors.phone)}
+              helperText={touched.phone && errors.phone}
               {...getFieldProps('phone')}
             />
           </Grid>
@@ -130,6 +147,7 @@ export default function UserEditContent() {
                   <div className={styles['permission-action']}>
                     <Checkbox
                       name={`permissions.${resourceKey}`}
+                      disabled={inactive}
                       onChange={(event) =>
                         handlePermissionChange(
                           event.target.checked,
