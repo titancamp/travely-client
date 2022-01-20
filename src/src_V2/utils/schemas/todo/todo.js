@@ -20,3 +20,9 @@ export const getTodoFormValidation = () =>
     deadline: Yup.date().required(),
     description: BaseSchemas.textField(1000),
   });
+
+export const getTodoFilterInitialValues = (initialValues = {}) => ({
+    name: initialValues.name || '',
+    statuses: initialValues.statuses ? initialValues.statuses.split(',') : [],
+    priorities: initialValues.priorities ? initialValues.priorities.split(',') : [],
+});

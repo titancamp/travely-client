@@ -1,21 +1,18 @@
+import { Typography } from '@mui/material';
+import { Dialog, Grid } from '@mui/material';
 import { useEffect, useMemo, useState } from 'react';
-import Container from '../container/Container';
+import { useDispatch, useSelector } from 'react-redux';
 import { FixedSizeList as List } from 'react-window';
 
-import { Typography } from '@mui/material';
-import { managerSidebarConfig } from '../config';
-import { Dialog, Grid } from '@mui/material';
-
-import TodoItem from './todo-item';
-import TodoClient from '../../../services/todo-client';
 import { useFilters, useToggle } from '../../../hooks';
-import TodoForm from './todo-form';
-import TodoFilter from './todo-filter';
-import { useDispatch, useSelector } from 'react-redux';
+import TodoClient from '../../../services/todo-client';
 import { getTodosAction } from '../../../store/actions/todo.actions';
 import { getTodosList } from '../../../store/selectors/todo.selectors';
 import styles from './styles';
-import { TaskStatus, TODO_FILTER_DEFAULT_VALUES, TodoListTabs } from './utils';
+import TodoFilter from './todo-filter';
+import TodoForm from './todo-form';
+import TodoItem from './todo-item';
+import { TODO_FILTER_DEFAULT_VALUES, TaskStatus, TodoListTabs } from './utils';
 
 const getTodosMemoizedDependencies = (todos) => todos.map(({ status }) => status);
 
@@ -63,7 +60,7 @@ export default function Todo() {
   const TODO_ITEM_SIZE = 106;
 
   return (
-    <Container managerSidebarConfig={managerSidebarConfig}>
+    <>
       <Grid container spacing={3} sx={styles.todoContainer}>
         <Grid item>
           <Typography variant='h5'>To Do List</Typography>
@@ -98,6 +95,6 @@ export default function Todo() {
       >
         <TodoForm onClose={handleFormClose} getTodos={getTodos} id={editableTodoId} />
       </Dialog>
-    </Container>
+    </>
   );
 }

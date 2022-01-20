@@ -1,3 +1,4 @@
+import { KeyboardArrowDown } from '@mui/icons-material';
 import {
   Button,
   Dialog,
@@ -7,13 +8,13 @@ import {
   Menu,
   MenuItem,
 } from '@mui/material';
-import { KeyboardArrowDown } from '@mui/icons-material';
-import { TaskStatus } from '../utils';
+import { useDispatch } from 'react-redux';
+
 import { useAnchor, useToggle } from '../../../../hooks';
 import TodoClient from '../../../../services/todo-client';
 import { updateTodo } from '../../../../store/actions/todo.actions';
-import { useDispatch } from 'react-redux';
-import useStyles from './styles';
+import { TaskStatus } from '../utils';
+import styles from './styles';
 
 const mapToStatus = {
   [TaskStatus.TODO]: {
@@ -33,8 +34,6 @@ const mapToStatus = {
 const TaskStatusMenu = ({ todo, getTodos }) => {
   const { handleClick, anchorEl, open, handleClose } = useAnchor();
   const { open: dialogOpen, toggle } = useToggle();
-
-  const styles = useStyles();
 
   const dispatch = useDispatch();
 

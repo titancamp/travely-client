@@ -1,3 +1,4 @@
+import { Add, Search } from '@mui/icons-material';
 import {
   Button,
   Divider,
@@ -11,22 +12,17 @@ import {
   Tabs,
   TextField,
 } from '@mui/material';
-import { TaskPriority, TaskStatus } from '../utils';
-import { Add, Search } from '@mui/icons-material';
-import { useEffect } from 'react';
 import { useFormik } from 'formik';
-import useStyles from './styles';
+import { useEffect } from 'react';
+
+import { getTodoFilterInitialValues } from '../../../../utils/schemas/todo';
+import { TaskPriority, TaskStatus } from '../utils';
+import styles from './styles';
 
 const TodoFilter = ({ toggle, handleFiltersChange, filters }) => {
   const { values, touched, errors, handleSubmit, handleChange } = useFormik({
-    initialValues: {
-      name: filters.name,
-      statuses: filters.statuses ? filters.statuses.split(',') : [],
-      priorities: filters.priorities ? filters.priorities.split(',') : [],
-    },
+    initialValues: getTodoFilterInitialValues(filters),
   });
-
-  const styles = useStyles();
 
   useEffect(() => {
     handleFiltersChange({

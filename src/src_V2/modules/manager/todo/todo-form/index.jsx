@@ -1,3 +1,4 @@
+import { Close, NotificationsActive } from '@mui/icons-material';
 import {
   Button,
   DialogActions,
@@ -11,17 +12,17 @@ import {
   Select,
   TextField,
 } from '@mui/material';
-import { Close, NotificationsActive } from '@mui/icons-material';
 import { useFormik } from 'formik';
+import { useSelector } from 'react-redux';
+
+import TodoClient from '../../../../services/todo-client';
+import { getTodoItemSelector } from '../../../../store/selectors/todo.selectors';
 import {
   getTodoFormInitialValues,
   getTodoFormValidation,
 } from '../../../../utils/schemas/todo';
 import { TaskStatus } from '../utils';
-import TodoClient from '../../../../services/todo-client';
-import { useSelector } from 'react-redux';
-import { getTodoItemSelector } from '../../../../store/selectors/todo.selectors';
-import useStyles from './styles';
+import styles from './styles';
 
 const getDefaultValues = (todo) => {
   if (!todo) {
@@ -39,17 +40,18 @@ const getDefaultValues = (todo) => {
 
 const TodoForm = ({ onClose, getTodos, id }) => {
   const todo = useSelector(getTodoItemSelector(id));
+
+  const handleFormSubmit = async (values) => {
+    await TodoClient[todo ? 'updateTodo' : 'addTodo'](values);
+    getTodos();
+    onClose();
+  };
+
   const { values, touched, errors, handleSubmit, isValid, handleChange } = useFormik({
     initialValues: getDefaultValues(todo),
-    onSubmit: async (values) => {
-      await TodoClient[todo ? 'updateTodo' : 'addTodo'](values);
-      getTodos();
-      onClose();
-    },
+    onSubmit: handleFormSubmit,
     validationSchema: getTodoFormValidation(),
   });
-
-  const styles = useStyles();
 
   return (
     <form onSubmit={handleSubmit}>
@@ -118,13 +120,7 @@ const TodoForm = ({ onClose, getTodos, id }) => {
             <Select
               size='small'
               IconComponent={() => (
-                <NotificationsActive
-                  sx={{
-                    color: 'action.active',
-                    position: 'absolute',
-                    right: 7,
-                  }}
-                />
+                <NotificationsActive sx={styles.notificationsActive} />
               )}
               label='Reminder'
               name='reminder'

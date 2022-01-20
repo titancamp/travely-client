@@ -1,4 +1,13 @@
-import { useCallback, useState } from 'react';
+import {
+  AddAlert,
+  Alarm,
+  Delete,
+  Edit,
+  LocationOn,
+  MoreVert,
+  NotificationsActive,
+  SettingsBackupRestore,
+} from '@mui/icons-material';
 import {
   Card,
   CardActions,
@@ -14,24 +23,16 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import {
-  AddAlert,
-  Alarm,
-  Delete,
-  Edit,
-  LocationOn,
-  MoreVert,
-  NotificationsActive,
-  SettingsBackupRestore,
-} from '@mui/icons-material';
-import { useAnchor, useToggle } from '../../../../hooks';
-import { ReminderStatus, TaskStatus } from '../utils';
-import useStyles from './styles';
-import TaskPriorityMenu from '../task-priority-menu';
+import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getTodoItemSelector } from '../../../../store/selectors/todo.selectors';
-import TaskStatusMenu from '../task-status-menu';
+
+import { useAnchor, useToggle } from '../../../../hooks';
 import TodoClient from '../../../../services/todo-client';
+import { getTodoItemSelector } from '../../../../store/selectors/todo.selectors';
+import TaskPriorityMenu from '../task-priority-menu';
+import TaskStatusMenu from '../task-status-menu';
+import { ReminderStatus, TaskStatus } from '../utils';
+import styles from './styles';
 
 const mapToReminderState = (notificationTime) => ({
   [ReminderStatus.NOT_SET]: {
@@ -54,8 +55,6 @@ const TodoItem = ({ tourLocation, id, getTodos, handleEdit }) => {
   const { open: expanded, toggle } = useToggle();
 
   const [drawCollapseText, setDrawCollapseText] = useState(false);
-
-  const styles = useStyles(todo.status === TaskStatus.ARCHIVED);
 
   const {
     handleClick: handleMoreVertClick,
@@ -117,7 +116,7 @@ const TodoItem = ({ tourLocation, id, getTodos, handleEdit }) => {
           xs={todo.status === TaskStatus.ARCHIVED ? 8 : 5}
           sx={styles.contentContainer}
         >
-          <CardContent sx={styles.content}>
+          <CardContent sx={styles.content(todo.status === TaskStatus.ARCHIVED)}>
             {!expanded && (
               <>
                 <Typography

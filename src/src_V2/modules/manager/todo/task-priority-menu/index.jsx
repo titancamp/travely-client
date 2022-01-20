@@ -1,10 +1,11 @@
-import { useDispatch } from 'react-redux';
 import { Box, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
-import { TaskPriority } from '../utils';
+import { useDispatch } from 'react-redux';
+
+import { useAnchor } from '../../../../hooks';
 import TodoClient from '../../../../services/todo-client';
 import { updateTodo } from '../../../../store/actions/todo.actions';
-import useStyles from './styles';
-import { useAnchor } from '../../../../hooks';
+import { TaskPriority } from '../utils';
+import styles from './styles';
 
 const mapToPriority = {
   [TaskPriority.LOW]: {
@@ -27,8 +28,6 @@ const TaskPriorityMenu = ({ todo }) => {
   const dispatch = useDispatch();
   const { color, tooltipText } = mapToPriority[todo.priority];
 
-  const styles = useStyles(color);
-
   const handlePriorityChange = async (value) => {
     await TodoClient.updateTodo({
       ...todo,
@@ -42,7 +41,7 @@ const TaskPriorityMenu = ({ todo }) => {
     <>
       <Tooltip title={tooltipText}>
         <IconButton onClick={handleClick}>
-          <Box sx={styles.statusIcon} />
+          <Box sx={styles.statusIcon(color)} />
         </IconButton>
       </Tooltip>
       <Menu

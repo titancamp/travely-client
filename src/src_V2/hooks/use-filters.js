@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
-import { getQueryParamsFromUrl, setQueryParams } from '../utils';
+import { useQueryParamsFromUrl, setQueryParams } from '../utils';
 
 const useFilters = (defaultFilters, allowQueryOnUrl) => {
+  const queryParamsFromUrl = useQueryParamsFromUrl();
+
   const [filters, setFilters] = useState({
     ...defaultFilters,
-    ...getQueryParamsFromUrl(),
+    ...queryParamsFromUrl,
   });
 
   const handleFiltersChange = useCallback((data, replaceFilters) => {

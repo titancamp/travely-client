@@ -1,3 +1,5 @@
+import { useSearchParams } from "react-router-dom";
+
 export const generateDate = (dateStr) => {
   if (!dateStr) return '';
 
@@ -19,8 +21,8 @@ export const generateArrayByRange = (start, end, conditionCallback = () => true)
     .filter(conditionCallback);
 };
 
-export const getQueryParamsFromUrl = (url = window.location.search) => {
-    const urlParams = new URLSearchParams(url);
+export const useQueryParamsFromUrl = () => {
+    const [urlParams] = useSearchParams();
     const data = {};
 
     for (let key of urlParams.keys())  {
