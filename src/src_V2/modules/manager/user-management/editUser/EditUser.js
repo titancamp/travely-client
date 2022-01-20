@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { Checkbox } from '@mui/material';
 import {
@@ -14,37 +14,33 @@ import {
 import { Grid, TextField, Typography } from '@mui/material';
 import styles from './styles.module.css';
 import clsx from 'clsx';
+import EditActions from '../../account/editActions';
 
 export default function UserEditContent() {
   const userId = +useParams().userId;
   const userData = mockUserManagementData.find((user) => user.id === userId);
+  const navigate = useNavigate();
+  const submitHandler = (values) => {
+    values.status === 'Inactive'
+      ? setFieldValue('status', 'Reactivated')
+      : console.log(values);
+  };
 
-  const {
-    errors,
-    touched,
-    handleSubmit,
-    getFieldProps,
-    setFieldValue,
-    values,
-    setValues,
-  } = useFormik({
-    initialValues: editAccountInitialValues({
-      name: userData.name,
-      email: userData.email,
-      position: userData.position,
-      phone: userData.phone,
-      status: userData.status,
-      permissions: userData.permissions,
-    }),
-    validationSchema: editAccountValidationSchema,
-    onSubmit: (values) => submitHandler(values),
-  });
+  const { values, errors, touched, handleSubmit, getFieldProps, setFieldValue } =
+    useFormik({
+      initialValues: editAccountInitialValues({
+        name: userData.name,
+        email: userData.email,
+        position: userData.position,
+        phone: userData.phone,
+        status: userData.status,
+        permissions: userData.permissions,
+      }),
+      validationSchema: editAccountValidationSchema,
+      onSubmit: submitHandler,
+    });
 
   const inactive = values.status === 'Inactive';
-
-  const submitHandler = (values) => {
-    inactive ? setFieldValue('status', 'Reactivated') : setValues(values);
-  };
 
   const handlePermissionChange = (checked, resourceKey, currentActionLevel) => {
     let newActionLevel;
@@ -173,6 +169,11 @@ export default function UserEditContent() {
             </Grid>
           ))}
         </Grid>
+        <EditActions
+          allowDeactivate={!inactive}
+          onCancel={() => navigate('/manager/user-management')}
+          submitButtonText={inactive ? 'Activate User' : 'Save Changes'}
+        />
       </form>
     </div>
   );

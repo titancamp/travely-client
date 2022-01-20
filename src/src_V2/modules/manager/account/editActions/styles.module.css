@@ -1,15 +1,22 @@
-.btns-wrapper {
-  height: 104px;
-  padding: 0 44px;
-  margin: 40px -40px -24px -40px;
-  background-color: #fff;
+.actions-wrapper {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
+  height: 104px;
+  padding: 0 44px;
+  background-color: #fff;
+  flex-grow: 1;
+  margin: 0 -40px -24px -40px;
 }
 
-.btns-wrapper .submit-btn {
-  padding-left: 40px;
-  padding-right: 40px;
-  margin-left: 12px;
+.deactivate {
+  display: flex;
+  gap: 8px;
+  color: #E31B0C;
+}
+
+.btns-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }

@@ -21,5 +21,5 @@ export const editAccountValidationSchema = () =>
     name: BaseSchemas.requiredText(),
     // email: BaseSchemas.requiredEmail,
     position: BaseSchemas.requiredText(),
-    phone: BaseSchemas.phone,
+    // phone: BaseSchemas.phone,
   });

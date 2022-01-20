@@ -1,26 +1,26 @@
-import { Box, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-
+import { Button, Typography } from '@mui/material';
+import BlockIcon from '@mui/icons-material/Block';
 import styles from './styles.module.css';
-import { ROUTES } from '../../routes';
 
-export default function EditActions() {
-  const navigate = useNavigate();
-
+export default function EditActions({ allowDeactivate, onCancel, submitButtonText }) {
   return (
-    <>
-      <Box flexGrow={1}></Box>
+    <div className={styles['actions-wrapper']}>
+      <div className={styles['deactivate']}>
+        {allowDeactivate && (
+          <>
+            <BlockIcon />
+            <Typography>DEACTIVATE USER</Typography>
+          </>
+        )}
+      </div>
       <div className={styles['btns-wrapper']}>
-        <Button
-          variant='outlined'
-          onClick={() => navigate('/manager/' + ROUTES.DASHBOARD)}
-        >
+        <Button variant='outlined' onClick={onCancel}>
           Cancel
         </Button>
         <Button className={styles['submit-btn']} type='submit' variant='contained'>
-          Save Changes
+          {submitButtonText || 'Save Changes'}
         </Button>
       </div>
-    </>
+    </div>
   );
 }
