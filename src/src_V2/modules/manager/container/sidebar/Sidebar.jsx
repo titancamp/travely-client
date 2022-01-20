@@ -160,7 +160,7 @@ export default function Sidebar({ pageConfigs, open, setOpen }) {
 
   return (
     <Box className={styles.mainBox}>
-      <Drawer variant='permanent' anchor='left' open={open}>
+      <Drawer variant='permanent' anchor='left' open={open} className={styles.drawer}>
         <List style={listStyles(open)}>
           {pageConfigs.map((page) => {
             return page.path ? (

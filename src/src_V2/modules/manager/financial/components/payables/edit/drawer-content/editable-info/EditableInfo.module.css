@@ -1,0 +1,17 @@
+.editableFields {
+  display: flex;
+  justify-content: space-between;
+}
+
+.actualCostControl {
+  width: 25.3vw;
+}
+
+.actualCostControl > div {
+  display: flex;
+  align-items: baseline;
+}
+
+.dueDatePickerInput > div > div {
+  width: 25.3vw;
+}

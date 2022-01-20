@@ -1,7 +1,11 @@
 import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
+import { LocalizationProvider } from '@mui/lab';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
 import routesConfig from './routes';
+
+import './styles.css';
 
 /**
  * @description I don't know why we need separate wrapper for useRoutes bu it didn't work as mentioned in doc.
@@ -15,7 +19,9 @@ const AppWrapper = () => {
   return (
     <Router>
       <CssBaseline />
-      <App />
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <App />
+      </LocalizationProvider>
     </Router>
   );
 };

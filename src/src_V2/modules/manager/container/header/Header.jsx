@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
 import CustomizedMenus from './NavigationMenu';
-import travelyIcon from '../../../../assets/Travely.png';
+import travelyIcon from '../../../../assets/images/Travely.png';
 import { ROUTES } from '../../routes';
 import styles from './header.module.css';
 

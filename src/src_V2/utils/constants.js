@@ -8,12 +8,12 @@ export const ERROR_MESSAGES = {
   positive: 'The filed must be positive.',
   email: 'The field is not a valid email.',
   integer: 'The filed must be an integer.',
-  repeatPassword: "Passwords doesn't match.",
   phone: 'The field is not a valid phone number.',
   password: 'All validation levels must be passed.',
-  rightFormat: (example) => `Please, enter the right format ${example}.`,
+  repeatPassword: 'Passwords doesn\'t match.',
   maxNumberField: (max) => `The value must be at most ${max}.`,
   maxTextField: (max) => `The filed must be at most ${max} characters.`,
+  rightFormat: (example) => `Please, enter the right format ${example}.`,  
   maxWithSpaces: (max) => `Please, enter up to ${max} characters with spaces.`,
   lettersAndNumbers: (max) =>
     `Please, enter only letters and numbers with spaces up to ${max} characters.`,
@@ -36,6 +36,6 @@ export const PasswordStrengthRegexes = {
   16: /^.{8,20}$/,
 };
 
-//Armenian Phone regexp
+// Armenian Phone regexp
 export const PhoneRegex =
-  /^(([+374]{4}|[0]{1}))?(\s|-)?([1-9]{2})(\s|-)?(\d{2})(\s|-)?(\d{2})(\s|-)?(\d{2})$/;
+  /^([+374]{4}|[0]{1})?([1-9]{2})(((-\d{3}-\d{3})|(-\d{2}-\d{2}-\d{2})|( \d{3} \d{3})|( \d{2} \d{2} \d{2}))|(\d{6}))$/;

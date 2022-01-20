@@ -13,7 +13,6 @@
   justify-content: flex-end;
 }
 
-
 .viewDialogTitle {
   display: flex;
   justify-content: space-between;
@@ -37,7 +36,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 
@@ -105,7 +104,7 @@ input[type=number] {
   color: rgba(0, 0, 0, 0.54);
 }
 
-.headerDeleteBtn{
+.headerDeleteBtn {
   margin-right: 41px;
   margin-left: 21px;
 }
@@ -123,7 +122,6 @@ input[type=number] {
 .itemBlock {
   margin-bottom: 16px;
 }
-
 
 .dialogMenu {
   width: 100%;
@@ -201,8 +199,6 @@ input[type=number] {
   margin-bottom: 16px;
 }
 
-.partnershipSectionBlock{
+.partnershipSectionBlock {
   margin-right: 25px;
 }
-
-

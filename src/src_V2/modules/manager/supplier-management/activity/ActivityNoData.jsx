@@ -1,5 +1,5 @@
 import { NoData } from '../components';
-import image from '../../../../assets/activity.png';
+import image from '../../../../assets/images/activity.png';
 
 export default function ActivityLandingPage() {
   return (

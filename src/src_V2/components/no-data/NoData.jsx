@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 
-import noDataImage from '../../assets/no-data.png';
+import noDataImage from '../../assets/images/no-data.png';
 import styles from './NoData.module.css';
 
 export default function NoData({ message }) {

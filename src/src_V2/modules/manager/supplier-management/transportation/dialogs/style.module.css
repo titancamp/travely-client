@@ -33,7 +33,6 @@
   opacity: 0.6;
 }
 
-
 .viewTitle {
   padding-top: 10px !important;
 }
@@ -46,6 +45,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
