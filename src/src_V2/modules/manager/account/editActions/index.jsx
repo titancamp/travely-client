@@ -1,16 +1,25 @@
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import BlockIcon from '@mui/icons-material/Block';
 import styles from './styles.module.css';
 
-export default function EditActions({ allowDeactivate, onCancel, submitButtonText }) {
+export default function EditActions({
+  onCancel,
+  allowDeactivate,
+  submitButtonText,
+  onClickDeactivate,
+}) {
   return (
     <div className={styles['actions-wrapper']}>
-      <div className={styles['deactivate']}>
+      <div>
         {allowDeactivate && (
-          <>
-            <BlockIcon />
-            <Typography>DEACTIVATE USER</Typography>
-          </>
+          <Button
+            color='error'
+            variant='text'
+            onClick={onClickDeactivate}
+            startIcon={<BlockIcon />}
+          >
+            DEACTIVATE USER
+          </Button>
         )}
       </div>
       <div className={styles['btns-wrapper']}>

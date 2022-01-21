@@ -1,20 +1,23 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import clsx from 'clsx';
 import { useFormik } from 'formik';
-import { Checkbox } from '@mui/material';
+import { Checkbox, Grid, TextField, Typography } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import EditActions from '../../account/editActions';
+import DeactivateDialog from '../DeactivateDialog/DeactivateDialog';
+
+import {
+  resources,
+  actionLevels,
+  mockUserManagementData,
+  mockResourceDescription,
+} from '../mock/data';
+import styles from './styles.module.css';
 import {
   userConfigInitialValues,
   userConfigValidationSchema,
 } from '../../../../utils/schemas/userManagement/userManagement';
-import {
-  actionLevels,
-  mockUserManagementData,
-  resources,
-  mockResourceDescription,
-} from '../mock/data';
-import { Grid, TextField, Typography } from '@mui/material';
-import styles from './styles.module.css';
-import clsx from 'clsx';
-import EditActions from '../../account/editActions';
 
 export default function UserConfigContent({ newUser }) {
   const userId = newUser ? null : +useParams().userId;
@@ -50,6 +53,21 @@ export default function UserConfigContent({ newUser }) {
     });
 
   const inactive = values.status === 'Inactive';
+
+  // Deactivate Dialog
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleOpenDialog = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+  const handleDeactivate = () => {
+    setFieldValue('status', 'Inactive');
+  };
 
   const handlePermissionChange = (checked, resourceKey, currentActionLevel) => {
     let newActionLevel;
@@ -180,12 +198,19 @@ export default function UserConfigContent({ newUser }) {
         </Grid>
         <EditActions
           allowDeactivate={!inactive && !newUser}
+          onClickDeactivate={handleOpenDialog}
           onCancel={() => navigate('/manager/user-management')}
           submitButtonText={
             newUser ? 'Add New User' : inactive ? 'Activate User' : 'Save Changes'
           }
         />
       </form>
+      <DeactivateDialog
+        open={isDialogOpen}
+        userName={values.name}
+        handleClose={handleCloseDialog}
+        handleDeactivate={handleDeactivate}
+      />
     </div>
   );
 }
