@@ -28,13 +28,5 @@
     "quotes": ["warn", "single"],
     "react/prop-types": "off",
     "object-curly-spacing": ["warn", "always"],
-    "import-newlines/enforce": [
-      "warn",
-      {
-        "items": 1,
-        "max-len": 100,
-        "semi": false
-      }
-    ]
   }
 }
