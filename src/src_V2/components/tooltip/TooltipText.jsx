@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Box, Tooltip } from '@mui/material';
 
-import { useHoverTooltip } from '../../hooks';
+import { useHoverTooltip } from '../../utils/hooks';
 import styles from './TooltipText.module.css';
 
 export default function TooltipText({ text, maxWidth }) {

@@ -27,6 +27,6 @@
     "semi": ["error", "always"],
     "quotes": ["warn", "single"],
     "react/prop-types": "off",
-    "object-curly-spacing": ["warn", "always"],
+    "object-curly-spacing": ["warn", "always"]
   }
 }

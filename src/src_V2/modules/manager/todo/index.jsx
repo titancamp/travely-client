@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FixedSizeList as List } from 'react-window';
 
-import { useFilters, useToggle } from '../../../hooks';
+import { useFilters, useToggle } from '../../../utils/hooks';
 import TodoClient from '../../../services/todo-client';
 import { getTodosAction } from '../../../store/actions/todo.actions';
 import { getTodosList } from '../../../store/selectors/todo.selectors';

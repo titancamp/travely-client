@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useQueryParamsFromUrl, setQueryParams } from '../utils';
+import { useQueryParamsFromUrl, setQueryParams } from '../../utils';
 
 const useFilters = (defaultFilters, allowQueryOnUrl) => {
   const queryParamsFromUrl = useQueryParamsFromUrl();
