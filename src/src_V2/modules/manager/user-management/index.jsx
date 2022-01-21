@@ -5,7 +5,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import { Table } from '../../../components';
 import PageWrapper from '../account/pageWrapper';
-import UserEditContent from './editUser/EditUser';
+import UserConfigContent from './UserConfig/UserConfig';
 
 import { useTableDataGenerator } from '../../../utils/hooks';
 import userManagementTableDataGenerator from './utils/table-data-generator';
@@ -59,6 +59,10 @@ function UserManagementContent() {
     setCurrentTab(event.target.value);
   };
 
+  const handleAddUser = () => {
+    navigate('add-user');
+  };
+
   useEffect(() => {
     setTableData(mockUserManagementData);
   }, [currentTab]);
@@ -80,7 +84,7 @@ function UserManagementContent() {
           <MenuItem value='active'>Active</MenuItem>
           <MenuItem value='inactive'>Inactive</MenuItem>
         </Select>
-        <Button className={styles['add-btn']} variant='contained'>
+        <Button onClick={handleAddUser} className={styles['add-btn']} variant='contained'>
           Add new user
         </Button>
       </div>
@@ -98,8 +102,8 @@ export default function UserManagement() {
     <PageWrapper>
       <Routes>
         <Route path='' element={<UserManagementContent />} />
-        <Route path='add-user' element={<div>ADD USER</div>} />
-        <Route path=':userId' element={<UserEditContent />} />
+        <Route path='add-user' element={<UserConfigContent newUser />} />
+        <Route path=':userId' element={<UserConfigContent />} />
       </Routes>
     </PageWrapper>
   );

@@ -2,8 +2,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { Checkbox } from '@mui/material';
 import {
-  editAccountInitialValues,
-  editAccountValidationSchema,
+  userConfigInitialValues,
+  userConfigValidationSchema,
 } from '../../../../utils/schemas/userManagement/userManagement';
 import {
   actionLevels,
@@ -16,27 +16,36 @@ import styles from './styles.module.css';
 import clsx from 'clsx';
 import EditActions from '../../account/editActions';
 
-export default function UserEditContent() {
-  const userId = +useParams().userId;
-  const userData = mockUserManagementData.find((user) => user.id === userId);
+export default function UserConfigContent({ newUser }) {
+  const userId = newUser ? null : +useParams().userId;
+  const userData = newUser
+    ? {}
+    : mockUserManagementData.find((user) => user.id === userId);
   const navigate = useNavigate();
+
   const submitHandler = (values) => {
-    values.status === 'Inactive'
-      ? setFieldValue('status', 'Reactivated')
+    newUser
+      ? navigate('/manager/user-management')
+      : values.status === 'Inactive'
+      ? setFieldValue('status', 'active or pending')
       : console.log(values);
   };
 
   const { values, errors, touched, handleSubmit, getFieldProps, setFieldValue } =
     useFormik({
-      initialValues: editAccountInitialValues({
-        name: userData.name,
-        email: userData.email,
-        position: userData.position,
-        phone: userData.phone,
-        status: userData.status,
-        permissions: userData.permissions,
-      }),
-      validationSchema: editAccountValidationSchema,
+      initialValues: userConfigInitialValues(
+        newUser
+          ? userData
+          : {
+              name: userData.name,
+              email: userData.email,
+              position: userData.position,
+              phone: userData.phone,
+              status: userData.status,
+              permissions: userData.permissions,
+            }
+      ),
+      validationSchema: userConfigValidationSchema,
       onSubmit: submitHandler,
     });
 
@@ -68,7 +77,7 @@ export default function UserEditContent() {
   return (
     <div className={clsx(styles['content'])}>
       <Typography className={styles['title']} variant='h5'>
-        Edit User
+        {newUser ? 'Add new user' : 'User details'}
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid className={styles['form-fields-wrapper']} container spacing={4}>
@@ -170,9 +179,11 @@ export default function UserEditContent() {
           ))}
         </Grid>
         <EditActions
-          allowDeactivate={!inactive}
+          allowDeactivate={!inactive && !newUser}
           onCancel={() => navigate('/manager/user-management')}
-          submitButtonText={inactive ? 'Activate User' : 'Save Changes'}
+          submitButtonText={
+            newUser ? 'Add New User' : inactive ? 'Activate User' : 'Save Changes'
+          }
         />
       </form>
     </div>

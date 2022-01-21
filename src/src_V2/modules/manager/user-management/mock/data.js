@@ -4,7 +4,7 @@ export const mockUserManagementData = [
     name: 'Theresa Webb',
     position: 'Tour Manager',
     email: 'chrwin@me.com',
-    phone: '(319) 555-0115',
+    phone: '+37460555555',
     status: 'Pending',
     permissions: {
       templates: 1,
@@ -18,7 +18,7 @@ export const mockUserManagementData = [
     name: 'Wade Warren',
     position: 'Tour Manager',
     email: 'shaffei@me.com',
-    phone: '(319) 555-0115',
+    phone: '+37460555555',
     status: 'Active',
     permissions: {
       templates: 1,
@@ -32,7 +32,7 @@ export const mockUserManagementData = [
     name: 'Brooklyn Simmons',
     position: 'Tour Manager',
     email: 'dbrobins@outlook.com',
-    phone: '(319) 555-0115',
+    phone: '+37460555555',
     status: 'Active',
     permissions: {
       templates: 1,
@@ -46,7 +46,7 @@ export const mockUserManagementData = [
     name: 'Ronald Richards',
     position: 'Tour Manager',
     email: 'iapetus@aol.com',
-    phone: '(319) 555-0115',
+    phone: '+37460555555',
     status: 'Pending',
     permissions: {
       templates: 1,
@@ -60,7 +60,7 @@ export const mockUserManagementData = [
     name: 'Brooklyn Simmons',
     position: 'Tour Manager',
     email: 'seasweb@me.com',
-    phone: '(319) 555-0115',
+    phone: '+37460555555',
     status: 'Active',
     permissions: {
       templates: 1,
@@ -74,7 +74,7 @@ export const mockUserManagementData = [
     name: 'Theresa Webb',
     position: 'Tour Manager',
     email: 'chrwin@me.com',
-    phone: '(319) 555-0115',
+    phone: '+37460555555',
     status: 'Inactive',
     permissions: {
       templates: 1,
@@ -88,7 +88,7 @@ export const mockUserManagementData = [
     name: 'Wade Warren',
     position: 'Tour Manager',
     email: 'shaffei@me.com',
-    phone: '(319) 555-0115',
+    phone: '+37460555555',
     status: 'Inactive',
     permissions: {
       templates: 1,
@@ -102,7 +102,7 @@ export const mockUserManagementData = [
     name: 'Brooklyn Simmons',
     position: 'Tour Manager',
     email: 'dbrobins@outlook.com',
-    phone: '(319) 555-0115',
+    phone: '+37460555555',
     status: 'Inactive',
     permissions: {
       templates: 1,
@@ -116,7 +116,7 @@ export const mockUserManagementData = [
     name: 'Ronald Richards',
     position: 'Tour Manager',
     email: 'iapetus@aol.com',
-    phone: '(319) 555-0115',
+    phone: '+37460555555',
     status: 'Inactive',
     permissions: {
       templates: 1,
@@ -130,7 +130,7 @@ export const mockUserManagementData = [
     name: 'Brooklyn Simmons',
     position: 'Tour Manager',
     email: 'seasweb@me.com',
-    phone: '(319) 555-0115',
+    phone: '+37460555555',
     status: 'Inactive',
     permissions: {
       templates: 1,

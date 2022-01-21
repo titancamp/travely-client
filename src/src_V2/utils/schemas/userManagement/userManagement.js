@@ -1,25 +1,26 @@
 import { object } from 'yup';
 import { BaseSchemas } from '../BaseSchemas';
+import { ERROR_MESSAGES } from '../../constants';
 
-export const editAccountInitialValues = (initialValues) => ({
+export const userConfigInitialValues = (initialValues) => ({
   name: '',
   email: '',
   position: '',
   phone: '',
   companyName: '',
   permissions: {
-    templates: 0,
-    packages: 0,
-    receivable: 0,
-    payable: 0,
+    templates: 3,
+    packages: 3,
+    receivable: 3,
+    payable: 3,
   },
   ...initialValues,
 });
 
-export const editAccountValidationSchema = () =>
+export const userConfigValidationSchema = () =>
   object({
     name: BaseSchemas.requiredText(),
-    // email: BaseSchemas.requiredEmail,
+    email: BaseSchemas.email.required(ERROR_MESSAGES.required),
     position: BaseSchemas.requiredText(),
-    // phone: BaseSchemas.phone,
+    phone: BaseSchemas.phone.required(ERROR_MESSAGES.required),
   });

@@ -1,5 +1,6 @@
 import { object } from 'yup';
 import { BaseSchemas } from '../BaseSchemas';
+import { ERROR_MESSAGES } from '../../constants';
 
 // TODO: Possible to separate account/company forms after API is ready
 
@@ -21,11 +22,11 @@ export const accountValidationSchema = () =>
     name: BaseSchemas.requiredText(),
     email: BaseSchemas.email,
     position: BaseSchemas.requiredText(),
-    phone: BaseSchemas.phone,
+    phone: BaseSchemas.phone.required(ERROR_MESSAGES.required),
     companyName: BaseSchemas.textField(),
     companyAddress: BaseSchemas.textField(),
     companyEmail: BaseSchemas.email,
-    companyPhone: BaseSchemas.phone,
+    companyPhone: BaseSchemas.phone.required(ERROR_MESSAGES.required),
   });
 
 export const changePasswordInitialValues = (initialValues) => ({
