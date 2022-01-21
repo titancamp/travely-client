@@ -206,7 +206,7 @@ export default function UserConfigContent({ newUser }) {
           ))}
         </Grid>
         <EditActions
-          disabled={!dirty && !newUser}
+          disabled={!dirty && !newUser && !inactive}
           allowDeactivate={!inactive && !newUser}
           onClickDeactivate={handleOpenDialog}
           onCancel={() => navigate('/manager/user-management')}
