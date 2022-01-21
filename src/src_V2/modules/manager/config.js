@@ -73,7 +73,7 @@ export const managerSidebarConfig = [
     subPages: [
       {
         title: 'Receivables',
-        path: '/manager/receivables',
+        path: '/manager/receivable',
       },
       {
         title: 'Payables',
