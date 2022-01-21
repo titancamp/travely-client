@@ -34,23 +34,31 @@ export default function UserConfigContent({ newUser }) {
       : console.log(values);
   };
 
-  const { values, errors, touched, handleSubmit, getFieldProps, setFieldValue } =
-    useFormik({
-      initialValues: userConfigInitialValues(
-        newUser
-          ? userData
-          : {
-              name: userData.name,
-              email: userData.email,
-              position: userData.position,
-              phone: userData.phone,
-              status: userData.status,
-              permissions: userData.permissions,
-            }
-      ),
-      validationSchema: userConfigValidationSchema,
-      onSubmit: submitHandler,
-    });
+  const {
+    dirty,
+    values,
+    errors,
+    touched,
+    resetForm,
+    handleSubmit,
+    getFieldProps,
+    setFieldValue,
+  } = useFormik({
+    initialValues: userConfigInitialValues(
+      newUser
+        ? userData
+        : {
+            name: userData.name,
+            email: userData.email,
+            position: userData.position,
+            phone: userData.phone,
+            status: userData.status,
+            permissions: userData.permissions,
+          }
+    ),
+    validationSchema: userConfigValidationSchema,
+    onSubmit: submitHandler,
+  });
 
   const inactive = values.status === 'Inactive';
 
@@ -66,6 +74,7 @@ export default function UserConfigContent({ newUser }) {
   };
 
   const handleDeactivate = () => {
+    resetForm();
     setFieldValue('status', 'Inactive');
   };
 
@@ -197,6 +206,7 @@ export default function UserConfigContent({ newUser }) {
           ))}
         </Grid>
         <EditActions
+          disabled={!dirty && !newUser}
           allowDeactivate={!inactive && !newUser}
           onClickDeactivate={handleOpenDialog}
           onCancel={() => navigate('/manager/user-management')}

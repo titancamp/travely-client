@@ -4,6 +4,7 @@ import styles from './styles.module.css';
 
 export default function EditActions({
   onCancel,
+  disabled,
   allowDeactivate,
   submitButtonText,
   onClickDeactivate,
@@ -23,10 +24,15 @@ export default function EditActions({
         )}
       </div>
       <div className={styles['btns-wrapper']}>
-        <Button variant='outlined' onClick={onCancel}>
+        <Button variant='outlined' onClick={onCancel} disabled={disabled}>
           Cancel
         </Button>
-        <Button className={styles['submit-btn']} type='submit' variant='contained'>
+        <Button
+          type='submit'
+          variant='contained'
+          disabled={disabled}
+          className={styles['submit-btn']}
+        >
           {submitButtonText || 'Save Changes'}
         </Button>
       </div>
