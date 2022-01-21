@@ -67,7 +67,7 @@ export default function MainInfo({ parentRef, isValidate }) {
             <Grid item xs={6}>
               <Autocomplete
                 value={values.type}
-                options={[]}
+                options={Regions}
                 onChange={autoCompleteChangeHandler('type')}
                 renderInput={(params) => (
                   <TextField

@@ -86,7 +86,7 @@ export default function Drivers({ parentRef }) {
             license += ' Category';
           }
 
-          let languages = driver.languages?.reduce(
+          const languages = driver.languages?.reduce(
             (prev, { label }, index) => prev + (index ? ' / ' : '') + label,
             ''
           );

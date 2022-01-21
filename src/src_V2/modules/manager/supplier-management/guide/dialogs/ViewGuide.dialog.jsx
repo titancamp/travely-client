@@ -48,11 +48,11 @@ export default function ViewRoomDialog({ data: { state: guide, actions } }) {
             )}
           </Grid>
           <Grid item container xs={6} spacing={3}>
-            <Grid item xs={4}>
-              <Typography>Name</Typography>
-              <Typography>{guide.name}</Typography>
-            </Grid>
             <Grid item xs={8}>
+              <Typography>Name</Typography>
+              <Typography className={styles.name}>{guide.name}</Typography>
+            </Grid>
+            <Grid item xs={4}>
               <Typography>Year of experience</Typography>
               <Typography>{guide.experience}</Typography>
             </Grid>
@@ -60,11 +60,11 @@ export default function ViewRoomDialog({ data: { state: guide, actions } }) {
               <Typography>Email</Typography>
               <Typography>{guide.email}</Typography>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={8}>
               <Typography>Phone</Typography>
               <Typography>+374 {guide.phone}</Typography>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={4}>
               <Typography>Sex</Typography>
               <Typography>{guide.sex}</Typography>
             </Grid>

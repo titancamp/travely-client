@@ -25,7 +25,7 @@ export function addGuideInitialValues(initialValues) {
     phone: '',
     email: '',
     sex: null,
-    person: '',
+    name: '',
     skills: [],
     languages: [],
     experience: '',
@@ -58,7 +58,7 @@ export function addGuideSchema() {
     email: BaseSchemas.email,
     sex: BaseSchemas.autocompleteField,
     age: BaseSchemas.integer(120),
-    person: BaseSchemas.requiredText(50),
+    name: BaseSchemas.requiredText(50),
     experience: BaseSchemas.integer(50),
     languages: BaseSchemas.multiAutocompleteField,
   });

@@ -1,6 +1,7 @@
 .mainBox {
   position: relative;
   display: flex;
+  z-index: 1200;
 }
 
 .drawer {
@@ -13,7 +14,7 @@
 }
 
 .fab {
-  top: 98px;
+  top: 93px;
   left: 12px;
   width: 40px !important;
   height: 40px !important;

@@ -42,7 +42,6 @@ export default function AddEditGuideDialog({ onClose, onSuccess, guide, editMode
     errors,
     touched,
     handleBlur,
-    submitForm,
     handleSubmit,
     handleChange,
     setFieldValue,
@@ -53,35 +52,33 @@ export default function AddEditGuideDialog({ onClose, onSuccess, guide, editMode
     <form onSubmit={handleSubmit} autoComplete='off'>
       <DialogTitle id='alert-dialog-title'>{editMode ? 'Edit' : 'Add'} Guide</DialogTitle>
       <DialogContent className={styles.viewTitle}>
-        <Grid container rowSpacing={3}>
-          <Grid item container xs={11}>
-            <Grid item xs={6}>
+        <Grid container>
+          <Grid container item spacing={10} mb={2}>
+            <Grid item xs={4}>
               <UploadImage parentRef={formik} />
             </Grid>
-            <Grid item container xs={6} spacing={0}>
+            <Grid item container xs={8} rowSpacing={4}>
               <Grid item xs={12}>
-                <FormControl fullWidth className={styles.ctField}>
-                  <InputLabel error={errors.person && touched.person}>
-                    Contact Person
-                  </InputLabel>
+                <FormControl fullWidth>
+                  <InputLabel error={errors.name && touched.name}>Name</InputLabel>
                   <OutlinedInput
-                    name='person'
+                    name='name'
+                    label='Name'
                     onBlur={handleBlur}
-                    value={values.person}
-                    label='Contact Person'
+                    value={values.name}
                     onChange={handleChange}
-                    error={errors.person && touched.person}
+                    error={errors.name && touched.name}
                     endAdornment={<EndAdornment icon={<Person />} />}
                   />
-                  {touched.person && errors.person && (
+                  {touched.name && errors.name && (
                     <FormHelperText className={styles.helperText} error>
-                      {errors.person}
+                      {errors.name}
                     </FormHelperText>
                   )}
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
-                <FormControl fullWidth className={styles.ctField}>
+                <FormControl fullWidth>
                   <InputLabel error={errors.email && touched.email}>
                     Contact Email
                   </InputLabel>
@@ -102,7 +99,7 @@ export default function AddEditGuideDialog({ onClose, onSuccess, guide, editMode
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
-                <FormControl fullWidth className={styles.ctField}>
+                <FormControl fullWidth>
                   <InputLabel error={errors.phone && touched.phone}>
                     Contact Phone
                   </InputLabel>
@@ -124,7 +121,8 @@ export default function AddEditGuideDialog({ onClose, onSuccess, guide, editMode
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12}>
+
+          <Grid item xs={12} mb={2}>
             <Autocomplete
               multiple
               options={Languages}
@@ -144,7 +142,7 @@ export default function AddEditGuideDialog({ onClose, onSuccess, guide, editMode
               )}
             />
           </Grid>
-          <Grid container item xs={14} spacing={2}>
+          <Grid container item xs={14} spacing={2} mb={2}>
             <Grid item xs={6}>
               <TextField
                 fullWidth
@@ -192,9 +190,9 @@ export default function AddEditGuideDialog({ onClose, onSuccess, guide, editMode
           </Grid>
         </Grid>
       </DialogContent>
-      <DialogActions className={styles.dialogAction}>
+      <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={submitForm} variant='contained'>
+        <Button type='submit' variant='contained'>
           {editMode ? 'Edit' : 'Add'}
         </Button>
       </DialogActions>

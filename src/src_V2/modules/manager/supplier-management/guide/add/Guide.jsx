@@ -92,7 +92,7 @@ export default function Guide({ parentRef }) {
                   label: '',
                 },
                 2: {
-                  value: guide.person,
+                  value: guide.name,
                   label: null,
                 },
                 3: {

@@ -33,7 +33,7 @@ export default function AddGuide() {
   function onSubmit() {
     if (!guide.mainInfo.isValid) {
       return setCurrentTab({ step: 1, isValidate: true });
-    } else if (!guide.contact.isValid) {
+    } else if (!guide.partnership.isValid) {
       return setCurrentTab({ step: 2 });
     } else {
       navigate('../list');

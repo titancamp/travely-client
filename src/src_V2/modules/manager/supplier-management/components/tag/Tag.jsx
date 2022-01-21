@@ -20,6 +20,7 @@ export default function TagsInput({
 
   function handleKeyDown(event) {
     if (event.key === 'Enter') {
+      event.nativeEvent.preventDefault();
       if (event.target.value.length > 30 || tags.length === 10) {
         return setFieldError(name, errorMessage);
       }
@@ -32,9 +33,6 @@ export default function TagsInput({
       if (!event.target.value.replace(/\s/g, '').length) return;
       setInputValue('');
       setFieldValue(name, [...tags, event.target.value.trim()]);
-    } else if (tags.length && !inputValue.length && event.key === 'Backspace') {
-      //TODO handle the 30 character valid case
-      // setFieldValue(name, tags.slice(0, tags.length - 1));
     }
   }
 
@@ -59,6 +57,7 @@ export default function TagsInput({
         return (
           <div>
             <TextField
+              inputProps={{ sx: { minWidth: 100, width: 0 } }}
               InputProps={{
                 startAdornment: (
                   <Box className={styles.chipContainer}>
