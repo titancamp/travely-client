@@ -1,5 +1,6 @@
 import { Button } from '@mui/material';
 import BlockIcon from '@mui/icons-material/Block';
+
 import styles from './styles.module.css';
 
 export default function EditUserActions({
@@ -24,7 +25,7 @@ export default function EditUserActions({
         )}
       </div>
       <div className={styles['btns-wrapper']}>
-        <Button variant='outlined' onClick={onCancel} disabled={disabled}>
+        <Button variant='outlined' onClick={onCancel}>
           Cancel
         </Button>
         <Button

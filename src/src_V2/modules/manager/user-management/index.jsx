@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
-import { Button, Select, IconButton, Box, MenuItem, Typography } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Button, Select, IconButton, Box, MenuItem, Typography } from '@mui/material';
 
 import { Table } from '../../../components';
-import PageWrapper from '../../../components/userPageWrapper';
 import UserConfigContent from './UserConfig/UserConfig';
+import PageWrapper from '../../../components/userPageWrapper';
 
+import styles from './styles.module.css';
+import { mockUserManagementData } from './mock/data';
 import { useTableDataGenerator } from '../../../utils/hooks';
 import userManagementTableDataGenerator from './utils/table-data-generator';
-import { mockUserManagementData } from './mock/data';
-import styles from './styles.module.css';
 
 const EditBtn = ({ rowData, handleEdit }) => (
   <span>

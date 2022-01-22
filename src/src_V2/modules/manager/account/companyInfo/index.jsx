@@ -1,6 +1,7 @@
 import { Box } from '@mui/system';
-import { Divider, IconButton, Link, Typography } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { Divider, IconButton, Link, Typography } from '@mui/material';
+
 import styles from './styles.module.css';
 import ImgPlaceholder from '../imgPlaceholder';
 

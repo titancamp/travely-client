@@ -5,7 +5,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import PasswordField from '../../../components/formUI/PasswordField';
 import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
-import PasswordValidator from '../components/passwordValidator/PasswordValidator';
+import PasswordValidator from '../../../components/passwordValidator/PasswordValidator';
 
 import { ROUTES } from '../routes';
 import styles from './SignUp.module.css';

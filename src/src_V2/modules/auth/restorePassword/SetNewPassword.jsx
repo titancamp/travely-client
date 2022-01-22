@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 
 import PasswordField from '../../../components/formUI/PasswordField';
 import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
-import PasswordValidator from '../components/passwordValidator/PasswordValidator';
+import PasswordValidator from '../../../components/passwordValidator/PasswordValidator';
 
 import styles from './RestorePassword.module.css';
 import {

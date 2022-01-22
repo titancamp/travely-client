@@ -1,20 +1,21 @@
+import { useEffect } from 'react';
 import {
   Button,
   Dialog,
+  TextField,
+  DialogTitle,
   DialogActions,
   DialogContent,
-  DialogTitle,
-  TextField,
 } from '@mui/material';
 import { useFormik } from 'formik';
-import { useEffect } from 'react';
+
+import PasswordValidator from '../../../../components/passwordValidator/PasswordValidator';
+
+import styles from './styles.module.css';
 import {
   changePasswordInitialValues,
   changePasswordValidationSchema,
 } from '../../../../utils/schemas/account/account';
-import PasswordValidator from '../../../auth/components/passwordValidator/PasswordValidator';
-
-import styles from './styles.module.css';
 
 export default function ChangePasswordDialog({ handleClose, open }) {
   const { getFieldProps, touched, errors, resetForm, handleSubmit } = useFormik({
