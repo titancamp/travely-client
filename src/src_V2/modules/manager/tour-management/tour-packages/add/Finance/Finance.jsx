@@ -149,12 +149,12 @@ export default function FinanceSummary() {
     <Box className={styles.container}>
       <Box className={styles.contentData}>
         <Box>
-          {fakeDataGroupKeys.map((k) => {
-            const currency = fakeDataGroup[k][0].items[0].currency;
-            const sum = ArraySum(data[k], 'totalCost');
+          {fakeDataGroupKeys.map((groupKey) => {
+            const currency = fakeDataGroup[groupKey][0].items[0].currency;
+            const sum = ArraySum(data[groupKey], 'totalCost');
 
             return (
-              <Accordion key={k} className={styles.accordion}>
+              <Accordion key={groupKey} className={styles.accordion}>
                 <AccordionSummary
                   expandIcon={<ExpandMore />}
                   aria-controls='panel1a-content'
@@ -162,9 +162,9 @@ export default function FinanceSummary() {
                   className={`${styles.accordionBox}`}
                 >
                   <Typography className={`${styles.detailsTxt} ${styles.name}`}>
-                    {k}{' '}
+                    {groupKey}{' '}
                     <span className={styles.detailsCount}>
-                      ({fakeDataGroup[k].length})
+                      ({fakeDataGroup[groupKey].length})
                     </span>
                   </Typography>
                   <Box className={styles.groupTotal}>
@@ -177,20 +177,20 @@ export default function FinanceSummary() {
                   </Box>
                 </AccordionSummary>
                 <AccordionDetails className={styles.accordionDetails}>
-                  {fakeDataGroup[k].map((item, index) => {
+                  {fakeDataGroup[groupKey].map((item, index) => {
                     const groupItems = item.items;
-                    const groupColumns = columns[k];
+                    const groupColumns = columns[groupKey];
                     const groupColumnKeys = Object.keys(groupColumns);
 
                     return (
                       <TableContainer
                         className={styles.tableContainer}
-                        key={`${k}_${index}`}
+                        key={`${groupKey}_${index}`}
                       >
                         <Table style={{ position: 'relative' }}>
                           <TableHead className={styles.tableHead}>
                             {item.name !== null && (
-                              <TableRow key={`${k}_${index}`} className={styles.groupRow}>
+                              <TableRow className={styles.groupRow}>
                                 <TableCell
                                   className={`${styles.tableCell} ${styles.tableHeaderCell}`}
                                   colSpan={groupColumnKeys.length}
@@ -217,43 +217,46 @@ export default function FinanceSummary() {
                                   className={styles.tableRow}
                                   key={`${groupItem.id}`}
                                 >
-                                  {groupColumnKeys.map((c) => {
+                                  {groupColumnKeys.map((columnKey) => {
                                     if (
-                                      groupColumns[c].type === columnTypes.inputNumber
+                                      groupColumns[columnKey].type ===
+                                      columnTypes.inputNumber
                                     ) {
                                       return (
-                                        <TableCell key={`${groupItem.id}_${c}`}>
+                                        <TableCell key={`${groupItem.id}_${columnKey}`}>
                                           <TextField
                                             size='small'
                                             variant='outlined'
                                             type='number'
-                                            value={groupItem[c]}
+                                            value={groupItem[columnKey]}
                                             min={0}
                                             max={1000}
                                             onChange={inListChanges.bind(
                                               this,
                                               groupItem.id,
-                                              k,
-                                              c
+                                              groupKey,
+                                              columnKey
                                             )}
                                           />
                                         </TableCell>
                                       );
                                     }
 
-                                    return (item.name !== null && c === 'name') ||
-                                      c === 'currency' ? null : (
+                                    return (item.name !== null && columnKey === 'name') ||
+                                      columnKey === 'currency' ? null : (
                                       <TableCell
-                                        key={`${groupItem.id}_${c}`}
+                                        key={`${groupItem.id}_${columnKey}`}
                                         className={`${
-                                          c === 'totalCost' ? styles[c] : null
+                                          columnKey === 'totalCost'
+                                            ? styles[columnKey]
+                                            : null
                                         } ${styles.tableCell}`}
                                       >
-                                        {c.toLowerCase().includes('cost')
-                                          ? `${groupItem.currency} ${groupItem[c].toFixed(
-                                              2
-                                            )}`
-                                          : groupItem[c]}
+                                        {columnKey.toLowerCase().includes('cost')
+                                          ? `${groupItem.currency} ${groupItem[
+                                              columnKey
+                                            ].toFixed(2)}`
+                                          : groupItem[columnKey]}
                                       </TableCell>
                                     );
                                   })}
@@ -384,6 +387,7 @@ export default function FinanceSummary() {
               </Box>
               <Collapse in={showWarning}>
                 <Alert
+                  className={styles.alert}
                   severity='warning'
                   action={
                     <IconButton
@@ -397,7 +401,6 @@ export default function FinanceSummary() {
                       <Close fontSize='inherit' />
                     </IconButton>
                   }
-                  sx={{ mb: 2 }}
                 >
                   Set currency and exchange rate to calculate total price.
                 </Alert>

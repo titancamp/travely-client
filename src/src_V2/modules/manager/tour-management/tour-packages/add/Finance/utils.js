@@ -15,7 +15,7 @@ export const ArraySum = (data, propName) => {
 };
 
 export const ArrayGroup = (data, propName) => {
-  var groupNames = [],
+  const groupNames = [],
     groups = [];
 
   if (!data) {
@@ -23,8 +23,8 @@ export const ArrayGroup = (data, propName) => {
   }
 
   data.forEach(function (item) {
-    var groupName = item[propName],
-      index = groupNames.indexOf(groupName);
+    const groupName = item[propName];
+    let index = groupNames.indexOf(groupName);
 
     if (index === -1) {
       groupNames.push(groupName);
