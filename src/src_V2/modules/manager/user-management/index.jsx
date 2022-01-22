@@ -4,7 +4,7 @@ import { Edit } from '@mui/icons-material';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import { Table } from '../../../components';
-import PageWrapper from '../account/pageWrapper';
+import PageWrapper from '../../../components/userPageWrapper';
 import UserConfigContent from './UserConfig/UserConfig';
 
 import { useTableDataGenerator } from '../../../utils/hooks';

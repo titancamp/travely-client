@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { Checkbox, Grid, TextField, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import EditActions from '../../account/editActions';
+import EditUserActions from '../../../../components/editUserActions';
 import DeactivateDialog from '../DeactivateDialog/DeactivateDialog';
 
 import {
@@ -205,7 +205,7 @@ export default function UserConfigContent({ newUser }) {
             </Grid>
           ))}
         </Grid>
-        <EditActions
+        <EditUserActions
           disabled={!dirty && !newUser && !inactive}
           allowDeactivate={!inactive && !newUser}
           onClickDeactivate={handleOpenDialog}

@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import BlockIcon from '@mui/icons-material/Block';
 import styles from './styles.module.css';
 
-export default function EditActions({
+export default function EditUserActions({
   onCancel,
   disabled,
   allowDeactivate,

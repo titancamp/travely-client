@@ -7,6 +7,7 @@ import {
   TextField,
 } from '@mui/material';
 import { useFormik } from 'formik';
+import { useEffect } from 'react';
 import {
   changePasswordInitialValues,
   changePasswordValidationSchema,
@@ -16,12 +17,14 @@ import PasswordValidator from '../../../auth/components/passwordValidator/Passwo
 import styles from './styles.module.css';
 
 export default function ChangePasswordDialog({ handleClose, open }) {
-  const { getFieldProps, touched, errors, handleSubmit } = useFormik({
+  const { getFieldProps, touched, errors, resetForm, handleSubmit } = useFormik({
     initialValues: changePasswordInitialValues(),
     validationSchema: changePasswordValidationSchema(),
   });
 
-  console.log(errors);
+  useEffect(() => {
+    if (!open) resetForm();
+  }, [open]);
 
   return (
     <Dialog
@@ -44,7 +47,6 @@ export default function ChangePasswordDialog({ handleClose, open }) {
           {...getFieldProps('oldPassword')}
         />
         <TextField
-          autoFocus
           margin='normal'
           label='New Password'
           type='password'
@@ -55,7 +57,6 @@ export default function ChangePasswordDialog({ handleClose, open }) {
           {...getFieldProps('newPassword')}
         />
         <TextField
-          autoFocus
           margin='normal'
           label='Confirm Password'
           type='password'

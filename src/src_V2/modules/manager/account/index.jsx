@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
-import EditActions from './editActions';
+import EditUserActions from '../../../components/editUserActions';
 import CompanyInfo from './companyInfo';
 import ImgPlaceholder from './imgPlaceholder';
 import ChangePasswordDialog from './changePasswordDialog';
@@ -27,7 +27,7 @@ import {
 } from '../../../utils/schemas/account/account';
 import { ROUTES } from '../routes';
 import { accountMockData } from './mock/data';
-import PageWrapper from './pageWrapper';
+import PageWrapper from '../../../components/userPageWrapper';
 
 function AccountContent() {
   const navigate = useNavigate();
@@ -220,7 +220,7 @@ function AccountContent() {
                     </Grid>
                   </Grid>
                 </Grid>
-                <EditActions />
+                <EditUserActions />
               </>
             )}
           </form>

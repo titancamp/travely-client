@@ -56,7 +56,7 @@ const Table = ({
           ))}
         </TableHead>
         {isLoading && <LinearProgress />}
-        <TableBody component='div'>
+        <TableBody>
           <>
             {rows.length === 0 && !isLoading && (
               <Box display='flex' alignItems='center' justifyContent='center'>
