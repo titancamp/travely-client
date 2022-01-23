@@ -10,3 +10,7 @@
 .dueDatePickerInput > div > div {
   width: 25.3vw;
 }
+
+.dueDatePickerInput > div > label {
+  top: -6px;
+}

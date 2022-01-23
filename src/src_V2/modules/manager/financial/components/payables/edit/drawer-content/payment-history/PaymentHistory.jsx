@@ -99,7 +99,6 @@ const EditableTableCell = ({
       <Box className={commonStyles.dueDatePicker}>
         <DatePicker
           inputFormat='dd/MM/yyyy'
-          className={styles.date}
           name={columnName}
           value={value}
           onChange={(newValue) => handleHistoryChange(newValue?.toString(), columnName)}
