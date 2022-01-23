@@ -4,4 +4,5 @@ export {
   payableColumns,
   paymentHistoryColumns,
   paymentHistoryColumnTypes,
+  actualCostMaxValue,
 } from './payable-table';

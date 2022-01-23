@@ -1,13 +1,25 @@
+import { actualCostMaxValue } from '../constants';
+
+const actualCostValidCondition = (actualCost) =>
+  actualCost > actualCostMaxValue || actualCost < 0;
+
+export const actualCountedCost = (actualCost) => {
+  if (actualCostValidCondition(actualCost)) {
+    return '-';
+  }
+  return actualCost;
+};
+
 export const differenceCost = (plannedCost, actualCost) => {
-  if (typeof plannedCost !== 'number' || typeof actualCost !== 'number') {
-    return 0;
+  if (actualCostValidCondition(actualCost)) {
+    return '-';
   }
   return plannedCost - actualCost;
 };
 
 export const remainingCost = (actualCost, paidCost) => {
-  if (typeof actualCost !== 'number' || typeof paidCost !== 'number') {
-    return 0;
+  if (actualCostValidCondition(actualCost)) {
+    return '-';
   }
   return actualCost - paidCost;
 };

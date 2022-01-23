@@ -2,6 +2,7 @@ import { number, object, array } from 'yup';
 
 import { BaseSchemas } from '../BaseSchemas';
 import { PaymentType } from '../../../modules/manager/financial/constants';
+import { actualCostMaxValue } from '../../../modules/manager/financial/constants';
 
 /**
  * Initial values for payables.
@@ -43,7 +44,7 @@ export function paymentHistorySchema() {
 
 export function rowListSchema() {
   return object().shape({
-    actualCost: BaseSchemas.floatingRequiredNumber(999999999.99),
+    actualCost: BaseSchemas.floatingRequiredNumber(actualCostMaxValue),
     paymentHistory: array().of(paymentHistorySchema()),
     notes: BaseSchemas.textField(500),
   });

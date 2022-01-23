@@ -38,7 +38,7 @@ export default function RowList({ row, rowEditForm, onClose, onSave }) {
       {/*Layout*/}
       <Box className={styles.layout}>
         <Box className={styles.layoutDistance}>
-          <GeneralInfo values={values} row={row} />
+          <GeneralInfo actualCost={values.actualCost} row={row} />
         </Box>
 
         <Box className={styles.layoutDistance}>

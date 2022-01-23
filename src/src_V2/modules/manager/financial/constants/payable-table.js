@@ -52,3 +52,5 @@ export const paymentHistoryColumns = () => ({
       'Please upload png, jpg, jpeg, gif, pdf file type. File size should be 10 MB.',
   },
 });
+
+export const actualCostMaxValue = 999999999.99;

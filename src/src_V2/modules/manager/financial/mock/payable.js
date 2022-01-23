@@ -1,6 +1,17 @@
 // These files are potentially removable
 import paymentHistory from './payment-history';
 
+const payablesData = () => ({
+  total: {
+    plannedCost: 9000000007600,
+    actualCost: 6500,
+    difference: 9000000001090,
+    paid: 320,
+    remaining: 6190,
+  },
+  payablesList: payablesList(),
+});
+
 function createPayable(
   paymentId,
   tourId,
@@ -360,4 +371,4 @@ const payablesList = () => [
   ),
 ];
 
-export default payablesList;
+export default payablesData;

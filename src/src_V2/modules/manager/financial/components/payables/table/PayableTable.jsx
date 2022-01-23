@@ -20,7 +20,7 @@ import { AttachFile } from '@mui/icons-material';
 import { visuallyHidden } from '@mui/utils';
 import { deepPurple, green, orange, pink } from '@mui/material/colors';
 
-import { generateArrayByRange, generateDate } from '../../../../../../utils';
+import { generateArrayByRange, generateDate, moneyMask } from '../../../../../../utils';
 import { PaymentStatus, PaymentType } from '../../../constants';
 import { NoData, TooltipText } from '../../../../../../components';
 import EditDrawer from '../edit/drawer/EditDrawer';
@@ -188,6 +188,7 @@ const InvoiceAttachment = ({ attachment }) => (
 
 export default function PayableTable({
   payables,
+  total,
   columns,
   payablesLoading,
   rowsPerPageOptions,
@@ -217,13 +218,6 @@ export default function PayableTable({
       .slice()
       .sort(getComparator(order, orderBy))
       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
-  };
-
-  const totalSum = (key) => {
-    return payables.reduce((acc, curr) => {
-      acc += curr[key];
-      return acc;
-    }, 0);
   };
 
   const handleRequestSort = (event, property) => {
@@ -349,17 +343,17 @@ export default function PayableTable({
                           <TooltipTableCell rowValue={row.tourName} />
                           <TooltipTableCell rowValue={row.supplier} />
                           <TooltipTableCell rowValue={row.currency} />
-                          <TooltipTableCell rowValue={row.plannedCost} />
-                          <TooltipTableCell rowValue={row.actualCost} />
+                          <TooltipTableCell rowValue={moneyMask(row.plannedCost)} />
+                          <TooltipTableCell rowValue={moneyMask(row.actualCost)} />
                           <TableCell
                             className={`${styles.tableCell} ${colorCondition(
-                              row.difference
+                              moneyMask(row.difference)
                             )}`}
                           >
-                            <TooltipText text={row.difference} />
+                            <TooltipText text={moneyMask(row.difference)} />
                           </TableCell>
-                          <TooltipTableCell rowValue={row.paidCost} />
-                          <TooltipTableCell rowValue={row.remaining} />
+                          <TooltipTableCell rowValue={moneyMask(row.paidCost)} />
+                          <TooltipTableCell rowValue={moneyMask(row.remaining)} />
                           <TableCellWrapper>
                             <PayableStatuses statusNum={row.status} />
                           </TableCellWrapper>
@@ -396,17 +390,17 @@ export default function PayableTable({
                       </TableCell>
                       <TableCellWrapper>Total AMD</TableCellWrapper>
                       <EmptyTableCellWrapper count={4} />
-                      <TooltipTableCell rowValue={totalSum('plannedCost')} />
-                      <TooltipTableCell rowValue={totalSum('actualCost')} />
+                      <TooltipTableCell rowValue={moneyMask(total.plannedCost)} />
+                      <TooltipTableCell rowValue={moneyMask(total.actualCost)} />
                       <TableCell
                         className={`${styles.tableCell} ${colorCondition(
-                          totalSum('difference')
+                          moneyMask(total.difference)
                         )}`}
                       >
-                        <TooltipText text={totalSum('difference')} />
+                        <TooltipText text={moneyMask(total.difference)} />
                       </TableCell>
-                      <TooltipTableCell rowValue={totalSum('paidCost')} />
-                      <TooltipTableCell rowValue={totalSum('remaining')} />
+                      <TooltipTableCell rowValue={moneyMask(total.paidCost)} />
+                      <TooltipTableCell rowValue={moneyMask(total.remaining)} />
                       <EmptyTableCellWrapper count={7} />
                     </TableRow>
                   )}

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { rowsPerPageOptions, payableColumns } from '../../constants';
-import payablesList from '../../mock/payable';
+import payablesData from '../../mock/payable';
 import { differenceCost, remainingCost } from '../../utils/cost';
 import { Layout } from '../../../../../components';
 import ControlPanel from './control-panel/ControlPanel';
@@ -13,12 +13,14 @@ export default function Payables() {
   const [filteredPayables, setFilteredPayables] = useState([]);
   const [searchTxt, setSearchTxt] = useState('');
 
+  const payablesTableData = payablesData();
+
   // getting Payables from backend
   function getPayables() {
     setPayablesLoading(true);
 
     const timeout = setTimeout(() => {
-      processPayables(payablesList());
+      processPayables(payablesTableData.payablesList);
       setPayablesLoading(false);
     }, 500);
 
@@ -60,6 +62,7 @@ export default function Payables() {
         />
         <PayableTable
           payables={filteredPayables}
+          total={payablesTableData.total}
           columns={payableColumns()}
           payablesLoading={payablesLoading}
           rowsPerPageOptions={rowsPerPageOptions}
