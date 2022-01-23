@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   Accordion,
   AccordionDetails,
@@ -27,6 +27,7 @@ import { DatePicker } from '@mui/lab';
 import { ConfirmDialog, NoData } from '../../../../../../../../components';
 import { paymentHistoryInitialValues } from '../../../../../../../../utils/schemas';
 import {
+  acceptedFileTypes,
   paymentHistoryColumns as columns,
   paymentHistoryColumnTypes as columnTypes,
   PaymentType,
@@ -44,12 +45,13 @@ const EditableTableCell = ({
   touched,
   errors,
   handleBlur,
+  handleUploadClick,
 }) => {
   const error = errors && Object.keys(errors).length && errors[id - 1];
   const errorMessage = error && error[columnName] && touched[columnName];
   const helperText = touched && touched[columnName] && error && error[columnName];
 
-  const handleChange = (newValue, name) => {
+  const handleHistoryChange = (newValue, name) => {
     const newHistories = paymentHistory.map((history) => {
       if (history.id === id) {
         history[name] = newValue;
@@ -67,7 +69,7 @@ const EditableTableCell = ({
         className={'adornmentInput'}
         name={columnName}
         value={value}
-        onChange={({ target: { value } }) => handleChange(value, columnName)}
+        onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
         onBlur={handleBlur}
         error={!!errorMessage}
         helperText={helperText}
@@ -84,7 +86,7 @@ const EditableTableCell = ({
         className={'adornmentInput'}
         name={columnName}
         value={value}
-        onChange={({ target: { value } }) => handleChange(value, columnName)}
+        onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
         onBlur={handleBlur}
         error={!!errorMessage}
         helperText={helperText}
@@ -100,7 +102,7 @@ const EditableTableCell = ({
           className={styles.date}
           name={columnName}
           value={value}
-          onChange={(newValue) => handleChange(newValue?.toString(), columnName)}
+          onChange={(newValue) => handleHistoryChange(newValue?.toString(), columnName)}
           renderInput={(params) => <TextField {...params} />}
         />
       </Box>
@@ -112,7 +114,7 @@ const EditableTableCell = ({
           variant='outlined'
           name={columnName}
           value={value}
-          onChange={({ target: { value } }) => handleChange(value, columnName)}
+          onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
           onBlur={handleBlur}
         >
           <MenuItem value={PaymentType.Cash}>{PaymentType[1]}</MenuItem>
@@ -120,9 +122,14 @@ const EditableTableCell = ({
         </Select>
       </FormControl>
     ),
-    [columnTypes.file]: (
-      <Button variant='outlined' endIcon={<CloudUpload />} className={styles.uploadBtn}>
-        Upload
+    [columnTypes.attachment]: (
+      <Button
+        variant='outlined'
+        endIcon={<CloudUpload />}
+        className={styles.uploadBtn}
+        onClick={() => handleUploadClick(id)}
+      >
+        {value?.name || 'Upload'}
       </Button>
     ),
   };
@@ -141,18 +148,13 @@ export default function PaymentHistory({
   touched,
   setFieldValue,
   handleBlur,
+  setFileError,
 }) {
   const [deletePopupOpened, setDeletePopupOpened] = useState(false);
   const [historyIndex, setHistoryIndex] = useState(null);
+  const hiddenFileInput = useRef(null);
   const historyColumns = columns();
   const columnKeys = Object.keys(historyColumns);
-
-  const handleAddPayment = () => {
-    setFieldValue('paymentHistory', [
-      ...paymentHistory,
-      paymentHistoryInitialValues(paymentHistory.length + 1),
-    ]);
-  };
 
   const openDeletePopup = () => {
     setDeletePopupOpened(true);
@@ -172,9 +174,45 @@ export default function PaymentHistory({
     deleteHistoryByIndex();
   };
 
+  const handleUploadClick = (id) => {
+    setHistoryIndex(id);
+    hiddenFileInput.current.click();
+  };
+
+  const handleAddPayment = () => {
+    setFieldValue('paymentHistory', [
+      ...paymentHistory,
+      paymentHistoryInitialValues(paymentHistory.length + 1),
+    ]);
+  };
+
   const handleDeleteHistory = (index) => {
     setHistoryIndex(index);
     openDeletePopup();
+  };
+
+  const handleAddAttachment = (event) => {
+    try {
+      if (event.target.files) {
+        const newFile = event.target.files[0];
+
+        if (!acceptedFileTypes.includes(newFile.type) || newFile.size / 1024 ** 2 > 20) {
+          return setFileError(
+            `Supported file types are - ${acceptedFileTypes.join(', ')}`
+          );
+        } else {
+          const modifiedHistory = paymentHistory.map((history) => {
+            if (history.id === historyIndex) {
+              history.attachment = newFile;
+            }
+            return history;
+          });
+          setFieldValue('paymentHistory', [...modifiedHistory]);
+        }
+      }
+    } catch (error) {
+      return setFileError('Upload Failed - Try again');
+    }
   };
 
   return (
@@ -227,7 +265,7 @@ export default function PaymentHistory({
             </TableHead>
             <TableBody>
               {paymentHistory?.map((row, index) => (
-                <TableRow key={`${row.name}_${index}`}>
+                <TableRow key={`${row.id}_${index}`}>
                   {columnKeys.map((columnKey) => {
                     const column = historyColumns[columnKey];
 
@@ -241,6 +279,7 @@ export default function PaymentHistory({
                       touched,
                       errors,
                       handleBlur,
+                      handleUploadClick,
                     });
 
                     return (
@@ -252,6 +291,18 @@ export default function PaymentHistory({
                       </TableCell>
                     );
                   })}
+
+                  {/*File input*/}
+                  <TableCell key={`upload_${row.id}`}>
+                    <input
+                      type='file'
+                      className={styles.uploadInput}
+                      ref={hiddenFileInput}
+                      onChange={handleAddAttachment}
+                      accept='image/*, .pdf'
+                    />
+                  </TableCell>
+
                   {/*Delete Row*/}
                   <TableCell key={`delete_${row.id}`}>
                     <IconButton onClick={() => handleDeleteHistory(index)}>

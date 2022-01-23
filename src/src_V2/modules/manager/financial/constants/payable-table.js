@@ -25,7 +25,7 @@ export const paymentHistoryColumnTypes = {
   price: 'price',
   date: 'date',
   select: 'select',
-  file: 'file',
+  attachment: 'attachment',
 };
 
 export const paymentHistoryColumns = () => ({
@@ -47,10 +47,13 @@ export const paymentHistoryColumns = () => ({
   },
   attachment: {
     label: 'Attachment',
-    type: paymentHistoryColumnTypes.file,
+    type: paymentHistoryColumnTypes.attachment,
     tooltip:
       'Please upload png, jpg, jpeg, gif, pdf file type. File size should be 10 MB.',
   },
 });
 
-export const actualCostMaxValue = 999999999.99;
+export const payableValidationValues = {
+  actualCostMaxValue: 999999999.99,
+  paidAmountMaxValue: 99999999999999999999.99,
+};

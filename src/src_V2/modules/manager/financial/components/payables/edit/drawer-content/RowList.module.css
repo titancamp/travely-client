@@ -60,3 +60,11 @@
 .saveBtn {
   margin: 0 30px 0 10px !important;
 }
+
+.uploadError {
+  position: absolute;
+  width: 210px;
+  left: 42.8vw;
+  z-index: 1;
+  top: 80vh;
+}

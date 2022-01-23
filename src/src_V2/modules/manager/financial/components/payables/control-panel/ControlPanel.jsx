@@ -1,9 +1,9 @@
-import { Box, Button, InputBase, Paper } from '@mui/material';
-import { FilterAlt, ViewColumn } from '@mui/icons-material';
+import { Box, Button, IconButton, InputBase, Paper } from '@mui/material';
+import { FilterAlt, ViewColumn, Clear } from '@mui/icons-material';
 
 import styles from './ControlPanel.module.css';
 
-export default function ControlPanel({ searchValue, handleSearchChange }) {
+export default function ControlPanel({ searchValue, setSearchTxt }) {
   return (
     <Box className={styles.mainDiv}>
       <Paper className={styles.searchDiv}>
@@ -12,8 +12,11 @@ export default function ControlPanel({ searchValue, handleSearchChange }) {
           className={styles.searchInput}
           placeholder='Search by Tour Name/ID/Supplier'
           value={searchValue}
-          onChange={handleSearchChange}
+          onChange={(e) => setSearchTxt(e.target.value)}
         />
+        <IconButton onClick={() => setSearchTxt('')}>
+          <Clear />
+        </IconButton>
       </Paper>
 
       <Box className={styles.filterDiv}>

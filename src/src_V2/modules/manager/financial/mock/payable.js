@@ -63,9 +63,9 @@ const payablesList = () => [
     '5 day tour to Tsakhadzor',
     'Tatev Hotel',
     'AMD',
-    400,
-    400,
-    20,
+    400.555,
+    10000000,
+    -350000000.3,
     1,
     '2021-12-26T09:36:19Z',
     8,
@@ -76,7 +76,11 @@ const payablesList = () => [
     17887,
     '2021-12-26T09:36:19Z',
     [
-      paymentHistory(1, '134252-89', 1000, '2021-12-26T09:36:19Z', 1),
+      paymentHistory(1, '134252-89', 1000, '2021-12-26T09:36:19Z', 1, {
+        name: 'test.jpg',
+        size: 101896,
+        type: 'image/jpeg',
+      }),
       paymentHistory(2, '134252-89', 5000, '2021-12-26T09:36:19Z', 2),
       paymentHistory(3, '134252-89', 1000, '2021-12-26T09:36:19Z', 2),
     ]

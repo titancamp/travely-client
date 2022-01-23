@@ -4,7 +4,7 @@ export default function paymentHistory(
   paidAmount,
   paymentDate,
   paymentType,
-  attachment
+  attachment = {}
 ) {
   return { id, invoiceId, paidAmount, paymentDate, paymentType, attachment };
 }

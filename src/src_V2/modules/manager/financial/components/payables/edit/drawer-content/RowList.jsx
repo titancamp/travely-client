@@ -1,4 +1,5 @@
-import { Box, Button } from '@mui/material';
+import { useState } from 'react';
+import { Box, Button, Alert } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 import GeneralInfo from './general-info/GeneralInfo';
@@ -7,6 +8,19 @@ import TourDetails from './tour-details/TourDetails';
 import PaymentHistory from './payment-history/PaymentHistory';
 import Notes from './notes/Notes';
 import styles from './RowList.module.css';
+
+const FileError = ({ errorMessage, setError }) => {
+  setTimeout(() => {
+    setError(null);
+    return null;
+  }, 5000);
+
+  return (
+    <Alert severity='error' className={styles.uploadError}>
+      {errorMessage}
+    </Alert>
+  );
+};
 
 export default function RowList({ row, rowEditForm, onClose, onSave }) {
   // not using context due to future replacement of redux
@@ -19,6 +33,7 @@ export default function RowList({ row, rowEditForm, onClose, onSave }) {
     handleSubmit,
     setFieldValue,
   } = rowEditForm;
+  const [fileError, setFileError] = useState('');
 
   return (
     <form onSubmit={handleSubmit}>
@@ -65,6 +80,7 @@ export default function RowList({ row, rowEditForm, onClose, onSave }) {
             touched={touched}
             setFieldValue={setFieldValue}
             handleBlur={handleBlur}
+            setFileError={setFileError}
           />
         </Box>
 
@@ -79,6 +95,9 @@ export default function RowList({ row, rowEditForm, onClose, onSave }) {
           />
         </Box>
       </Box>
+
+      {/*File Error*/}
+      {fileError && <FileError errorMessage={fileError} setError={setFileError} />}
 
       {/*Footer*/}
       <Box className={`${styles.mainBox} ${styles.footerBox}`}>

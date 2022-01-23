@@ -1,8 +1,8 @@
 export { PaymentStatus, PaymentType } from './payment';
-export { rowsPerPageOptions } from './table-settings';
+export { rowsPerPageOptions, acceptedFileTypes } from './table-settings';
 export {
   payableColumns,
   paymentHistoryColumns,
   paymentHistoryColumnTypes,
-  actualCostMaxValue,
+  payableValidationValues,
 } from './payable-table';

@@ -1,7 +1,7 @@
-import { actualCostMaxValue } from '../constants';
+import { payableValidationValues } from '../constants';
 
 const actualCostValidCondition = (actualCost) =>
-  actualCost > actualCostMaxValue || actualCost < 0;
+  actualCost > payableValidationValues.actualCostMaxValue || actualCost < 0;
 
 export const actualCountedCost = (actualCost) => {
   if (actualCostValidCondition(actualCost)) {

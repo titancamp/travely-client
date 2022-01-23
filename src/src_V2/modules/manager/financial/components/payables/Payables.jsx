@@ -56,10 +56,7 @@ export default function Payables() {
   return (
     <>
       <Layout title='Payables'>
-        <ControlPanel
-          searchValue={searchTxt}
-          handleSearchChange={(e) => setSearchTxt(e.target.value)}
-        />
+        <ControlPanel searchValue={searchTxt} setSearchTxt={setSearchTxt} />
         <PayableTable
           payables={filteredPayables}
           total={payablesTableData.total}
