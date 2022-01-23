@@ -1,0 +1,72 @@
+.container {
+    background-color: var(--lightGrey);
+}
+
+.chartContainer {
+  background-color: var(--white);
+  padding: 32px;
+  width: fit-content;
+  border-radius: 32px;
+}
+
+.charts {
+    padding-top: 24px;
+}
+
+.chartTitle {
+    margin-bottom: 16px !important;
+    margin-left: 40px !important;
+}
+
+.chartColors {
+    margin-left: 16px !important;
+}
+
+.colorItem {
+    display: flex;
+    align-items: center;
+}
+
+.chartLineColor {
+    width: 6px;
+    height: 11px;
+    border-radius: 100px;
+    margin-right: 16px;
+}
+
+.lineIncome {
+    background-color: #903FE0;
+}
+
+.lineExpenses {
+    background-color: #266EF2;
+}
+
+.lineCompleted {
+    background-color: #3FE0C3;
+}
+
+.lineCanceled {
+    background-color: #F226A1;
+}
+
+.analyticsItem {
+    background-color: var(--white);
+    padding: 24px;
+    border-radius: 8px;
+    width: 322px;
+    height: 172px;
+}
+
+.ongoingAnalytics {
+    border-top: 4px solid #7AB6D8;
+}
+
+.upcomingAnalytics {
+    border-top: 4px solid #6873D5;
+    margin-top: 24px !important;
+}
+
+.divider {
+    margin: 24px 0;
+}
