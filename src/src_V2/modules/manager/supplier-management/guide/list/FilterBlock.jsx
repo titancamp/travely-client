@@ -62,7 +62,7 @@ export default function FilterBlock() {
             component='span'
             startIcon={<AddCircle />}
           >
-            <Link to={`../add`}>Add new</Link>
+            <Link to='../add'>Add new</Link>
           </Button>
           <DialogManager data={dialogManagerState} onShowHideDialog={onShowHideDialog} />
         </Grid>

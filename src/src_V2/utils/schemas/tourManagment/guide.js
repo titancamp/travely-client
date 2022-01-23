@@ -15,6 +15,15 @@ export function addGuideInitialValues(initialValues) {
   };
 }
 
+export function FilterInitialValues() {
+  return {
+    languages: [],
+    skills: '',
+    cost: '',
+    experience: '',
+  };
+}
+
 export function addGuideSchema() {
   return object().shape({
     phone: BaseSchemas.phone,
@@ -24,6 +33,15 @@ export function addGuideSchema() {
     experience: BaseSchemas.integer(),
     sex: BaseSchemas.autocompleteField,
     age: BaseSchemas.integer(120),
+    languages: BaseSchemas.multiAutocompleteField,
+  });
+}
+
+export function FilterGuideSchema() {
+  return object().shape({
+    skills: BaseSchemas.textField(),
+    cost: BaseSchemas.integer(),
+    experience: BaseSchemas.integer(),
     languages: BaseSchemas.multiAutocompleteField,
   });
 }

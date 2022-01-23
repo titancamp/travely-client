@@ -13,6 +13,11 @@ import {
 } from '@mui/material';
 import styles from './style.module.css';
 import { Languages } from '../constants';
+import {
+  FilterGuideSchema,
+  FilterInitialValues,
+} from '../../../../../utils/schemas/tourManagment/guide';
+import { useFormik } from 'formik';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
@@ -30,7 +35,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 const BootstrapDialogTitle = (props) => {
-  const { children, onClose, ...other } = props;
+  const { children, onClose, handleReset, ...other } = props;
 
   return (
     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
@@ -63,19 +68,35 @@ const BootstrapDialogTitle = (props) => {
 BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
   onClose: PropTypes.func.isRequired,
-};
-
-const handleReset = () => {
-  //TODO reset form values
+  handleReset: PropTypes.func,
 };
 
 export default function AllFiltersDialog({ onClose, data: { open } }) {
+  const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
+  const formikData = {
+    validationSchema: FilterGuideSchema(),
+    initialValues: FilterInitialValues(),
+  };
+
+  const { values, errors, touched, handleBlur, handleChange, setFieldValue, setValues } =
+    useFormik(formikData);
+
+  const handleReset = () => {
+    setValues({
+      skills: '',
+      languages: [],
+      cost: '',
+      experience: '',
+    });
+  };
+
   return (
     <form autoComplete='off'>
       <BootstrapDialog onClose={onClose} open={open}>
         <BootstrapDialogTitle
           onClose={onClose}
           className={`${styles.container} ${styles.header}`}
+          handleReset={handleReset}
         >
           Filters
         </BootstrapDialogTitle>
@@ -83,25 +104,61 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
           <Grid container rowSpacing={3} className={styles.langSkillsBlock}>
             <Grid item xs={10}>
               <Autocomplete
-                className={styles.input}
                 multiple
                 options={Languages}
-                name='languages'
+                value={values.languages}
+                onChange={autoCompleteChangeHandler('languages')}
                 renderInput={(params) => (
-                  <TextField {...params} name='languages' label='Languages' />
+                  <TextField
+                    {...params}
+                    name='languages'
+                    label='Languages'
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.languages}
+                    error={errors.languages && touched.languages}
+                    helperText={touched.languages && errors.languages}
+                  />
                 )}
               />
             </Grid>
             <Grid item xs={10}>
-              <TextField fullWidth name='skills' label='Skills' />
+              <TextField
+                fullWidth
+                name='skills'
+                label='Skills'
+                value={values.skills}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={errors.skills && touched.skills}
+                helperText={touched.skills && errors.skills}
+              />
             </Grid>
           </Grid>
           <Grid container rowSpacing={3}>
             <Grid item xs={2.5} className={styles.costInput}>
-              <TextField fullWidth name='cost' label='Cost' />
+              <TextField
+                fullWidth
+                name='cost'
+                label='Cost'
+                value={values.cost}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={errors.cost && touched.cost}
+                helperText={touched.cost && errors.cost}
+              />
             </Grid>
             <Grid item xs={2.5}>
-              <TextField fullWidth name='experience' label='Experience' />
+              <TextField
+                fullWidth
+                name='experience'
+                label='Experience'
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.experience}
+                error={errors.experience && touched.experience}
+                helperText={touched.experience && errors.experience}
+              />
             </Grid>
           </Grid>
         </DialogContent>

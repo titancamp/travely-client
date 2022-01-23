@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useFormik } from 'formik';
 import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import {
@@ -14,11 +15,16 @@ import {
   InputLabel,
   OutlinedInput,
   Typography,
+  FormHelperText,
 } from '@mui/material';
 import styles from './style.module.css';
 import { Languages, License } from '../constants';
 import { EndAdornment } from '../../components/endAdornment';
 import { AirlineSeatReclineNormal, EventSeat } from '@mui/icons-material';
+import {
+  FilterInitialValues,
+  TransportationFiltersSchema,
+} from '../../../../../utils/schemas/tourManagment/transportation';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
@@ -36,7 +42,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 const BootstrapDialogTitle = (props) => {
-  const { children, onClose, ...other } = props;
+  const { children, onClose, handleReset, ...other } = props;
 
   return (
     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
@@ -69,22 +75,34 @@ const BootstrapDialogTitle = (props) => {
 BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
   onClose: PropTypes.func.isRequired,
-};
-
-const handleReset = () => {
-  //TODO reset form values
+  handleReset: PropTypes.func,
 };
 
 export default function AllFiltersDialog({ onClose, data: { open } }) {
+  const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
+  const formikData = {
+    validationSchema: TransportationFiltersSchema(),
+    initialValues: FilterInitialValues(),
+  };
+
+  const { values, errors, touched, handleBlur, handleChange, setFieldValue, setValues } =
+    useFormik(formikData);
+
+  const handleReset = () => {
+    setValues({
+      model: '',
+      seats: '',
+      carSeats: '',
+      license: [],
+      languages: [],
+    });
+  };
+
   return (
     <form autoComplete='off'>
-      <BootstrapDialog
-        onClose={onClose}
-        aria-labelledby='customized-dialog-title'
-        open={open}
-      >
+      <BootstrapDialog onClose={onClose} open={open}>
         <BootstrapDialogTitle
-          id='customized-dialog-title'
+          handleReset={handleReset}
           onClose={onClose}
           className={`${styles.container} ${styles.header}`}
         >
@@ -94,21 +112,40 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
           <Grid item xs={4}>
             <Autocomplete
               className={styles.input}
-              disablePortal
-              id='combo-box-demo'
+              multiple
               options={License}
-              name='license'
-              renderInput={(params) => <TextField {...params} label='License Type' />}
+              value={values.license}
+              onChange={autoCompleteChangeHandler('license')}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  name='license'
+                  label='License Type'
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  error={errors.license && touched.license}
+                  helperText={touched.license && errors.license}
+                />
+              )}
             />
           </Grid>
           <Grid item xs={8}>
             <Autocomplete
-              className={styles.input}
               multiple
               options={Languages}
-              name='languages'
+              value={values.languages}
+              onChange={autoCompleteChangeHandler('languages')}
               renderInput={(params) => (
-                <TextField {...params} name='languages' label='Languages' />
+                <TextField
+                  {...params}
+                  name='languages'
+                  label='Languages'
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.languages}
+                  error={errors.languages && touched.languages}
+                  helperText={touched.languages && errors.languages}
+                />
               )}
             />
           </Grid>
@@ -119,31 +156,52 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
               fullWidth
               name='model'
               label='Model'
-              placeholder='Model'
               className={styles.input}
+              placeholder='Plate Number'
+              onBlur={handleBlur}
+              value={values.model}
+              onChange={handleChange}
+              error={errors.model && touched.model}
+              helperText={touched.model && errors.model}
             />
           </Grid>
           <Grid container item xs={12} spacing={3}>
             <Grid item xs={4}>
               <FormControl fullWidth>
-                <InputLabel>Number of Seats</InputLabel>
+                <InputLabel error={errors.seats && touched.seats}>
+                  Number of Seats
+                </InputLabel>
                 <OutlinedInput
                   name='seats'
+                  onBlur={handleBlur}
+                  value={values.seats}
                   label='Number of Seats'
+                  onChange={handleChange}
+                  error={errors.seats && touched.seats}
                   endAdornment={<EndAdornment icon={<EventSeat />} />}
-                  className={styles.input}
                 />
+                {errors.seats && touched.seats && (
+                  <FormHelperText error>{errors.seats}</FormHelperText>
+                )}
               </FormControl>
             </Grid>
             <Grid item xs={4}>
               <FormControl fullWidth>
-                <InputLabel>Number of Car Seats</InputLabel>
+                <InputLabel error={errors.carSeats && touched.carSeats}>
+                  Number of Car Seats
+                </InputLabel>
                 <OutlinedInput
                   name='carSeats'
+                  onBlur={handleBlur}
+                  value={values.carSeats}
                   label='Number of Car Seats'
+                  onChange={handleChange}
+                  error={errors.carSeats && touched.carSeats}
                   endAdornment={<EndAdornment icon={<AirlineSeatReclineNormal />} />}
-                  className={styles.input}
                 />
+                {errors.carSeats && touched.carSeats && (
+                  <FormHelperText error>{errors.carSeats}</FormHelperText>
+                )}
               </FormControl>
             </Grid>
           </Grid>

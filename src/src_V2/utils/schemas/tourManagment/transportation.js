@@ -39,6 +39,16 @@ export function AddCarInitialValues(initialValues) {
   };
 }
 
+export function FilterInitialValues() {
+  return {
+    model: '',
+    seats: '',
+    carSeats: '',
+    license: [],
+    languages: [],
+  };
+}
+
 /**
  * Yup schemas for accommodation.
  */
@@ -80,5 +90,15 @@ export function partnershipSchema() {
     attachments: object().shape([]).nullable(),
     price: BaseSchemas.floatingNumber(999999.99),
     percentage: BaseSchemas.floatingNumber(999.99),
+  });
+}
+
+export function TransportationFiltersSchema() {
+  return object().shape({
+    seats: BaseSchemas.integer(),
+    carSeats: BaseSchemas.integer(),
+    model: BaseSchemas.requiredText(50),
+    languages: BaseSchemas.autocompleteField,
+    license: BaseSchemas.multiAutocompleteField,
   });
 }

@@ -65,7 +65,7 @@ input[type='number'] {
 }
 
 .timeBlock {
-  margin: 2px -6px !important;
+  margin: 2px -14px !important;
 }
 
 .dashedBorder {
@@ -92,6 +92,10 @@ input[type='number'] {
 
 .beds {
   width: 159px;
+}
+
+.numberOfBeds {
+  margin-right: 20px !important;
 }
 
 /* Details */

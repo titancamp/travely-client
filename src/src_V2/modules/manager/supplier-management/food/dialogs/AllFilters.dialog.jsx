@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useFormik } from 'formik';
 import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import {
@@ -16,6 +17,10 @@ import {
 } from '@mui/material';
 import styles from './style.module.css';
 import { Languages } from '../constants';
+import {
+  FilterInitialValues,
+  FoodFiltersSchema,
+} from '../../../../../utils/schemas/tourManagment/food';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
@@ -33,7 +38,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 const BootstrapDialogTitle = (props) => {
-  const { children, onClose, ...other } = props;
+  const { children, onClose, handleReset, ...other } = props;
 
   return (
     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
@@ -66,23 +71,32 @@ const BootstrapDialogTitle = (props) => {
 BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
   onClose: PropTypes.func.isRequired,
-};
-
-const handleReset = () => {
-  //TODO reset form values
+  handleReset: PropTypes.func,
 };
 
 export default function AllFiltersDialog({ onClose, data: { open } }) {
+  const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
+  const formikData = {
+    validationSchema: FoodFiltersSchema(),
+    initialValues: FilterInitialValues(),
+  };
+
+  const { values, errors, touched, handleBlur, handleChange, setFieldValue, setValues } =
+    useFormik(formikData);
+
+  const handleReset = () => {
+    setValues({
+      menu: [],
+      checkIn: '',
+    });
+  };
+
   return (
     <form autoComplete='off'>
-      <BootstrapDialog
-        onClose={onClose}
-        aria-labelledby='customized-dialog-title'
-        open={open}
-      >
+      <BootstrapDialog onClose={onClose} open={open}>
         <BootstrapDialogTitle
-          id='customized-dialog-title'
           onClose={onClose}
+          handleReset={handleReset}
           className={`${styles.container} ${styles.header}`}
         >
           Filters
@@ -90,12 +104,21 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
         <DialogContent dividers className={styles.container}>
           <Grid item xs={8}>
             <Autocomplete
-              className={styles.input}
               multiple
               options={Languages}
-              name='languages'
+              value={values.menu}
+              onChange={autoCompleteChangeHandler('menu')}
               renderInput={(params) => (
-                <TextField {...params} name='languages' label='Languages' />
+                <TextField
+                  {...params}
+                  name='menu'
+                  label='Menu'
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.menu}
+                  error={errors.menu && touched.menu}
+                  helperText={touched.menu && errors.menu}
+                />
               )}
             />
           </Grid>
@@ -114,6 +137,8 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
                 type='time'
                 name='checkIn'
                 label='Check In Time'
+                value={values.checkIn}
+                onChange={handleChange}
                 inputProps={{ step: 60, min: 10 }}
                 InputLabelProps={{ shrink: true }}
               />
@@ -124,6 +149,8 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
                 type='time'
                 name='checkIn'
                 label='Check In Time'
+                value={values.checkIn}
+                onChange={handleChange}
                 inputProps={{ step: 60, min: 10 }}
                 InputLabelProps={{ shrink: true }}
               />
@@ -139,6 +166,8 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
                 type='time'
                 name='checkIn'
                 label='Check In Time'
+                value={values.checkIn}
+                onChange={handleChange}
                 inputProps={{ step: 60, min: 10 }}
                 InputLabelProps={{ shrink: true }}
               />
@@ -149,6 +178,8 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
                 type='time'
                 name='checkIn'
                 label='Check In Time'
+                value={values.checkIn}
+                onChange={handleChange}
                 inputProps={{ step: 60, min: 10 }}
                 InputLabelProps={{ shrink: true }}
               />

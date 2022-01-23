@@ -18,6 +18,12 @@ export function mainInfoInitialValues(initialValues) {
   };
 }
 
+export function FilterInitialValues() {
+  return {
+    menu: [],
+  };
+}
+
 export function menuInitialValues(initialValues) {
   return {
     menuTags: [],
@@ -39,5 +45,11 @@ export function mainInfoSchema() {
     person: BaseSchemas.textField(50),
     name: BaseSchemas.requiredText(50),
     type: BaseSchemas.requiredAutocompleteField,
+  });
+}
+
+export function FoodFiltersSchema() {
+  return object().shape({
+    menu: BaseSchemas.autocompleteField,
   });
 }
