@@ -13,7 +13,7 @@ export const payableColumns = () => {
     { id: 'status', label: 'Status' },
     { id: 'createdDate', label: 'Created date' },
     { id: 'invoiceId', label: 'Invoice ID' },
-    { id: 'dueDate', label: 'Due date' },
+    { id: 'dueDate', label: 'Due Date' },
     { id: 'paymentDate', label: 'Payment date' },
     { id: 'paymentType', label: 'Payment type' },
     { id: 'invoiceAttachment', label: 'Invoice Attachment' },

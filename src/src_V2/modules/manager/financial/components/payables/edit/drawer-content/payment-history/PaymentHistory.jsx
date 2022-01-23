@@ -39,12 +39,15 @@ const EditableTableCell = ({
   columnName,
   id,
   paymentHistory,
+  currency,
   setFieldValue,
   touched,
   errors,
-  currency,
+  handleBlur,
 }) => {
   const error = errors && Object.keys(errors).length && errors[id - 1];
+  const errorMessage = error && error[columnName] && touched[columnName];
+  const helperText = touched && touched[columnName] && error && error[columnName];
 
   const handleChange = (newValue, name) => {
     const newHistories = paymentHistory.map((history) => {
@@ -56,31 +59,35 @@ const EditableTableCell = ({
     setFieldValue('paymentHistory', JSON.parse(JSON.stringify(newHistories)));
   };
 
-  // todo almost all error handlers are the same - write wrapper
-  // console.log(error, 'ERROR');
-
   return {
     [columnTypes.text]: (
       <TextField
         size='small'
         variant='outlined'
+        className={'adornmentInput'}
         name={columnName}
         value={value}
         onChange={({ target: { value } }) => handleChange(value, columnName)}
-        error={touched[columnName] && error[columnName]}
-        helperText={touched[columnName] && error[columnName]}
+        onBlur={handleBlur}
+        error={!!errorMessage}
+        helperText={helperText}
+        InputProps={{
+          startAdornment: <InputAdornment position='start'>#</InputAdornment>,
+        }}
       />
     ),
     [columnTypes.price]: (
       <TextField
         size='small'
         variant='outlined'
+        type='number'
+        className={'adornmentInput'}
         name={columnName}
         value={value}
-        className={styles.price}
         onChange={({ target: { value } }) => handleChange(value, columnName)}
-        error={touched[columnName] && error[columnName]}
-        helperText={touched[columnName] && error[columnName]}
+        onBlur={handleBlur}
+        error={!!errorMessage}
+        helperText={helperText}
         InputProps={{
           startAdornment: <InputAdornment position='start'>{currency}</InputAdornment>,
         }}
@@ -90,6 +97,7 @@ const EditableTableCell = ({
       <Box className={commonStyles.dueDatePicker}>
         <DatePicker
           inputFormat='dd/MM/yyyy'
+          className={styles.date}
           name={columnName}
           value={value}
           onChange={(newValue) => handleChange(newValue?.toString(), columnName)}
@@ -105,6 +113,7 @@ const EditableTableCell = ({
           name={columnName}
           value={value}
           onChange={({ target: { value } }) => handleChange(value, columnName)}
+          onBlur={handleBlur}
         >
           <MenuItem value={PaymentType.Cash}>{PaymentType[1]}</MenuItem>
           <MenuItem value={PaymentType.Transfer}>{PaymentType[2]}</MenuItem>
@@ -127,10 +136,11 @@ const AddPaymentBtn = ({ addPaymentHandler }) => (
 
 export default function PaymentHistory({
   paymentHistory = [],
+  currency,
   errors,
   touched,
   setFieldValue,
-  currency,
+  handleBlur,
 }) {
   const [deletePopupOpened, setDeletePopupOpened] = useState(false);
   const [historyIndex, setHistoryIndex] = useState(null);
@@ -226,10 +236,11 @@ export default function PaymentHistory({
                       columnName: columnKey,
                       id: index + 1,
                       paymentHistory,
+                      currency,
                       setFieldValue,
                       touched,
                       errors,
-                      currency,
+                      handleBlur,
                     });
 
                     return (

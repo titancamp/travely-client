@@ -60,10 +60,11 @@ export default function RowList({ row, rowEditForm, onClose, onSave }) {
         <Box className={styles.layoutDistance}>
           <PaymentHistory
             paymentHistory={values.paymentHistory}
+            currency={row.currency}
             errors={errors.paymentHistory}
             touched={touched}
             setFieldValue={setFieldValue}
-            currency={row.currency}
+            handleBlur={handleBlur}
           />
         </Box>
 

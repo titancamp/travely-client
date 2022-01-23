@@ -25,9 +25,8 @@
   min-width: 650px;
 }
 
-.price > div {
-  display: flex;
-  align-items: baseline;
+.date > fieldset {
+  background-color: unset !important;
 }
 
 .attachmentTableCell {

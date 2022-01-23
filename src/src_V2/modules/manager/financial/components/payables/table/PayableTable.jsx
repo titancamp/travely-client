@@ -152,10 +152,10 @@ const PayableStatuses = ({ statusNum }) => {
   const statusName = PaymentStatus[statusNum];
 
   switch (statusNum) {
-    case PaymentStatus['Partially Paid']:
+    case PaymentStatus.PartiallyPaid:
       color = orange[900];
       break;
-    case PaymentStatus.Paid:
+    case PaymentStatus.FullyPaid:
       color = green[600];
       break;
     case PaymentStatus.Overdue:

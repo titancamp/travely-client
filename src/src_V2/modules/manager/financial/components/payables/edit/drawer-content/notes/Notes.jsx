@@ -50,7 +50,7 @@ export default function Notes({
           value={values.notes}
           onBlur={handleBlur}
           onChange={handleChange}
-          error={touched.notes && errors.notes}
+          error={errors.notes && touched.notes}
           helperText={touched.notes && errors.notes}
           InputProps={{
             endAdornment: (

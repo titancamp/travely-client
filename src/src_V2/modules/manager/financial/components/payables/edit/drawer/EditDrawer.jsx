@@ -23,7 +23,6 @@ export default function EditDrawer({ drawerState, clickedRow, isOpenedChangeHand
   const drawerSlideDuration = 500;
   const anchor = 'right';
   const [unsavedPopupOpened, setUnsavedPopupOpened] = useState(false);
-  const [applyPopupOpened, setApplyPopupOpened] = useState(false);
 
   const rowEditForm = useFormik({
     validationSchema: rowListSchema,
@@ -50,14 +49,6 @@ export default function EditDrawer({ drawerState, clickedRow, isOpenedChangeHand
     setUnsavedPopupOpened(false);
   };
 
-  const openApplyPopup = () => {
-    setApplyPopupOpened(true);
-  };
-
-  const closeApplyPopup = () => {
-    setApplyPopupOpened(false);
-  };
-
   const closeDrawer = () => {
     toggleDrawer(false);
     isOpenedChangeHandler(false);
@@ -65,7 +56,6 @@ export default function EditDrawer({ drawerState, clickedRow, isOpenedChangeHand
 
   const closePopupsAndDrawer = () => {
     closeUnsavedChangesPopup();
-    closeApplyPopup();
     closeDrawer();
   };
 
@@ -83,7 +73,7 @@ export default function EditDrawer({ drawerState, clickedRow, isOpenedChangeHand
 
   const handleSaveApplyClick = () => {
     if (rowEditForm.dirty) {
-      openApplyPopup();
+      handleSaveChanges();
     }
   };
 
@@ -121,15 +111,6 @@ export default function EditDrawer({ drawerState, clickedRow, isOpenedChangeHand
         cancelButton={{ txt: 'Discard' }}
         onCancel={handleDiscardUnsavedChanges}
         onClose={closeUnsavedChangesPopup}
-        onConfirm={handleSaveChanges}
-      />
-      {/*Apply data popup*/}
-      <ConfirmDialog
-        open={applyPopupOpened}
-        title='Apply'
-        message='Please note that if there are completed fields in the selected rows, the data will be replaced.'
-        confirmButton={{ focus: true, txt: 'Apply' }}
-        onClose={closeApplyPopup}
         onConfirm={handleSaveChanges}
       />
     </>

@@ -1,7 +1,6 @@
 import { number, object, array } from 'yup';
 
 import { BaseSchemas } from '../BaseSchemas';
-import { ERROR_MESSAGES } from '../../constants';
 import { PaymentType } from '../../../modules/manager/financial/constants';
 
 /**
@@ -36,16 +35,15 @@ export function paymentHistoryInitialValues(id) {
 export function paymentHistorySchema() {
   return object().shape({
     invoiceId: BaseSchemas.requiredText(64),
-    paidAmount: BaseSchemas.floatingNumber(20),
-    paymentType: number().oneOf([PaymentType[1], PaymentType[2]]),
-    // paymentDate: '',
+    paidAmount: BaseSchemas.floatingNumber(99999999999999999999.99),
+    paymentType: number().oneOf([PaymentType.Cash, PaymentType.Transfer]),
     attachment: object().shape([]).nullable(),
   });
 }
 
 export function rowListSchema() {
   return object().shape({
-    actualCost: BaseSchemas.floatingNumber().required(ERROR_MESSAGES.required),
+    actualCost: BaseSchemas.floatingRequiredNumber(999999999.99),
     paymentHistory: array().of(paymentHistorySchema()),
     notes: BaseSchemas.textField(500),
   });

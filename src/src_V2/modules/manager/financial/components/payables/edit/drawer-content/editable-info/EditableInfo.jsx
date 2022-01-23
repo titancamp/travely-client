@@ -21,11 +21,11 @@ export default function EditableInfo({
         variant='outlined'
         size='small'
         type='number'
-        className={styles.actualCostControl}
+        className={`${styles.actualCostControl} adornmentInput`}
         value={values.actualCost}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={touched.actualCost && errors.actualCost}
+        error={errors.actualCost && touched.actualCost}
         helperText={touched.actualCost && errors.actualCost}
         InputProps={{
           startAdornment: <InputAdornment position='start'>{currency}</InputAdornment>,
@@ -34,7 +34,7 @@ export default function EditableInfo({
       <Box className={`${commonStyles.dueDatePicker} ${styles.dueDatePickerInput}`}>
         <DatePicker
           name='dueDate'
-          label='Due date'
+          label='Due Date'
           inputFormat='dd/MM/yyyy'
           value={values.dueDate}
           onChange={(newValue) => setFieldValue('dueDate', newValue?.toString())}
