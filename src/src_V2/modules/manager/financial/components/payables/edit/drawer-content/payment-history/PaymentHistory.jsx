@@ -66,7 +66,6 @@ const EditableTableCell = ({
         variant='outlined'
         name={columnName}
         value={value}
-        key={id}
         onChange={({ target: { value } }) => handleChange(value, columnName)}
         error={touched[columnName] && error[columnName]}
         helperText={touched[columnName] && error[columnName]}
@@ -78,7 +77,6 @@ const EditableTableCell = ({
         variant='outlined'
         name={columnName}
         value={value}
-        key={id}
         className={styles.price}
         onChange={({ target: { value } }) => handleChange(value, columnName)}
         error={touched[columnName] && error[columnName]}
@@ -94,7 +92,6 @@ const EditableTableCell = ({
           inputFormat='dd/MM/yyyy'
           name={columnName}
           value={value}
-          key={id}
           onChange={(newValue) => handleChange(newValue?.toString(), columnName)}
           renderInput={(params) => <TextField {...params} />}
         />
@@ -199,10 +196,10 @@ export default function PaymentHistory({
           <Table className={styles.historyTable}>
             <TableHead>
               <TableRow>
-                {columnKeys.map((c) => {
+                {columnKeys.map((c, index) => {
                   const tooltipTxt = historyColumns[c].tooltip;
                   return (
-                    <TableCell align='left' key={c}>
+                    <TableCell align='left' key={`${c}_${index}`}>
                       <Box className={tooltipTxt && styles.attachmentTableCell}>
                         {historyColumns[c].label}
                         {tooltipTxt && (
@@ -219,18 +216,15 @@ export default function PaymentHistory({
               </TableRow>
             </TableHead>
             <TableBody>
-              {paymentHistory?.map((row, i) => (
-                <TableRow
-                  key={row.name}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
+              {paymentHistory?.map((row, index) => (
+                <TableRow key={`${row.name}_${index}`}>
                   {columnKeys.map((columnKey) => {
                     const column = historyColumns[columnKey];
 
                     const cell = EditableTableCell({
                       value: row[columnKey],
                       columnName: columnKey,
-                      id: i + 1,
+                      id: index + 1,
                       paymentHistory,
                       setFieldValue,
                       touched,
@@ -240,7 +234,7 @@ export default function PaymentHistory({
 
                     return (
                       <TableCell
-                        key={`${columnKey}_${row.id}_${i}`}
+                        key={`${columnKey}_${row.id}`}
                         className={styles.historyCell}
                       >
                         {cell[column.type]}
@@ -248,8 +242,8 @@ export default function PaymentHistory({
                     );
                   })}
                   {/*Delete Row*/}
-                  <TableCell>
-                    <IconButton onClick={() => handleDeleteHistory(i)}>
+                  <TableCell key={`delete_${row.id}`}>
+                    <IconButton onClick={() => handleDeleteHistory(index)}>
                       <Delete />
                     </IconButton>
                   </TableCell>
