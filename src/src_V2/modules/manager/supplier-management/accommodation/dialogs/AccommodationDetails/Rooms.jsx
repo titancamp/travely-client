@@ -2,58 +2,22 @@ import { useState } from 'react';
 import { TabPanel } from '@mui/lab';
 import { Grid } from '@mui/material';
 import { InfoCard } from '../../../components';
+import { RoomsConstants } from '../../constants';
 
 import styles from '../style.module.css';
 import DialogManager from '../Index';
 
 export default function Rooms() {
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });
-  const [rooms, setRooms] = useState([
-    {
-      beds: '6',
-      price: '8000',
-      type: {
-        id: 1,
-        label: 'Standard Single',
-      },
-      quantity: '11',
-      services: [],
-      additionalBeds: '',
-      id: 1,
-    },
-    {
-      beds: '5',
-      price: '3000',
-      type: {
-        id: 4,
-        label: 'Twin',
-      },
-      quantity: '17',
-      services: [],
-      additionalBeds: '',
-      id: 2,
-    },
-    {
-      beds: '4',
-      price: '2000',
-      type: {
-        id: 1,
-        label: 'Standard Single',
-      },
-      quantity: '22',
-      services: [],
-      additionalBeds: '',
-      id: 3,
-    },
-  ]);
+  const [rooms, setRooms] = useState(RoomsConstants);
 
   function deleteRoom(id) {
-    setRooms(rooms.filter((driver) => driver.id !== id));
+    setRooms(rooms.filter((room) => room.id !== id));
     onShowHideDialog({ open: false });
   }
 
-  function editRoom(newDriver) {
-    setRooms(rooms.map((driver) => (newDriver.id === driver.id ? newDriver : driver)));
+  function editRoom(newRoom) {
+    setRooms(rooms.map((room) => (newRoom.id === room.id ? newRoom : room)));
     onShowHideDialog({ open: false });
   }
 

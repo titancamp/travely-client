@@ -26,6 +26,7 @@ export default function FilterBlock() {
         <Grid container rowSpacing={3} spacing={2}>
           <Grid item>
             <Autocomplete
+              size='small'
               className={styles.select}
               options={TransportationTypes}
               renderInput={(params) => <TextField {...params} label='Type' />}
@@ -33,6 +34,7 @@ export default function FilterBlock() {
           </Grid>
           <Grid item>
             <Autocomplete
+              size='small'
               className={styles.select}
               options={TransportationTypes}
               renderInput={(params) => <TextField {...params} label='Car' />}
@@ -40,6 +42,7 @@ export default function FilterBlock() {
           </Grid>
           <Grid item>
             <Autocomplete
+              size='small'
               className={styles.select}
               options={Regions}
               renderInput={(params) => <TextField {...params} label='Region' />}
@@ -47,6 +50,7 @@ export default function FilterBlock() {
           </Grid>
           <Grid item>
             <Autocomplete
+              size='small'
               className={styles.select}
               options={TransportationTypes}
               renderInput={(params) => <TextField {...params} label='City' />}
@@ -55,7 +59,7 @@ export default function FilterBlock() {
         </Grid>
       </div>
       <div className={styles.rightSection}>
-        <Grid item className={styles.filterBtnsBlock}>
+        <Grid item>
           <Button variant='outlined' component='span' onClick={openAllFiltersDialog}>
             <Tune className={styles.filterBtnIcon} />
             All Filters

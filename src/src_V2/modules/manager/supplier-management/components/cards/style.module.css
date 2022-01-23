@@ -1,117 +1,116 @@
-
 .gridItem {
-    max-width: 280px !important;
-    min-width: 275px !important;
-    max-height: 218px;
+  max-width: 280px !important;
+  min-width: 275px !important;
+  max-height: 218px;
 }
 
 .card {
-    height: 100%;
-    color: rgba(0, 0, 0, 0.87);
+  height: 100%;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .addCard {
-    background-color: #eaf4fc !important;
-    min-height: 210px;
+  background-color: #eaf4fc !important;
+  min-height: 210px;
 }
 
 .disabledCard {
-    background-color: #E0E0E0 !important;
-    cursor: default;
+  background-color: #e0e0e0 !important;
+  cursor: default;
 }
 
 .addCardContent {
-    position: relative;
+  position: relative;
 }
 
 .toolTip {
-    top: 18px;
-    right: 18px;
-    position: absolute;
-    z-index: 9999999;
+  top: 18px;
+  right: 18px;
+  position: absolute;
+  z-index: 9999999;
 }
 
 .card .detailsInfo {
-    font-size: 14px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: rgba(0, 0, 0, 0.6);
+  font-size: 14px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .card .title {
-    margin: 8px 0;
-    font-size: 24px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  margin: 8px 0;
+  font-size: 24px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .addCard .title {
-    margin-top: 28px;
-    margin-bottom: 20px;
+  margin-top: 28px;
+  margin-bottom: 20px;
 }
 
 .subTitle {
-    font-size: 14px !important;
+  font-size: 14px !important;
 }
 
 .card .bottom {
-    margin-top: 12px;
+  margin-top: 12px;
 }
 
 .addButton {
-    color: #2183d1;
-    font-size: 13px !important;
-    font-weight: 500 !important;
+  color: #2183d1;
+  font-size: 13px !important;
+  font-weight: 500 !important;
 }
 
 .addButtonDisabled {
-    opacity: 0.6;
-    color: black !important;
+  opacity: 0.6;
+  color: black !important;
 }
 .svg {
-    color: #2183d1;
-    margin-top: 2px;
-    margin-left: 9px;
-    width: 15px!important;
-    height: 15px!important;
+  color: #2183d1;
+  margin-top: 2px;
+  margin-left: 9px;
+  width: 15px !important;
+  height: 15px !important;
 }
 
 .addButtonContainer {
-    display: flex;
-    margin: 24px 0 0 15px;
+  display: flex;
+  margin: 24px 0 0 15px;
 }
 
 .cardActions {
-    margin-bottom: 12px!important;
-    padding: 4px 13px!important;
+  margin-bottom: 12px !important;
+  padding: 4px 13px !important;
 }
 
 .cardContent {
-    min-height: 160px;
+  min-height: 160px;
 }
 
 .cardActions.rightAligned {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .cardDetailsBtn {
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.87) !important;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.87) !important;
 }
 
 .icon {
-    color: #757575;
+  color: #757575;
 }
 
 .card .avatarContainer {
-    position: relative;
+  position: relative;
 }
 
 .avatarContainer .avatar {
-    top: 12px !important;
-    right: 12px !important;
-    position: absolute;
+  top: 12px !important;
+  right: 12px !important;
+  position: absolute;
 }

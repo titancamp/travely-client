@@ -5,7 +5,6 @@ import {
   Box,
   Paper,
   Table,
-  Button,
   TableRow,
   TableBody,
   TableCell,
@@ -15,86 +14,12 @@ import {
   TablePagination,
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
-import { Container } from '../../../../../components';
-import { managerSidebarConfig } from '../../../config';
 import FilterBlock from './FilterBlock';
+import AccommodationActions from './Menu';
 import DialogManager from '../dialogs/Index';
+import { HeadCells, TableRows } from '../constants';
 
 import styles from './style.module.css';
-import AccommodationActions from './Menu';
-
-function createData(
-  name,
-  type,
-  region,
-  city,
-  contactNumber,
-  contactPerson,
-  email,
-  status
-) {
-  return { name, type, region, city, contactNumber, contactPerson, email, status };
-}
-
-const rows = [
-  createData(
-    'Mariot',
-    'Hotel',
-    'Kotayq',
-    'Abovyan',
-    '+374 11 11 11 11',
-    'Name Lastname',
-    'customer.care@marriott.com',
-    <Button
-      onClick={(event) => {
-        event.stopPropagation();
-      }}
-      variant='contained'
-      className={styles.btn}
-      component='span'
-    >
-      Ready
-    </Button>
-  ),
-  createData(
-    'Tufenkyan',
-    'Hotel',
-    'Kotayq',
-    'Abovyan',
-    '+374 11 11 11 11',
-    'Name Lastname',
-    'customer.care@marriott.com',
-    <Button
-      onClick={(event) => {
-        event.stopPropagation();
-      }}
-      variant='contained'
-      className={`${styles.btn} ${styles.secondaryBtn}`}
-      component='span'
-    >
-      Missed Price
-    </Button>
-  ),
-  createData(
-    'Multi rest',
-    'Hotel',
-    'Kotayq',
-    'Abovyan',
-    '+374 11 11 11 11',
-    'Name Lastname',
-    'customer.care@marriott.com',
-    <Button
-      onClick={(event) => {
-        event.stopPropagation();
-      }}
-      variant='contained'
-      className={styles.btn}
-      component='span'
-    >
-      Ready
-    </Button>
-  ),
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -124,63 +49,6 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-const headCells = [
-  {
-    id: 'name',
-    numeric: false,
-    disablePadding: true,
-    label: 'Name',
-  },
-  {
-    id: 'type',
-    numeric: true,
-    disablePadding: false,
-    label: 'Type',
-  },
-  {
-    id: 'region',
-    numeric: true,
-    disablePadding: false,
-    label: 'Region',
-  },
-  {
-    id: 'city',
-    numeric: true,
-    disablePadding: false,
-    label: 'City',
-  },
-  {
-    id: 'contactNumber',
-    numeric: true,
-    disablePadding: false,
-    label: 'Contact number',
-  },
-  {
-    id: 'contactPerson',
-    numeric: true,
-    disablePadding: false,
-    label: 'Contact Person',
-  },
-  {
-    id: 'email',
-    numeric: true,
-    disablePadding: false,
-    label: 'Email',
-  },
-  {
-    id: 'status',
-    numeric: true,
-    disablePadding: false,
-    label: 'Status',
-  },
-  {
-    id: 'actions',
-    numeric: true,
-    disablePadding: false,
-    label: '',
-  },
-];
-
 function EnhancedTableHead(props) {
   const { order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
@@ -190,7 +58,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow className={styles.tableTitles}>
-        {headCells.map((headCell) => (
+        {HeadCells.map((headCell) => (
           <TableCell
             key={headCell.id}
             align={'left'}
@@ -253,7 +121,8 @@ export default function AccommodationList() {
     setPage(0);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - TableRows.length) : 0;
 
   function openAccommodationDetailsDialog() {
     onShowHideDialog({
@@ -264,7 +133,7 @@ export default function AccommodationList() {
   }
 
   return (
-    <Container managerSidebarConfig={managerSidebarConfig}>
+    <>
       <FilterBlock />
       <Box className={styles.table}>
         <Paper sx={{ width: '100%', mb: 2 }}>
@@ -274,10 +143,10 @@ export default function AccommodationList() {
                 order={order}
                 orderBy={orderBy}
                 onRequestSort={handleRequestSort}
-                rowCount={rows.length}
+                rowCount={TableRows.length}
               />
               <TableBody>
-                {stableSort(rows, getComparator(order, orderBy))
+                {stableSort(TableRows, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
                     const labelId = `enhanced-table-${index}`;
@@ -328,7 +197,7 @@ export default function AccommodationList() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component='div'
-            count={rows.length}
+            count={TableRows.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
@@ -337,6 +206,6 @@ export default function AccommodationList() {
         </Paper>
       </Box>
       <DialogManager data={dialogManagerState} onShowHideDialog={onShowHideDialog} />
-    </Container>
+    </>
   );
 }

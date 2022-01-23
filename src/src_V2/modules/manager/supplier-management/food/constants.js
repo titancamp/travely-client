@@ -21,3 +21,106 @@ export const Menus = [
   { id: 5, label: 'Mexican' },
   { id: 6, label: 'Healthy breakfast' },
 ];
+
+function createData(
+  name,
+  type,
+  region,
+  city,
+  contactNumber,
+  menu,
+  pricePerPerson,
+  status
+) {
+  return { name, type, region, city, contactNumber, menu, pricePerPerson, status };
+}
+
+export const TableRows = [
+  createData(
+    'Tsirani',
+    'Restaurant',
+    'Kotayq',
+    'Abovyan',
+    '+374 11 11 11 11',
+    ['Vegan, Spicy', 'Italian', 'Mexican'],
+    '~ 10 000 AMD',
+    'Ready'
+  ),
+  createData(
+    'Tsirani',
+    'Restaurant',
+    'Kotayq',
+    'Abovyan',
+    '+374 11 11 11 11',
+    ['Vegan, Spicy', 'Italian', 'Mexican'],
+    '~ 10 000 AMD',
+    'Ready'
+  ),
+  createData(
+    'Tsirani',
+    'Restaurant',
+    'Kotayq',
+    'Abovyan',
+    '+374 11 11 11 11',
+    ['Vegan, Spicy', 'Italian', 'Mexican'],
+    '~ 10 000 AMD',
+    'Ready'
+  ),
+];
+
+export const HeadCells = [
+  {
+    id: 'name',
+    numeric: false,
+    disablePadding: true,
+    label: 'Name',
+  },
+  {
+    id: 'type',
+    numeric: true,
+    disablePadding: false,
+    label: 'Type',
+  },
+  {
+    id: 'region',
+    numeric: true,
+    disablePadding: false,
+    label: 'Region',
+  },
+  {
+    id: 'city',
+    numeric: true,
+    disablePadding: false,
+    label: 'City',
+  },
+  {
+    id: 'contactNumber',
+    numeric: true,
+    disablePadding: false,
+    label: 'Contact number',
+  },
+  {
+    id: 'menu',
+    numeric: true,
+    disablePadding: false,
+    label: 'Menu',
+  },
+  {
+    id: 'pricePerPerson',
+    numeric: true,
+    disablePadding: false,
+    label: 'Price per person',
+  },
+  {
+    id: 'status',
+    numeric: true,
+    disablePadding: false,
+    label: 'Status',
+  },
+  {
+    id: 'actions',
+    numeric: true,
+    disablePadding: false,
+    label: '',
+  },
+];

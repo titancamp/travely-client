@@ -37,6 +37,7 @@ export default function FilterBlock() {
         <Grid container rowSpacing={3} spacing={2}>
           <Grid item>
             <Autocomplete
+              size='small'
               className={styles.select}
               options={TransportationTypes}
               renderInput={(params) => <TextField {...params} label='Type' />}
@@ -44,6 +45,7 @@ export default function FilterBlock() {
           </Grid>
           <Grid item>
             <Autocomplete
+              size='small'
               className={styles.select}
               options={Regions}
               renderInput={(params) => <TextField {...params} label='Region' />}
@@ -51,26 +53,25 @@ export default function FilterBlock() {
           </Grid>
           <Grid item>
             <Autocomplete
+              size='small'
               className={styles.select}
               options={Regions}
               renderInput={(params) => <TextField {...params} label='City' />}
             />
           </Grid>
           <Grid item>
-            <FormControl className={styles.priceInp}>
-              <InputLabel htmlFor='outlined-adornment-amount'>Price from</InputLabel>
+            <FormControl size='small' className={styles.priceInp}>
+              <InputLabel>Price from</InputLabel>
               <OutlinedInput
-                id='outlined-adornment-amount'
                 startAdornment={<InputAdornment position='start'>$</InputAdornment>}
                 label='Price from'
               />
             </FormControl>
           </Grid>
           <Grid item>
-            <FormControl className={styles.priceInp}>
-              <InputLabel htmlFor='outlined-adornment-amount'>Price to</InputLabel>
+            <FormControl size='small' className={styles.priceInp}>
+              <InputLabel>Price to</InputLabel>
               <OutlinedInput
-                id='outlined-adornment-amount'
                 startAdornment={<InputAdornment position='start'>$</InputAdornment>}
                 label='Price to'
               />
@@ -79,7 +80,7 @@ export default function FilterBlock() {
         </Grid>
       </div>
       <div className={styles.rightSection}>
-        <Grid item className={styles.filterBtnsBlock}>
+        <Grid item>
           <Button variant='outlined' component='span' onClick={openAllFiltersDialog}>
             <Tune className={styles.filterBtnIcon} />
             All Filters

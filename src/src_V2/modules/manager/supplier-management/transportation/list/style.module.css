@@ -64,10 +64,6 @@
   text-decoration: none;
 }
 
-.filterBtnsBlock > span {
-  padding: 10px 15px;
-}
-
 tr > th:first-child,
 tr > td:first-child {
   padding-left: 15px;

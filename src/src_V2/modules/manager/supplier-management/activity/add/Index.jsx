@@ -3,11 +3,9 @@ import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import MainInfo from './MainInfo';
-import { Container } from '../../../../../components';
 import { Banner, Partnership } from '../../components';
 
 import styles from './style.module.css';
-import { managerSidebarConfig } from '../../../config';
 
 function ActivitySteps({ currentTab: { step }, activity }) {
   switch (step) {
@@ -39,7 +37,7 @@ export default function AddActivity() {
   }
 
   return (
-    <Container managerSidebarConfig={managerSidebarConfig}>
+    <>
       <Banner
         onSubmit={onSubmit}
         currentTab={currentTab}
@@ -50,6 +48,6 @@ export default function AddActivity() {
       <Box className={styles.container}>
         <ActivitySteps currentTab={currentTab} activity={activity} />
       </Box>
-    </Container>
+    </>
   );
 }

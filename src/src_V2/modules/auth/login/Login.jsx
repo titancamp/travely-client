@@ -61,7 +61,7 @@ export default function Login() {
           LOGIN
         </Button>
         <Typography>
-          {"Don't have an account? "}
+          {'Don\'t have an account? '}
           <Link component={RouterLink} to={`/${ROUTES.REGISTER_AGENCY}`}>
             Sign Up
           </Link>

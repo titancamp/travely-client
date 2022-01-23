@@ -14,8 +14,6 @@ import {
   TablePagination,
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
-import { Container } from '../../../../../components';
-import { managerSidebarConfig } from '../../../config';
 import FilterBlock from './FilterBlock';
 import DialogManager from '../dialogs/Index';
 
@@ -209,7 +207,7 @@ export default function TransportationList() {
   }
 
   return (
-    <Container managerSidebarConfig={managerSidebarConfig}>
+    <>
       <FilterBlock />
       <Box className={styles.table}>
         <Paper sx={{ width: '100%', mb: 2 }}>
@@ -280,6 +278,6 @@ export default function TransportationList() {
         </Paper>
       </Box>
       <DialogManager data={dialogManagerState} onShowHideDialog={onShowHideDialog} />
-    </Container>
+    </>
   );
 }

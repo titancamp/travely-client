@@ -2,13 +2,11 @@ import { Box } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Container } from '../../../../../components';
+import Menu from './Menu';
+import MainInfo from './MainInfo';
 import { Banner, Contact, Partnership } from '../../components';
 
 import styles from './style.module.css';
-import { managerSidebarConfig } from '../../../config';
-import MainInfo from './MainInfo';
-import Menu from './Menu';
 
 function TransportationSteps({ currentTab: { step, isValidate }, food }) {
   switch (step) {
@@ -48,7 +46,7 @@ export default function AddFood() {
   }
 
   return (
-    <Container managerSidebarConfig={managerSidebarConfig}>
+    <>
       <Banner
         onSubmit={onSubmit}
         currentTab={currentTab}
@@ -59,6 +57,6 @@ export default function AddFood() {
       <Box className={styles.container}>
         <TransportationSteps currentTab={currentTab} food={food} />
       </Box>
-    </Container>
+    </>
   );
 }

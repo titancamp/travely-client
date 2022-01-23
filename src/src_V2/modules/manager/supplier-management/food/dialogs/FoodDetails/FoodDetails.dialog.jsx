@@ -1,65 +1,15 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import { styled } from '@mui/material/styles';
 import { TabList, TabContext } from '@mui/lab';
-import { Edit, Delete, Close } from '@mui/icons-material';
-import { Box, Tab, Dialog, IconButton, DialogTitle, DialogContent } from '@mui/material';
-import Partnership from './Partnership';
-import MainInfo from './MainInfo';
+import { Box, Tab, DialogContent } from '@mui/material';
 import Menu from './Menu';
+import MainInfo from './MainInfo';
+import Partnership from '../../../components/dialogs/Partnership';
+import {
+  BootstrapDialog,
+  BootstrapDialogTitle,
+} from '../../../components/bootstrapDialogTitle/BootstrapDialogTitle';
 
 import styles from '../style.module.css';
-
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialog-paper': {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    margin: 'inherit',
-    maxWidth: 900,
-    width: 900,
-    height: 1180,
-  },
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
-  },
-  '& .MuiDialogActions-root': {
-    padding: theme.spacing(1),
-  },
-}));
-
-const BootstrapDialogTitle = (props) => {
-  const { children, onClose, ...other } = props;
-
-  return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
-      {children}
-      {onClose ? (
-        <div>
-          <Edit className={styles.headerActions} />
-          <Delete className={`${styles.headerDeleteBtn} ${styles.headerActions}`} />
-          <IconButton
-            aria-label='close'
-            onClick={onClose}
-            sx={{
-              position: 'absolute',
-              right: 8,
-              top: 8,
-              color: (theme) => theme.palette.grey[500],
-            }}
-          >
-            <Close />
-          </IconButton>
-        </div>
-      ) : null}
-    </DialogTitle>
-  );
-};
-
-BootstrapDialogTitle.propTypes = {
-  children: PropTypes.node,
-  onClose: PropTypes.func.isRequired,
-};
 
 export default function FoodDetailsDialog({ onClose, data: { open } }) {
   const [value, setValue] = React.useState('1');
@@ -69,13 +19,8 @@ export default function FoodDetailsDialog({ onClose, data: { open } }) {
   };
 
   return (
-    <BootstrapDialog
-      onClose={onClose}
-      aria-labelledby='customized-dialog-title'
-      open={open}
-    >
+    <BootstrapDialog onClose={onClose} open={open}>
       <BootstrapDialogTitle
-        id='customized-dialog-title'
         onClose={onClose}
         className={`${styles.container} ${styles.header}`}
       >
@@ -96,7 +41,7 @@ export default function FoodDetailsDialog({ onClose, data: { open } }) {
             </Box>
             <MainInfo />
             <Menu />
-            <Partnership />
+            <Partnership tabNumber='3' />
           </TabContext>
         </Box>
       </DialogContent>
