@@ -1,10 +1,11 @@
 import { Dialog } from '@mui/material';
-
 import ViewGuideDialog from './ViewGuide.dialog';
 // import ViewDriverDialog from './ViewDriver.dialog';
+import AllFiltersDialog from './AllFilters.dialog';
 import AddEditGuideDialog from './AddEditGuide.dialog';
 import Map from '../../components/dialogs/Map.dialog';
 import DeleteDialog from '../../components/dialogs/Delete.dialog';
+import GuideDetailsDialog from './GuideDetails/GuideDetails.dialog';
 
 function CurrentDialog({ data, onClose }) {
   switch (data.mode) {
@@ -27,6 +28,10 @@ function CurrentDialog({ data, onClose }) {
       return (
         <DeleteDialog onClose={onClose} id={data.state.id} deleteAction={data.actions} />
       );
+    case 'guideFilters':
+      return <AllFiltersDialog data={data} onClose={onClose} />;
+    case 'guideDetails':
+      return <GuideDetailsDialog data={data} onClose={onClose} />;
     default:
       return null;
   }

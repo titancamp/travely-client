@@ -19,7 +19,7 @@ export default function Menu() {
         </Button>
       ))}
       <Typography className={styles.roomTitle}>MENU / ATTACHMENTS</Typography>
-      {['Special Menu 2021.pdf', 'Drinks.pdf'].map((attachment) => (
+      {['Special Guides 2021.pdf', 'Drinks.pdf'].map((attachment) => (
         <Button
           variant='contained'
           key={attachment}

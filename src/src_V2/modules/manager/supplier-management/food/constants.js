@@ -1,3 +1,16 @@
+function createData(
+  name,
+  type,
+  region,
+  city,
+  contactNumber,
+  menu,
+  pricePerPerson,
+  status
+) {
+  return { name, type, region, city, contactNumber, menu, pricePerPerson, status };
+}
+
 export const TransportationTypes = [
   { id: 1, label: 'Agency' },
   { id: 2, label: 'Contractor' },
@@ -21,19 +34,6 @@ export const Menus = [
   { id: 5, label: 'Mexican' },
   { id: 6, label: 'Healthy breakfast' },
 ];
-
-function createData(
-  name,
-  type,
-  region,
-  city,
-  contactNumber,
-  menu,
-  pricePerPerson,
-  status
-) {
-  return { name, type, region, city, contactNumber, menu, pricePerPerson, status };
-}
 
 export const TableRows = [
   createData(

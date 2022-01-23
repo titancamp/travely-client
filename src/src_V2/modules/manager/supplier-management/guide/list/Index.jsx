@@ -90,7 +90,7 @@ EnhancedTableHead.propTypes = {
   orderBy: PropTypes.string.isRequired,
 };
 
-export default function TransportationList() {
+export default function GuideList() {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [page, setPage] = React.useState(0);
@@ -127,7 +127,7 @@ export default function TransportationList() {
   function openAccommodationDetailsDialog() {
     onShowHideDialog({
       open: true,
-      mode: 'transportationDetails',
+      mode: 'guideDetails',
       actions: {},
     });
   }
@@ -162,11 +162,15 @@ export default function TransportationList() {
                         <TableCell component='th' id={labelId} scope='row' padding='none'>
                           {row.name}
                         </TableCell>
-                        <TableCell align='left'>{row.car}</TableCell>
                         <TableCell align='left'>{row.type}</TableCell>
+                        <TableCell align='left'>{row.region}</TableCell>
                         <TableCell align='left'>{row.city}</TableCell>
                         <TableCell align='left'>{row.contactNumber}</TableCell>
-                        <TableCell align='left'>{row.contactPerson}</TableCell>
+                        <TableCell align='left'>
+                          {row.languages.map((el) => `${el}, `)}
+                        </TableCell>
+                        <TableCell align='left'>{row.price}</TableCell>
+                        <TableCell align='left'>{row.status}</TableCell>
                         <TableCell
                           align='right'
                           onClick={(event) => {

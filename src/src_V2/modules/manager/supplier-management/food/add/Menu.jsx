@@ -7,7 +7,7 @@ import { Languages } from '../../transportation/constants';
 import { menuInitialValues } from '../../../../../utils/schemas/tourManagment/food';
 import AddAttachment from '../../components/add-attachment/AddAttachment';
 
-export default function Menu({ parentRef }) {
+export default function Guides({ parentRef }) {
   const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
   const addMainInfoToParent = () => (parentRef.mainInfo = { values, touched });
   const initializeTouchState = () => setTouched({ ...parentRef.mainInfo.touched });
@@ -34,7 +34,7 @@ export default function Menu({ parentRef }) {
                 <TextField
                   {...params}
                   name='menuTags'
-                  label='Menu Tags'
+                  label='Guides Tags'
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.menuTags}

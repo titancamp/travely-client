@@ -23,14 +23,16 @@ export default function ViewRoomDialog({ data: { state: room, actions } }) {
     <Box className={styles.cardViewContainer}>
       <DialogTitle className={styles.viewDialogTitle}>
         <Typography className={styles.dialogTitle}>Guide / Details</Typography>
-        <Box className={`${styles.cardActions} ${styles.rightAligned}`}>
-          <IconButton onClick={openEditDialog}>
-            <Edit />
-          </IconButton>
-          <IconButton onClick={openDeleteDialog}>
-            <Delete />
-          </IconButton>
-        </Box>
+        {actions && (
+          <Box className={`${styles.cardActions} ${styles.rightAligned}`}>
+            <IconButton onClick={openEditDialog}>
+              <Edit />
+            </IconButton>
+            <IconButton onClick={openDeleteDialog}>
+              <Delete />
+            </IconButton>
+          </Box>
+        )}
       </DialogTitle>
       <DialogContent>
         <Grid container>
