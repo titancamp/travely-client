@@ -1,0 +1,240 @@
+.tableContainer {
+  overflow-y: auto;
+  background-color: var(--midGrey) !important;
+}
+
+.tableHead,
+.tableRow {
+  height: 56px !important;
+  width: 100%;
+  background-color: var(--white);
+}
+
+.tableHead {
+  background-color: var(--midGrey) !important;
+  position: sticky !important;
+  top: 0;
+  z-index: 1;
+  width: calc(100% - 1em);
+}
+
+.tableBody {
+  font-weight: 400;
+}
+.tableCell {
+  min-width: 140px !important;
+  color: rgba(0, 0, 0, 0.87);
+  letter-spacing: 0.15px;
+  font-size: 14px;
+}
+
+.groupRow {
+  background-color: var(--primary);
+  position: sticky;
+  top: 0;
+}
+
+.groupRow th {
+  color: #fff !important;
+}
+
+.noDataBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.noData {
+  margin: 12px;
+}
+
+.groupTotal {
+  color: #1976d2;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.15px;
+}
+
+.totalCost {
+  color: #1976d2 !important;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  font-size: 14px;
+}
+
+.mainText {
+  font-size: 24px;
+}
+
+.mainBox {
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 3px 1px -2px var(--midDarkGrey), 0 2px 2px var(--midAvgGrey),
+    0 1px 5px var(--midLightGrey);
+}
+
+.textDiv {
+  margin-left: 25px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.contentData {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.contentFooter {
+  position: sticky;
+  bottom: 0;
+  background-color: var(--midAvgGrey);
+  padding: 15px;
+  z-index: 1;
+  box-shadow: 0px 0px 10px -5px #000;
+  color: #000;
+}
+
+.contentFooter div {
+  font-weight: 500;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.flex {
+  display: flex;
+  /* flex: 1 1 100%; */
+  justify-content: space-between;
+}
+.flex6 {
+  flex-basis: 60%;
+}
+.flex5 {
+  flex-basis: 50%;
+}
+.flex4 {
+  flex-basis: 40%;
+}
+.bold {
+  font-weight: bold;
+}
+
+.contentSummary {
+  flex-basis: 30%;
+  margin-left: 20px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px -5px black;
+  border-radius: 0px;
+}
+
+.wrapper {
+  margin: 20px;
+}
+
+.alert {
+  margin-bottom: 16px;
+}
+
+.summaryHeader {
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: normal;
+}
+
+/* Accordions */
+
+.accordion {
+  border-radius: 10px !important;
+  overflow: hidden;
+  margin: 0 0 10px 0 !important;
+}
+
+.accordionBox {
+  min-height: 50px !important;
+}
+
+.accordionBox div {
+  display: flex;
+  justify-content: space-between !important;
+  margin: 0 !important;
+  align-items: center;
+}
+
+.accordionBox .name {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+}
+
+.accordionSummary {
+  min-height: 50px !important;
+  background-color: var(--midGrey) !important;
+  border-bottom: 1px solid var(--midLightGrey) !important;
+}
+
+.accordionSummary:hover {
+  background-color: var(--midLightGrey) !important;
+}
+
+.accordionSummary div {
+  align-items: center;
+  margin: 0 !important;
+}
+
+.accordionSummaryDetails {
+  background-color: var(--white) !important;
+  padding: 8px 16px 16px;
+}
+
+.accordionDetails {
+  padding: 0 !important;
+}
+
+.accordionDetailItems,
+.flexInputs {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.accordionDetailTxt {
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.15px;
+}
+
+.totalPrice {
+  font-size: 16px;
+  margin: 20px 0;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.15px;
+}
+
+.accordionSummary .detailsTxt {
+  font-size: 15px !important;
+  font-weight: 500;
+  color: var(--darkGrey);
+  letter-spacing: 0.46px;
+  text-transform: uppercase;
+}
+
+.detailsCount {
+  color: var(--secondary);
+}
+
+.green {
+  color: var(--success);
+}
+
+.flexInputs > div {
+  margin: 5px;
+  flex: 1 1 50%;
+}

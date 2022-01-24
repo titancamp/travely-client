@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { useEffect } from 'react';
 import { useFormik } from 'formik';
-import { Person, LocalPhone, Email } from '@mui/icons-material';
+import { Person, Email } from '@mui/icons-material';
 
 import { EndAdornment } from '../endAdornment';
 import {
@@ -66,8 +66,8 @@ export default function Contact({ parentRef }) {
                 value={values.phone}
                 label='Contact Phone'
                 onChange={handleChange}
+                startAdornment={<>+374&nbsp;</>}
                 error={errors.phone && touched.phone}
-                endAdornment={<EndAdornment icon={<LocalPhone />} />}
               />
               {errors.phone && touched.phone && (
                 <FormHelperText error>{errors.phone}</FormHelperText>

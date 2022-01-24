@@ -22,7 +22,7 @@ export default function ViewRoomDialog({ data: { state: room, actions } }) {
   }
 
   return (
-    <Box className={styles.cardViewContainer}>
+    <Box>
       <DialogTitle className={styles.viewDialogTitle}>
         <Typography className={styles.dialogTitle}>
           {room.type.label} / Details

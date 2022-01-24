@@ -1,10 +1,16 @@
-import { Box, Grid, TextField, Autocomplete } from '@mui/material';
 import { useEffect } from 'react';
 import { useFormik } from 'formik';
+import { Box, Grid, TextField, InputAdornment } from '@mui/material';
+
+import {
+  mainInfoSchema,
+  mainInfoInitialValues,
+} from '../../../../../utils/schemas/tourManagment/activity';
 
 import styles from './style.module.css';
+import TagsInput from '../../components/tag/Tag';
 
-export default function MainInfo({ parentRef }) {
+export default function MainInfo({ parentRef, isValidate }) {
   const {
     values,
     errors,
@@ -12,20 +18,26 @@ export default function MainInfo({ parentRef }) {
     isValid,
     handleBlur,
     setTouched,
+    submitForm,
     handleChange,
+    setFieldError,
     setFieldValue,
-  } = useFormik({ initialValues: {} });
+  } = useFormik({
+    validationSchema: mainInfoSchema,
+    initialValues: mainInfoInitialValues(parentRef.mainInfo.values),
+  });
 
+  const validateForm = () => isValidate && submitForm();
   const initializeTouchState = () => setTouched({ ...parentRef.mainInfo.touched });
-  const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
   const addMainInfoToParent = () => (parentRef.mainInfo = { values, isValid, touched });
 
   useEffect(initializeTouchState, []);
+  useEffect(validateForm, [isValidate]);
   useEffect(addMainInfoToParent, [values, isValid, touched]);
 
   return (
     <Box className={styles.mainInfo}>
-      <form>
+      <form autoComplete='off'>
         <Box className={styles.mnRow}>
           <label className={styles.label}>Details</label>
           <Grid container rowSpacing={3} spacing={2} mb={3}>
@@ -45,47 +57,64 @@ export default function MainInfo({ parentRef }) {
             <Grid item xs={12}>
               <TextField
                 fullWidth
+                multiline
+                maxRows={4}
                 name='description'
                 label='Description'
                 placeholder='Description'
-                value={values.name}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                error={errors.name && touched.name}
-                helperText={touched.name && errors.name}
+                value={values.description}
+                error={errors.description && touched.description}
+                helperText={touched.description && errors.description}
               />
             </Grid>
             <Grid item xs={12}>
-              <Autocomplete
-                multiple
-                options={[]}
-                value={values.attributes}
-                onChange={autoCompleteChangeHandler('attributes')}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    name='attributes'
-                    label='Attributes'
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.menuTags}
-                    error={errors.menuTags && touched.menuTags}
-                    helperText={touched.menuTags && errors.menuTags}
-                  />
-                )}
+              <TagsInput
+                fullWidth
+                name='attributes'
+                label='Attributes'
+                variant='outlined'
+                placeholder='Add attribute'
+                tags={values.attributes}
+                error={errors.attributes}
+                setFieldValue={setFieldValue}
+                setFieldError={setFieldError}
               />
             </Grid>
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                name='name'
+                name='duration'
                 label='Duration'
                 placeholder='Duration'
-                value={values.name}
                 onBlur={handleBlur}
+                value={values.duration}
                 onChange={handleChange}
-                error={errors.name && touched.name}
-                helperText={touched.name && errors.name}
+                error={errors.duration && touched.duration}
+                helperText={touched.duration && errors.duration}
+              />
+            </Grid>
+          </Grid>
+        </Box>
+        <Box className={styles.mnRow}>
+          <label className={styles.label}>Details</label>
+          <Grid container mb={3}>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                name='price'
+                type='number'
+                variant='outlined'
+                onBlur={handleBlur}
+                value={values.price}
+                error={!!errors.price}
+                onChange={handleChange}
+                label='Price Per Persons'
+                helperText={errors.price}
+                InputProps={{
+                  startAdornment: <InputAdornment position='start'>AMD ~</InputAdornment>,
+                }}
               />
             </Grid>
           </Grid>
@@ -95,15 +124,15 @@ export default function MainInfo({ parentRef }) {
           <Grid container spacing={4}>
             <Grid item xs={12}>
               <TextField
-                rows={4}
                 fullWidth
                 multiline
+                rows={4}
                 name='notes'
                 label='Notes'
                 onBlur={handleBlur}
                 value={values.notes}
-                onChange={handleChange}
                 error={!!errors.notes}
+                onChange={handleChange}
                 helperText={errors.notes}
                 FormHelperTextProps={{ className: styles.helper }}
               />

@@ -7,10 +7,10 @@ import { Banner, Partnership } from '../../components';
 
 import styles from './style.module.css';
 
-function ActivitySteps({ currentTab: { step }, activity }) {
+function ActivitySteps({ currentTab: { step, isValidate }, activity }) {
   switch (step) {
     case 1:
-      return <MainInfo parentRef={activity} />;
+      return <MainInfo isValidate={isValidate} parentRef={activity} />;
     case 2:
       return <Partnership parentRef={activity} />;
     default:
@@ -29,7 +29,7 @@ export default function AddActivity() {
   function onSubmit() {
     if (!activity.mainInfo.isValid) {
       return setCurrentTab({ step: 1, isValidate: true });
-    } else if (!activity.contact.isValid) {
+    } else if (!activity.partnership.isValid) {
       return setCurrentTab({ step: 2 });
     } else {
       navigate('../list');
