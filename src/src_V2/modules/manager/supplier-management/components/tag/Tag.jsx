@@ -1,7 +1,6 @@
 import React from 'react';
 import Downshift from 'downshift';
 import { Chip, TextField, Box } from '@mui/material';
-import styles from './Tag.style.css';
 
 const errorMessage = 'You can add up to 10 tags. Each tag cannot exceed 30 characters.';
 const defaultMessage =
@@ -24,12 +23,16 @@ export default function TagsInput({
       if (event.target.value.length > 30 || tags.length === 10) {
         return setFieldError(name, errorMessage);
       }
-      const duplicatedValues = tags.indexOf(event.target.value.trim());
 
-      if (duplicatedValues !== -1) {
-        setFieldError('');
-        return setInputValue('');
-      }
+      //TODO removable
+
+      // const duplicatedValues = tags.indexOf(event.target.value.trim());
+
+      // if (duplicatedValues !== -1) {
+      // setFieldError('');
+      // return setInputValue('');
+      // }
+
       if (!event.target.value.replace(/\s/g, '').length) return;
       setInputValue('');
       setFieldValue(name, [...tags, event.target.value.trim()]);
@@ -60,13 +63,13 @@ export default function TagsInput({
               inputProps={{ sx: { minWidth: 100, width: 0 } }}
               InputProps={{
                 startAdornment: (
-                  <Box className={styles.chipContainer}>
+                  <Box sx={{ padding: 0.5 }}>
                     {tags.map((item) => (
                       <Chip
                         key={item}
                         label={item}
                         tabIndex={-1}
-                        className={styles.chip}
+                        sx={{ margin: 0.5 }}
                         onDelete={handleDelete(item)}
                       />
                     ))}
