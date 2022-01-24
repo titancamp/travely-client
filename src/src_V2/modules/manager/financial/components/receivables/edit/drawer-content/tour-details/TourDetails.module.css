@@ -1,0 +1,16 @@
+.accordionDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.accordionDetailItems {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.accordionDetailTxt {
+  font-weight: 600;
+  text-transform: uppercase;
+}

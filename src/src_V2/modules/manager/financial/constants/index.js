@@ -5,3 +5,8 @@ export {
   paymentHistoryColumns,
   paymentHistoryColumnTypes,
 } from './payable-table';
+export {
+  receivableColumns,
+  receivablePaymentHistoryColumns,
+  receivablePaymentHistoryColumnTypes,
+} from './receivable-table';
