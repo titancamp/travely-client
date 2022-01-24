@@ -1,5 +1,6 @@
 import { object } from 'yup';
 import { BaseSchemas } from '../BaseSchemas';
+import { ERROR_MESSAGES } from '../../constants';
 
 /**
  * Initial values for transportation.
@@ -11,9 +12,14 @@ export function mainInfoInitialValues(initialValues) {
     notes: '',
     type: null,
     address: '',
-    checkIn: '',
-    checkOut: '',
     region: null,
+    weekends: false,
+    attachments: [],
+    workingDays: false,
+    checkInWeekend: '',
+    checkOutWeekend: '',
+    checkInWorkingDay: '',
+    checkOutWorkingDay: '',
     ...initialValues,
   };
 }
@@ -21,23 +27,25 @@ export function mainInfoInitialValues(initialValues) {
 export function menuInitialValues(initialValues) {
   return {
     menuTags: [],
+    attachments: [],
     ...initialValues,
   };
 }
 
 /**
- * Yup schemas for accommodation.
+ * Yup schemas for food.
  */
 export function mainInfoSchema() {
   return object().shape({
-    phone: BaseSchemas.phone,
-    email: BaseSchemas.email,
-    city: BaseSchemas.textField(),
-    address: BaseSchemas.textField(),
     region: BaseSchemas.autocompleteField,
     notes: BaseSchemas.textField(500),
-    person: BaseSchemas.textField(50),
-    name: BaseSchemas.requiredText(50),
     type: BaseSchemas.requiredAutocompleteField,
+    price: BaseSchemas.floatingNumber(
+      99999999.99,
+      ERROR_MESSAGES.rightFormat(', e.g. 99,999,999.99')
+    ),
+    city: BaseSchemas.textField(50, ERROR_MESSAGES.letters(50)),
+    address: BaseSchemas.textField(150, ERROR_MESSAGES.maxWithSpaces(150)),
+    name: BaseSchemas.requiredText(50, ERROR_MESSAGES.lettersAndNumbers(50)), //
   });
 }

@@ -1,12 +1,12 @@
 import { NoData } from '../components';
-import image from '../../../../assets/images/accommodation.png';
+import image from '../../../../assets/accommodation.svg';
 
 export default function AccommodationLandingPage() {
   return (
     <NoData
       image={image}
       pageName='Accommodation'
-      helperText='Here will be helper text, for case when there is not data yet'
+      helperText='Create and view all your most used accommodations here. You can add saved accommodations to your tour packages.'
     />
   );
 }

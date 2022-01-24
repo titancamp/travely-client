@@ -1,6 +1,7 @@
 import {
   Box,
   Grid,
+  Chip,
   Typography,
   IconButton,
   DialogTitle,
@@ -10,20 +11,20 @@ import { Edit, Delete } from '@mui/icons-material';
 
 import styles from './style.module.css';
 
-export default function ViewRoomDialog({ data: { state: room, actions } }) {
+export default function ViewRoomDialog({ data: { state: guide, actions } }) {
   function openDeleteDialog() {
-    actions.openDeleteCardDialog(room.id);
+    actions.openDeleteCardDialog(guide.id);
   }
 
   function openEditDialog() {
-    actions.openEditCardDialog(room.id);
+    actions.openEditCardDialog(guide.id);
   }
 
   return (
-    <Box className={styles.cardViewContainer}>
+    <Box>
       <DialogTitle className={styles.viewDialogTitle}>
         <Typography className={styles.dialogTitle}>Guide / Details</Typography>
-        <Box className={`${styles.cardActions} ${styles.rightAligned}`}>
+        <Box className={styles.cardActions}>
           <IconButton onClick={openEditDialog}>
             <Edit />
           </IconButton>
@@ -33,36 +34,53 @@ export default function ViewRoomDialog({ data: { state: room, actions } }) {
         </Box>
       </DialogTitle>
       <DialogContent>
-        <Grid container>
-          <Grid container item xs={8} spacing={2} mb={3}>
-            <Grid item xs={5}>
-              <Typography>Type</Typography>
-              <Typography className={styles.roomLabel}>room.type.label</Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography>Quantity</Typography>
-              <Typography className={styles.roomLabel}>{room.quantity}</Typography>
+        <Grid container spacing={2}>
+          <Grid item>
+            {guide.image ? (
+              <Box
+                component='img'
+                alt='Guide profile picture.'
+                src={guide.image.previewImage}
+                className={styles.previewImage}
+              />
+            ) : (
+              <Box className={styles.uploadImageContainer} />
+            )}
+          </Grid>
+          <Grid item container xs={6} spacing={3}>
+            <Grid item xs={8}>
+              <Typography>Name</Typography>
+              <Typography className={styles.name}>{guide.name}</Typography>
             </Grid>
             <Grid item xs={4}>
-              <Typography>Price</Typography>
-              <Typography className={styles.roomLabel}>
-                {room.price} {room.price && 'AMD'}
-              </Typography>
+              <Typography>Year of experience</Typography>
+              <Typography>{guide.experience}</Typography>
             </Grid>
-          </Grid>
-          <Grid container item xs={8} spacing={2} mb={3}>
-            <Grid item xs={5}>
-              <Typography>Number of beds</Typography>
-              <Typography className={styles.roomLabel}>{room.beds}</Typography>
+            <Grid item xs={12}>
+              <Typography>Email</Typography>
+              <Typography>{guide.email}</Typography>
             </Grid>
-            <Grid item xs={5}>
-              <Typography>additional beds</Typography>
-              <Typography className={styles.roomLabel}>{room.additionalBeds}</Typography>
+            <Grid item xs={8}>
+              <Typography>Phone</Typography>
+              <Typography>+374 {guide.phone}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography>Sex</Typography>
+              <Typography>{guide.sex}</Typography>
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <Typography>Services</Typography>
-            <Typography className={styles.roomLabel}>ssdfsdf</Typography>
+            <Typography>Languages</Typography>
+            {guide.languages.map((item) => (
+              <Chip label={item.label} key={item.id} />
+            ))}
+          </Grid>
+          <Grid item xs={12}>
+            <Typography>Skills</Typography>
+
+            {guide.skills.map((item) => (
+              <Chip label={item} key={item} />
+            ))}
           </Grid>
         </Grid>
       </DialogContent>

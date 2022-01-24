@@ -1,20 +1,19 @@
 import { useEffect } from 'react';
 import { useFormik } from 'formik';
-import { Box, Grid, Autocomplete, TextField } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 
-import styles from './style.module.css';
-import { Languages } from '../../transportation/constants';
+import TagsInput from '../../components/tag/Tag';
 import { menuInitialValues } from '../../../../../utils/schemas/tourManagment/food';
 import AddAttachment from '../../components/add-attachment/AddAttachment';
 
+import styles from './style.module.css';
+
 export default function Menu({ parentRef }) {
-  const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
-  const addMainInfoToParent = () => (parentRef.mainInfo = { values, touched });
-  const initializeTouchState = () => setTouched({ ...parentRef.mainInfo.touched });
+  const addMainInfoToParent = () => (parentRef.menu = { values, touched });
+  const initializeTouchState = () => setTouched({ ...parentRef.menu.touched });
 
   const formik = useFormik({ initialValues: menuInitialValues(parentRef.menu.values) });
-  const { values, errors, touched, handleBlur, handleChange, setFieldValue, setTouched } =
-    formik;
+  const { values, errors, touched, setTouched, setFieldValue, setFieldError } = formik;
 
   useEffect(initializeTouchState, []);
   useEffect(addMainInfoToParent, [values, touched]);
@@ -25,28 +24,21 @@ export default function Menu({ parentRef }) {
         <label className={styles.label}>Details</label>
         <Grid container>
           <Grid item xs={5} mb={3}>
-            <Autocomplete
-              multiple
-              options={Languages}
-              value={values.menuTags}
-              onChange={autoCompleteChangeHandler('menuTags')}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  name='menuTags'
-                  label='Menu Tags'
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.menuTags}
-                  error={errors.menuTags && touched.menuTags}
-                  helperText={touched.menuTags && errors.menuTags}
-                />
-              )}
+            <TagsInput
+              fullWidth
+              name='menuTags'
+              label='Menu Tags'
+              variant='outlined'
+              placeholder='Add tags'
+              tags={values.menuTags}
+              error={errors.menuTags}
+              setFieldValue={setFieldValue}
+              setFieldError={setFieldError}
             />
           </Grid>
-          <Box className={styles.mnRow}>
+          <Grid item xs={12}>
             <AddAttachment formikRef={formik} />
-          </Box>
+          </Grid>
         </Grid>
       </Box>
     </Box>

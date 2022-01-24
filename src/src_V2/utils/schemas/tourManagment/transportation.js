@@ -1,5 +1,6 @@
 import { object } from 'yup';
 import { BaseSchemas } from '../BaseSchemas';
+import { ERROR_MESSAGES } from '../../constants';
 
 /**
  * Initial values for transportation.
@@ -40,19 +41,19 @@ export function AddCarInitialValues(initialValues) {
 }
 
 /**
- * Yup schemas for accommodation.
+ * Yup schemas for transportation.
  */
 export function mainInfoSchema() {
   return object().shape({
     phone: BaseSchemas.phone,
     email: BaseSchemas.email,
-    city: BaseSchemas.textField(),
-    address: BaseSchemas.textField(),
     region: BaseSchemas.autocompleteField,
     notes: BaseSchemas.textField(500),
     person: BaseSchemas.textField(50),
     name: BaseSchemas.requiredText(50),
     type: BaseSchemas.requiredAutocompleteField,
+    city: BaseSchemas.textField(50, ERROR_MESSAGES.letters(50)),
+    address: BaseSchemas.textField(150, ERROR_MESSAGES.maxWithSpaces(150)),
   });
 }
 
@@ -72,13 +73,5 @@ export function addCarSchema() {
     color: BaseSchemas.textField(50),
     plate: BaseSchemas.textField(10),
     model: BaseSchemas.requiredText(50),
-  });
-}
-
-export function partnershipSchema() {
-  return object().shape({
-    attachments: object().shape([]).nullable(),
-    price: BaseSchemas.floatingNumber(999999.99),
-    percentage: BaseSchemas.floatingNumber(999.99),
   });
 }

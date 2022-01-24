@@ -6,6 +6,7 @@ import Header from './header/Header';
 import Sidebar from './sidebar/Sidebar';
 
 import { CONTAINER_SIZES } from '../../../utils';
+import styles from './Container.module.css';
 
 const Main = styled('main')(({ theme, open }) => ({
   flexGrow: 1,
@@ -48,6 +49,7 @@ export default function Enhancer({ children, managerSidebarConfig }) {
           setOpen={setOpenSidebar}
           pageConfigs={managerSidebarConfig}
         />
+        <div className={styles.hiddenOffset} />
         <Main open={openSidebar}>{children}</Main>
       </Box>
     </Box>

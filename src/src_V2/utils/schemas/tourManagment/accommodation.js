@@ -1,5 +1,6 @@
 import { object } from 'yup';
 import { BaseSchemas } from '../BaseSchemas';
+import { ERROR_MESSAGES } from '../../constants';
 
 /**
  * Initial values for accommodation.
@@ -36,12 +37,12 @@ export function AddRoomInitialValues(initialValues) {
  */
 export function mainInfoSchema() {
   return object().shape({
-    city: BaseSchemas.textField(),
-    address: BaseSchemas.textField(),
-    name: BaseSchemas.requiredText(),
     region: BaseSchemas.autocompleteField,
     notes: BaseSchemas.textField(500),
+    name: BaseSchemas.requiredText(50),
     type: BaseSchemas.requiredAutocompleteField,
+    city: BaseSchemas.textField(50, ERROR_MESSAGES.letters(50)),
+    address: BaseSchemas.textField(150, ERROR_MESSAGES.maxWithSpaces(150)),
   });
 }
 
