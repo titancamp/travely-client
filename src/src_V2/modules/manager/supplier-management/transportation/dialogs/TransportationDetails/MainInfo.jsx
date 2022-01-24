@@ -3,7 +3,7 @@ import { Email, LocalPhone, LocationOn, Person } from '@mui/icons-material';
 import { TabPanel } from '@mui/lab';
 
 import styles from '../style.module.css';
-
+//TODO they could be some design changes after fetching the real data
 export default function MainInfo() {
   return (
     <TabPanel className={styles.mainInfo} value='1'>

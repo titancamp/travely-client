@@ -3,7 +3,7 @@ import { styled, alpha } from '@mui/material/styles';
 import { Menu, MenuItem } from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
 import { MoreVert } from '@mui/icons-material';
-import styles from './style.module.css';
+import styles from '../../accommodation/list/style.module.css';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -45,7 +45,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function AccommodationActions() {
+export default function TableMenuActions() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {

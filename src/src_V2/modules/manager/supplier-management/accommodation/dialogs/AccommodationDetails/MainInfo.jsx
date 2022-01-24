@@ -4,7 +4,7 @@ import { AccessTime, Email, LocalPhone, LocationOn, Person } from '@mui/icons-ma
 import { RoomServices } from '../../constants';
 
 import styles from '../style.module.css';
-
+//TODO they could be some design changes after fetching the real data
 export default function MainInfo() {
   return (
     <TabPanel className={styles.mainInfo} value='1'>

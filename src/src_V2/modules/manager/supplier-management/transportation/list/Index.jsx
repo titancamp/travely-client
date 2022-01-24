@@ -15,9 +15,9 @@ import {
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import FilterBlock from './FilterBlock';
-import AccommodationActions from './Menu';
 import DialogManager from '../dialogs/Index';
 import { HeadCells, TableRows } from '../constants';
+import TableMenuActions from '../../../supplier-management/components/tableVerticalActionsMenu/Menu';
 
 import styles from './style.module.css';
 
@@ -144,6 +144,7 @@ export default function TransportationList() {
                 orderBy={orderBy}
                 onRequestSort={handleRequestSort}
                 rowCount={TableRows.length}
+                headCells={HeadCells}
               />
               <TableBody>
                 {stableSort(TableRows, getComparator(order, orderBy))
@@ -174,7 +175,7 @@ export default function TransportationList() {
                           }}
                         >
                           <Box>
-                            <AccommodationActions />
+                            <TableMenuActions />
                           </Box>
                         </TableCell>
                       </TableRow>
