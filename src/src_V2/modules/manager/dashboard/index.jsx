@@ -2,7 +2,7 @@ import { DatePicker } from '@mui/lab';
 import { Box, Divider, Grid, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import { Line, XAxis, LineChart, YAxis, CartesianGrid } from 'recharts';
-import {getDashboardInitialValues} from "src/src_V2/utils/schemas/dashboard";
+import { getDashboardInitialValues } from '../../../utils/schemas/dashboard';
 import styles from './Dashboard.module.css';
 
 const MOCK_DATA = [
@@ -15,7 +15,6 @@ const MOCK_DATA = [
 ];
 
 export default function Dashboard() {
-
   const { values, handleChange } = useFormik({
     initialValues: getDashboardInitialValues(),
   });
