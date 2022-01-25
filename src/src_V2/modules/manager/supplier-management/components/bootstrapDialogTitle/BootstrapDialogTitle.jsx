@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle, IconButton } from '@mui/material';
+import { Button, Dialog, DialogTitle, IconButton } from '@mui/material';
 import { Close, Delete, Edit } from '@mui/icons-material';
 import styles from '../../food/dialogs/style.module.css';
 import PropTypes from 'prop-types';
@@ -23,15 +23,25 @@ export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 export const BootstrapDialogTitle = (props) => {
-  const { children, onClose, ...other } = props;
+  const { children, onClose, handleReset, ...other } = props;
 
   return (
     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
       {children}
       {onClose ? (
         <div>
-          <Edit className={styles.headerActions} />
-          <Delete className={`${styles.headerDeleteBtn} ${styles.headerActions}`} />
+          {handleReset ? (
+            <div className={styles.filterHeader}>
+              <Button className={styles.resetBtn} onClick={handleReset}>
+                RESET
+              </Button>
+            </div>
+          ) : (
+            <>
+              <Edit className={styles.headerActions} />
+              <Delete className={`${styles.headerDeleteBtn} ${styles.headerActions}`} />
+            </>
+          )}
           <IconButton
             aria-label='close'
             onClick={onClose}
@@ -53,4 +63,5 @@ export const BootstrapDialogTitle = (props) => {
 BootstrapDialogTitle.propTypes = {
   children: PropTypes.node,
   onClose: PropTypes.func.isRequired,
+  handleReset: PropTypes.func,
 };

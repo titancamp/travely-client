@@ -1,23 +1,14 @@
-import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
-import CloseIcon from '@mui/icons-material/Close';
-import {
-  Grid,
-  Button,
-  Dialog,
-  TextField,
-  IconButton,
-  DialogTitle,
-  Autocomplete,
-  DialogContent,
-} from '@mui/material';
-import styles from './style.module.css';
+import { Grid, Dialog, TextField, Autocomplete, DialogContent } from '@mui/material';
+import { useFormik } from 'formik';
 import { Languages } from '../constants';
 import {
   FilterGuideSchema,
   FilterInitialValues,
 } from '../../../../../utils/schemas/tourManagment/guide';
-import { useFormik } from 'formik';
+import { BootstrapDialogTitle } from '../../components/bootstrapDialogTitle/BootstrapDialogTitle';
+
+import styles from './style.module.css';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
@@ -33,43 +24,6 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(1),
   },
 }));
-
-const BootstrapDialogTitle = (props) => {
-  const { children, onClose, handleReset, ...other } = props;
-
-  return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
-      {children}
-      {onClose ? (
-        <div className={styles.filterHeader}>
-          <div>
-            <Button className={styles.resetBtn} onClick={handleReset}>
-              RESET
-            </Button>
-          </div>
-          <IconButton
-            aria-label='close'
-            onClick={onClose}
-            sx={{
-              position: 'absolute',
-              right: 8,
-              top: 16,
-              color: (theme) => theme.palette.grey[500],
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </div>
-      ) : null}
-    </DialogTitle>
-  );
-};
-
-BootstrapDialogTitle.propTypes = {
-  children: PropTypes.node,
-  onClose: PropTypes.func.isRequired,
-  handleReset: PropTypes.func,
-};
 
 export default function AllFiltersDialog({ onClose, data: { open } }) {
   const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
