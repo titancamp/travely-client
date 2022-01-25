@@ -106,8 +106,8 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
               <TextField
                 fullWidth
                 type='time'
-                name='checkIn'
-                label='Check In Time'
+                name='checkOut'
+                label='Check Out Time'
                 value={values.checkIn}
                 onChange={handleChange}
                 inputProps={{ step: 60, min: 10 }}
@@ -135,8 +135,8 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
               <TextField
                 fullWidth
                 type='time'
-                name='checkIn'
-                label='Check In Time'
+                name='checkOut'
+                label='Check Out Time'
                 value={values.checkIn}
                 onChange={handleChange}
                 inputProps={{ step: 60, min: 10 }}

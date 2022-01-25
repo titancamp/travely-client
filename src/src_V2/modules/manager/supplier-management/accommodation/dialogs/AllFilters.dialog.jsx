@@ -42,17 +42,7 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
     useFormik(formikData);
 
   const handleReset = () => {
-    setValues({
-      services: [],
-      hotelServices: [],
-      checkIn: '',
-      checkOut: '',
-      type: '',
-      quantity: '',
-      price: '',
-      numberOfBeds: '',
-      additionalBeds: '',
-    });
+    setValues(FilterInitialValues());
   };
 
   return (

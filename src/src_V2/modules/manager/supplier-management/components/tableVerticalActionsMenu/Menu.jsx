@@ -59,7 +59,6 @@ export default function TableMenuActions() {
     <div>
       <MoreVert className={styles.moreVertIcon} onClick={handleClick} />
       <StyledMenu
-        id='demo-customized-menu'
         MenuListProps={{
           'aria-labelledby': 'demo-customized-button',
         }}

@@ -34,7 +34,7 @@ export default function Guides({ parentRef }) {
                 <TextField
                   {...params}
                   name='menuTags'
-                  label='Guides Tags'
+                  label='Menu Tags'
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.menuTags}

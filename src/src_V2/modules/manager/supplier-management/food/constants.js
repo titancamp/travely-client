@@ -68,6 +68,8 @@ export const TableRows = [
   ),
 ];
 
+export const Attachments = ['Special Attributes 2021.pdf', 'Drinks.pdf'];
+
 export const HeadCells = [
   {
     id: 'name',

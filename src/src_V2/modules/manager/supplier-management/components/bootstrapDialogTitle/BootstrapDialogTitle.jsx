@@ -1,8 +1,8 @@
-import { Button, Dialog, DialogTitle, IconButton } from '@mui/material';
-import { Close, Delete, Edit } from '@mui/icons-material';
-import styles from '../../food/dialogs/style.module.css';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
+import { Close, Delete, Edit } from '@mui/icons-material';
+import { Button, Dialog, DialogTitle, IconButton } from '@mui/material';
+import styles from '../../food/dialogs/style.module.css';
 
 export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
