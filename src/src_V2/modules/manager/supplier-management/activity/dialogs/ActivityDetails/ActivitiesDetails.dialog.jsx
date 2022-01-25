@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { TabList, TabContext } from '@mui/lab';
 import { Box, Tab, DialogContent } from '@mui/material';
-import Rooms from './Rooms';
 import MainInfo from './MainInfo';
+import Attributes from './Attributes';
 import Partnership from '../../../components/dialogs/Partnership';
 import {
   BootstrapDialog,
@@ -11,7 +11,7 @@ import {
 
 import styles from '../style.module.css';
 
-export default function AccommodationDetailsDialog({ onClose, data: { open } }) {
+export default function ActivitiesDetailsDialog({ onClose, data: { open } }) {
   const [value, setValue] = React.useState('1');
 
   const handleChange = (event, newValue) => {
@@ -21,7 +21,6 @@ export default function AccommodationDetailsDialog({ onClose, data: { open } }) 
   return (
     <BootstrapDialog onClose={onClose} open={open}>
       <BootstrapDialogTitle
-        id='customized-dialog-title'
         onClose={onClose}
         className={`${styles.container} ${styles.header}`}
       >
@@ -36,12 +35,12 @@ export default function AccommodationDetailsDialog({ onClose, data: { open } }) 
             >
               <TabList onChange={handleChange}>
                 <Tab label='MAIN INFO' value='1' />
-                <Tab label='ROOMS' value='2' />
+                <Tab label='ATTRIBUTES' value='2' />
                 <Tab label='PARTNERSHIP' value='3' />
               </TabList>
             </Box>
             <MainInfo />
-            <Rooms />
+            <Attributes />
             <Partnership tabNumber='3' />
           </TabContext>
         </Box>

@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import AddActivity from './add/Index';
 import ActivityNoData from './ActivityNoData';
+import ActivityList from './list/Index';
 
 export const ROUTES = {
   ADD: 'add',
@@ -15,6 +16,7 @@ function routeConfigs() {
   return [
     { index: true, element: <ActivityNoData /> },
     { path: ROUTES.ADD, element: <AddActivity /> },
+    { path: ROUTES.LIST, element: <ActivityList /> },
   ];
 }
 

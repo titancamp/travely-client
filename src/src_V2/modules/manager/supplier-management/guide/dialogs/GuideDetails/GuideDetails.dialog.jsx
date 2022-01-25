@@ -33,7 +33,7 @@ export default function GuideDetailsDialog({ onClose, data: { open } }) {
               className={styles.headerMenu}
               sx={{ borderBottom: 1, borderColor: 'divider' }}
             >
-              <TabList onChange={handleChange} aria-label='lab API tabs example'>
+              <TabList onChange={handleChange}>
                 <Tab label='MAIN INFO' value='1' />
                 <Tab label='GUIDES' value='2' />
                 <Tab label='PARTNERSHIP' value='3' />

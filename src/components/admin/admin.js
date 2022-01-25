@@ -32,7 +32,7 @@ const pages = [
     component: ManageHotels,
   },
   {
-    title: 'Manage Activities',
+    title: 'Manage Attributes',
     path: '/admin/activity',
     icon: <PublicIcon />,
     component: ManageActivities,
