@@ -36,12 +36,7 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
     useFormik(formikData);
 
   const handleReset = () => {
-    setValues({
-      skills: '',
-      languages: [],
-      cost: '',
-      experience: '',
-    });
+    setValues(FilterInitialValues());
   };
 
   return (

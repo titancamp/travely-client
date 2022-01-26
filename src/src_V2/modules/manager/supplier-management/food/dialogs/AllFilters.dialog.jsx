@@ -44,10 +44,7 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
     useFormik(formikData);
 
   const handleReset = () => {
-    setValues({
-      menu: [],
-      checkIn: '',
-    });
+    setValues(FilterInitialValues());
   };
 
   return (
@@ -108,7 +105,7 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
                 type='time'
                 name='checkOut'
                 label='Check Out Time'
-                value={values.checkIn}
+                value={values.checkOut}
                 onChange={handleChange}
                 inputProps={{ step: 60, min: 10 }}
                 InputLabelProps={{ shrink: true }}
@@ -137,7 +134,7 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
                 type='time'
                 name='checkOut'
                 label='Check Out Time'
-                value={values.checkIn}
+                value={values.checkOut}
                 onChange={handleChange}
                 inputProps={{ step: 60, min: 10 }}
                 InputLabelProps={{ shrink: true }}

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
 import { styled } from '@mui/material/styles';
 import {
@@ -49,13 +48,7 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
     useFormik(formikData);
 
   const handleReset = () => {
-    setValues({
-      model: '',
-      seats: '',
-      carSeats: '',
-      license: [],
-      languages: [],
-    });
+    setValues(FilterInitialValues());
   };
 
   return (

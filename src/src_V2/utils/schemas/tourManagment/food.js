@@ -21,6 +21,8 @@ export function mainInfoInitialValues(initialValues) {
 export function FilterInitialValues() {
   return {
     menu: [],
+    checkIn: '',
+    checkOut: '',
   };
 }
 
