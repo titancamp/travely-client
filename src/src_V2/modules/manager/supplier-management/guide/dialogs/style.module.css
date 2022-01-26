@@ -3,6 +3,27 @@
   max-width: 400px;
 }
 
+.viewDialogTitle {
+    display: flex;
+    padding-top: 24px;
+    padding-bottom: 27px;
+    justify-content: space-between;
+}
+
+.viewDialogTitle .dialogTitle {
+    font-size: 24px;
+}
+
+.cardActions {
+    margin-bottom: 12px;
+}
+
+.name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .uploadImageContainer {
   width: 232px;
   height: 232px;
@@ -182,4 +203,36 @@
 
 .costInput {
   margin-right: 20px !important;
+}
+
+.viewTitle {
+    padding-top: 10px !important;
+}
+
+.addAttachment {
+    font-size: 15px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.addAttachmentIcon {
+    margin-left: 10px !important;
+}
+
+.attachmentText {
+    font-size: 12px;
+}
+.attachmentHelperText {
+    font-size: 12px;
+    color: #F44336!important;
+}
+
+.addAttachmentContent {
+    margin: 90px auto;
+    width: 168px;
+    text-align: center;
+}
+
+.expanded {
+    max-width: 750px;
 }

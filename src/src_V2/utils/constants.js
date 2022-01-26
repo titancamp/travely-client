@@ -3,16 +3,21 @@ export const CONTAINER_SIZES = {
 };
 
 export const ERROR_MESSAGES = {
-  required: 'The filed is required',
-  number: 'The filed must be a number',
-  positive: 'The filed must be positive',
-  email: 'The field is not a valid email',
-  integer: 'The filed must be an integer',
-  phone: 'The field is not a valid phone number',
-  password: 'All validation levels must be passed',
-  repeatPassword: 'Passwords doesn\'t match',
-  maxNumberField: (max) => `The value must be at most ${max}`,
-  maxTextField: (max) => `The filed must be at most ${max} characters`,
+  required: 'The filed is required.',
+  number: 'The filed must be a number.',
+  positive: 'The filed must be positive.',
+  email: 'The field is not a valid email.',
+  integer: 'The filed must be an integer.',
+  phone: 'The field is not a valid phone number.',
+  password: 'All validation levels must be passed.',
+  repeatPassword: 'Passwords doesn\'t match.',
+  maxNumberField: (max) => `The value must be at most ${max}.`,
+  maxTextField: (max) => `The filed must be at most ${max} characters.`,
+  rightFormat: (example) => `Please, enter the right format ${example}.`,  
+  maxWithSpaces: (max) => `Please, enter up to ${max} characters with spaces.`,
+  lettersAndNumbers: (max) =>
+    `Please, enter only letters and numbers with spaces up to ${max} characters.`,
+  letters: (max) => `Please, enter only letters with spaces up to ${max} characters.`,
 };
 
 export const PasswordStrengthNames = {

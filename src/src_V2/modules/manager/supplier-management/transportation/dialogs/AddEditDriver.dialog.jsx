@@ -12,7 +12,7 @@ import {
   FormHelperText,
 } from '@mui/material';
 import { useFormik } from 'formik';
-import { Person, LocalPhone } from '@mui/icons-material';
+import { Person } from '@mui/icons-material';
 
 import {
   addDriverSchema,
@@ -78,8 +78,8 @@ export default function AddEditDriverDialog({ onClose, onSuccess, driver, editMo
                   value={values.phone}
                   label='Contact Phone'
                   onChange={handleChange}
+                  startAdornment={<>+374&nbsp;</>}
                   error={errors.phone && touched.phone}
-                  endAdornment={<EndAdornment icon={<LocalPhone />} />}
                 />
                 {errors.phone && touched.phone && (
                   <FormHelperText error>{errors.phone}</FormHelperText>

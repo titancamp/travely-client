@@ -1,6 +1,5 @@
 import { Dialog } from '@mui/material';
 import ViewGuideDialog from './ViewGuide.dialog';
-// import ViewDriverDialog from './ViewDriver.dialog';
 import AllFiltersDialog from './AllFilters.dialog';
 import AddEditGuideDialog from './AddEditGuide.dialog';
 import Map from '../../components/dialogs/Map.dialog';
@@ -46,7 +45,12 @@ export default function DialogManager({ data, onShowHideDialog }) {
   }
 
   return (
-    <Dialog open={data.open} onClose={onClose} fullWidth PaperProps={{ width: 750 }}>
+    <Dialog
+      open={data.open}
+      onClose={onClose}
+      fullWidth
+      PaperProps={{ style: { maxWidth: '750px' } }}
+    >
       <CurrentDialog data={data} onClose={onClose} />
     </Dialog>
   );

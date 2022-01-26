@@ -28,7 +28,7 @@ function requestInterceptionHandler(config) {
 async function responseFailureInterceptionHandler(error) {
   if (!error.response || error.response.status === 500) {
     //TODO handle redirection to IntervalServer page correctly
-    return history.push('/INTERNAL_SERVER_PAGE');
+    return history.push && history.push('/INTERNAL_SERVER_PAGE');
   }
 
   const originalConfig = error.config;

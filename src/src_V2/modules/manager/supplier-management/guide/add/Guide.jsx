@@ -70,18 +70,19 @@ export default function Guide({ parentRef }) {
         <AddCard
           title='Guides'
           buttonText='ADD GUIDE'
-          onOpenDialog={openAddCardDialog}
-          disabled={guides.length === 50}
-          subTitle='Add Button bellow to add guides to your accommodation'
           tooltipKeyWord={'guide'}
+          disabled={guides.length === 50}
+          onOpenDialog={openAddCardDialog}
         />
         {guides.map((guide) => {
           let languages = guide.languages?.reduce(
             (prev, { label }, index) => prev + (index ? ' / ' : '') + label,
             ''
           );
+
           return (
             <InfoCard
+              defaultImage
               id={guide.id}
               key={guide.id}
               image={guide.image?.previewImage}
@@ -91,7 +92,7 @@ export default function Guide({ parentRef }) {
                   label: '',
                 },
                 2: {
-                  value: guide.person,
+                  value: guide.name,
                   label: null,
                 },
                 3: {
@@ -100,7 +101,7 @@ export default function Guide({ parentRef }) {
                 },
                 4: {
                   value: guide.phone,
-                  label: '',
+                  label: guide.phone ? '+374 ' : '',
                 },
               }}
               areaAction={openViewCardDialog}

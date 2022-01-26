@@ -12,18 +12,11 @@ import {
   CardActionArea,
 } from '@mui/material';
 
-import { Info } from '@mui/icons-material';
+import { Info, AccountCircle } from '@mui/icons-material';
 
 import styles from './style.module.css';
 
-export function AddCard({
-  title,
-  disabled,
-  subTitle,
-  buttonText,
-  onOpenDialog,
-  tooltipKeyWord,
-}) {
+export function AddCard({ title, disabled, buttonText, onOpenDialog, tooltipKeyWord }) {
   function openDialog() {
     if (!disabled) {
       onOpenDialog();
@@ -52,7 +45,9 @@ export function AddCard({
             <Typography className={styles.title} variant='h5'>
               {title}
             </Typography>
-            <Typography className={styles.subTitle}>{subTitle}</Typography>
+            <Typography className={styles.subTitle}>
+              Click the button below to add a new {tooltipKeyWord} and fill details
+            </Typography>
           </CardContent>
           <Box className={styles.addButtonContainer}>
             <Typography
@@ -79,6 +74,7 @@ export function InfoCard({
   disabled,
   areaAction,
   sectionData,
+  defaultImage,
   firstCardAction,
   secondCardAction,
   seeDetailsAction,
@@ -102,11 +98,19 @@ export function InfoCard({
   return (
     <Grid className={styles.gridItem} item xs={3}>
       <Card className={styles.card}>
-        {image && (
-          <Box className={styles.avatarContainer}>
-            <Avatar className={styles.avatar} src={image} />
+        <Box className={styles.avatarContainer}>
+          <Box className={styles.avatar}>
+            {image ? (
+              <Avatar src={image} />
+            ) : (
+              <>
+                {defaultImage && (
+                  <AccountCircle sx={{ fontSize: 45, color: 'primary', opacity: 0.55 }} />
+                )}
+              </>
+            )}
           </Box>
-        )}
+        </Box>
         <CardActionArea
           disabled={disabled}
           className={styles.cardContent}

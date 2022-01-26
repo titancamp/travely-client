@@ -7,26 +7,26 @@ import {
   Button,
   TextField,
   InputLabel,
-  Autocomplete,
   FormControl,
+  Autocomplete,
   OutlinedInput,
+  InputAdornment,
   FormHelperText,
 } from '@mui/material';
-import { Person, LocalPhone, Email } from '@mui/icons-material';
+import { Person, Email } from '@mui/icons-material';
 
-// import DialogManager from '../dialogs/Index';
+import DialogManager from '../dialogs/Index';
 import { EndAdornment } from '../../components/endAdornment';
 import {
   mainInfoSchema,
   mainInfoInitialValues,
-} from '../../../../../utils/schemas/tourManagment/transportation';
+} from '../../../../../utils/schemas/tourManagment/guide';
 
 import styles from './style.module.css';
-// import { TransportationTypes } from '../constants';
 import { Regions } from '../../accommodation/constants';
 
 export default function MainInfo({ parentRef, isValidate }) {
-  const [onShowHideDialog] = useState({ open: false });
+  const [dialogManagerState, onShowHideDialog] = useState({ open: false });
   const {
     values,
     errors,
@@ -42,15 +42,10 @@ export default function MainInfo({ parentRef, isValidate }) {
     initialValues: mainInfoInitialValues(parentRef.mainInfo.values),
   });
 
+  const validateForm = () => isValidate && submitForm();
   const initializeTouchState = () => setTouched({ ...parentRef.mainInfo.touched });
   const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
   const addMainInfoToParent = () => (parentRef.mainInfo = { values, isValid, touched });
-
-  function validateForm() {
-    if (isValidate) {
-      submitForm();
-    }
-  }
 
   function openMapDialog() {
     onShowHideDialog({
@@ -72,7 +67,7 @@ export default function MainInfo({ parentRef, isValidate }) {
             <Grid item xs={6}>
               <Autocomplete
                 value={values.type}
-                options={[]}
+                options={Regions}
                 onChange={autoCompleteChangeHandler('type')}
                 renderInput={(params) => (
                   <TextField
@@ -102,7 +97,6 @@ export default function MainInfo({ parentRef, isValidate }) {
             </Grid>
           </Grid>
         </Box>
-
         <Box className={styles.mnRow}>
           <label className={styles.label}>Contacts</label>
           <Grid container>
@@ -136,8 +130,8 @@ export default function MainInfo({ parentRef, isValidate }) {
                   value={values.phone}
                   label='Contact Phone'
                   onChange={handleChange}
+                  startAdornment={<>+374&nbsp;</>}
                   error={errors.phone && touched.phone}
-                  endAdornment={<EndAdornment icon={<LocalPhone />} />}
                 />
                 {errors.phone && touched.phone && (
                   <FormHelperText error>{errors.phone}</FormHelperText>
@@ -231,11 +225,14 @@ export default function MainInfo({ parentRef, isValidate }) {
               type='number'
               variant='outlined'
               onBlur={handleBlur}
-              value={values.notes}
-              error={!!errors.notes}
+              value={values.price}
+              error={!!errors.price}
               onChange={handleChange}
               label='Price Per Persons'
-              helperText={errors.notes}
+              helperText={errors.price}
+              InputProps={{
+                startAdornment: <InputAdornment position='start'>AMD ~</InputAdornment>,
+              }}
             />
           </Grid>
         </Box>
@@ -244,9 +241,9 @@ export default function MainInfo({ parentRef, isValidate }) {
           <Grid container spacing={4}>
             <Grid item xs={12}>
               <TextField
-                rows={4}
                 fullWidth
                 multiline
+                rows={4}
                 name='notes'
                 label='Notes'
                 onBlur={handleBlur}
@@ -259,7 +256,7 @@ export default function MainInfo({ parentRef, isValidate }) {
           </Grid>
         </Box>
       </form>
-      {/*<DialogManager data={dialogManagerState} onShowHideDialog={onShowHideDialog} />*/}
+      <DialogManager data={dialogManagerState} onShowHideDialog={onShowHideDialog} />
     </Box>
   );
 }

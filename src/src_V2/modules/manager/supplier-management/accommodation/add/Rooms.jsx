@@ -70,9 +70,9 @@ export default function Rooms({ parentRef }) {
         <AddCard
           title='Rooms'
           buttonText='ADD ROOM'
-          onOpenDialog={openAddCardDialog}
-          subTitle='Add Button bellow to add rooms to your accommodation'
+          tooltipKeyWord={'room'}
           disabled={rooms.length === 50}
+          onOpenDialog={openAddCardDialog}
         />
         {rooms.map((room) => (
           <InfoCard

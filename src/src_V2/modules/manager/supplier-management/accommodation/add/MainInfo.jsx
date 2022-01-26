@@ -52,7 +52,7 @@ export default function MainInfo({ parentRef, isValidate }) {
 
   return (
     <Box className={styles.mainInfo}>
-      <form>
+      <form autoComplete='off'>
         <Box className={styles.mnRow}>
           <label className={styles.label}>Details</label>
           <Grid container rowSpacing={3} spacing={2}>
@@ -198,9 +198,9 @@ export default function MainInfo({ parentRef, isValidate }) {
           <Grid container spacing={4}>
             <Grid item xs={12}>
               <TextField
-                rows={4}
                 fullWidth
                 multiline
+                rows={4}
                 name='notes'
                 label='Notes'
                 onBlur={handleBlur}
