@@ -1,79 +1,131 @@
-/*
-.demo-app {
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-    font-size: 14px;
-}
-
-.demo-app-top {
-    margin: 0 0 3em;
-}
-
-.demo-app-calendar {
-    margin: 0 auto;
-    max-width: 700px;
-}
-*/
-/*
-
-.resource-view {
-    display: none;
-}
-
-!*custom*!
-.scheduler {
-    margin: 0 0 30px;
-}
-
-.header2-text {
-    display: none;
-}
-
-.scheduler thead tr > td:first-child{
-    background-color: #f50057;
-    width: 1000px;
-}
-
-.scheduler thead {
-}
-
-.scheduler td, th {
-    padding: 0 !important;
-}
-
-.ant-row-flex {
-    height: 100%;
-    margin-left: 180px;
-    background-color: black;
-}*/
-
 .calendarWrapper {
-/*    overflow-x: auto;*/
-    background-color: #f5f5f5;
-    box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 3px 4px rgba(0, 0, 0, 0.14), 0 1px 8px rgba(0, 0, 0, 0.12);
+   overflow: hidden;
+    /*box-shadow: 3px 4px 5px -1px rgb(0 0 0 / 20%);*/
     border-radius: 8px;
-    padding-top: 30px;
+    padding-top: 86px;
+    border-right: 1px solid #ddd;
 
+
+    position: relative;
 }
 
-.calendarWrapper .scheduler {
+/*.calendarWrapper .scheduler {
     width: 100% !important;
     margin: 0!important;
+}*/
+
+.scheduler {
+    min-height: 300px;
+    width: 100% !important;
 }
 
-.calendarWrapper .scheduler  .resource-view{
-    display: none;
+.scheduler thead tr:first-child  td > div{
+    position: absolute;
+    top: 0;
+    left: 174px;
+    right: 0;
+    height: 107px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-left: 1px solid #ddd;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
 }
 
-.calendarWrapper .scheduler .anticon-left{
+.scheduler thead tr:first-child  td > div:first-child {
+    padding-left: 26px;
+}
+
+.scheduler thead tr:first-child  td > div:last-child{
+    padding-right: 26px;
+}
+
+.scheduler .scheduler-view {
+    /*box-shadow: 10px -12px 10px 5px #000000;*/
+}
+
+    /*.scheduler-bg-table td {
+        background-color: blue!important;
+        position: relative;
+    }*/
+
+/*
+.scheduler-bg-table td div::after {
+    content: "";
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    position: absolute;
+    left: -5px
+}*/
+
+/*.scheduler  .resource-view {*/
+/*    width: 100px!important;*/
+/*}*/
+
+.scheduler  .resource-view, .scheduler tbody tr:first-child td:first-child{
+
+    vertical-align: inherit;
+}
+
+.scheduler .resource-view .resource-table  thead tr:first-child th:first-child {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.scheduler .resource-view .resource-table td {
+    position: relative;
+    height: initial!important;
+    height: 90px!important;
+}
+
+.scheduler .resource-view div, .scheduler table.resource-table tr, .scheduler table.resource-table td, .resource-view{
+    border-color: transparent !important;
+}
+
+.scheduler .resource-view .resource-table td .header2-text::after {
+    content: "";
+    width: 37px;
+    min-height: 74px;
+    border-bottom-left-radius: 6px;
+    border-top-left-radius: 6px;
+    position: absolute;
+   right: 0;
+    bottom: 8px;
+}
+
+.scheduler .resource-view .resource-table  tr:nth-child(1) td .header2-text::after {
+    background: #F88078;
+    -webkit-font-feature-settings: 'liga';
+}
+
+.scheduler .resource-view .resource-table tr:nth-child(2) td .header2-text::after {
+    background: #FFB547;
+}
+
+.scheduler .resource-view .resource-table tr:nth-child(3) td .header2-text::after {
+    background: #64B6F7;
+}
+
+.scheduler .resource-view .resource-table tr:nth-child(4) td .header2-text::after {
+    background: #7BC67E;
+}
+
+.scheduler .resource-view .resource-table tr:nth-child(5) td .header2-text::after {
+    background: #E282E4;
+}
+
+
+.scheduler .anticon-left{
     display: none!important;
 }
 
-.calendarWrapper .scheduler .ant-col:first-child {
+.scheduler .ant-col:first-child {
     padding-bottom: 6px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.42);
 }
 
-.calendarWrapper .scheduler .ant-col:first-child .header2-text {
+.scheduler .ant-col:first-child .header2-text {
     width: 212px;
     display: flex;
     align-items: center;
@@ -81,10 +133,19 @@
 }
 
 
-.calendarWrapper .scheduler-bg-table  tr, .calendarWrapper  .scheduler-content tbody .event-container{
-    /*min-height: 90px!important;*/
+.scheduler-bg-table  tr, .scheduler-content tbody .event-container {
+    /*height: 90px!important;*/
 }
 
-.calendarWrapper .scheduler-bg-table thead tr {
+.scheduler-bg-table thead tr {
     height: 30px!important;
+}
+
+/*temporary*/
+.scheduler-content td {
+    padding-left: 1px !important;
+}
+
+.scheduler-content-table td {
+    cursor: pointer;
 }
