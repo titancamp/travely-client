@@ -56,7 +56,7 @@ export const managerSidebarConfig = [
         path: '/manager/activity',
       },
       {
-        title: 'Activities',
+        title: 'Guides',
         path: '/manager/guide',
       },
     ],

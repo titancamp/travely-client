@@ -7,7 +7,7 @@ import { Languages } from '../../transportation/constants';
 import { menuInitialValues } from '../../../../../utils/schemas/tourManagment/food';
 import AddAttachment from '../../components/add-attachment/AddAttachment';
 
-export default function Guides({ parentRef }) {
+export default function Menu({ parentRef }) {
   const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
   const addMainInfoToParent = () => (parentRef.mainInfo = { values, touched });
   const initializeTouchState = () => setTouched({ ...parentRef.mainInfo.touched });

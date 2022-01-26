@@ -1,42 +1,15 @@
 import { useState } from 'react';
 import { TabPanel } from '@mui/lab';
 import { Grid } from '@mui/material';
+import DialogManager from '../Index';
 import { InfoCard } from '../../../components';
+import { DriversConstants } from '../../constants';
 
 import styles from '../style.module.css';
-import DialogManager from '../Index';
 
 export default function Drivers() {
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });
-  const [drivers, setDrivers] = useState([
-    {
-      id: 1,
-      name: 'Joe',
-      phone: '0908070605',
-      languages: [
-        { id: 1, label: 'English' },
-        { id: 2, label: 'Armenian' },
-      ],
-      license: [{ id: 1, label: 'A' }],
-    },
-    {
-      id: 2,
-      name: 'Mike',
-      phone: '0908070605',
-      languages: [{ id: 2, label: 'Armenian' }],
-      license: ['A', 'B'],
-    },
-    {
-      id: 3,
-      name: 'Kim',
-      phone: '0908070605',
-      languages: [
-        { id: 1, label: 'English' },
-        { id: 2, label: 'Armenian' },
-      ],
-      license: [{ id: 1, label: 'A' }],
-    },
-  ]);
+  const [drivers, setDrivers] = useState(DriversConstants);
 
   function deleteRoom(id) {
     setDrivers(drivers.filter((driver) => driver.id !== id));

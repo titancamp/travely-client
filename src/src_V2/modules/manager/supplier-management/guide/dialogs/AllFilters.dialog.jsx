@@ -10,6 +10,7 @@ import { BootstrapDialogTitle } from '../../components/bootstrapDialogTitle/Boot
 
 import styles from './style.module.css';
 
+//TODO make BootstrapDialog global
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
     maxWidth: 830,

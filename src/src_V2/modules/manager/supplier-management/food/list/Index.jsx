@@ -70,7 +70,7 @@ export default function FoodList() {
       <Box className={styles.table}>
         <Paper>
           <TableContainer>
-            <Table sx={{ minWidth: 750 }} aria-labelledby='tableTitle' size='medium'>
+            <Table size='medium'>
               <EnhancedTableHead
                 order={order}
                 orderBy={orderBy}

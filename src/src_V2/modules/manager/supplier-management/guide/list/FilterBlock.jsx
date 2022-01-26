@@ -18,7 +18,7 @@ export default function FilterBlock() {
       actions: {},
     });
   }
-
+  //TODO add initial validations
   return (
     <Box className={styles.box}>
       <div className={styles.leftSection}>

@@ -29,6 +29,63 @@ export const TableRows = [
   ),
 ];
 
+export const DriversConstants = [
+  {
+    id: 1,
+    name: 'Joe',
+    phone: '0908070605',
+    languages: [
+      { id: 1, label: 'English' },
+      { id: 2, label: 'Armenian' },
+    ],
+    license: [{ id: 1, label: 'A' }],
+  },
+  {
+    id: 2,
+    name: 'Mike',
+    phone: '0908070605',
+    languages: [{ id: 2, label: 'Armenian' }],
+    license: ['A', 'B'],
+  },
+  {
+    id: 3,
+    name: 'Kim',
+    phone: '0908070605',
+    languages: [
+      { id: 1, label: 'English' },
+      { id: 2, label: 'Armenian' },
+    ],
+    license: [{ id: 1, label: 'A' }],
+  },
+];
+
+export const Cars = [
+  {
+    id: 1,
+    carSeats: '33',
+    color: 'Red',
+    model: 'BMW',
+    plate: 'AA6787AAA',
+    seats: '44',
+  },
+  {
+    id: 2,
+    carSeats: 'Opel',
+    color: 'Green',
+    model: 'Astra',
+    plate: '77UU777',
+    seats: '88',
+  },
+  {
+    id: 3,
+    carSeats: '3',
+    color: 'Blue',
+    model: 'Kia',
+    plate: '22LL999',
+    seats: '32',
+  },
+];
+
 export const HeadCells = [
   {
     id: 'name',

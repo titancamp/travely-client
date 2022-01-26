@@ -1,39 +1,15 @@
 import { useState } from 'react';
 import { TabPanel } from '@mui/lab';
 import { Grid } from '@mui/material';
+import DialogManager from '../Index';
+import { Cars } from '../../constants';
 import { InfoCard } from '../../../components';
 
 import styles from '../style.module.css';
-import DialogManager from '../Index';
 
 export default function Drivers() {
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });
-  const [cars, setCars] = useState([
-    {
-      id: 1,
-      carSeats: '33',
-      color: 'Red',
-      model: 'BMW',
-      plate: 'AA6787AAA',
-      seats: '44',
-    },
-    {
-      id: 2,
-      carSeats: 'Opel',
-      color: 'Green',
-      model: 'Astra',
-      plate: '77UU777',
-      seats: '88',
-    },
-    {
-      id: 3,
-      carSeats: '3',
-      color: 'Blue',
-      model: 'Kia',
-      plate: '22LL999',
-      seats: '32',
-    },
-  ]);
+  const [cars, setCars] = useState(Cars);
 
   function deleteRoom(id) {
     setCars(cars.filter((driver) => driver.id !== id));

@@ -4,6 +4,9 @@ import { Close, Delete, Edit } from '@mui/icons-material';
 import { Button, Dialog, DialogTitle, IconButton } from '@mui/material';
 import styles from '../../food/dialogs/style.module.css';
 
+/*TODO see if we can merge this with BootstrapDialog in
+AllFilter file, otherwise get this out from components folder*/
+
 export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
     position: 'absolute',
@@ -25,6 +28,7 @@ export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 export const BootstrapDialogTitle = (props) => {
   const { children, onClose, handleReset, ...other } = props;
 
+  //TODO remove inline styles
   return (
     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
       {children}

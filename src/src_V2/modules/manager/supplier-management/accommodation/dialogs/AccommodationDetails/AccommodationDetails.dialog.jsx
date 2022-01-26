@@ -10,7 +10,7 @@ import {
 } from '../../../components/bootstrapDialogTitle/BootstrapDialogTitle';
 
 import styles from '../style.module.css';
-
+//TODO make this component sharable
 export default function AccommodationDetailsDialog({ onClose, data: { open } }) {
   const [value, setValue] = React.useState('1');
 

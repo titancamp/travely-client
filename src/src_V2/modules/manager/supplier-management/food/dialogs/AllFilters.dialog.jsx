@@ -18,6 +18,7 @@ import {
 } from '../../../../../utils/schemas/tourManagment/food';
 import { BootstrapDialogTitle } from '../../components/bootstrapDialogTitle/BootstrapDialogTitle';
 
+//TODO make BootstrapDialog global
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
     maxWidth: 830,

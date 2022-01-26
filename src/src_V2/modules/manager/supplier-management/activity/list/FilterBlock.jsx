@@ -22,7 +22,7 @@ import styles from './style.module.css';
 
 export default function FilterBlock() {
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });
-
+  //TODO add initial validations  !!! check all FilterBlock components
   return (
     <Box className={styles.box}>
       <div className={styles.leftSection}>

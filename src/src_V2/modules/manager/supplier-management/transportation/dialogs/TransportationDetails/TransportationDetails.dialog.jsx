@@ -12,6 +12,7 @@ import {
 
 import styles from '../style.module.css';
 
+//TODO make this component sharable
 export default function TransportationDetailsDialog({ onClose, data: { open } }) {
   const [value, setValue] = React.useState('1');
 
