@@ -68,7 +68,7 @@ export default function Guide({ parentRef }) {
     <Box className={styles.content}>
       <Grid container spacing={1}>
         <AddCard
-          title='Attributes'
+          title='Guides'
           buttonText='ADD GUIDE'
           onOpenDialog={openAddCardDialog}
           disabled={guides.length === 50}

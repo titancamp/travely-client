@@ -19,7 +19,7 @@ export default function DialogManager({ data, onShowHideDialog }) {
   }
 
   return (
-    <Dialog open={data.open} onClose={onClose} fullWidth PaperProps={{ width: 750 }}>
+    <Dialog open={data.open} onClose={onClose}>
       <CurrentDialog data={data} onClose={onClose} />
     </Dialog>
   );

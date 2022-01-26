@@ -11,16 +11,15 @@ import {
   TablePagination,
 } from '@mui/material';
 import FilterBlock from './FilterBlock';
-import { HeadCells, TableRows } from '../constants';
 import DialogManager from '../dialogs/Index';
+import { HeadCells, TableRows } from '../constants';
 import TableMenuActions from '../../../supplier-management/components/tableVerticalActionsMenu/Menu';
-
-import styles from './style.module.css';
 import {
   EnhancedTableHead,
   getComparator,
   stableSort,
 } from '../../components/enhancedTableHead/EnhancedTableHead';
+import styles from './style.module.css';
 
 export default function ActivityList() {
   const [order, setOrder] = React.useState('asc');
@@ -68,9 +67,9 @@ export default function ActivityList() {
     <>
       <FilterBlock />
       <Box className={styles.table}>
-        <Paper sx={{ width: '100%', mb: 2 }}>
+        <Paper>
           <TableContainer>
-            <Table sx={{ minWidth: 750 }} aria-labelledby='tableTitle' size='medium'>
+            <Table size='medium'>
               <EnhancedTableHead
                 order={order}
                 orderBy={orderBy}

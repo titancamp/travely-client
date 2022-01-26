@@ -68,7 +68,7 @@ export default function FoodList() {
     <>
       <FilterBlock />
       <Box className={styles.table}>
-        <Paper sx={{ width: '100%', mb: 2 }}>
+        <Paper>
           <TableContainer>
             <Table sx={{ minWidth: 750 }} aria-labelledby='tableTitle' size='medium'>
               <EnhancedTableHead

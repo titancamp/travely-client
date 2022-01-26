@@ -68,9 +68,9 @@ export default function AccommodationList() {
     <>
       <FilterBlock />
       <Box className={styles.table}>
-        <Paper sx={{ width: '100%', mb: 2 }}>
+        <Paper>
           <TableContainer>
-            <Table sx={{ minWidth: 750 }} aria-labelledby='tableTitle' size='medium'>
+            <Table size='medium'>
               <EnhancedTableHead
                 order={order}
                 orderBy={orderBy}
