@@ -1,0 +1,29 @@
+.generalInfo {
+  background-color: var(--midGrey);
+  justify-content: space-evenly;
+  border: 1px solid var(--midLightGrey);
+  box-sizing: border-box;
+  border-radius: 8px;
+  height: 67px;
+  align-items: center;
+}
+
+.generalInfo hr {
+  height: 35px;
+  margin-top: 15px !important;
+}
+
+.costBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.costAmount {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.costTxt {
+  font-size: 13px;
+}

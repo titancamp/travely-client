@@ -15,7 +15,7 @@ export const managerSidebarConfig = [
     icon: <Dashboard />,
   },
   {
-    title: 'To Do',
+    title: 'To Do List',
     path: '/manager/todo',
     icon: <PlaylistAddCheck />,
   },
@@ -73,7 +73,7 @@ export const managerSidebarConfig = [
     subPages: [
       {
         title: 'Receivables',
-        path: '/manager/receivables',
+        path: '/manager/receivable',
       },
       {
         title: 'Payables',
