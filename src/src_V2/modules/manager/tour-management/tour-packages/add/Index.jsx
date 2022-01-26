@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Banner } from '../../../supplier-management/components';
 import Finance from './Finance';
 import TourInfo from './TourInfo';
+import Calendar from './calendar/Calendar';
 
 import styles from './style.module.css';
 
@@ -12,10 +13,8 @@ function TourPackageSteps({ currentTab: { step, isValidate }, tourPackage }) {
   switch (step) {
     case 1:
       return <TourInfo isValidate={isValidate} parentRef={tourPackage} />;
-    case 2:
-      return <>PARTICIPANTS</>;
     case 3:
-      return <>CALENDAR :(</>;
+      return <Calendar />;
     case 4:
       return <Finance parentRef={tourPackage} />;
     default:

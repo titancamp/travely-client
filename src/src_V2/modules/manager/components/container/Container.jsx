@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import Header from './header/Header';
 import Sidebar from './sidebar/Sidebar';
 
-import { CONTAINER_SIZES } from '../../../utils';
+import { CONTAINER_SIZES } from '../../../../utils';
 import styles from './Container.module.css';
 
 const Main = styled('main')(({ theme, open }) => ({

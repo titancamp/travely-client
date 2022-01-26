@@ -17,7 +17,7 @@ import { grey } from '@mui/material/colors';
 import { ExpandLess, ExpandMore, ChevronLeft, ChevronRight } from '@mui/icons-material';
 
 import styles from './Sidebar.module.css';
-import { CONTAINER_SIZES } from '../../../../utils';
+import { CONTAINER_SIZES } from '../../../../../utils';
 
 const listStyles = (open) => ({
   marginTop: '24px',
