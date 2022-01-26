@@ -1,5 +1,6 @@
 import axios from 'axios';
-import CacheService from './storage';
+
+import CacheService from '../services/storage';
 
 //TODO temporary refreshToken needs to be imported.
 // import refreshToken from './somewhere';
@@ -12,7 +13,7 @@ const baseConfig = {
   },
 };
 
-const axiosInstance = axios.create(baseConfig);
+const ApiClient = axios.create(baseConfig);
 
 let subscribers = [];
 let isRefreshing = false;
@@ -33,7 +34,7 @@ async function responseFailureInterceptionHandler(error) {
 
   const originalConfig = error.config;
 
-  //TODO check the expiration case correctly.
+  //TODO check the expiration case correctly check with backend guys.
   if (error.response.status === 401 && originalConfig.url !== 'url of auth-> sigin') {
     try {
       if (!isRefreshing) {
@@ -62,10 +63,10 @@ async function responseFailureInterceptionHandler(error) {
   return Promise.reject(error);
 }
 
-axiosInstance.interceptors.request.use(requestInterceptionHandler, (error) =>
+ApiClient.interceptors.request.use(requestInterceptionHandler, (error) =>
   Promise.reject(error)
 );
 
-axiosInstance.interceptors.response.use((res) => res, responseFailureInterceptionHandler);
+ApiClient.interceptors.response.use((res) => res, responseFailureInterceptionHandler);
 
-export default axiosInstance;
+export default ApiClient;
