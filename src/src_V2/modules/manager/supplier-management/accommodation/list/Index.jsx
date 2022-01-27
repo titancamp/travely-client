@@ -1,25 +1,25 @@
-import * as React from 'react';
-import { useState } from 'react';
-import PropTypes from 'prop-types';
 import {
   Box,
+  Button,
   Paper,
   Table,
-  Button,
-  TableRow,
   TableBody,
   TableCell,
-  TableHead,
-  TableSortLabel,
   TableContainer,
+  TableHead,
   TablePagination,
+  TableRow,
+  TableSortLabel,
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
-import FilterBlock from './FilterBlock';
-import DialogManager from '../dialogs/Index';
+import PropTypes from 'prop-types';
+import * as React from 'react';
+import { useState } from 'react';
 
-import styles from './style.module.css';
+import DialogManager from '../dialogs/Index';
+import FilterBlock from './FilterBlock';
 import AccommodationActions from './Menu';
+import styles from './style.module.css';
 
 function createData(
   name,
@@ -229,7 +229,6 @@ export default function AccommodationList() {
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });
 
   const addClass = (e) => {
-    console.log(e);
     e.target.parentElement.classList.add('moreVertIconTr');
   };
 

@@ -1,5 +1,5 @@
+import image from '../../../../assets/accommodation.svg';
 import { NoData } from '../../supplier-management/components';
-import image from '../../../../assets/images/accommodation.png';
 
 export default function TourPackagesLandingPage() {
   return (

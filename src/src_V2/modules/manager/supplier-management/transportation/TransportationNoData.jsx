@@ -1,12 +1,12 @@
+import image from '../../../../assets/transportation.svg';
 import { NoData } from '../components';
-import image from '../../../../assets/images/transportation.png';
 
 export default function TransportationLandingPage() {
   return (
     <NoData
       image={image}
       pageName='Transportation'
-      helperText='Here will be helper text, for case when there is not data yet'
+      helperText='Create and view information about your partner transportation agencies. You can add saved transportation methods to your tour packages.'
     />
   );
 }

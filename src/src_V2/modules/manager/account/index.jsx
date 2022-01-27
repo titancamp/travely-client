@@ -1,32 +1,31 @@
-import { useEffect, useState } from 'react';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 import {
   Box,
-  Grid,
   Button,
   Divider,
-  TextField,
+  Grid,
   IconButton,
+  TextField,
   Typography,
 } from '@mui/material';
 import { useFormik } from 'formik';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
+import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import CompanyInfo from './companyInfo';
-import ImgPlaceholder from './imgPlaceholder';
-import ChangePasswordDialog from './changePasswordDialog';
-import PageWrapper from '../../../components/userPageWrapper';
 import EditUserActions from '../../../components/editUserActions';
-
-import { useToggle } from '../../../utils/hooks';
-import styles from './styles.module.css';
+import PageWrapper from '../../../components/userPageWrapper';
 import { getBase64 } from '../../../utils';
-import { accountMockData } from './mock/data';
+import { useToggle } from '../../../utils/hooks';
 import {
   accountIntialValues,
   accountValidationSchema,
 } from '../../../utils/schemas/account/account';
 import { ROUTES } from '../routes';
+import ChangePasswordDialog from './changePasswordDialog';
+import CompanyInfo from './companyInfo';
+import ImgPlaceholder from './imgPlaceholder';
+import { accountMockData } from './mock/data';
+import styles from './styles.module.css';
 
 function AccountContent() {
   const navigate = useNavigate();
@@ -65,7 +64,7 @@ function AccountContent() {
   const isUser = Boolean(searchParams.get('isUser'));
 
   // Change password dialog
-  const [open, toggleDialog] = useToggle(false);
+  const { open, setOpen: toggleDialog } = useToggle(false);
 
   return (
     <>

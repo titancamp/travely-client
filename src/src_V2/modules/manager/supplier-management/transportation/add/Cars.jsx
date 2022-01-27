@@ -1,9 +1,8 @@
 import { Box, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import DialogManager from '../dialogs/Index';
 import { AddCard, InfoCard } from '../../components';
-
+import DialogManager from '../dialogs/Index';
 import styles from './style.module.css';
 
 export default function Cars({ parentRef }) {
@@ -70,10 +69,9 @@ export default function Cars({ parentRef }) {
         <AddCard
           title='Cars'
           buttonText='ADD CAR'
-          onOpenDialog={openAddCardDialog}
-          disabled={cars.length === 50}
-          subTitle='Add Button bellow to add cars to your accommodation'
           tooltipKeyWord={'car'}
+          disabled={cars.length === 50}
+          onOpenDialog={openAddCardDialog}
         />
         {cars.map((car) => (
           <InfoCard

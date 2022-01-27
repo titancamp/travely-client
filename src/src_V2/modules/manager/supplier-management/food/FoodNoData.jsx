@@ -1,5 +1,5 @@
+import image from '../../../../assets/food.svg';
 import { NoData } from '../components';
-import image from '../../../../assets/images/food.png';
 
 export default function FoodLandingPage() {
   return (
@@ -7,7 +7,7 @@ export default function FoodLandingPage() {
       image={image}
       pageName='Food'
       buttonContent={'ADD MY FIRST FOOD SUPPLIER'}
-      helperText='Here will be helper text, for case when there is not data yet'
+      helperText='Create and view information about your partner guides and agencies. You can assign guides to your tour packages.'
     />
   );
 }

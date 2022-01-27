@@ -1,22 +1,21 @@
+import { Checkbox, Grid, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Checkbox, Grid, TextField, Typography } from '@mui/material';
 
-import DeactivateDialog from '../DeactivateDialog/DeactivateDialog';
 import EditUserActions from '../../../../components/editUserActions';
-
-import {
-  resources,
-  actionLevels,
-  mockUserManagementData,
-  mockResourceDescription,
-} from '../mock/data';
-import styles from './styles.module.css';
+import { useToggle } from '../../../../utils/hooks';
 import {
   userConfigInitialValues,
   userConfigValidationSchema,
 } from '../../../../utils/schemas/userManagement/userManagement';
-import { useToggle } from '../../../../utils/hooks';
+import DeactivateDialog from '../DeactivateDialog/DeactivateDialog';
+import {
+  actionLevels,
+  mockResourceDescription,
+  mockUserManagementData,
+  resources,
+} from '../mock/data';
+import styles from './styles.module.css';
 
 export default function UserConfigContent({ newUser }) {
   const userId = newUser ? null : +useParams().userId;
@@ -62,7 +61,7 @@ export default function UserConfigContent({ newUser }) {
   const inactive = values.status === 'Inactive';
 
   // Deactivate Dialog
-  const [isDialogOpen, toggleDialog] = useToggle(false);
+  const { open: isDialogOpen, setOpen: toggleDialog } = useToggle(false);
 
   const handleDeactivate = () => {
     resetForm();

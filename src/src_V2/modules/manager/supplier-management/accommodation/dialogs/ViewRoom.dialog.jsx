@@ -1,14 +1,13 @@
-import { Fragment } from 'react';
-
+import { Delete, Edit } from '@mui/icons-material';
 import {
   Box,
-  Grid,
-  Typography,
-  IconButton,
-  DialogTitle,
   DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
+  Typography,
 } from '@mui/material';
-import { Edit, Delete } from '@mui/icons-material';
+import { Fragment } from 'react';
 
 import styles from './style.module.css';
 
@@ -22,7 +21,7 @@ export default function ViewRoomDialog({ data: { state: room, actions } }) {
   }
 
   return (
-    <Box className={styles.cardViewContainer}>
+    <Box>
       <DialogTitle className={styles.viewDialogTitle}>
         <Typography className={styles.dialogTitle}>
           {room.type.label} / Details
