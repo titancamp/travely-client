@@ -1,34 +1,32 @@
 import { useEffect, useState } from 'react';
-import { useFormik } from 'formik';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import clsx from 'clsx';
-
 import {
+  Box,
+  Grid,
   Button,
   Divider,
-  Grid,
-  IconButton,
   TextField,
+  IconButton,
   Typography,
-  Box,
 } from '@mui/material';
+import { useFormik } from 'formik';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import EditUserActions from '../../../components/editUserActions';
 import CompanyInfo from './companyInfo';
 import ImgPlaceholder from './imgPlaceholder';
 import ChangePasswordDialog from './changePasswordDialog';
+import PageWrapper from '../../../components/userPageWrapper';
+import EditUserActions from '../../../components/editUserActions';
 
 import { useToggle } from '../../../utils/hooks';
 import styles from './styles.module.css';
 import { getBase64 } from '../../../utils';
+import { accountMockData } from './mock/data';
 import {
   accountIntialValues,
   accountValidationSchema,
 } from '../../../utils/schemas/account/account';
 import { ROUTES } from '../routes';
-import { accountMockData } from './mock/data';
-import PageWrapper from '../../../components/userPageWrapper';
 
 function AccountContent() {
   const navigate = useNavigate();
@@ -72,7 +70,7 @@ function AccountContent() {
   return (
     <>
       <PageWrapper actionsVisible={!isUser}>
-        <div className={clsx(styles['content'])}>
+        <div className={styles['content']}>
           <Typography className={styles['title']} variant='h6'>
             My Account
           </Typography>

@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 import { Check } from '@mui/icons-material';
 
 import styles from './PasswordValidator.module.css';
-import { PasswordStrengthRegexes, PasswordStrengthNames } from '../../../../utils';
+import { PasswordStrengthRegexes, PasswordStrengthNames } from '../../utils';
 
 export default memo(function PasswordValidator({ password }) {
   let currentStrengthLevel = 0;

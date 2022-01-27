@@ -1,10 +1,9 @@
-import clsx from 'clsx';
 import { useFormik } from 'formik';
-import { Checkbox, Grid, TextField, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Checkbox, Grid, TextField, Typography } from '@mui/material';
 
-import EditUserActions from '../../../../components/editUserActions';
 import DeactivateDialog from '../DeactivateDialog/DeactivateDialog';
+import EditUserActions from '../../../../components/editUserActions';
 
 import {
   resources,
@@ -94,7 +93,7 @@ export default function UserConfigContent({ newUser }) {
   };
 
   return (
-    <div className={clsx(styles['content'])}>
+    <div className={styles['content']}>
       <Typography className={styles['title']} variant='h5'>
         {newUser ? 'Add new user' : 'User details'}
       </Typography>
