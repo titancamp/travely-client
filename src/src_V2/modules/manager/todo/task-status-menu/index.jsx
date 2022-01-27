@@ -10,9 +10,9 @@ import {
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
 
-import { useAnchor, useToggle } from '../../../../utils/hooks';
-import TodoClient from '../../../../services/todo-client';
 import { updateTodo } from '../../../../store/actions/todo.actions';
+import { useAnchor, useToggle } from '../../../../utils/hooks';
+import TodoClient from '../../../../utils/services/todo-client';
 import { TaskStatus } from '../utils';
 import styles from './styles';
 
