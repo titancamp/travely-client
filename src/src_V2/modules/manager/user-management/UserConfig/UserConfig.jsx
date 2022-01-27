@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import clsx from 'clsx';
 import { useFormik } from 'formik';
 import { Checkbox, Grid, TextField, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import EditActions from '../../account/editActions';
+import EditUserActions from '../../../../components/editUserActions';
 import DeactivateDialog from '../DeactivateDialog/DeactivateDialog';
 
 import {
@@ -18,6 +17,7 @@ import {
   userConfigInitialValues,
   userConfigValidationSchema,
 } from '../../../../utils/schemas/userManagement/userManagement';
+import { useToggle } from '../../../../utils/hooks';
 
 export default function UserConfigContent({ newUser }) {
   const userId = newUser ? null : +useParams().userId;
@@ -63,15 +63,7 @@ export default function UserConfigContent({ newUser }) {
   const inactive = values.status === 'Inactive';
 
   // Deactivate Dialog
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  const handleOpenDialog = () => {
-    setIsDialogOpen(true);
-  };
-
-  const handleCloseDialog = () => {
-    setIsDialogOpen(false);
-  };
+  const [isDialogOpen, toggleDialog] = useToggle(false);
 
   const handleDeactivate = () => {
     resetForm();
@@ -205,10 +197,10 @@ export default function UserConfigContent({ newUser }) {
             </Grid>
           ))}
         </Grid>
-        <EditActions
+        <EditUserActions
           disabled={!dirty && !newUser && !inactive}
           allowDeactivate={!inactive && !newUser}
-          onClickDeactivate={handleOpenDialog}
+          toggleDialog={toggleDialog}
           onCancel={() => navigate('/manager/user-management')}
           submitButtonText={
             newUser ? 'Add New User' : inactive ? 'Activate User' : 'Save Changes'
@@ -218,7 +210,7 @@ export default function UserConfigContent({ newUser }) {
       <DeactivateDialog
         open={isDialogOpen}
         userName={values.name}
-        handleClose={handleCloseDialog}
+        toggleDialog={toggleDialog}
         handleDeactivate={handleDeactivate}
       />
     </div>

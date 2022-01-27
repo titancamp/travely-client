@@ -14,11 +14,12 @@ import {
 } from '@mui/material';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
-import EditActions from './editActions';
+import EditUserActions from '../../../components/editUserActions';
 import CompanyInfo from './companyInfo';
 import ImgPlaceholder from './imgPlaceholder';
 import ChangePasswordDialog from './changePasswordDialog';
 
+import { useToggle } from '../../../utils/hooks';
 import styles from './styles.module.css';
 import { getBase64 } from '../../../utils';
 import {
@@ -27,7 +28,7 @@ import {
 } from '../../../utils/schemas/account/account';
 import { ROUTES } from '../routes';
 import { accountMockData } from './mock/data';
-import PageWrapper from './pageWrapper';
+import PageWrapper from '../../../components/userPageWrapper';
 
 function AccountContent() {
   const navigate = useNavigate();
@@ -66,13 +67,7 @@ function AccountContent() {
   const isUser = Boolean(searchParams.get('isUser'));
 
   // Change password dialog
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const [open, toggleDialog] = useToggle(false);
 
   return (
     <>
@@ -130,7 +125,7 @@ function AccountContent() {
               </Grid>
               <Grid item xs={8} />
               <Grid item xs={4}>
-                <Button onClick={() => handleOpen()} fullWidth variant='outlined'>
+                <Button onClick={() => toggleDialog(true)} fullWidth variant='outlined'>
                   Change Password
                 </Button>
               </Grid>
@@ -220,7 +215,7 @@ function AccountContent() {
                     </Grid>
                   </Grid>
                 </Grid>
-                <EditActions />
+                <EditUserActions />
               </>
             )}
           </form>
@@ -235,7 +230,7 @@ function AccountContent() {
           )}
         </div>
       </PageWrapper>
-      <ChangePasswordDialog open={open} handleClose={handleClose} />
+      <ChangePasswordDialog open={open} toggleDialog={toggleDialog} />
     </>
   );
 }

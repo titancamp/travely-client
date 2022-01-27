@@ -69,6 +69,7 @@ const closedMixin = (theme) => ({
 const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
   flexShrink: 0,
   whiteSpace: 'nowrap',
+  zIndex: 10,
   boxSizing: 'border-box',
   width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
   ...(open && {

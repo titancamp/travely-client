@@ -15,7 +15,6 @@ import {
   Paper,
 } from '@mui/material';
 import { noop } from '../../utils';
-import styles from './styles';
 
 const EmptyContent = (
   <Box>
@@ -44,19 +43,13 @@ const Table = ({
       <MuiTable>
         <TableHead>
           {head.map(({ content, key, defaultContent, columnStyles: style = {} }) => (
-            <TableCell
-              component='div'
-              key={key}
-              sx={[style, styles.headCell]}
-              variant='head'
-              size='small'
-            >
+            <TableCell component='div' key={key} sx={style} variant='head' size='small'>
               {typeof content === 'function' ? content() : content ?? defaultContent}
             </TableCell>
           ))}
         </TableHead>
         {isLoading && <LinearProgress />}
-        <TableBody component='div'>
+        <TableBody>
           <>
             {rows.length === 0 && !isLoading && (
               <Box display='flex' alignItems='center' justifyContent='center'>

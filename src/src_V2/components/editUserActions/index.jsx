@@ -2,12 +2,12 @@ import { Button } from '@mui/material';
 import BlockIcon from '@mui/icons-material/Block';
 import styles from './styles.module.css';
 
-export default function EditActions({
+export default function EditUserActions({
   onCancel,
   disabled,
   allowDeactivate,
   submitButtonText,
-  onClickDeactivate,
+  toggleDialog,
 }) {
   return (
     <div className={styles['actions-wrapper']}>
@@ -16,7 +16,7 @@ export default function EditActions({
           <Button
             color='error'
             variant='text'
-            onClick={onClickDeactivate}
+            onClick={() => toggleDialog(false)}
             startIcon={<BlockIcon />}
           >
             DEACTIVATE USER

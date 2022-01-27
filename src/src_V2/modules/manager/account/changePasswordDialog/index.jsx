@@ -7,6 +7,7 @@ import {
   TextField,
 } from '@mui/material';
 import { useFormik } from 'formik';
+import { useEffect } from 'react';
 import {
   changePasswordInitialValues,
   changePasswordValidationSchema,
@@ -15,20 +16,22 @@ import PasswordValidator from '../../../auth/components/passwordValidator/Passwo
 
 import styles from './styles.module.css';
 
-export default function ChangePasswordDialog({ handleClose, open }) {
-  const { getFieldProps, touched, errors, handleSubmit } = useFormik({
+export default function ChangePasswordDialog({ toggleDialog, open }) {
+  const { getFieldProps, touched, errors, resetForm, handleSubmit } = useFormik({
     initialValues: changePasswordInitialValues(),
     validationSchema: changePasswordValidationSchema(),
   });
 
-  console.log(errors);
+  useEffect(() => {
+    if (!open) resetForm();
+  }, [open]);
 
   return (
     <Dialog
       classes={{ container: styles['dialog'], paper: styles['paper'] }}
       open={open}
       PaperProps={{ component: 'form', onSubmit: handleSubmit }}
-      onClose={handleClose}
+      onClose={() => toggleDialog(false)}
     >
       <DialogTitle className={styles['dialog-title']}>Change password</DialogTitle>
       <DialogContent>
@@ -44,7 +47,6 @@ export default function ChangePasswordDialog({ handleClose, open }) {
           {...getFieldProps('oldPassword')}
         />
         <TextField
-          autoFocus
           margin='normal'
           label='New Password'
           type='password'
@@ -55,7 +57,6 @@ export default function ChangePasswordDialog({ handleClose, open }) {
           {...getFieldProps('newPassword')}
         />
         <TextField
-          autoFocus
           margin='normal'
           label='Confirm Password'
           type='password'
@@ -68,7 +69,7 @@ export default function ChangePasswordDialog({ handleClose, open }) {
         <PasswordValidator password={getFieldProps('newPassword').value} />
       </DialogContent>
       <DialogActions className={styles['dialog-actions']}>
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={() => toggleDialog(false)}>Cancel</Button>
         <Button type='submit' variant='contained' disableElevation>
           Confirm
         </Button>
