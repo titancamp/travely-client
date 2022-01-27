@@ -3,8 +3,8 @@ import { SchedulerData, ViewTypes } from 'react-big-scheduler';
 
 import { SchedulerInitialData, ViewsConfig, eventColorStyles } from './constants';
 
-export function getInitialScheduler() {
-  if (!getInitialScheduler.scheduler) {
+export function getSchedulerSingleInstance() {
+  if (!getSchedulerSingleInstance.scheduler) {
     let scheduler = new SchedulerData(
       new Date(),
       ViewTypes.Day,
@@ -16,16 +16,28 @@ export function getInitialScheduler() {
     scheduler.setEvents(SchedulerInitialData.events);
     scheduler.setResources(SchedulerInitialData.resources);
 
-    getInitialScheduler.scheduler = scheduler;
+    getSchedulerSingleInstance.scheduler = scheduler;
   }
 
-  return getInitialScheduler.scheduroot;
+  return getSchedulerSingleInstance.scheduler;
 }
 
 export function useSchedulerHandlers(scheduler) {
+  const [error, setError] = useState();
   const [viewModel, setViewModel] = useState({ schedulerData: scheduler, toggle: false });
 
   function newEvent(schedulerData, slotId, slotName, start, end, type, item) {
+    let eventsCountByResource = viewModel.schedulerData.events.reduce(
+      (prev, event) => prev + Number(event.resourceId === slotId),
+      0
+    );
+
+    if (eventsCountByResource === 10) {
+      setError('The events count is up to 10');
+
+      return setTimeout(() => setError(''), 4000);
+    }
+
     let newFreshId = 0;
     schedulerData.events.forEach((item) => {
       if (item.id >= newFreshId) newFreshId = item.id + 1;
@@ -96,7 +108,7 @@ export function useSchedulerHandlers(scheduler) {
   function conflictOccurred() {}
 
   return {
-    viewModel,
+    error,
     newEvent,
     moveEvent,
     onViewChange,
@@ -105,5 +117,6 @@ export function useSchedulerHandlers(scheduler) {
     updateEventStart,
     conflictOccurred,
     eventItemTemplateResolver,
+    schedulerData: viewModel.schedulerData,
   };
 }

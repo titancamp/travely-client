@@ -1,26 +1,21 @@
-import { Dialog } from '@mui/material';
 import AccommodationDetailsDialog from './AccommodationDetails.dialog';
+import { BootstrapDialog } from './component';
 
 function CurrentDialog({ data, onClose }) {
   switch (data.mode) {
     case 'add-accommodation':
       return <AccommodationDetailsDialog data={data} onClose={onClose} />;
     default:
-      return null;
+      return <AccommodationDetailsDialog data={data} onClose={onClose} />;
   }
 }
 
 export default function DialogManager({ data, onShowHideDialog }) {
-  function onClose() {
-    onShowHideDialog({
-      mode: '',
-      open: false,
-    });
-  }
+  const onClose = () => onShowHideDialog({ mode: '', open: false });
 
   return (
-    <Dialog open={data.open} onClose={onClose}>
+    <BootstrapDialog open={true} onClose={onClose}>
       <CurrentDialog data={data} onClose={onClose} />
-    </Dialog>
+    </BootstrapDialog>
   );
 }
