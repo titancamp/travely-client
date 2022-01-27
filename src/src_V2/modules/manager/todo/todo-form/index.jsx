@@ -15,12 +15,12 @@ import {
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
 
-import TodoClient from '../../../../services/todo-client';
 import { getTodoItemSelector } from '../../../../store/selectors/todo.selectors';
 import {
   getTodoFormInitialValues,
   getTodoFormValidation,
 } from '../../../../utils/schemas/todo';
+import TodoClient from '../../../../utils/services/todo-client';
 import { TaskStatus } from '../utils';
 import styles from './styles';
 
