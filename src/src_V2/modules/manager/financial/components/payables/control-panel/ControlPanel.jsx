@@ -1,5 +1,5 @@
+import { Clear, FilterAlt, ViewColumn } from '@mui/icons-material';
 import { Box, Button, IconButton, InputBase, Paper } from '@mui/material';
-import { FilterAlt, ViewColumn, Clear } from '@mui/icons-material';
 
 import styles from './ControlPanel.module.css';
 
@@ -14,9 +14,11 @@ export default function ControlPanel({ searchValue, setSearchTxt }) {
           value={searchValue}
           onChange={(e) => setSearchTxt(e.target.value)}
         />
-        <IconButton onClick={() => setSearchTxt('')}>
-          <Clear />
-        </IconButton>
+        {!!searchValue && (
+          <IconButton onClick={() => setSearchTxt('')}>
+            <Clear />
+          </IconButton>
+        )}
       </Paper>
 
       <Box className={styles.filterDiv}>
