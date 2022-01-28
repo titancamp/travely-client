@@ -26,9 +26,9 @@ import {
 import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { useAnchor, useToggle } from '../../../../utils/hooks';
 import TodoClient from '../../../../services/todo-client';
 import { getTodoItemSelector } from '../../../../store/selectors/todo.selectors';
+import { useAnchor, useToggle } from '../../../../utils/hooks';
 import TaskPriorityMenu from '../task-priority-menu';
 import TaskStatusMenu from '../task-status-menu';
 import { ReminderStatus, TaskStatus } from '../utils';

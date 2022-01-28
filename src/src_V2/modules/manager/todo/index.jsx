@@ -1,17 +1,19 @@
-import { Typography } from '@mui/material';
+import { Add } from '@mui/icons-material';
+import { Box, Button, Typography } from '@mui/material';
 import { Dialog, Grid } from '@mui/material';
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FixedSizeList as List } from 'react-window';
 
-import { useFilters, useToggle } from '../../../utils/hooks';
 import TodoClient from '../../../services/todo-client';
 import { getTodosAction } from '../../../store/actions/todo.actions';
 import { getTodosList } from '../../../store/selectors/todo.selectors';
+import { useFilters, useToggle } from '../../../utils/hooks';
 import styles from './styles';
 import TodoFilter from './todo-filter';
 import TodoForm from './todo-form';
 import TodoItem from './todo-item';
+import TodoListEmptyContent from './todo-list-empty-content';
 import { TODO_FILTER_DEFAULT_VALUES, TaskStatus, TodoListTabs } from './utils';
 
 const getTodosMemoizedDependencies = (todos) => todos.map(({ status }) => status);
@@ -60,7 +62,7 @@ export default function Todo() {
   const TODO_ITEM_SIZE = 106;
 
   return (
-    <>
+    <Box sx={styles.todo}>
       <Grid container spacing={3} sx={styles.todoContainer}>
         <Grid item>
           <Typography variant='h5'>To Do List</Typography>
@@ -69,22 +71,36 @@ export default function Todo() {
           toggle={toggle}
           handleFiltersChange={handleFiltersChange}
           filters={filters}
+          todoCount={todos.length}
         />
-        <Grid item sx={styles.todoList}>
-          <List itemCount={data.length} itemSize={TODO_ITEM_SIZE} height={500}>
-            {({ index, style }) => (
-              <div style={style}>
-                <TodoItem
-                  tourLocation='Haghpat, Sanahin'
-                  id={data[index].id}
-                  key={data[index].id}
-                  getTodos={getTodos}
-                  handleEdit={handleEdit}
-                />
-              </div>
-            )}
-          </List>
-        </Grid>
+        {todos.length ? (
+          <Grid item sx={styles.todoList}>
+            <List itemCount={data.length} itemSize={TODO_ITEM_SIZE} height={500}>
+              {({ index, style }) => (
+                <div style={style}>
+                  <TodoItem
+                    tourLocation='Haghpat, Sanahin'
+                    id={data[index].id}
+                    key={data[index].id}
+                    getTodos={getTodos}
+                    handleEdit={handleEdit}
+                  />
+                </div>
+              )}
+            </List>
+          </Grid>
+        ) : (
+          <Box sx={styles.emptyContainer}>
+            <TodoListEmptyContent />
+            <Button
+              onClick={toggle}
+              variant='contained'
+              startIcon={<Add sx={styles.addIcon} />}
+            >
+              Create
+            </Button>
+          </Box>
+        )}
       </Grid>
       <Dialog
         open={open}
@@ -95,6 +111,6 @@ export default function Todo() {
       >
         <TodoForm onClose={handleFormClose} getTodos={getTodos} id={editableTodoId} />
       </Dialog>
-    </>
+    </Box>
   );
 }

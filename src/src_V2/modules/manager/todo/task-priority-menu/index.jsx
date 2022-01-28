@@ -1,9 +1,9 @@
 import { Box, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { useDispatch } from 'react-redux';
 
-import { useAnchor } from '../../../../utils/hooks';
 import TodoClient from '../../../../services/todo-client';
 import { updateTodo } from '../../../../store/actions/todo.actions';
+import { useAnchor } from '../../../../utils/hooks';
 import { TaskPriority } from '../utils';
 import styles from './styles';
 
