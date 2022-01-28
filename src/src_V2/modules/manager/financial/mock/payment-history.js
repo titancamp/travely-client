@@ -8,3 +8,23 @@ export default function paymentHistory(
 ) {
   return { id, invoiceId, paidAmount, paymentDate, paymentType, attachment };
 }
+
+export function receivablePaymentHistory(
+  id,
+  invoiceId,
+  paidAmount,
+  paymentDate,
+  paymentType,
+  attachment,
+  invoiceSentFlag
+) {
+  return {
+    id,
+    invoiceId,
+    paidAmount,
+    paymentDate,
+    paymentType,
+    attachment,
+    invoiceSentFlag,
+  };
+}

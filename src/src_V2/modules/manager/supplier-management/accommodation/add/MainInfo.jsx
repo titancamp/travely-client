@@ -1,15 +1,14 @@
-import { useFormik } from 'formik';
 import { Map } from '@mui/icons-material';
+import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
+import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { Box, TextField, Autocomplete, Grid, Button } from '@mui/material';
 
-import DialogManager from '../dialogs/Index';
-import { AccommodationTypes, HotelServices, Regions } from '../constants';
 import {
-  mainInfoSchema,
   mainInfoInitialValues,
+  mainInfoSchema,
 } from '../../../../../utils/schemas/tourManagment/accommodation';
-
+import { AccommodationTypes, HotelServices, Regions } from '../constants';
+import DialogManager from '../dialogs/Index';
 import styles from './style.module.css';
 
 export default function MainInfo({ parentRef, isValidate }) {
@@ -52,7 +51,7 @@ export default function MainInfo({ parentRef, isValidate }) {
 
   return (
     <Box className={styles.mainInfo}>
-      <form>
+      <form autoComplete='off'>
         <Box className={styles.mnRow}>
           <label className={styles.label}>Details</label>
           <Grid container rowSpacing={3} spacing={2}>
@@ -198,9 +197,9 @@ export default function MainInfo({ parentRef, isValidate }) {
           <Grid container spacing={4}>
             <Grid item xs={12}>
               <TextField
-                rows={4}
                 fullWidth
                 multiline
+                rows={4}
                 name='notes'
                 label='Notes'
                 onBlur={handleBlur}

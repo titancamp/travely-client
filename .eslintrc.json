@@ -19,10 +19,14 @@
   "settings": {
     "version": "detect"
   },
-  "plugins": ["react"],
+  "plugins": [
+    "react",
+    "import-newlines"
+  ],
   "rules": {
     "semi": ["error", "always"],
     "quotes": ["warn", "single"],
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "object-curly-spacing": ["warn", "always"]
   }
 }

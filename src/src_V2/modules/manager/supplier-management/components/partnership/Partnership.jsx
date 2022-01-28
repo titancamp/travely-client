@@ -1,14 +1,13 @@
+import { Box, Grid, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
-import { Box, Grid, TextField } from '@mui/material';
 
 import {
-  partnershipSchema,
   partnershipInitialValues,
+  partnershipSchema,
 } from '../../../../../utils/schemas/tourManagment/components';
-
-import styles from './style.module.css';
 import AddAttachment from '../add-attachment/AddAttachment';
+import styles from './style.module.css';
 
 export default function Partnership({ parentRef }) {
   const formik = useFormik({
@@ -60,41 +59,8 @@ export default function Partnership({ parentRef }) {
               inputProps={{ ...(values.signInDate && { min: values.signInDate }) }}
             />
           </Grid>
-          <Box className={styles.mnRow}>
-            <Box className={styles.addAttachmentContainer}>
-              <AddAttachment formikRef={formik} />
-            </Box>
-          </Box>
-        </Grid>
-      </Box>
-      <Box className={styles.mnRow}>
-        <label className={styles.label}>Margin</label>
-        <Grid container spacing={3}>
-          <Grid item xs={2.5}>
-            <TextField
-              fullWidth
-              name='percentage'
-              label='Percentage'
-              placeholder='Percentage'
-              onBlur={handleBlur}
-              onChange={handleChange}
-              value={values.percentage}
-              error={errors.percentage && touched.percentage}
-              helperText={touched.percentage && errors.percentage}
-            />
-          </Grid>
-          <Grid item xs={2.5}>
-            <TextField
-              fullWidth
-              name='price'
-              label='Fixed Price'
-              placeholder='Fixed Price'
-              onBlur={handleBlur}
-              value={values.price}
-              onChange={handleChange}
-              error={errors.price && touched.price}
-              helperText={touched.price && errors.price}
-            />
+          <Grid item container mb={2}>
+            <AddAttachment formikRef={formik} />
           </Grid>
         </Grid>
       </Box>

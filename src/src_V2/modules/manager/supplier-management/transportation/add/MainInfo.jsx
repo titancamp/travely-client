@@ -1,29 +1,28 @@
-import { useFormik } from 'formik';
 import { Map } from '@mui/icons-material';
-import { useEffect, useState } from 'react';
+import { Email, Person } from '@mui/icons-material';
 import {
-  Box,
-  Grid,
-  Button,
-  TextField,
-  InputLabel,
   Autocomplete,
+  Box,
+  Button,
   FormControl,
-  OutlinedInput,
   FormHelperText,
+  Grid,
+  InputLabel,
+  OutlinedInput,
+  TextField,
 } from '@mui/material';
-import { Person, LocalPhone, Email } from '@mui/icons-material';
+import { useFormik } from 'formik';
+import { useEffect, useState } from 'react';
 
-import DialogManager from '../dialogs/Index';
-import { EndAdornment } from '../../components/endAdornment';
 import {
-  mainInfoSchema,
   mainInfoInitialValues,
+  mainInfoSchema,
 } from '../../../../../utils/schemas/tourManagment/transportation';
-
-import styles from './style.module.css';
-import { TransportationTypes } from '../constants';
 import { Regions } from '../../accommodation/constants';
+import { EndAdornment } from '../../components/endAdornment';
+import { TransportationTypes } from '../constants';
+import DialogManager from '../dialogs/Index';
+import styles from './style.module.css';
 
 export default function MainInfo({ parentRef, isValidate }) {
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });
@@ -62,9 +61,6 @@ export default function MainInfo({ parentRef, isValidate }) {
   useEffect(initializeTouchState, []);
   useEffect(validateForm, [isValidate]);
   useEffect(addMainInfoToParent, [values, isValid, touched]);
-
-  console.log(errors);
-  console.log(touched);
 
   return (
     <Box className={styles.mainInfo}>
@@ -139,8 +135,8 @@ export default function MainInfo({ parentRef, isValidate }) {
                   value={values.phone}
                   label='Contact Phone'
                   onChange={handleChange}
+                  startAdornment={<>+374&nbsp;</>}
                   error={errors.phone && touched.phone}
-                  endAdornment={<EndAdornment icon={<LocalPhone />} />}
                 />
                 {errors.phone && touched.phone && (
                   <FormHelperText error>{errors.phone}</FormHelperText>
@@ -230,9 +226,9 @@ export default function MainInfo({ parentRef, isValidate }) {
           <Grid container spacing={4}>
             <Grid item xs={12}>
               <TextField
-                rows={4}
                 fullWidth
                 multiline
+                rows={4}
                 name='notes'
                 label='Notes'
                 onBlur={handleBlur}

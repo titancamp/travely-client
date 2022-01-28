@@ -7,4 +7,13 @@
 
 .main {
   overflow-x: auto;
+  margin-top: 78px;
+}
+
+.mainContent {
+  /*margin-top: 78px;*/
+}
+
+.hiddenOffset {
+  height: 78px;
 }

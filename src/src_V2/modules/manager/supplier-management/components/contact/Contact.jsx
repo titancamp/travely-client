@@ -1,21 +1,20 @@
+import { Email, Person } from '@mui/icons-material';
 import {
   Box,
+  FormControl,
+  FormHelperText,
   Grid,
   InputLabel,
-  FormControl,
   OutlinedInput,
-  FormHelperText,
 } from '@mui/material';
-import { useEffect } from 'react';
 import { useFormik } from 'formik';
-import { Person, LocalPhone, Email } from '@mui/icons-material';
+import { useEffect } from 'react';
 
-import { EndAdornment } from '../endAdornment';
 import {
-  contactSchema,
   contactInitialValues,
+  contactSchema,
 } from '../../../../../utils/schemas/tourManagment/components';
-
+import { EndAdornment } from '../endAdornment';
 import styles from './style.module.css';
 
 export default function Contact({ parentRef }) {
@@ -66,8 +65,8 @@ export default function Contact({ parentRef }) {
                 value={values.phone}
                 label='Contact Phone'
                 onChange={handleChange}
+                startAdornment={<>+374&nbsp;</>}
                 error={errors.phone && touched.phone}
-                endAdornment={<EndAdornment icon={<LocalPhone />} />}
               />
               {errors.phone && touched.phone && (
                 <FormHelperText error>{errors.phone}</FormHelperText>

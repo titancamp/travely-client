@@ -6,3 +6,8 @@ export {
   paymentHistoryColumnTypes,
   payableValidationValues,
 } from './payable-table';
+export {
+  receivableColumns,
+  receivablePaymentHistoryColumns,
+  receivablePaymentHistoryColumnTypes,
+} from './receivable-table';
