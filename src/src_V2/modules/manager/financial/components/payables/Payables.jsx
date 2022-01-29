@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { rowsPerPageOptions, payableColumns } from '../../constants';
+import { Layout } from '../../../../../components';
+import { payableColumns, rowsPerPageOptions } from '../../constants';
 import payablesData from '../../mock/payable';
 import { differenceCost, remainingCost } from '../../utils/cost';
-import { Layout } from '../../../../../components';
 import ControlPanel from './control-panel/ControlPanel';
 import PayableTable from './table/PayableTable';
 

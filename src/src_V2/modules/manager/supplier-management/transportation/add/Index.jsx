@@ -2,11 +2,10 @@ import { Box } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Cars from './Cars';
-import MainInfo from './MainInfo';
-import Drivers from './Drivers';
 import { Banner, Partnership } from '../../components';
-
+import Cars from './Cars';
+import Drivers from './Drivers';
+import MainInfo from './MainInfo';
 import styles from './style.module.css';
 
 function TransportationSteps({ currentTab: { step, isValidate }, transportation }) {

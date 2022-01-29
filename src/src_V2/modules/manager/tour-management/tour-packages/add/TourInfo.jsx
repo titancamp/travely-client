@@ -1,8 +1,8 @@
+import { Autocomplete, Box, Grid, TextField } from '@mui/material';
 import { useFormik } from 'formik';
-import { Box, Grid, TextField, Autocomplete } from '@mui/material';
 
-import styles from './style.module.css';
 import { Statuses } from '../constants';
+import styles from './style.module.css';
 
 export default function TourInfo() {
   const { values, errors, touched, handleBlur, handleChange, setFieldValue } = useFormik({

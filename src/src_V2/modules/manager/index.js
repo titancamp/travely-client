@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 
-import routes from './routes';
-import Container from './container/Container';
 import { managerSidebarConfig } from './config';
+import Container from './container/Container';
+import routes from './routes';
 
 /**
  * @description Manager portal routing.

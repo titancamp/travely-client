@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
 import { CircularProgress, Typography } from '@mui/material';
+import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import AuthInfoWrapper from '../authInfoWrapper/AuthInfoWrapper';
-
-import { ROUTES } from '../../routes';
-import styles from './Congratulations.module.css';
 import congratsIllusration from '../../../../assets/congratsIllustration.svg';
+import { ROUTES } from '../../routes';
+import AuthInfoWrapper from '../authInfoWrapper/AuthInfoWrapper';
+import styles from './Congratulations.module.css';
 
 export default function Congratulations({ urlToRedirect, timeout }) {
   const [searchParams] = useSearchParams();

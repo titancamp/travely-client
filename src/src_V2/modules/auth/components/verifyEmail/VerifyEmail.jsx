@@ -1,11 +1,10 @@
-import clsx from 'clsx';
 import { Divider, Link, Typography } from '@mui/material';
+import clsx from 'clsx';
 
-import AuthInfoWrapper from '../authInfoWrapper/AuthInfoWrapper';
-
-import { useTimer } from '../../../../utils/hooks';
-import styles from './VerifyEmail.module.css';
 import verifyIllustration from '../../../../assets/verifyIllustration.svg';
+import { useTimer } from '../../../../utils/hooks';
+import AuthInfoWrapper from '../authInfoWrapper/AuthInfoWrapper';
+import styles from './VerifyEmail.module.css';
 
 // Temporary fix, no date formatting utils
 const addZero = (num) => (num > 10 ? num : '0' + num);

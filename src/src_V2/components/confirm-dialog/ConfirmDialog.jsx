@@ -1,3 +1,4 @@
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Button,
   Dialog,
@@ -7,7 +8,6 @@ import {
   DialogTitle,
   IconButton,
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 
 import styles from './ConfirmDialog.module.css';
 

@@ -1,7 +1,8 @@
-import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import { Avatar, Button, Menu, MenuItem } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { Avatar, Button, Menu, MenuItem } from '@mui/material';
+import { alpha, styled } from '@mui/material/styles';
+import * as React from 'react';
+
 import styles from './header.module.css';
 
 const StyledMenu = styled((props) => (

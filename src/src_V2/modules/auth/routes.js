@@ -1,8 +1,9 @@
 import { Navigate } from 'react-router-dom';
+
 import Login from './login/Login';
-import SignUp from './signUp/SignUp';
 import RegisterAgency from './registerAgency/RegisterAgency';
 import RestorePassword from './restorePassword/RestorePassword';
+import SignUp from './signUp/SignUp';
 
 export const ROUTES = {
   LOGIN: 'login',

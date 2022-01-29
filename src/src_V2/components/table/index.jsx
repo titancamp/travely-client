@@ -3,6 +3,7 @@ import {
   Backdrop,
   Box,
   LinearProgress,
+  Table as MuiTable,
   TableBody,
   TableCell,
   TableContainer,
@@ -11,8 +12,8 @@ import {
   TablePagination,
   TableRow,
   Typography,
-  Table as MuiTable,
 } from '@mui/material';
+
 import { noop } from '../../utils';
 import styles from './styles';
 

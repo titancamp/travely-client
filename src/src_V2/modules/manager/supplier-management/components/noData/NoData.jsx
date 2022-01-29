@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 import { ROUTES } from '../../accommodation';
-
 import styles from './style.module.css';
 
 export default function NoData({ pageName, helperText, image, buttonContent }) {

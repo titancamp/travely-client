@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react';
+import { CloudUpload, Delete, Error, Payment } from '@mui/icons-material';
+import { DatePicker } from '@mui/lab';
 import {
   Accordion,
   AccordionDetails,
@@ -21,16 +22,15 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { Error, Delete, CloudUpload, Payment } from '@mui/icons-material';
-import { DatePicker } from '@mui/lab';
+import { useRef, useState } from 'react';
 
 import { ConfirmDialog, NoData } from '../../../../../../../../components';
 import { paymentHistoryInitialValues } from '../../../../../../../../utils/schemas';
 import {
-  acceptedFileTypes,
-  paymentHistoryColumns as columns,
-  paymentHistoryColumnTypes as columnTypes,
   PaymentType,
+  acceptedFileTypes,
+  paymentHistoryColumnTypes as columnTypes,
+  paymentHistoryColumns as columns,
 } from '../../../../../constants';
 import commonStyles from '../style.module.css';
 import styles from './PaymentHistory.module.css';

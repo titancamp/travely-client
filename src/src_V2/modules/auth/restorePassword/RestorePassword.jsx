@@ -1,17 +1,16 @@
-import { useState } from 'react';
+import { Button, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
-import { Typography, TextField, Button } from '@mui/material';
+import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-
-import SetNewPassword from './SetNewPassword';
-import VerifyEmail from '../components/verifyEmail/VerifyEmail';
-import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
 
 import {
   restorePasswordInitialValues,
   restorePasswordValidationSchema,
 } from '../../../utils/schemas/auth/auth';
+import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
+import VerifyEmail from '../components/verifyEmail/VerifyEmail';
 import styles from './RestorePassword.module.css';
+import SetNewPassword from './SetNewPassword';
 
 export default function RestorePassword() {
   const submitHandler = ({ email }) => {

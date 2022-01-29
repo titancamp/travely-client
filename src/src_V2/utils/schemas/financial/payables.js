@@ -1,8 +1,8 @@
-import { number, string, object, array } from 'yup';
+import { array, number, object, string } from 'yup';
 
-import { BaseSchemas } from '../BaseSchemas';
 import { PaymentType } from '../../../modules/manager/financial/constants';
 import { payableValidationValues } from '../../../modules/manager/financial/constants';
+import { BaseSchemas } from '../BaseSchemas';
 
 /**
  * Initial values for payables.
