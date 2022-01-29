@@ -101,8 +101,6 @@ export default function EditDrawer({ drawerState, clickedRow, isOpenedChangeHand
         />
       </Drawer>
 
-      {/*Popups*/}
-
       {/*Unsaved data popup*/}
       <ConfirmDialog
         open={unsavedPopupOpened}

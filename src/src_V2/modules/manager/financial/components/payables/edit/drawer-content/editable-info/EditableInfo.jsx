@@ -38,7 +38,12 @@ export default function EditableInfo({
           inputFormat='dd/MM/yyyy'
           value={values.dueDate}
           onChange={(newValue) => setFieldValue('dueDate', newValue?.toString())}
-          renderInput={(params) => <TextField {...params} />}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              InputLabelProps={{ classes: { shrink: `${styles.datePickerLblFocused}` } }}
+            />
+          )}
         />
       </Box>
     </Box>

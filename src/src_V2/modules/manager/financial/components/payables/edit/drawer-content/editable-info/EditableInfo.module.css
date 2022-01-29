@@ -12,6 +12,9 @@
 }
 
 .dueDatePickerInput > div > label {
-  /* todo */
-  /*top: -6px;*/
+  top: -6px;
+}
+
+.datePickerLblFocused {
+  top: 0 !important;
 }
