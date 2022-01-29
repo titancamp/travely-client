@@ -37,6 +37,7 @@
 .uploadBtn {
   display: flex;
   align-items: flex-start;
+  width: 149px;
 }
 
 .uploadInput {

@@ -24,7 +24,7 @@ import {
 } from '@mui/material';
 import { useRef, useState } from 'react';
 
-import { ConfirmDialog, NoData } from '../../../../../../../../components';
+import { ConfirmDialog, NoData, TooltipText } from '../../../../../../../../components';
 import { paymentHistoryInitialValues } from '../../../../../../../../utils/schemas';
 import {
   PaymentType,
@@ -128,7 +128,7 @@ const EditableTableCell = ({
         className={styles.uploadBtn}
         onClick={() => handleUploadClick(id)}
       >
-        {value?.name || 'Upload'}
+        {(value?.name && <TooltipText text={value.name} />) || 'Upload'}
       </Button>
     ),
   };
