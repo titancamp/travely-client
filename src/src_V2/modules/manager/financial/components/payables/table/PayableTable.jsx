@@ -267,11 +267,16 @@ export default function PayableTable({
   };
 
   const handleRowClick = (event, row) => {
-    setDrawerState({
-      isOpened: true,
-      drawerEvent: event,
-    });
-    setClickedRow({ ...row });
+    const selection = window.getSelection();
+
+    // don't trigger click event when there is a letter selection
+    if (selection.type !== 'Range') {
+      setDrawerState({
+        isOpened: true,
+        drawerEvent: event,
+      });
+      setClickedRow({ ...row });
+    }
   };
 
   const handleDrawerOpen = (opened) => {

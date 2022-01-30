@@ -5,6 +5,11 @@
 
 .actualCostControl {
   width: 25.3vw;
+  margin-right: 10px !important;
+}
+
+.dueDatePickerInput {
+  margin-left: 10px;
 }
 
 .dueDatePickerInput > div > div {

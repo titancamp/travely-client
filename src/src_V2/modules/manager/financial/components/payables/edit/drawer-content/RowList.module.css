@@ -13,8 +13,13 @@
 
 .layout {
   min-height: 82vh;
-  margin-right: 25px;
-  margin-left: 25px;
+  padding-right: 25px;
+  padding-left: 25px;
+  max-height: calc(99.8vh - 156px);
+  overflow-y: auto;
+  text-align: justify;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .layoutDistance {
@@ -49,8 +54,11 @@
 }
 
 .footerBox {
+  position: absolute;
+  bottom: 0;
   width: 100%;
   justify-content: end;
+  background-color: var(--white);
 }
 
 .btnDiv {
