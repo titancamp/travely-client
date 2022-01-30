@@ -3,21 +3,17 @@ import { Box, IconButton, InputBase } from '@mui/material';
 
 import styles from './SearchInput.module.css';
 
-export default function SearchInput({
-  searchValue,
-  searchHandler,
-  searchLbl = 'Search',
-}) {
+export default function SearchInput({ value, label = 'Search', searchHandler }) {
   return (
     <Box className={styles.searchDiv}>
       <InputBase
         name='search'
         className={styles.searchInput}
-        placeholder={searchLbl}
-        value={searchValue}
+        placeholder={label}
+        value={value}
         onChange={(e) => searchHandler(e.target.value)}
       />
-      {!!searchValue && (
+      {!!value && (
         <IconButton onClick={() => searchHandler('')}>
           <Clear />
         </IconButton>

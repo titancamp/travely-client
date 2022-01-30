@@ -1,7 +1,7 @@
 import { FilterAlt } from '@mui/icons-material';
 import { Box, Button } from '@mui/material';
 
-import SearchInput from '../../components/search-input/SearchInput';
+import { SearchInput } from '../../components';
 import styles from './ControlPanel.module.css';
 
 export default function ControlPanel({ searchValue, handleSearchChange }) {
@@ -9,9 +9,9 @@ export default function ControlPanel({ searchValue, handleSearchChange }) {
     <Box className={styles.mainDiv}>
       <Box className={styles.search}>
         <SearchInput
-          searchValue={searchValue}
+          value={searchValue}
+          label='Search by Tour Name/ID/Supplier'
           searchHandler={handleSearchChange}
-          searchLbl='Search by Tour Name/ID/Supplier'
         />
       </Box>
 

@@ -1,5 +1,4 @@
 import { CloudUpload, Delete, Error, Payment } from '@mui/icons-material';
-import { DatePicker } from '@mui/lab';
 import {
   Accordion,
   AccordionDetails,
@@ -27,6 +26,7 @@ import { useState } from 'react';
 
 import { ConfirmDialog, NoData } from '../../../../../../../components';
 import { receivablesPaymentHistoryInitialValues } from '../../../../../../../utils/schemas';
+import { DateInput } from '../../../../components';
 import {
   PaymentType,
   receivablePaymentHistoryColumnTypes as columnTypes,
@@ -47,7 +47,7 @@ const EditableTableCell = ({
 }) => {
   const error = errors && Object.keys(errors).length && errors[id - 1];
 
-  const handleChange = (newValue, name) => {
+  const handleHistoryChange = (newValue, name) => {
     const newHistories = paymentHistory.map((history) => {
       if (history.id === id) {
         history[name] = newValue;
@@ -57,9 +57,6 @@ const EditableTableCell = ({
     setFieldValue('paymentHistory', JSON.parse(JSON.stringify(newHistories)));
   };
 
-  // todo almost all error handlers are the same - write wrapper
-  // console.log(error, 'ERROR');
-
   return {
     [columnTypes.text]: (
       <TextField
@@ -68,7 +65,7 @@ const EditableTableCell = ({
         name={columnName}
         value={value}
         key={id}
-        onChange={({ target: { value } }) => handleChange(value, columnName)}
+        onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
         error={touched[columnName] && error[columnName]}
         helperText={touched[columnName] && error[columnName]}
       />
@@ -81,7 +78,7 @@ const EditableTableCell = ({
         value={value}
         key={id}
         className={styles.price}
-        onChange={({ target: { value } }) => handleChange(value, columnName)}
+        onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
         error={touched[columnName] && error[columnName]}
         helperText={touched[columnName] && error[columnName]}
         InputProps={{
@@ -90,16 +87,11 @@ const EditableTableCell = ({
       />
     ),
     [columnTypes.date]: (
-      <Box className={commonStyles.dueDatePicker}>
-        <DatePicker
-          inputFormat='dd/MM/yyyy'
-          name={columnName}
-          value={value}
-          key={id}
-          onChange={(newValue) => handleChange(newValue?.toString(), columnName)}
-          renderInput={(params) => <TextField {...params} />}
-        />
-      </Box>
+      <DateInput
+        name='dueDate'
+        value={value}
+        searchHandler={(value) => handleHistoryChange(value, columnName)}
+      />
     ),
     [columnTypes.select]: (
       <FormControl fullWidth>
@@ -108,7 +100,7 @@ const EditableTableCell = ({
           variant='outlined'
           name={columnName}
           value={value}
-          onChange={({ target: { value } }) => handleChange(value, columnName)}
+          onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
         >
           <MenuItem value={PaymentType.Cash}>{PaymentType[1]}</MenuItem>
           <MenuItem value={PaymentType.Transfer}>{PaymentType[2]}</MenuItem>
@@ -123,7 +115,7 @@ const EditableTableCell = ({
     [columnTypes.checkbox]: (
       <Checkbox
         checked={value}
-        onChange={({ target: { checked } }) => handleChange(checked, columnName)}
+        onChange={({ target: { checked } }) => handleHistoryChange(checked, columnName)}
       />
     ),
   };

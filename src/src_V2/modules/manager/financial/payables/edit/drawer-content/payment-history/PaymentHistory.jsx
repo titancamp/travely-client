@@ -1,5 +1,4 @@
 import { CloudUpload, Delete, Error, Payment } from '@mui/icons-material';
-import { DatePicker } from '@mui/lab';
 import {
   Accordion,
   AccordionDetails,
@@ -26,6 +25,7 @@ import { useRef, useState } from 'react';
 
 import { ConfirmDialog, NoData, TooltipText } from '../../../../../../../components';
 import { paymentHistoryInitialValues } from '../../../../../../../utils/schemas';
+import { DateInput } from '../../../../components';
 import {
   PaymentType,
   acceptedFileTypes,
@@ -96,15 +96,11 @@ const EditableTableCell = ({
       />
     ),
     [columnTypes.date]: (
-      <Box className={commonStyles.dueDatePicker}>
-        <DatePicker
-          inputFormat='dd/MM/yyyy'
-          name={columnName}
-          value={value}
-          onChange={(newValue) => handleHistoryChange(newValue?.toString(), columnName)}
-          renderInput={(params) => <TextField {...params} />}
-        />
-      </Box>
+      <DateInput
+        name='dueDate'
+        value={value}
+        searchHandler={(value) => handleHistoryChange(value, columnName)}
+      />
     ),
     [columnTypes.select]: (
       <FormControl fullWidth>

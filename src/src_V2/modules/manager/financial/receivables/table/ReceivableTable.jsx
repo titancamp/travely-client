@@ -298,9 +298,9 @@ export default function ReceivableTable({
                       let indeterminateCheck = false;
                       let checkedCount = 0;
 
-                      for (const i of row.paymentHistory) {
-                        checkedCount += i.invoiceSentFlag;
-                      }
+                      // for (const i of row.paymentHistory) {
+                      //   checkedCount += i.invoiceSentFlag;
+                      // }
 
                       if (checkedCount && checkedCount !== row.paymentHistory.length) {
                         indeterminateCheck = true;

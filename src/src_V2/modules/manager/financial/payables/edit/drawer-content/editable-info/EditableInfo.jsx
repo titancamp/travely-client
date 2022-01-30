@@ -1,6 +1,6 @@
-import { DatePicker } from '@mui/lab';
 import { Box, InputAdornment, TextField } from '@mui/material';
 
+import { DateInput } from '../../../../components';
 import commonStyles from '../style.module.css';
 import styles from './EditableInfo.module.css';
 
@@ -31,21 +31,13 @@ export default function EditableInfo({
           startAdornment: <InputAdornment position='start'>{currency}</InputAdornment>,
         }}
       />
-      <Box className={`${commonStyles.dueDatePicker} ${styles.dueDatePickerInput}`}>
-        <DatePicker
-          name='dueDate'
-          label='Due Date'
-          inputFormat='dd/MM/yyyy'
-          value={values.dueDate}
-          onChange={(newValue) => setFieldValue('dueDate', newValue?.toString())}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              InputLabelProps={{ classes: { shrink: `${styles.datePickerLblFocused}` } }}
-            />
-          )}
-        />
-      </Box>
+      <DateInput
+        name='dueDate'
+        value={values.dueDate}
+        label='Due Date'
+        className={commonStyles.dueDatePickerInput}
+        searchHandler={(value) => setFieldValue('dueDate', value)}
+      />
     </Box>
   );
 }

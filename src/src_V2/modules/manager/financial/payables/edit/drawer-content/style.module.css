@@ -37,6 +37,7 @@
 }
 
 /* DatePicker */
-.dueDatePicker > div > div {
-  height: 40px;
+
+.dueDatePickerInput > div > div {
+  width: 25.3vw;
 }
