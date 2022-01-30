@@ -1,5 +1,5 @@
 // These files are potentially removable
-import paymentHistory from './payment-history';
+import { payablePaymentHistory as paymentHistory } from './payment-history';
 
 const payablesData = () => ({
   total: {

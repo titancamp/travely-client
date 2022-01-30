@@ -9,7 +9,7 @@ export const receivableColumns = () => {
     { id: 'totalAmount', label: 'Total ammount' },
     { id: 'invoiceSentFlag', label: 'Invoice sent' },
     { id: 'paidAmount', label: 'Paid Amount' },
-    { id: 'remainingAmount', label: 'Remaining Amount' },
+    { id: 'remaining', label: 'Remaining Amount' },
     { id: 'status', label: 'Status' },
     { id: 'createdDate', label: 'Created date' },
     { id: 'dueDate', label: 'Due date' },
