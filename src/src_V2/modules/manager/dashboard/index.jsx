@@ -1,5 +1,5 @@
 import { DatePicker } from '@mui/lab';
-import { Box, Divider, Grid, TextField, Typography } from '@mui/material';
+import { Box, Button, Divider, Grid, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 
@@ -25,9 +25,9 @@ export default function Dashboard() {
       <Grid item>
         <Typography variant='h5'>Dashboard</Typography>
       </Grid>
-      <Grid item>
-        <Grid container spacing={3}>
-          <Grid item className={styles.chartContainer}>
+      <Grid item height={500}>
+        <Grid container spacing={3} className={styles.companyInfo}>
+          <Grid item xs={8} className={styles.chartContainer}>
             <DatePicker
               onChange={handleChange}
               value={values.date}
@@ -92,24 +92,53 @@ export default function Dashboard() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item>
-            <Grid container direction='column' rowSpacing={3}>
-              <Grid item className={`${styles.analyticsItem} ${styles.ongoingAnalytics}`}>
-                <Typography fontWeight={500}>Ongoing Tours</Typography>
+          <Grid item xs={4} className={styles.analyticsContainer}>
+            <Grid
+              container
+              direction='column'
+              wrap='nowrap'
+              rowSpacing={3}
+              className={styles.analyticsGrid}
+            >
+              <Grid
+                item
+                xs={6}
+                className={`${styles.analyticsItem} ${styles.ongoingAnalytics}`}
+              >
+                <Typography fontWeight={500} className={styles.analyticName}>
+                  Ongoing Tours
+                </Typography>
                 <Divider className={styles.divider} />
-                <Typography variant='h4'>40</Typography>
+                <Typography variant='h4' className={styles.analyticsValue}>
+                  40
+                </Typography>
               </Grid>
               <Grid
                 item
+                xs={6}
                 className={`${styles.analyticsItem} ${styles.upcomingAnalytics}`}
               >
-                <Typography fontWeight={500}>Upcoming Tours</Typography>
+                <Typography fontWeight={500} className={styles.analyticName}>
+                  Upcoming Tours
+                </Typography>
                 <Divider className={styles.divider} />
-                <Typography variant='h4'>12</Typography>
+                <Typography variant='h4' className={styles.analyticsValue}>
+                  12
+                </Typography>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
+      </Grid>
+      <Grid item className={styles.todoContainer}>
+        <Box className={styles.todoList}>
+          <Typography variant='h6' fontWeight={500}>
+            To Do List
+          </Typography>
+          <Button variant='text' color='primary'>
+            View ALL
+          </Button>
+        </Box>
       </Grid>
     </Grid>
   );
