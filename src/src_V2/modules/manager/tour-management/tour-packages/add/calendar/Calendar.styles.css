@@ -1,35 +1,56 @@
 .calendarWrapper {
-   overflow: hidden;
-    /*box-shadow: 3px 4px 5px -1px rgb(0 0 0 / 20%);*/
-    border-radius: 8px;
+    overflow: hidden;
+    border-top-left-radius: 8px;
+    border-bottom-right-radius: 12px;
+    border-top-right-radius: 8px;
     padding-top: 86px;
     border-right: 1px solid #ddd;
-
-
     position: relative;
+    box-shadow: 8px 1px 8px -9px #888;
 }
 
-/*.calendarWrapper .scheduler {
-    width: 100% !important;
-    margin: 0!important;
-}*/
+.calendarWrapper tr > th:first-child, .calendarWrapper tr > td:first-child {
+    padding-left: 0;
+}
 
 .scheduler {
     min-height: 300px;
-    width: 100% !important;
 }
 
+.scheduler-view, .scheduler {
+    min-width: 1500px;
+}
+.scheduler-view > div:nth-child(1) {
+    padding-right: 164px!important;
+}
+
+.scheduler-view  div:nth-child(2) {
+    margin-right: 164px!important;
+}
+
+.scheduler-bg-table tr th{
+    background-color: #f5f5f5!important;
+    border-color: transparent;
+    border-top: 1px solid #ddd;
+
+}
+
+.scheduler-bg-table tr td:last-child {
+    border-color: transparent;
+}
+
+
 .scheduler thead tr:first-child  td > div{
-    position: absolute;
     top: 0;
-    left: 174px;
     right: 0;
+    left: 39px;
     height: 107px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    border-left: 1px solid #ddd;
+    position: absolute;
     background-color: #f5f5f5;
     border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 .scheduler thead tr:first-child  td > div:first-child {
@@ -59,9 +80,9 @@
     left: -5px
 }*/
 
-/*.scheduler  .resource-view {*/
-/*    width: 100px!important;*/
-/*}*/
+.scheduler  .resource-view {
+    width: 40px!important;
+}
 
 .scheduler  .resource-view, .scheduler tbody tr:first-child td:first-child{
 
@@ -133,7 +154,7 @@ font-size: 0;
 
 
 .scheduler .anticon-left{
-    display: none!important;
+    /*display: none!important;*/
 }
 
 .scheduler .ant-col:first-child {
@@ -153,7 +174,15 @@ font-size: 0;
     content: "";
     display: inline-block;
     vertical-align: top;
-    min-height: 90px;
+    min-height: 89px;
+}
+
+.scheduler-bg-table  tr:after{
+    min-width: 80px;
+}
+
+.scheduler-bg-table th:last-child {
+    border-right: transparent;
 }
 
 .scheduler .scheduler-content-table .event-container {
@@ -164,11 +193,86 @@ font-size: 0;
     display: none
 }
 
-/*temporary*/
+.scheduler-bg-table thead th.header3-text {
+    vertical-align: bottom;
+}
+
+.scheduler-bg-table thead th.header3-text div{
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 400;
+    text-align: left;
+    padding-left: 5px;
+}
+
+
 .scheduler-content td {
     padding-left: 1px !important;
 }
 
 .scheduler-content-table td {
     cursor: pointer;
+}
+
+.priceSection {
+    right: 0;
+    bottom: 6px;
+    height: 40px;
+    text-align: right;
+    position: absolute;
+    background-color: #F6F6F6;
+    width: calc(100% - 40px);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0 5px 3px -2px rgba(0, 0, 0, 0.2), 0 3px 4px rgba(0, 0, 0, 0.14), 0 1px 8px rgba(0, 0, 0, 0.12);
+}
+
+.priceSectionHidden {
+    height: 23px;
+}
+
+.calendarError {
+    color: red;
+    margin: 20px 0;
+}
+
+.eventItemContainer {
+    height: 30px;
+    cursor: default;
+    border-radius: 3px;
+    margin-bottom: 3px;
+    align-items: center;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.15);
+}
+
+.eventItemContent {
+    font-size: 14px;
+    padding-left: 6px;
+    font-weight: 500;
+    margin: 4px 0 0 !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.accommodation {
+    background: #FEF2F1;
+    border: 1px solid rgba(248, 128, 120, 0.3);
+}
+
+.food {
+    background: #FFF8ED;
+    border: 1px solid rgba(255, 181, 71, 0.4);
+}
+.transportation {
+    background: #F0F8FE;
+    border: 1px solid rgba(100, 182, 247, 0.3);
+}
+.guide {
+    background: #EBF6EC;
+    border: 1px solid rgba(123, 198, 126, 0.3);
+}
+.activity {
+    background: #FCF3FC;
+    border: 1px solid rgba(226, 130, 228, 0.4);
 }

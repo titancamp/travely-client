@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { SchedulerData, ViewTypes } from 'react-big-scheduler';
 
-import { SchedulerInitialData, ViewsConfig, eventColorStyles } from './constants';
+import { SchedulerInitialData, ViewsConfig } from './constants';
 
 export function getSchedulerSingleInstance() {
   if (!getSchedulerSingleInstance.scheduler) {
@@ -26,7 +26,7 @@ export function useSchedulerHandlers(scheduler) {
   const [error, setError] = useState();
   const [viewModel, setViewModel] = useState({ schedulerData: scheduler, toggle: false });
 
-  function newEvent(schedulerData, slotId, slotName, start, end, type, item) {
+  function newEvent(schedulerData, slotId, slotName, start, end) {
     let eventsCountByResource = viewModel.schedulerData.events.reduce(
       (prev, event) => prev + Number(event.resourceId === slotId),
       0
@@ -34,7 +34,7 @@ export function useSchedulerHandlers(scheduler) {
 
     if (eventsCountByResource === 10) {
       setError('The events count is up to 10');
-
+      window.scrollTo(0, document.body.scrollHeight);
       return setTimeout(() => setError(''), 4000);
     }
 
@@ -44,43 +44,33 @@ export function useSchedulerHandlers(scheduler) {
     });
 
     let newEvent = {
+      end,
+      start,
       id: newFreshId,
-      title: 'New event you just created',
-      start: start,
-      end: end,
       resourceId: slotId,
+      title: 'Mariot/ r(5)',
     };
 
     schedulerData.addEvent(newEvent);
     setViewModel({ schedulerData, toggle: !viewModel.toggle });
   }
 
-  function eventItemTemplateResolver(schedulerData, event, mustAddCssClass, a, b) {
+  function eventItemTemplateResolver(schedulerData, event) {
     let titleText = schedulerData.behaviors.getEventTextFunc(schedulerData, event);
-    const { border, background } = eventColorStyles[event.resourceId];
 
     return (
-      <div
-        key={event.id}
-        style={{
-          cursor: 'default',
-          borderRadius: '3px',
-          marginBottom: '3px',
-          backgroundColor: background,
-          border: `1px solid ${border}`,
-          boxShadow: '0px 2px 1px -1px rgba(0, 0, 0, 0.1)',
-        }}
-      >
-        <span style={{ color: '#FFFFFF', margin: '4px 0 0 2px', borderRadius: 1 }}>
-          1{/*{titleText}*/}
-        </span>
+      <div key={event.id} className={`eventItemContainer ${event.resourceId}`}>
+        <p className='eventItemContent'>{titleText}</p>
       </div>
     );
   }
 
   function onViewChange(schedulerData, view) {
+    const calendar = document.getElementById('calendar');
+    calendar.className = `viewType_${view.viewType}`;
+    const existingEvents = schedulerData.events.map((event) => event);
     schedulerData.setViewType(view.viewType, view.showAgenda, view.isEventPerspective);
-    schedulerData.setEvents(schedulerData.events);
+    schedulerData.setEvents(existingEvents);
     setViewModel({ schedulerData, toggle: !viewModel.toggle });
   }
 
@@ -90,7 +80,7 @@ export function useSchedulerHandlers(scheduler) {
     setViewModel({ schedulerData, toggle: !viewModel.toggle });
   }
 
-  function updateEventStart(schedulerData, event, newStart, a, b) {
+  function updateEventStart(schedulerData, event, newStart) {
     schedulerData.updateEventStart(event, newStart);
     setViewModel({ schedulerData, toggle: !viewModel.toggle });
   }
@@ -101,7 +91,23 @@ export function useSchedulerHandlers(scheduler) {
   }
 
   function moveEvent(schedulerData, event, slotId, slotName, start, end) {
-    schedulerData.moveEvent(event, slotId, slotName, start, end);
+    if (event.resourceId === slotId) {
+      schedulerData.moveEvent(event, slotId, slotName, start, end);
+      setViewModel({ schedulerData, toggle: !viewModel.toggle });
+    }
+  }
+
+  function prevClick(schedulerData) {
+    const existingEvents = schedulerData.events.map((event) => event);
+    schedulerData.prev();
+    schedulerData.setEvents(existingEvents);
+    setViewModel({ schedulerData, toggle: !viewModel.toggle });
+  }
+
+  function nextClick(schedulerData) {
+    const existingEvents = schedulerData.events.map((event) => event);
+    schedulerData.next();
+    schedulerData.setEvents(existingEvents);
     setViewModel({ schedulerData, toggle: !viewModel.toggle });
   }
 
@@ -111,6 +117,8 @@ export function useSchedulerHandlers(scheduler) {
     error,
     newEvent,
     moveEvent,
+    prevClick,
+    nextClick,
     onViewChange,
     onSelectDate,
     updateEventEnd,

@@ -3,19 +3,18 @@ import { ViewTypes } from 'react-big-scheduler';
 export const ViewsConfig = {
   minuteStep: 60,
   dayCellWidth: 120,
-  eventItemHeight: 22,
-  // summaryColor: 'f5f5f5',
-  tableHeaderHeight: 30,
-  eventItemLineHeight: 30,
-  selectedAreaColor: '#757575',
-  // nonAgendaSlotMinHeight: 0,
-  // schedulerWidth: '100%',
+  // weekCellWidth: 400, //TODO uncomment
+  // weekResourceTableWidth: 40, //TODO uncomment
+  dayResourceTableWidth: 40,
+  monthResourceTableWidth: 40,
+  eventItemHeight: 31,
+  tableHeaderHeight: 33,
+  eventItemLineHeight: 33,
+  selectedAreaColor: '#75757550',
   nonWorkingTimeHeadBgColor: 'white',
   nonWorkingTimeBodyBgColor: 'white',
+  scrollToSpecialMomentEnabled: false,
   nonAgendaDayCellHeaderFormat: 'HH:mm',
-
-  // headerEnabled: false,
-  // dayResourceTableWidth: 0,
   views: [
     {
       viewName: 'Day',

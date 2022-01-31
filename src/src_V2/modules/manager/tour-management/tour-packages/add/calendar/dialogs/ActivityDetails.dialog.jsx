@@ -1,4 +1,5 @@
-import { Hotel } from '@mui/icons-material';
+import { DirectionsWalk } from '@mui/icons-material';
+import { pink } from '@mui/material/colors';
 
 import AddSupplierDetails from './AddSupplierDetails.dialog';
 import { AccommodationSupplier } from './component';
@@ -23,8 +24,8 @@ export default function AccommodationDetailsDialog(props) {
   return (
     <AddSupplierDetails
       {...props}
-      title={'Accommodation'}
-      icon={<Hotel color='error' />}
+      title='Activity'
+      icon={<DirectionsWalk style={{ color: pink[500] }} />}
       SupplierComponent={AddAccommodation}
     />
   );
