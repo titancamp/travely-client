@@ -54,3 +54,6 @@ export default dragDropContext(HTML5Backend)(Calendar);
 // item styles move to css folder
 
 //Event count on same column
+
+//src/src_V2/modules/manager/tour-management/tour-packages/add/calendar/dialogs/component.jsx styling
+//naming changes need
