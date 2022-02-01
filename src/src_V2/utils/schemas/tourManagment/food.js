@@ -1,6 +1,7 @@
 import { object } from 'yup';
-import { BaseSchemas } from '../BaseSchemas';
+
 import { ERROR_MESSAGES } from '../../constants';
+import { BaseSchemas } from '../BaseSchemas';
 
 /**
  * Initial values for transportation.
@@ -27,6 +28,11 @@ export function mainInfoInitialValues(initialValues) {
 export function FilterInitialValues() {
   return {
     menu: [],
+    type: null,
+    region: null,
+    city: null,
+    priceFrom: '',
+    priceTo: '',
     checkIn: '',
     checkOut: '',
   };
@@ -61,5 +67,16 @@ export function mainInfoSchema() {
 export function FoodFiltersSchema() {
   return object().shape({
     menu: BaseSchemas.autocompleteField,
+    type: BaseSchemas.autocompleteField,
+    region: BaseSchemas.autocompleteField,
+    city: BaseSchemas.autocompleteField,
+    priceFrom: BaseSchemas.floatingNumber(
+      99999999.99,
+      ERROR_MESSAGES.rightFormat(', e.g. 99,999,999.99')
+    ),
+    priceTo: BaseSchemas.floatingNumber(
+      99999999.99,
+      ERROR_MESSAGES.rightFormat(', e.g. 99,999,999.99')
+    ),
   });
 }

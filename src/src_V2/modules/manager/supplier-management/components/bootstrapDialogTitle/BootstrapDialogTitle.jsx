@@ -1,36 +1,30 @@
-import PropTypes from 'prop-types';
-import { styled } from '@mui/material/styles';
 import { Close, Delete, Edit } from '@mui/icons-material';
 import { Button, Dialog, DialogTitle, IconButton } from '@mui/material';
-import styles from '../../food/dialogs/style.module.css';
+import { styled } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+
+import styles from './style.module.css';
 
 /*TODO see if we can merge this with BootstrapDialog in
 AllFilter file, otherwise get this out from components folder*/
 
-export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+export const BootstrapDialog = styled(Dialog)(() => ({
   '& .MuiDialog-paper': {
     position: 'absolute',
-    top: 10,
-    right: 10,
+    top: 80,
+    right: 0,
     margin: 'inherit',
     maxWidth: 900,
     width: 900,
     height: 1180,
-  },
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
-  },
-  '& .MuiDialogActions-root': {
-    padding: theme.spacing(1),
   },
 }));
 
 export const BootstrapDialogTitle = (props) => {
   const { children, onClose, handleReset, ...other } = props;
 
-  //TODO remove inline styles
   return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+    <DialogTitle {...other}>
       {children}
       {onClose ? (
         <div>
@@ -47,14 +41,8 @@ export const BootstrapDialogTitle = (props) => {
             </>
           )}
           <IconButton
-            aria-label='close'
             onClick={onClose}
-            sx={{
-              position: 'absolute',
-              right: 8,
-              top: 8,
-              color: (theme) => theme.palette.grey[500],
-            }}
+            className={`${styles.iconButton} ${handleReset ? styles.filtersModal : ''}`}
           >
             <Close />
           </IconButton>

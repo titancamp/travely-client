@@ -1,15 +1,16 @@
+import { TabContext, TabList } from '@mui/lab';
+import { Box, DialogContent, Tab } from '@mui/material';
 import * as React from 'react';
-import { TabList, TabContext } from '@mui/lab';
-import { Box, Tab, DialogContent } from '@mui/material';
-import Rooms from './Rooms';
-import MainInfo from './MainInfo';
-import Partnership from '../../../components/dialogs/Partnership';
+
 import {
   BootstrapDialog,
   BootstrapDialogTitle,
 } from '../../../components/bootstrapDialogTitle/BootstrapDialogTitle';
-
+import Partnership from '../../../components/dialogs/Partnership';
 import styles from '../style.module.css';
+import MainInfo from './MainInfo';
+import Rooms from './Rooms';
+
 //TODO make this component sharable
 export default function AccommodationDetailsDialog({ onClose, data: { open } }) {
   const [value, setValue] = React.useState('1');
@@ -21,7 +22,6 @@ export default function AccommodationDetailsDialog({ onClose, data: { open } }) 
   return (
     <BootstrapDialog onClose={onClose} open={open}>
       <BootstrapDialogTitle
-        id='customized-dialog-title'
         onClose={onClose}
         className={`${styles.container} ${styles.header}`}
       >

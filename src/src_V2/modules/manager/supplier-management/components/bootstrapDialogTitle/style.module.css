@@ -1,0 +1,27 @@
+.filterHeader .resetBtn {
+    margin-right: 60px;
+    padding: 8px 22px;
+    font-width: 500;
+    line-height: 26px;
+    font-size: 15px;
+}
+
+.headerActions {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.headerDeleteBtn{
+    margin-right: 41px;
+    margin-left: 21px;
+}
+
+.iconButton {
+    position: absolute !important;
+    color: var(--grey);
+    right: 10px;
+    top: 6px;
+}
+
+.filtersModal {
+    top: 17px;
+}

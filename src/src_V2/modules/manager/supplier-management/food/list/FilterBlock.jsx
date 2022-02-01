@@ -1,26 +1,38 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { AddCircle, Tune } from '@mui/icons-material';
+import { AddCircle, AttachMoney, Tune } from '@mui/icons-material';
 import {
-  Box,
-  Grid,
-  Button,
-  TextField,
-  Typography,
   Autocomplete,
+  Box,
+  Button,
   FormControl,
+  Grid,
+  InputAdornment,
   InputLabel,
   OutlinedInput,
-  InputAdornment,
+  TextField,
+  Typography,
 } from '@mui/material';
+import { useFormik } from 'formik';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import {
+  FilterInitialValues,
+  FoodFiltersSchema,
+} from '../../../../../utils/schemas/tourManagment/food';
+//TODO make this global for Supplier Management
+import { AccommodationTypes } from '../../accommodation/constants';
 import { TransportationTypes } from '../constants';
 import DialogManager from '../dialogs/Index';
-//TODO make this global for Supplier Management
-import { Regions } from '../../accommodation/constants';
 import styles from './style.module.css';
 
 export default function FilterBlock() {
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });
+  const formikData = {
+    validationSchema: FoodFiltersSchema(),
+    initialValues: FilterInitialValues(),
+  };
+
+  const { values, errors, touched, handleBlur, handleChange } = useFormik(formikData);
 
   function openAllFiltersDialog() {
     onShowHideDialog({
@@ -38,33 +50,68 @@ export default function FilterBlock() {
           <Grid item>
             <Autocomplete
               size='small'
+              onChange={handleChange}
+              name='type'
               className={styles.select}
+              disablePortal
               options={TransportationTypes}
               renderInput={(params) => <TextField {...params} label='Type' />}
+              onBlur={handleBlur}
+              value={values.type}
+              error={errors.type && touched.type}
+              helperText={touched.type && errors.type}
             />
           </Grid>
           <Grid item>
             <Autocomplete
               size='small'
+              onChange={handleChange}
+              name='region'
               className={styles.select}
-              options={Regions}
+              disablePortal
+              options={AccommodationTypes}
               renderInput={(params) => <TextField {...params} label='Region' />}
+              onBlur={handleBlur}
+              value={values.region}
+              error={errors.region && touched.region}
+              helperText={touched.region && errors.region}
             />
           </Grid>
           <Grid item>
             <Autocomplete
               size='small'
+              onChange={handleChange}
+              name='city'
               className={styles.select}
-              options={Regions}
+              disablePortal
+              options={AccommodationTypes}
               renderInput={(params) => <TextField {...params} label='City' />}
+              onBlur={handleBlur}
+              value={values.city}
+              error={errors.city && touched.city}
+              helperText={touched.city && errors.city}
             />
           </Grid>
           <Grid item>
             <FormControl size='small' className={styles.priceInp}>
               <InputLabel>Price from</InputLabel>
               <OutlinedInput
-                startAdornment={<InputAdornment position='start'>$</InputAdornment>}
+                name='priceFrom'
+                type='number'
+                startAdornment={
+                  <InputAdornment position='start'>
+                    <AttachMoney />
+                  </InputAdornment>
+                }
                 label='Price from'
+                onBlur={handleBlur}
+                value={values.priceFrom}
+                onChange={handleChange}
+                error={errors.priceFrom && touched.priceFrom}
+                helperText={touched.priceFrom && errors.priceFrom}
+                FormHelperTextProps={{
+                  className: styles.helperText,
+                }}
               />
             </FormControl>
           </Grid>
@@ -72,8 +119,22 @@ export default function FilterBlock() {
             <FormControl size='small' className={styles.priceInp}>
               <InputLabel>Price to</InputLabel>
               <OutlinedInput
-                startAdornment={<InputAdornment position='start'>$</InputAdornment>}
+                name='priceTo'
+                type='number'
+                startAdornment={
+                  <InputAdornment position='start'>
+                    <AttachMoney />
+                  </InputAdornment>
+                }
                 label='Price to'
+                onBlur={handleBlur}
+                value={values.priceTo}
+                onChange={handleChange}
+                error={errors.priceTo && touched.priceTo}
+                helperText={touched.priceTo && errors.priceTo}
+                FormHelperTextProps={{
+                  className: styles.helperText,
+                }}
               />
             </FormControl>
           </Grid>

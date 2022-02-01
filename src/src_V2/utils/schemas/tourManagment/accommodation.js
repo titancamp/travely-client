@@ -1,6 +1,7 @@
 import { object } from 'yup';
-import { BaseSchemas } from '../BaseSchemas';
+
 import { ERROR_MESSAGES } from '../../constants';
+import { BaseSchemas } from '../BaseSchemas';
 
 /**
  * Initial values for accommodation.
@@ -72,8 +73,11 @@ export function addRoomSchema() {
 
 export function AccommodationFilterSchema() {
   return object().shape({
+    region: BaseSchemas.autocompleteField,
     quantity: BaseSchemas.integer(),
     price: BaseSchemas.floatingNumber(),
+    priceFrom: BaseSchemas.floatingNumber(),
+    priceTo: BaseSchemas.floatingNumber(),
     beds: BaseSchemas.integer(),
     additionalBeds: BaseSchemas.integer(),
     type: BaseSchemas.requiredAutocompleteField,

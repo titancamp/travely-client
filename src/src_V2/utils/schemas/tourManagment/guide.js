@@ -1,6 +1,7 @@
-import { object, array } from 'yup';
-import { BaseSchemas } from '../BaseSchemas';
+import { array, object } from 'yup';
+
 import { ERROR_MESSAGES } from '../../constants';
+import { BaseSchemas } from '../BaseSchemas';
 
 /**
  * Initial values for transportation page.
@@ -79,5 +80,8 @@ export function FilterGuideSchema() {
     cost: BaseSchemas.integer(),
     experience: BaseSchemas.integer(),
     languages: BaseSchemas.multiAutocompleteField,
+    type: BaseSchemas.requiredAutocompleteField,
+    region: BaseSchemas.autocompleteField,
+    city: BaseSchemas.textField(50, ERROR_MESSAGES.letters(50)),
   });
 }

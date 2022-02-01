@@ -1,6 +1,7 @@
 import { object } from 'yup';
-import { BaseSchemas } from '../BaseSchemas';
+
 import { ERROR_MESSAGES } from '../../constants';
+import { BaseSchemas } from '../BaseSchemas';
 
 /**
  * Initial values for transportation.
@@ -47,6 +48,10 @@ export function FilterInitialValues() {
     carSeats: '',
     license: [],
     languages: [],
+    region: null,
+    city: null,
+    type: null,
+    car: null,
   };
 }
 
@@ -100,6 +105,10 @@ export function TransportationFiltersSchema() {
     carSeats: BaseSchemas.integer(),
     model: BaseSchemas.requiredText(50),
     languages: BaseSchemas.autocompleteField,
+    region: BaseSchemas.autocompleteField,
+    city: BaseSchemas.autocompleteField,
+    type: BaseSchemas.autocompleteField,
+    car: BaseSchemas.autocompleteField,
     license: BaseSchemas.multiAutocompleteField,
   });
 }
