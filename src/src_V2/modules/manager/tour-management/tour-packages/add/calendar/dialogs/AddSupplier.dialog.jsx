@@ -12,6 +12,7 @@ import { useState } from 'react';
 
 import { NoData } from '../../../../../../../components';
 import { DialogAction } from './component';
+import styles from './styles.module.css';
 
 export default function AddSupplierDialog({
   onClose,
@@ -31,10 +32,10 @@ export default function AddSupplierDialog({
 
   return (
     <form autoComplete='off'>
-      <DialogTitle sx={{}}>
-        <div style={{ display: 'flex' }}>
-          <div style={{ marginTop: 2 }}>{icon}</div>
-          <Typography variant={'h5'} style={{ marginLeft: 13, display: 'inline' }}>
+      <DialogTitle>
+        <div className={styles.flex}>
+          <div className={styles.icon}>{icon}</div>
+          <Typography variant={'h5'} className={styles.title}>
             {title}
           </Typography>
         </div>
@@ -55,14 +56,7 @@ export default function AddSupplierDialog({
             startAdornment: <Search position='start' color={'action'} sx={{ mr: 1 }} />,
           }}
         />
-        <div
-          style={{
-            paddingBottom: 5,
-            height: 660,
-            marginTop: 24,
-            overflowY: 'auto',
-          }}
-        >
+        <div className={styles.itemsContainer}>
           {values.search ? (
             <RadioGroup onChange={onRadioChange}>
               <SupplierComponent
@@ -72,14 +66,7 @@ export default function AddSupplierDialog({
               />
             </RadioGroup>
           ) : (
-            <div
-              style={{
-                height: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
+            <div className={styles.noData}>
               <NoData />
             </div>
           )}
