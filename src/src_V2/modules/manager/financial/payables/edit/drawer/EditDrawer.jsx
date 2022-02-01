@@ -105,8 +105,8 @@ export default function EditDrawer({ drawerState, clickedRow, isOpenedChangeHand
       <ConfirmDialog
         open={unsavedPopupOpened}
         message='Please note that you have unsaved changes. Do you want to save the changes?'
-        confirmButton={{ focus: true, txt: 'Save' }}
-        cancelButton={{ txt: 'Discard' }}
+        confirmButton={{ focus: false, txt: 'Save' }}
+        cancelButton={{ focus: true, txt: 'Discard' }}
         onCancel={handleDiscardUnsavedChanges}
         onClose={closeUnsavedChangesPopup}
         onConfirm={handleSaveChanges}

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { Layout } from '../../../../components';
-import { payableColumns, rowsPerPageOptions } from '../constants';
 import payablesData from '../mock/payable';
 import { differenceCost, remainingCost } from '../utils/cost';
 import ControlPanel from './control-panel/ControlPanel';
@@ -59,9 +58,7 @@ export default function Payables() {
       <PayableTable
         payables={filteredPayables}
         total={payablesTableData.total}
-        columns={payableColumns()}
         payablesLoading={payablesLoading}
-        rowsPerPageOptions={rowsPerPageOptions}
       />
     </Layout>
   );

@@ -35,7 +35,7 @@ function createReceivable(
     invoiceAttachment,
     readyDate,
     paymentHistory,
-    notes, // todo remove given default array
+    notes,
   };
 }
 

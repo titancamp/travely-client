@@ -1,24 +1,99 @@
-export const payableColumns = () => {
-  return [
-    { id: 'paymentId', label: 'Payment ID' },
-    { id: 'tourId', label: 'Tour ID' },
-    { id: 'tourNam', label: 'Tour name' },
-    { id: 'supplier', label: 'Supplier' },
-    { id: 'currency', label: 'Currency' },
-    { id: 'plannedCost', label: 'Planed cost' },
-    { id: 'actualCost', label: 'Actual cost' },
-    { id: 'difference', label: 'Difference' },
-    { id: 'paidCost', label: 'Paid' },
-    { id: 'remaining', label: 'Remaining' },
-    { id: 'status', label: 'Status' },
-    { id: 'createdDate', label: 'Created date' },
-    { id: 'invoiceId', label: 'Invoice ID' },
-    { id: 'dueDate', label: 'Due Date' },
-    { id: 'paymentDate', label: 'Payment date' },
-    { id: 'paymentType', label: 'Payment type' },
-    { id: 'invoiceAttachment', label: 'Invoice Attachment' },
-  ];
+import {
+  DifferenceCell,
+  InvoiceAttachmentCell,
+  PaymentTypeCell,
+  StatusCell,
+} from '../payables/table/custom-cells/CustomCells';
+
+export const payableColumnTypes = {
+  usualRow: 'usualRow',
+  moneyMask: 'moneyMask',
+  date: 'date',
+  custom: 'custom',
 };
+
+export const payableColumns = () => ({
+  paymentId: {
+    label: 'Payment ID',
+    type: payableColumnTypes.usualRow,
+  },
+  tourId: {
+    label: 'Tour ID',
+    type: payableColumnTypes.usualRow,
+  },
+  tourName: {
+    label: 'Tour name',
+    type: payableColumnTypes.usualRow,
+  },
+  supplier: {
+    label: 'Supplier',
+    type: payableColumnTypes.usualRow,
+  },
+  currency: {
+    label: 'Currency',
+    type: payableColumnTypes.usualRow,
+  },
+  plannedCost: {
+    label: 'Planed cost',
+    type: payableColumnTypes.moneyMask,
+  },
+  actualCost: {
+    label: 'Actual cost',
+    type: payableColumnTypes.moneyMask,
+  },
+  difference: {
+    label: 'Difference',
+    type: payableColumnTypes.custom, // difference
+    tag(value) {
+      return <DifferenceCell value={value} />;
+    },
+  },
+  paidCost: {
+    label: 'Paid',
+    type: payableColumnTypes.moneyMask,
+  },
+  remaining: {
+    label: 'Remaining',
+    type: payableColumnTypes.moneyMask,
+  },
+  status: {
+    label: 'Status',
+    type: payableColumnTypes.custom,
+    tag(value) {
+      return <StatusCell value={value} />;
+    },
+  },
+  createdDate: {
+    label: 'Created date',
+    type: payableColumnTypes.date,
+  },
+  invoiceId: {
+    label: 'Invoice ID',
+    type: payableColumnTypes.usualRow,
+  },
+  dueDate: {
+    label: 'Due Date',
+    type: payableColumnTypes.date,
+  },
+  paymentDate: {
+    label: 'Payment date',
+    type: payableColumnTypes.date,
+  },
+  paymentType: {
+    label: 'Payment type',
+    type: payableColumnTypes.custom,
+    tag(value) {
+      return <PaymentTypeCell value={value} />;
+    },
+  },
+  invoiceAttachment: {
+    label: 'Invoice Attachment',
+    type: payableColumnTypes.custom,
+    tag(value) {
+      return <InvoiceAttachmentCell value={value} />;
+    },
+  },
+});
 
 export const paymentHistoryColumnTypes = {
   text: 'text',

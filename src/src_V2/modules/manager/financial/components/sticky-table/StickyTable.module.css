@@ -102,11 +102,6 @@
   color: var(--secondary);
 }
 
-.attachmentImg {
-  margin-top: 10px;
-  color: var(--secondary);
-}
-
 /* Table Cell styles */
 .negativeTableCell {
   color: var(--error) !important;
@@ -120,19 +115,8 @@
   color: var(--secondary) !important;
 }
 
-/* Table Cell Statuses */
-.statusChip {
-  height: 27px !important;
-}
-
 .whiteTableCell {
   background-color: var(--white) !important;
-}
-
-.canceledPayableStatus {
-  background-color: var(--midLightGrey) !important;
-  color: var(--secondary) !important;
-  border: 1px solid var(--secondary) !important;
 }
 
 .loadingSpinner {
