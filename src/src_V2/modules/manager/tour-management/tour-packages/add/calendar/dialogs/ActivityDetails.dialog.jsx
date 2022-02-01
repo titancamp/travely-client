@@ -1,8 +1,8 @@
 import { DirectionsWalk } from '@mui/icons-material';
 import { pink } from '@mui/material/colors';
 
-import AddSupplierDetails from './AddSupplierDetails.dialog';
-import { AccommodationSupplier } from './component';
+import AddSupplierDetails from './AddSupplier.dialog';
+import AccommodationSupplier from './accommodation/AccommodationItem';
 import { Accommodation as AccommodationMock } from './mock';
 
 function AddAccommodation(props) {

@@ -3,8 +3,8 @@ import { ViewTypes } from 'react-big-scheduler';
 export const ViewsConfig = {
   minuteStep: 60,
   dayCellWidth: 120,
-  // weekCellWidth: 400, //TODO uncomment
-  // weekResourceTableWidth: 40, //TODO uncomment
+  weekCellWidth: 400,
+  weekResourceTableWidth: 40,
   dayResourceTableWidth: 40,
   monthResourceTableWidth: 40,
   eventItemHeight: 31,

@@ -1,10 +1,17 @@
-import React from 'react';
+import { Box, Chip, TextField } from '@mui/material';
 import Downshift from 'downshift';
-import { Chip, TextField, Box } from '@mui/material';
+import React, { useCallback } from 'react';
 
-const errorMessage = 'You can add up to 10 tags. Each tag cannot exceed 30 characters.';
-const defaultMessage =
-  'Type and then press enter to create a tag. You can add up to 10 tags.';
+const MESSAGES = {
+  errorMessage: 'You can add up to 10 tags. Each tag cannot exceed 30 characters.',
+  defaultMessage: 'Type and then press enter to create a tag. You can add up to 10 tags.',
+};
+
+const sxStyles = {
+  chip: { margin: 0.5 },
+  chipContainer: { padding: 0.5 },
+  inputProps: { sx: { minWidth: 100, width: 0 } },
+};
 
 export default function TagsInput({
   tags,
@@ -17,27 +24,18 @@ export default function TagsInput({
 }) {
   const [inputValue, setInputValue] = React.useState('');
 
-  function handleKeyDown(event) {
+  const onKeyDown = useCallback((event) => {
     if (event.key === 'Enter') {
       event.nativeEvent.preventDefault();
       if (event.target.value.length > 30 || tags.length === 10) {
-        return setFieldError(name, errorMessage);
+        return setFieldError(name, MESSAGES.errorMessage);
       }
-
-      //TODO removable
-
-      // const duplicatedValues = tags.indexOf(event.target.value.trim());
-
-      // if (duplicatedValues !== -1) {
-      // setFieldError('');
-      // return setInputValue('');
-      // }
 
       if (!event.target.value.replace(/\s/g, '').length) return;
       setInputValue('');
       setFieldValue(name, [...tags, event.target.value.trim()]);
     }
-  }
+  });
 
   const handleDelete = (item) => () =>
     setFieldValue(
@@ -54,22 +52,22 @@ export default function TagsInput({
     <Downshift inputValue={inputValue}>
       {({ getInputProps }) => {
         const { onBlur, onChange, onFocus, ...inputProps } = getInputProps({
-          onKeyDown: handleKeyDown,
+          onKeyDown,
           placeholder,
         });
         return (
           <div>
             <TextField
-              inputProps={{ sx: { minWidth: 100, width: 0 } }}
+              inputProps={sxStyles.inputProps}
               InputProps={{
                 startAdornment: (
-                  <Box sx={{ padding: 0.5 }}>
+                  <Box sx={sxStyles.chipContainer}>
                     {tags.map((item) => (
                       <Chip
                         key={item}
                         label={item}
                         tabIndex={-1}
-                        sx={{ margin: 0.5 }}
+                        sx={sxStyles.chip}
                         onDelete={handleDelete(item)}
                       />
                     ))}
@@ -85,7 +83,7 @@ export default function TagsInput({
               {...other}
               {...inputProps}
               error={!!error}
-              helperText={error || defaultMessage}
+              helperText={error || MESSAGES.defaultMessage}
             />
           </div>
         );

@@ -1,8 +1,8 @@
-import AccommodationDetailsDialog from './AccommodationDetails.dialog';
 import ActivityDetailsDialog from './ActivityDetails.dialog';
 import FoodDetailsDialog from './FoodDetails.dialog';
 import GuideDetailsDialog from './GuideDetails.dialog';
 import TransportationDetailsDialog from './TransportationDetails.dialog';
+import AccommodationDetailsDialog from './accommodation/AccommodationDetails.dialog';
 import { BootstrapDialog } from './component';
 
 function CurrentDialog({ data, onClose }) {

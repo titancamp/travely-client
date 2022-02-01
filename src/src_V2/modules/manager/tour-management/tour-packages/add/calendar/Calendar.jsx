@@ -45,6 +45,7 @@ function Calendar() {
 export default dragDropContext(HTML5Backend)(Calendar);
 
 //TODO
+//right section issue
 //there still issue in right side when we came from Finance
 // cursor pointer on event item
 //first items have padding/margin from left

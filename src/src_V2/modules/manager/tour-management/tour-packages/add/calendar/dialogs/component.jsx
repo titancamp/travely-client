@@ -1,4 +1,4 @@
-import { AccessTime, KeyboardArrowDown, Person, Phone } from '@mui/icons-material';
+import { KeyboardArrowDown } from '@mui/icons-material';
 import {
   Button,
   Card,
@@ -7,19 +7,10 @@ import {
   DialogActions,
   FormControlLabel,
   IconButton,
-  Table as MuiTable,
   Radio,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Typography,
   styled,
 } from '@mui/material';
-
-import { AccommodationDetails } from './constants';
-import { Accommodation as AccommodationMock } from './mock';
 
 export const BootstrapCardContent = styled(CardContent)(
   () => `
@@ -138,77 +129,3 @@ export const DialogAction = ({ show, disabled, onClose, newEvent }) => {
     </DialogActions>
   );
 };
-
-export function AccommodationSupplier({ data, expandCollapse, expanded }) {
-  return (
-    <>
-      <CardItem expanded={expanded} action={expandCollapse} data={data} />
-      {expanded === data.id && (
-        <div
-          style={{
-            padding: 24,
-            maxHeight: 290,
-            overflow: 'auto',
-            backgroundColor: '#FAFAFA',
-            boxShadow: '0px 1px 4px -1px grey',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              paddingBottom: 20,
-            }}
-          >
-            <DetailsHeaderItem
-              Icon={AccessTime}
-              content='12:00 / 2:00'
-              title='Check In / Check Out'
-            />
-            <DetailsHeaderItem Icon={Phone} title='Phone' content='+374 11 11 11 11' />
-            <DetailsHeaderItem Icon={Person} title='Contact Person' content='John Doe' />
-          </div>
-
-          <TableContainer>
-            <MuiTable>
-              <TableHead sx={{ padding: 2 }}>
-                <TableRow
-                  sx={{
-                    height: 60,
-                    borderTop: 1,
-                    borderColor: 'rgba(0, 0, 0, 0.1)',
-                  }}
-                >
-                  {AccommodationDetails.head.map(({ content }, index) => (
-                    <TableCell key={index} variant='head' size='small'>
-                      {content}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {AccommodationMock.details.map((data) => (
-                  <TableRow onClick={() => {}} key={data.id} style={{ height: 50 }}>
-                    <TableCell variant='body' size='small'>
-                      {data.type}
-                    </TableCell>
-                    <TableCell variant='body' size='small'>
-                      {data.price}
-                    </TableCell>
-                    <TableCell variant='body' size='small'>
-                      {data.qty}
-                    </TableCell>
-                    <TableCell variant='body' size='small'>
-                      {data.beds}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </MuiTable>
-          </TableContainer>
-        </div>
-      )}
-      {/*{true && <LinearProgress />}*/}
-    </>
-  );
-}

@@ -13,7 +13,7 @@ import { useState } from 'react';
 import { NoData } from '../../../../../../../components';
 import { DialogAction } from './component';
 
-export default function AddSupplierDetailsDialog({
+export default function AddSupplierDialog({
   onClose,
   data: { actions, state },
   title,
