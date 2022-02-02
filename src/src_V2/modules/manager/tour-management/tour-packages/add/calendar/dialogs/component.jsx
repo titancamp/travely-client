@@ -12,7 +12,7 @@ import {
   styled,
 } from '@mui/material';
 
-export const BootstrapCardContent = styled(CardContent)(
+const BootstrapCardContent = styled(CardContent)(
   () => `
   &:last-child {
       padding-bottom: 16px; 

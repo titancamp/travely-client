@@ -66,8 +66,6 @@ export function useSchedulerHandlers(scheduler) {
   }
 
   function onViewChange(schedulerData, view) {
-    const calendar = document.getElementById('calendar');
-    calendar.className = `viewType_${view.viewType}`;
     const existingEvents = schedulerData.events.map((event) => event);
     schedulerData.setViewType(view.viewType, view.showAgenda, view.isEventPerspective);
     schedulerData.setEvents(existingEvents);

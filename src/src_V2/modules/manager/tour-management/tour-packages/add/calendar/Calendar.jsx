@@ -30,14 +30,14 @@ function Calendar() {
   }
 
   return (
-    <div id='calendar'>
+    <div>
       <div className='calendarWrapper'>
         <Scheduler {...handlers} newEvent={openCreateSupplierFlow} />
-        <DialogManager data={dialogManagerState} onShowHideDialog={onShowHideDialog} />
         <div className='priceSectionHidden' />
         <div className='priceSection' />
       </div>
       <p className='calendarError'>{error}</p>
+      <DialogManager data={dialogManagerState} onShowHideDialog={onShowHideDialog} />
     </div>
   );
 }
@@ -52,8 +52,8 @@ export default dragDropContext(HTML5Backend)(Calendar);
 //scroll issue when console is opened
 //month items have padding left
 // item styles move to css folder
+//css comments and removable comments
 
 //Event count on same column
-
 //src/src_V2/modules/manager/tour-management/tour-packages/add/calendar/dialogs/component.jsx styling
 //naming changes need

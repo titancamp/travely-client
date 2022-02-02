@@ -110,15 +110,15 @@ font-size: 0;
 }
 
 .scheduler .resource-view .resource-table td .header2-text::after {
+    right: 0;
     width: 37px;
     height: 74px;
-    border-bottom-left-radius: 6px;
-    border-top-left-radius: 6px;
-    position: absolute;
-    right: 0;
     bottom: 8px;
     padding: 5px;
     line-height: 88px;
+    position: absolute;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
 }
 
 .scheduler .resource-view .resource-table  tr:nth-child(1) td .header2-text::after {
