@@ -1,15 +1,10 @@
-import { Grid, Typography } from '@mui/material';
-import {
-  Email,
-  LocalPhone,
-  LocationOn,
-  Person,
-  AccessTime,
-  AttachMoney,
-} from '@mui/icons-material';
+import { AccessTime, Email, LocalPhone, LocationOn, Person } from '@mui/icons-material';
 import { TabPanel } from '@mui/lab';
+import { Button, Grid, Typography } from '@mui/material';
 
-import styles from '../style.module.css';
+import { RoomServices } from '../../accommodation/constants';
+import styles from '../../accommodation/dialogs/style.module.css';
+
 //TODO they could be some design changes after fetching the real data
 export default function MainInfo() {
   return (
@@ -40,24 +35,30 @@ export default function MainInfo() {
       <Grid className={styles.itemBlock}>
         <Grid className={styles.infoItem}>
           <Email className={styles.detailsIcon} />
-          <Typography>Contact Email</Typography>
+          <Typography>Email</Typography>
         </Grid>
         <Typography>customer.care@marriott.com</Typography>
       </Grid>
       <Grid className={styles.itemBlock}>
         <Grid className={styles.infoItem}>
           <AccessTime className={styles.detailsIcon} />
-          <Typography>Working Hours</Typography>
+          <Typography>Check In / Check Out</Typography>
         </Grid>
-        <Typography>12:00 / 2:00 M-F, 2:00 / 12:00 S, S</Typography>
+        <Typography>12:00 / 2:00</Typography>
       </Grid>
-      <Grid className={styles.itemBlock}>
-        <Grid className={styles.infoItem}>
-          <AttachMoney className={styles.detailsIcon} />
-          <Typography>Price per Person</Typography>
-        </Grid>
-        <Typography>~ 10 000 AMD</Typography>
-      </Grid>
+      <Grid className={styles.dashedBorder} />
+      <Typography className={styles.roomTitle}>SERVICES</Typography>
+      {RoomServices.map((service) => (
+        <Button
+          variant='contained'
+          key={service.id}
+          className={styles.detailsServiceBtns}
+          component='span'
+        >
+          {service.label}
+        </Button>
+      ))}
+      <Grid className={styles.dashedBorder} />
       <Typography className={styles.roomTitle}>NOTES</Typography>
       <Typography>
         Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit

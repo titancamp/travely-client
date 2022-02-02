@@ -1,15 +1,15 @@
+import { TabContext, TabList } from '@mui/lab';
+import { Box, DialogContent, Tab } from '@mui/material';
 import * as React from 'react';
-import { TabList, TabContext } from '@mui/lab';
-import { Box, Tab, DialogContent } from '@mui/material';
-import MainInfo from './MainInfo';
-import Attributes from './Attributes';
-import Partnership from '../../../components/dialogs/Partnership';
+
 import {
   BootstrapDialog,
   BootstrapDialogTitle,
 } from '../../../components/bootstrapDialogTitle/BootstrapDialogTitle';
-
+import MainInfo from '../../../components/dialogs/MainInfo';
+import Partnership from '../../../components/dialogs/Partnership';
 import styles from '../style.module.css';
+import Attributes from './Attributes';
 
 //TODO make this component sharable
 export default function ActivitiesDetailsDialog({ onClose, data: { open } }) {

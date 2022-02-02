@@ -6,9 +6,9 @@ import {
   BootstrapDialog,
   BootstrapDialogTitle,
 } from '../../../components/bootstrapDialogTitle/BootstrapDialogTitle';
+import MainInfo from '../../../components/dialogs/MainInfo';
 import Partnership from '../../../components/dialogs/Partnership';
 import styles from '../style.module.css';
-import MainInfo from './MainInfo';
 import Rooms from './Rooms';
 
 //TODO make this component sharable

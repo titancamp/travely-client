@@ -1,16 +1,16 @@
+import { TabContext, TabList } from '@mui/lab';
+import { Box, DialogContent, Tab } from '@mui/material';
 import * as React from 'react';
-import { TabList, TabContext } from '@mui/lab';
-import { Box, Tab, DialogContent } from '@mui/material';
-import Cars from './Cars';
-import Drivers from './Drivers';
-import MainInfo from './MainInfo';
-import Partnership from '../../../components/dialogs/Partnership';
+
 import {
   BootstrapDialog,
   BootstrapDialogTitle,
 } from '../../../components/bootstrapDialogTitle/BootstrapDialogTitle';
-
+import MainInfo from '../../../components/dialogs/MainInfo';
+import Partnership from '../../../components/dialogs/Partnership';
 import styles from '../style.module.css';
+import Cars from './Cars';
+import Drivers from './Drivers';
 
 //TODO make this component sharable
 export default function TransportationDetailsDialog({ onClose, data: { open } }) {
