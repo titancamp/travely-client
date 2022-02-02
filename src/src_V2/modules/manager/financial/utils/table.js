@@ -1,14 +1,15 @@
-// todo find another solution for style import
-import styles from '../components/sticky-table/StickyTable.module.css';
-
-export function colorCondition(difference) {
-  let style;
-  if (difference > 0) {
-    style = styles.positiveTableCell;
-  } else if (difference < 0) {
-    style = styles.negativeTableCell;
-  } else {
-    style = styles.neutralTableCell;
+function descendingComparator(a, b, orderBy) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
   }
-  return style;
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+
+export function getComparator(order, orderBy) {
+  return order === 'desc'
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
 }

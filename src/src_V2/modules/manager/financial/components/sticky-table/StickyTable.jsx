@@ -17,48 +17,38 @@ import { visuallyHidden } from '@mui/utils';
 import { Fragment, useCallback, useState } from 'react';
 
 import { NoData, TooltipText } from '../../../../../components';
-import { generateArrayByRange, generateDate, moneyMask } from '../../../../../utils';
-import { payableColumnTypes, rowsPerPageOptions } from '../../constants';
+import { generateDate, moneyMask } from '../../../../../utils';
+import {
+  columnTypes,
+  rowsPerPageOptions,
+  stickyFooterColumnTypes,
+} from '../../constants';
 import styles from './StickyTable.module.css';
-
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-// todo duplication
-function colorCondition(difference) {
-  let style;
-  if (difference > 0) {
-    style = styles.positiveTableCell;
-  } else if (difference < 0) {
-    style = styles.negativeTableCell;
-  } else {
-    style = styles.neutralTableCell;
-  }
-  return style;
-}
 
 const TableCellTypes = ({ rowValue, customTag }) => {
   const cells = {
-    [payableColumnTypes.usualRow]: <TooltipTableCell rowValue={rowValue} />,
-    [payableColumnTypes.moneyMask]: <TooltipTableCell rowValue={moneyMask(rowValue)} />,
-    [payableColumnTypes.date]: <TooltipTableCell rowValue={generateDate(rowValue)} />,
+    [columnTypes.usualRow]: <TooltipTableCell rowValue={rowValue} />,
+    [columnTypes.moneyMask]: <TooltipTableCell rowValue={moneyMask(rowValue)} />,
+    [columnTypes.date]: <TooltipTableCell rowValue={generateDate(rowValue)} />,
   };
 
   if (customTag) {
-    cells[payableColumnTypes.custom] = customTag(rowValue);
+    cells[columnTypes.custom] = customTag(rowValue);
+  }
+
+  return cells;
+};
+
+const StickyRowCellTypes = ({ rowValue, customTag }) => {
+  const cells = {
+    [stickyFooterColumnTypes.usualRow]: <TooltipTableCell rowValue={rowValue} />,
+    [stickyFooterColumnTypes.moneyMask]: (
+      <TooltipTableCell rowValue={moneyMask(rowValue)} />
+    ),
+  };
+
+  if (customTag) {
+    cells[stickyFooterColumnTypes.custom] = customTag(rowValue);
   }
 
   return cells;
@@ -128,9 +118,6 @@ const EnhancedTableHead = ({
   );
 };
 
-const EmptyTableCellWrapper = ({ count }) =>
-  generateArrayByRange(1, count).map((el, index) => <TableCellWrapper key={index} />);
-
 const TableBodyWrapper = ({ children, rowClassName }) => (
   <TableBody>
     <TableRow className={rowClassName && rowClassName}>
@@ -157,10 +144,12 @@ export default function StickyTable({
   columns,
   tableLoading = false,
   showStickyFooter = false,
+  stickyFooterColumns,
   stickyFooterData,
   rowsPerPageNumbers = rowsPerPageOptions,
   handleClickedRow = () => void 0,
   handleDrawerState = () => void 0,
+  comparator = () => void 0,
 }) {
   const [order, setOrder] = useState('desc');
   const [orderBy, setOrderBy] = useState('createdDate');
@@ -178,7 +167,7 @@ export default function StickyTable({
   const rowsAfterPagingAndSorting = useCallback(() => {
     return data
       .slice()
-      .sort(getComparator(order, orderBy))
+      .sort(comparator(order, orderBy))
       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
   }, [data, order]);
 
@@ -320,7 +309,6 @@ export default function StickyTable({
               </TableBody>
 
               {/*Total Sticky Row*/}
-              {/*todo move sticky row to columns as well*/}
               {showStickyFooter && (
                 <TableBody className={`${styles.tableBody} ${styles.tableStickyBox}`}>
                   {showTableCondition && (
@@ -328,26 +316,15 @@ export default function StickyTable({
                       <TableCell padding='checkbox' className={styles.tableCheckboxCell}>
                         <Checkbox className={styles.totalFooterChkBox} />
                       </TableCell>
-                      <TableCellWrapper>Total AMD</TableCellWrapper>
-                      <EmptyTableCellWrapper count={4} />
-                      <TooltipTableCell
-                        rowValue={moneyMask(stickyFooterData.plannedCost)}
-                      />
-                      <TooltipTableCell
-                        rowValue={moneyMask(stickyFooterData.actualCost)}
-                      />
-                      <TableCell
-                        className={`${styles.tableCell} ${colorCondition(
-                          stickyFooterData.difference
-                        )}`}
-                      >
-                        <TooltipText text={moneyMask(stickyFooterData.difference)} />
-                      </TableCell>
-                      <TooltipTableCell rowValue={moneyMask(stickyFooterData.paidCost)} />
-                      <TooltipTableCell
-                        rowValue={moneyMask(stickyFooterData.remaining)}
-                      />
-                      <EmptyTableCellWrapper count={7} />
+                      {Object.keys(stickyFooterColumns).map((column) => {
+                        const columnValue = stickyFooterColumns[column];
+                        const cell = StickyRowCellTypes({
+                          rowValue: stickyFooterData[column],
+                          customTag: columnValue.tag,
+                        });
+
+                        return <Fragment key={column}>{cell[columnValue.type]}</Fragment>;
+                      })}
                     </TableRow>
                   )}
                 </TableBody>

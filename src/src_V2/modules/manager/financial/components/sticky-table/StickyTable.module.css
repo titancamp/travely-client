@@ -102,19 +102,6 @@
   color: var(--secondary);
 }
 
-/* Table Cell styles */
-.negativeTableCell {
-  color: var(--error) !important;
-}
-
-.positiveTableCell {
-  color: var(--success) !important;
-}
-
-.neutralTableCell {
-  color: var(--secondary) !important;
-}
-
 .whiteTableCell {
   background-color: var(--white) !important;
 }

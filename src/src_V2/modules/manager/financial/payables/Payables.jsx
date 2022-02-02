@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { Layout } from '../../../../components';
 import payablesData from '../mock/payable';
-import { differenceCost, remainingCost } from '../utils/cost';
+import { differenceCost, remainingCost } from '../utils';
 import ControlPanel from './control-panel/ControlPanel';
 import PayableTable from './table/PayableTable';
 

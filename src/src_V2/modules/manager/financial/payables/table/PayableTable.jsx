@@ -2,7 +2,8 @@ import { Box, Paper } from '@mui/material';
 import { useState } from 'react';
 
 import { StickyTable } from '../../components';
-import { payableColumns } from '../../constants';
+import { payableColumns, stickyFooterColumns } from '../../constants';
+import { getComparator } from '../../utils';
 import EditDrawer from '../edit/drawer/EditDrawer';
 
 export default function PayableTable({ payables, total, payablesLoading }) {
@@ -32,9 +33,11 @@ export default function PayableTable({ payables, total, payablesLoading }) {
           columns={payableColumns()}
           tableLoading={payablesLoading}
           showStickyFooter={true}
+          stickyFooterColumns={stickyFooterColumns()}
           stickyFooterData={total}
           handleClickedRow={setClickedRow}
           handleDrawerState={setDrawerState}
+          comparator={getComparator}
         />
       </Paper>
 

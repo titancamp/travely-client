@@ -9,13 +9,29 @@
   border: 1px solid var(--secondary) !important;
 }
 
-/* todo duplication */
 .whiteTableCell {
   background-color: var(--white) !important;
 }
 
 .tableCell {
   min-width: 140px !important;
+}
+
+.boldCell {
+  font-weight: 600 !important;
+}
+
+/* Table Cell styles */
+.negativeTableCell {
+  color: var(--error) !important;
+}
+
+.positiveTableCell {
+  color: var(--success) !important;
+}
+
+.neutralTableCell {
+  color: var(--secondary) !important;
 }
 
 /* Attachment */
