@@ -1,0 +1,33 @@
+@import '../../../../styles/colors.css';
+
+.content .table {
+  table-layout: fixed;
+}
+
+.content .table [class~='MuiTableCell-root'] {
+  height: 52px;
+}
+
+.content .title {
+  margin-bottom: 24px;
+}
+
+.content .toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 24px;
+}
+
+.content .select {
+  padding: 9.5px 32px 9.5px 14px !important;
+}
+
+.content .select-btn {
+  color: var(--secondary);
+  min-width: 220px;
+}
+
+.content .add-btn {
+  padding: 8px 64px;
+}

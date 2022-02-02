@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import clsx from 'clsx';
 import { memo } from 'react';
 
-import { PasswordStrengthNames, PasswordStrengthRegexes } from '../../../../utils';
+import { PasswordStrengthNames, PasswordStrengthRegexes } from '../../utils';
 import styles from './PasswordValidator.module.css';
 
 export default memo(function PasswordValidator({ password }) {

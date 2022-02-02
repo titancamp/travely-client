@@ -1,3 +1,4 @@
+import Account from './account';
 import Dashboard from './dashboard';
 import Payables from './financial/payables/Payables';
 import Receivables from './financial/receivables/Receivables';
@@ -9,6 +10,7 @@ import Guide from './supplier-management/guide';
 import Transportation from './supplier-management/transportation';
 import Todo from './todo';
 import TourPackage from './tour-management/tour-packages';
+import UserManagement from './user-management';
 
 export const ROUTES = {
   TODO: 'todo',
@@ -22,6 +24,8 @@ export const ROUTES = {
   ACCOMMODATION: 'accommodation/*',
   TRANSPORTATION: 'transportation/*',
   REPORTING: 'reporting',
+  ACCOUNT: 'account',
+  USER_MANAGEMENT: 'user-management/*',
 };
 
 /**
@@ -40,5 +44,7 @@ export default function routeConfigs() {
     { path: ROUTES.ACCOMMODATION, element: <Accommodation /> },
     { path: ROUTES.TRANSPORTATION, element: <Transportation /> },
     { path: ROUTES.REPORTING, element: <Reporting /> },
+    { path: ROUTES.ACCOUNT, element: <Account /> },
+    { path: ROUTES.USER_MANAGEMENT, element: <UserManagement /> },
   ];
 }

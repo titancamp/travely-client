@@ -1,0 +1,34 @@
+.content .title {
+  margin: 24px 0;
+}
+
+.info-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.info-table {
+  margin: -12px 0 -12px 44px;
+}
+
+.info-row,
+.values-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.info-row {
+  margin: 12px 0;
+}
+
+.content .info-title {
+  min-width: 120px;
+  margin-right: 20px;
+}
+
+.content .copy-btn {
+  color: #000;
+  margin-left: 4px;
+}

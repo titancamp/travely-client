@@ -10,7 +10,7 @@ export const ERROR_MESSAGES = {
   integer: 'The filed must be an integer.',
   phone: 'The field is not a valid phone number.',
   password: 'All validation levels must be passed.',
-  repeatPassword: 'Passwords doesn\'t match.',
+  repeatPassword: 'Passwords don\'t match.',
   maxNumberField: (max) => `The value must be at most ${max}.`,
   maxTextField: (max) => `The filed must be at most ${max} characters.`,
   rightFormat: (example) => `Please, enter the right format ${example}.`,
@@ -38,4 +38,4 @@ export const PasswordStrengthRegexes = {
 
 // Armenian Phone regexp
 export const PhoneRegex =
-  /^([+374]{4}|[0]{1})?([1-9]{2})(((-\d{3}-\d{3})|(-\d{2}-\d{2}-\d{2})|( \d{3} \d{3})|( \d{2} \d{2} \d{2}))|(\d{6}))$/;
+  /^([+374]{4}|[0]{1})?([\d]{2})(((-\d{3}-\d{3})|(-\d{2}-\d{2}-\d{2})|( \d{3} \d{3})|( \d{2} \d{2} \d{2}))|(\d{6}))$/;

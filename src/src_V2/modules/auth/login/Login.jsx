@@ -1,6 +1,6 @@
 import { Button, Link, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import {
   LoginInitialValues,
@@ -11,9 +11,12 @@ import { ROUTES } from '../routes';
 import styles from './Login.module.css';
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const { getFieldProps, errors, touched, isSubmitting, handleSubmit } = useFormik({
     initialValues: LoginInitialValues(),
     validationSchema: loginValidationSchema(),
+    onSubmit: () => navigate('/manager/dashboard'),
   });
 
   return (

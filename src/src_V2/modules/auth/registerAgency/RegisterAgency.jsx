@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import PasswordField from '../../../components/formUI/PasswordField';
+import PasswordValidator from '../../../components/passwordValidator/PasswordValidator';
 import {
   registerAgencyInitialValues,
   registerAgencyValidationSchema,
 } from '../../../utils/schemas/auth/auth';
 import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
-import PasswordValidator from '../components/passwordValidator/PasswordValidator';
 import VerifyEmail from '../components/verifyEmail/VerifyEmail';
 import { ROUTES } from '../routes';
 import styles from './RegisterAgency.module.css';
