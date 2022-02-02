@@ -1,42 +1,29 @@
-import { useFormik } from 'formik';
-import { styled } from '@mui/material/styles';
+import { AirlineSeatReclineNormal, EventSeat } from '@mui/icons-material';
 import {
-  Grid,
-  Dialog,
-  TextField,
   Autocomplete,
   DialogContent,
   FormControl,
+  FormHelperText,
+  Grid,
   InputLabel,
   OutlinedInput,
+  TextField,
   Typography,
-  FormHelperText,
 } from '@mui/material';
-import styles from './style.module.css';
-import { Languages, License } from '../constants';
-import { EndAdornment } from '../../components/endAdornment';
-import { AirlineSeatReclineNormal, EventSeat } from '@mui/icons-material';
+import { useFormik } from 'formik';
+
 import {
   FilterInitialValues,
   TransportationFiltersSchema,
 } from '../../../../../utils/schemas/tourManagment/transportation';
-import { BootstrapDialogTitle } from '../../components/bootstrapDialogTitle/BootstrapDialogTitle';
-
-//TODO make BootstrapDialog global
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialog-paper': {
-    maxWidth: 830,
-    width: 830,
-  },
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
-    paddingTop: 30,
-    paddingBottom: 50,
-  },
-  '& .MuiDialogActions-root': {
-    padding: theme.spacing(1),
-  },
-}));
+import {
+  BootstrapDialog,
+  BootstrapDialogTitle,
+} from '../../components/bootstrapDialogTitle/BootstrapDialogTitle';
+import { EndAdornment } from '../../components/endAdornment';
+import { Languages, License } from '../constants';
+import { AllFiltersDialogStyles } from './DialogStyles';
+import styles from './style.module.css';
 
 export default function AllFiltersDialog({ onClose, data: { open } }) {
   const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
@@ -54,7 +41,7 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
 
   return (
     <form autoComplete='off'>
-      <BootstrapDialog onClose={onClose} open={open}>
+      <BootstrapDialog onClose={onClose} open={open} styles={AllFiltersDialogStyles}>
         <BootstrapDialogTitle
           handleReset={handleReset}
           onClose={onClose}

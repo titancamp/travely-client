@@ -1,38 +1,25 @@
-import { useFormik } from 'formik';
-import { styled } from '@mui/material/styles';
 import {
-  Grid,
-  Dialog,
-  TextField,
   Autocomplete,
-  DialogContent,
-  Typography,
-  FormControlLabel,
   Checkbox,
+  DialogContent,
+  FormControlLabel,
+  Grid,
+  TextField,
+  Typography,
 } from '@mui/material';
-import styles from './style.module.css';
-import { Languages } from '../constants';
+import { useFormik } from 'formik';
+
 import {
   FilterInitialValues,
   FoodFiltersSchema,
 } from '../../../../../utils/schemas/tourManagment/food';
-import { BootstrapDialogTitle } from '../../components/bootstrapDialogTitle/BootstrapDialogTitle';
-
-//TODO make BootstrapDialog global
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialog-paper': {
-    maxWidth: 830,
-    width: 830,
-  },
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
-    paddingTop: 30,
-    paddingBottom: 50,
-  },
-  '& .MuiDialogActions-root': {
-    padding: theme.spacing(1),
-  },
-}));
+import {
+  BootstrapDialog,
+  BootstrapDialogTitle,
+} from '../../components/bootstrapDialogTitle/BootstrapDialogTitle';
+import { AllFiltersDialogStyles } from '../../transportation/dialogs/DialogStyles';
+import { Languages } from '../constants';
+import styles from './style.module.css';
 
 export default function AllFiltersDialog({ onClose, data: { open } }) {
   const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);
@@ -50,7 +37,7 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
 
   return (
     <form autoComplete='off'>
-      <BootstrapDialog onClose={onClose} open={open}>
+      <BootstrapDialog onClose={onClose} open={open} styles={AllFiltersDialogStyles}>
         <BootstrapDialogTitle
           onClose={onClose}
           handleReset={handleReset}

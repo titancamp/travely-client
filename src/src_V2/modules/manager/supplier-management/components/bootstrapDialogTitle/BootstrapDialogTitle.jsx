@@ -8,17 +8,20 @@ import styles from './style.module.css';
 /*TODO see if we can merge this with BootstrapDialog in
 AllFilter file, otherwise get this out from components folder*/
 
-export const BootstrapDialog = styled(Dialog)(() => ({
-  '& .MuiDialog-paper': {
-    position: 'absolute',
-    top: 80,
-    right: 0,
-    margin: 'inherit',
-    maxWidth: 900,
-    width: 900,
-    height: 1180,
-  },
-}));
+export const BootstrapDialog = styled(Dialog)(({ styles }) => {
+  return styles;
+  // return {
+  //   '& .MuiDialog-paper': {
+  //     position: 'absolute',
+  //     top: 80,
+  //     right: 0,
+  //     margin: 'inherit',
+  //     maxWidth: 900,
+  //     width: 900,
+  //     height: 1180,
+  //   },
+  // };
+});
 
 export const BootstrapDialogTitle = (props) => {
   const { children, onClose, handleReset, ...other } = props;

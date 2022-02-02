@@ -8,6 +8,7 @@ import {
 } from '../../../components/bootstrapDialogTitle/BootstrapDialogTitle';
 import MainInfo from '../../../components/dialogs/MainInfo';
 import Partnership from '../../../components/dialogs/Partnership';
+import { DetailsDialogStyles } from '../DialogStyles';
 import styles from '../style.module.css';
 import Cars from './Cars';
 import Drivers from './Drivers';
@@ -21,7 +22,7 @@ export default function TransportationDetailsDialog({ onClose, data: { open } })
   };
 
   return (
-    <BootstrapDialog onClose={onClose} open={open}>
+    <BootstrapDialog onClose={onClose} open={open} styles={DetailsDialogStyles}>
       <BootstrapDialogTitle
         onClose={onClose}
         className={`${styles.container} ${styles.header}`}
