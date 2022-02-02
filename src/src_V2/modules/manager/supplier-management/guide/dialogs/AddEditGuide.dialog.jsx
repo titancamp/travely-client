@@ -5,6 +5,8 @@ import {
   Button,
   DialogActions,
   DialogContent,
+  DialogTitle,
+  FormControl,
   FormHelperText,
   Grid,
   InputLabel,
@@ -19,11 +21,10 @@ import {
   addGuideSchema,
 } from '../../../../../utils/schemas/tourManagment/guide';
 import { EndAdornment } from '../../components/endAdornment';
-
-import styles from './style.module.css';
-import { AddGuide, Sex } from '../constants';
-import { Languages } from '../../transportation/constants';
 import TagsInput from '../../components/tag/Tag';
+import { Languages } from '../../transportation/constants';
+import { AddGuide, Sex } from '../constants';
+import styles from './style.module.css';
 
 export default function AddEditGuideDialog({ onClose, onSuccess, guide, editMode }) {
   const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);

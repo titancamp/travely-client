@@ -1,5 +1,4 @@
-import { useCallback, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { ChevronLeft, ChevronRight, ExpandLess, ExpandMore } from '@mui/icons-material';
 import {
   Box,
   Collapse,
@@ -17,10 +16,8 @@ import { grey } from '@mui/material/colors';
 import { useCallback, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
-import { ExpandLess, ExpandMore, ChevronLeft, ChevronRight } from '@mui/icons-material';
-
-import styles from './Sidebar.module.css';
 import { CONTAINER_SIZES } from '../../../../../utils';
+import styles from './Sidebar.module.css';
 
 const listStyles = (open) => ({
   marginTop: '24px',

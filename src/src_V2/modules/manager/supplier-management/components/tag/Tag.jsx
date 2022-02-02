@@ -2,8 +2,6 @@ import { Box, Chip, TextField } from '@mui/material';
 import Downshift from 'downshift';
 import React, { useCallback } from 'react';
 
-import styles from './Tag.style.css';
-
 const MESSAGES = {
   errorMessage: 'You can add up to 10 tags. Each tag cannot exceed 30 characters.',
   defaultMessage: 'Type and then press enter to create a tag. You can add up to 10 tags.',
