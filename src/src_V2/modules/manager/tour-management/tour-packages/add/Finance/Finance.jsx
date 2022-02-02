@@ -1,3 +1,4 @@
+import { Close, ExpandMore } from '@mui/icons-material';
 import {
   Accordion,
   AccordionDetails,
@@ -7,8 +8,7 @@ import {
   Collapse,
   FormControl,
   IconButton,
-  InputAdornment,
-  // InputLabel,
+  InputAdornment, // InputLabel,
   MenuItem,
   Table,
   TableBody,
@@ -19,13 +19,12 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { ExpandMore, Close } from '@mui/icons-material';
-import styles from './style.module.css';
+import { useEffect, useState } from 'react';
 
-import { useState, useEffect } from 'react';
+import { columnTypes, columns, currencyList } from './constants';
 import fakeData from './mock';
-import { ArraySum, ArrayGroup } from './utils';
-import { columnTypes, currencyList, columns } from './constants';
+import styles from './style.module.css';
+import { ArrayGroup, ArraySum } from './utils';
 
 export default function FinanceSummary() {
   const [data, setData] = useState(fakeData || {}); // remove fakeData

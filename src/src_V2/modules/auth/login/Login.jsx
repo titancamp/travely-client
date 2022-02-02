@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Link, Typography, Button, TextField } from '@mui/material';
 
 import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
@@ -12,9 +12,12 @@ import {
 } from '../../../utils/schemas/auth/auth';
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const { getFieldProps, errors, touched, isSubmitting, handleSubmit } = useFormik({
     initialValues: LoginInitialValues(),
     validationSchema: loginValidationSchema(),
+    onSubmit: () => navigate('/manager/dashboard'),
   });
 
   return (
@@ -61,7 +64,7 @@ export default function Login() {
           LOGIN
         </Button>
         <Typography>
-          {'Don\'t have an account? '}
+          {"Don't have an account? "}
           <Link component={RouterLink} to={`/${ROUTES.REGISTER_AGENCY}`}>
             Sign Up
           </Link>

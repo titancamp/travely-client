@@ -1,5 +1,5 @@
-import { NoData } from '../components';
 import image from '../../../../assets/transportation.svg';
+import { NoData } from '../components';
 
 export default function TransportationLandingPage() {
   return (

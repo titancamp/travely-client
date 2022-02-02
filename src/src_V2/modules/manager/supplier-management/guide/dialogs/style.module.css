@@ -4,82 +4,82 @@
 }
 
 .viewDialogTitle {
-    display: flex;
-    padding-top: 24px;
-    padding-bottom: 27px;
-    justify-content: space-between;
+  display: flex;
+  padding-top: 24px;
+  padding-bottom: 27px;
+  justify-content: space-between;
 }
 
 .viewDialogTitle .dialogTitle {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .cardActions {
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .name {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .uploadImageContainer {
-    width: 232px;
-    height: 232px;
-    color: #2183D1;
-    cursor: pointer;
-    border: 1px solid rgba(33, 131, 209, 0.5);
-    background-color: rgba(33, 131, 209, 0.08);
+  width: 232px;
+  height: 232px;
+  color: #2183d1;
+  cursor: pointer;
+  border: 1px solid rgba(33, 131, 209, 0.5);
+  background-color: rgba(33, 131, 209, 0.08);
 }
 
 .helperText {
-    margin-left: 2px !important;
-    margin-right: 2px !important;
+  margin-left: 2px !important;
+  margin-right: 2px !important;
 }
 
 .errorColor {
-    color: #F44336!important;
-    background-color: rgba(245, 0, 87, 0.08)!important;
+  color: #f44336 !important;
+  background-color: rgba(245, 0, 87, 0.08) !important;
 }
 
 .errorMessageColor {
-    color: #F44336!important;
+  color: #f44336 !important;
 }
 
 .previewImage {
-    width: 230px;
-    height: 230px;
+  width: 230px;
+  height: 230px;
 }
 
 .viewTitle {
-    padding-top: 10px !important;
+  padding-top: 10px !important;
 }
 
 .addAttachment {
-    font-size: 15px;
-    border-radius: 4px;
-    box-sizing: border-box;
+  font-size: 15px;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .addAttachmentIcon {
-    margin-left: 10px !important;
+  margin-left: 10px !important;
 }
 
 .attachmentText {
-    font-size: 12px;
+  font-size: 12px;
 }
 .attachmentHelperText {
-    font-size: 12px;
-    color: #F44336!important;
+  font-size: 12px;
+  color: #f44336 !important;
 }
 
 .addAttachmentContent {
-    margin: 90px auto;
-    width: 168px;
-    text-align: center;
+  margin: 90px auto;
+  width: 168px;
+  text-align: center;
 }
 
 .expanded {
-    max-width: 750px;
+  max-width: 750px;
 }

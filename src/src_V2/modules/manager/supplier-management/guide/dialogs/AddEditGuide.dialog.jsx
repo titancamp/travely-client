@@ -1,24 +1,22 @@
+import { CloudUpload, Email, Person } from '@mui/icons-material';
 import {
-  Box,
-  Grid,
-  Button,
-  TextField,
-  InputLabel,
-  FormControl,
-  DialogTitle,
   Autocomplete,
-  OutlinedInput,
+  Box,
+  Button,
   DialogActions,
   DialogContent,
   FormHelperText,
+  Grid,
+  InputLabel,
+  OutlinedInput,
+  TextField,
 } from '@mui/material';
-import { useRef, useState } from 'react';
 import { useFormik } from 'formik';
-import { Person, Email, CloudUpload } from '@mui/icons-material';
+import { useRef, useState } from 'react';
 
 import {
-  addGuideSchema,
   addGuideInitialValues,
+  addGuideSchema,
 } from '../../../../../utils/schemas/tourManagment/guide';
 import { EndAdornment } from '../../components/endAdornment';
 

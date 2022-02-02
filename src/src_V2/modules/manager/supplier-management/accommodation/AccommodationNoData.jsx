@@ -1,5 +1,5 @@
-import { NoData } from '../components';
 import image from '../../../../assets/accommodation.svg';
+import { NoData } from '../components';
 
 export default function AccommodationLandingPage() {
   return (

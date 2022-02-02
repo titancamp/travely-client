@@ -1,19 +1,22 @@
 import { useCallback, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
-  styled,
-  Fab,
   Box,
-  List,
-  Zoom,
-  Tooltip,
   Collapse,
+  Fab,
+  List,
   ListItem,
   ListItemIcon,
   ListItemText,
   Drawer as MuiDrawer,
+  Tooltip,
+  Zoom,
+  styled,
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { useCallback, useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+
 import { ExpandLess, ExpandMore, ChevronLeft, ChevronRight } from '@mui/icons-material';
 
 import styles from './Sidebar.module.css';
@@ -69,6 +72,7 @@ const closedMixin = (theme) => ({
 const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
   flexShrink: 0,
   whiteSpace: 'nowrap',
+  zIndex: 10,
   boxSizing: 'border-box',
   width: CONTAINER_SIZES.DRAWER_EXPANDED_WIDTH,
   ...(open && {

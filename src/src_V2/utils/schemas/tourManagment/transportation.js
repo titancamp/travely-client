@@ -1,6 +1,7 @@
 import { object } from 'yup';
-import { BaseSchemas } from '../BaseSchemas';
+
 import { ERROR_MESSAGES } from '../../constants';
+import { BaseSchemas } from '../BaseSchemas';
 
 /**
  * Initial values for transportation.
