@@ -2,9 +2,8 @@ import { Box, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import { AddCard, InfoCard } from '../../components';
-
-import styles from './style.module.css';
 import DialogManager from '../dialogs/Index';
+import styles from './style.module.css';
 
 export default function Guide({ parentRef }) {
   const [guides, setGuides] = useState(parentRef.guides);

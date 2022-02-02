@@ -1,0 +1,26 @@
+.content .title {
+  margin-bottom: 40px;
+}
+
+.content .form-wrapper {
+  max-width: 1056px;
+}
+
+.content .divider {
+  margin: 56px 0 36px;
+}
+
+.content .uploadBtn-wrapper {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+}
+
+.content .uploadBtn {
+  background-color: #fff;
+  color: #000;
+}
+
+.content .uploadBtn:hover {
+  background-color: #f0f0f0;
+}

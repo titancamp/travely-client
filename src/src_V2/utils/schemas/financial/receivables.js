@@ -1,8 +1,8 @@
-import { number, object, array } from 'yup';
+import { array, number, object } from 'yup';
 
-import { BaseSchemas } from '../BaseSchemas';
-import { ERROR_MESSAGES } from '../../constants';
 import { PaymentType } from '../../../modules/manager/financial/constants';
+import { ERROR_MESSAGES } from '../../constants';
+import { BaseSchemas } from '../BaseSchemas';
 
 /**
  * Initial values for receivables.

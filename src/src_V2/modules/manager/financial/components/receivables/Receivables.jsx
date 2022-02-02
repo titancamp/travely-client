@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { rowsPerPageOptions, receivableColumns } from '../../constants';
+import { Layout } from '../../../../../components';
+import { receivableColumns, rowsPerPageOptions } from '../../constants';
 import receivablesList from '../../mock/receivable';
 import { remainingCost } from '../../utils/cost';
-import { Layout } from '../../../../../components';
 import ControlPanel from './control-panel/ControlPanel';
 import ReceivableTable from './table/ReceivableTable';
 

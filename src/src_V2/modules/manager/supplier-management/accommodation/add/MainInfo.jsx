@@ -1,15 +1,14 @@
-import { useFormik } from 'formik';
 import { Map } from '@mui/icons-material';
+import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
+import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { Box, TextField, Autocomplete, Grid, Button } from '@mui/material';
 
-import DialogManager from '../dialogs/Index';
-import { AccommodationTypes, HotelServices, Regions } from '../constants';
 import {
-  mainInfoSchema,
   mainInfoInitialValues,
+  mainInfoSchema,
 } from '../../../../../utils/schemas/tourManagment/accommodation';
-
+import { AccommodationTypes, HotelServices, Regions } from '../constants';
+import DialogManager from '../dialogs/Index';
 import styles from './style.module.css';
 
 export default function MainInfo({ parentRef, isValidate }) {

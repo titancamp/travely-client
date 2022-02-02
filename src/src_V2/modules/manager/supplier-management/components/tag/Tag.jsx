@@ -1,6 +1,7 @@
-import React from 'react';
+import { Box, Chip, TextField } from '@mui/material';
 import Downshift from 'downshift';
-import { Chip, TextField, Box } from '@mui/material';
+import React from 'react';
+
 import styles from './Tag.style.css';
 
 const errorMessage = 'You can add up to 10 tags. Each tag cannot exceed 30 characters.';

@@ -1,18 +1,17 @@
-import { Edit, Delete, AddCircle } from '@mui/icons-material';
+import { AddCircle, Delete, Edit } from '@mui/icons-material';
+import { AccountCircle, Info } from '@mui/icons-material';
 import {
-  Box,
-  Card,
-  Grid,
   Avatar,
+  Box,
   Button,
-  Tooltip,
-  IconButton,
-  Typography,
-  CardContent,
+  Card,
   CardActionArea,
+  CardContent,
+  Grid,
+  IconButton,
+  Tooltip,
+  Typography,
 } from '@mui/material';
-
-import { Info, AccountCircle } from '@mui/icons-material';
 
 import styles from './style.module.css';
 

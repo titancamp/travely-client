@@ -1,5 +1,5 @@
-import { Box, Button, InputBase, Paper } from '@mui/material';
 import { FilterAlt, ViewColumn } from '@mui/icons-material';
+import { Box, Button, InputBase, Paper } from '@mui/material';
 
 import styles from './ControlPanel.module.css';
 

@@ -1,5 +1,5 @@
-import { Box, TextField } from '@mui/material';
 import { DatePicker } from '@mui/lab';
+import { Box, TextField } from '@mui/material';
 
 import commonStyles from '../style.module.css';
 import styles from './EditableInfo.module.css';

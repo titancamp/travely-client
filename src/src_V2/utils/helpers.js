@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from 'react-router-dom';
 
 export const generateDate = (dateStr) => {
   if (!dateStr) return '';
@@ -22,22 +22,25 @@ export const generateArrayByRange = (start, end, conditionCallback = () => true)
 };
 
 export const useQueryParamsFromUrl = () => {
-    const [urlParams] = useSearchParams();
-    const data = {};
+  const [urlParams] = useSearchParams();
+  const data = {};
 
-    for (let key of urlParams.keys())  {
-        if (urlParams.getAll(key).length > 1) {
-            data[key] = urlParams.getAll(key);
-        } else {
-            data[key] = urlParams.get(key);
-        }
+  for (let key of urlParams.keys()) {
+    if (urlParams.getAll(key).length > 1) {
+      data[key] = urlParams.getAll(key);
+    } else {
+      data[key] = urlParams.get(key);
     }
-    return data;
+  }
+  return data;
 };
 
 export const setQueryParams = (query) => {
-    const queryString = `?${Object.entries(query).filter(([, v]) => v).map(([k, v]) => `${k}=${v}`).join('&')}`;
-    window.history.replaceState(null, null, queryString);
+  const queryString = `?${Object.entries(query)
+    .filter(([, v]) => v)
+    .map(([k, v]) => `${k}=${v}`)
+    .join('&')}`;
+  window.history.replaceState(null, null, queryString);
 };
 
 export const noop = () => {};
@@ -54,3 +57,16 @@ export const createTableRow = (key, columns, data) => ({
   columns,
   data,
 });
+
+export function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      resolve(reader.result);
+    };
+    reader.onerror = function (error) {
+      reject(error);
+    };
+  });
+}

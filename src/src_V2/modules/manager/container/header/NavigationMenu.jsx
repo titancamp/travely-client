@@ -1,7 +1,10 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import { Avatar, Button, Menu, MenuItem } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
+import { ROUTES } from '../../routes';
 import styles from './header.module.css';
 
 const StyledMenu = styled((props) => (
@@ -41,6 +44,7 @@ const StyledMenu = styled((props) => (
 }));
 
 export default function CustomizedMenus() {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -75,13 +79,19 @@ export default function CustomizedMenus() {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem
+          onClick={() => {
+            navigate('/manager/' + ROUTES.ACCOUNT);
+            handleClose();
+          }}
+          disableRipple
+        >
           Settings & Privacy
         </MenuItem>
         <MenuItem onClick={handleClose} disableRipple>
           Help
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={() => navigate('/')} disableRipple>
           Log out
         </MenuItem>
       </StyledMenu>

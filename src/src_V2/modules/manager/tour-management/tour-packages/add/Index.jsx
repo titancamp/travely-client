@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { Banner } from '../../../supplier-management/components';
 import Finance from './Finance/Finance';
 import TourInfo from './TourInfo';
-
 import styles from './style.module.css';
 
 function TourPackageSteps({ currentTab: { step, isValidate }, tourPackage }) {
