@@ -1,5 +1,6 @@
 import { Box, Divider, Stack } from '@mui/material';
 
+import { moneyMask } from '../../../../../../../utils';
 import { remainingCost } from '../../../../utils';
 import commonStyles from '../style.module.css';
 import styles from './GeneralInfo.module.css';
@@ -25,11 +26,11 @@ export default function GeneralInfo({ values, row }) {
       divider={<Divider orientation='vertical' flexItem />}
       spacing={2}
     >
-      <CostBox currency={currency} cost={totalAmount} text='Total Amount' />
-      <CostBox currency={currency} cost={paidAmount} text='Paid Amount' />
+      <CostBox currency={currency} cost={moneyMask(totalAmount)} text='Total Amount' />
+      <CostBox currency={currency} cost={moneyMask(paidAmount)} text='Paid Amount' />
       <CostBox
         currency={currency}
-        cost={remainingCost(values.totalAmount, row.paidAmount)}
+        cost={moneyMask(remainingCost(values.totalAmount, row.paidAmount))}
         text='Remaining'
         className={commonStyles.primaryColor}
       />

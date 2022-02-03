@@ -1,22 +1,3 @@
-export const receivableColumns = () => {
-  return [
-    { id: 'receivableId', label: 'Receivable ID' },
-    { id: 'tourId', label: 'Tour ID' },
-    { id: 'tourName', label: 'Tour name' },
-    { id: 'invoiceId', label: 'Invoice ID' },
-    { id: 'partner', label: 'Partner name' },
-    { id: 'currency', label: 'Currency' },
-    { id: 'totalAmount', label: 'Total ammount' },
-    { id: 'invoiceSentFlag', label: 'Invoice sent' },
-    { id: 'paidAmount', label: 'Paid Amount' },
-    { id: 'remaining', label: 'Remaining Amount' },
-    { id: 'status', label: 'Status' },
-    { id: 'createdDate', label: 'Created date' },
-    { id: 'dueDate', label: 'Due date' },
-    { id: 'invoiceAttachment', label: 'Invoice Attachment' },
-  ];
-};
-
 export const receivablePaymentHistoryColumnTypes = {
   text: 'text',
   price: 'price',

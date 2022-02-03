@@ -169,7 +169,7 @@ export default function StickyTable({
       .slice()
       .sort(comparator(order, orderBy))
       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
-  }, [data, order]);
+  }, [data, order, page]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';

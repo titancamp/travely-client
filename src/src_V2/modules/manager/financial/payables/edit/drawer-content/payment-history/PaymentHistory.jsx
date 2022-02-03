@@ -29,8 +29,8 @@ import { DateInput } from '../../../../components';
 import {
   PaymentType,
   acceptedFileTypes,
-  paymentHistoryColumnTypes as columnTypes,
-  paymentHistoryColumns as columns,
+  payablePaymentHistoryColumnTypes as columnTypes,
+  payablePaymentHistoryColumns as columns,
 } from '../../../../constants';
 import commonStyles from '../style.module.css';
 import styles from './PaymentHistory.module.css';

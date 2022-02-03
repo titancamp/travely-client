@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { Layout } from '../../../../components';
-import { receivableColumns, rowsPerPageOptions } from '../constants';
 import receivablesList from '../mock/receivable';
 import { remainingCost } from '../utils';
 import ControlPanel from './control-panel/ControlPanel';
@@ -55,9 +54,7 @@ export default function Receivables() {
       <ControlPanel searchValue={searchTxt} handleSearchChange={setSearchTxt} />
       <ReceivableTable
         receivables={filteredReceivables}
-        columns={receivableColumns()}
         receivablesLoading={receivablesLoading}
-        rowsPerPageOptions={rowsPerPageOptions}
       />
     </Layout>
   );

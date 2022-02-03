@@ -1,10 +1,12 @@
 import { TableCellWrapper } from '../../components';
 import {
+  InvoiceAttachmentCell,
+  StatusCell,
+} from '../../components/table-cells/TableCells';
+import {
   DifferenceCell,
   EmptyCell,
-  InvoiceAttachmentCell,
   PaymentTypeCell,
-  StatusCell,
 } from '../../payables/table/custom-cells/CustomCells';
 import { columnTypes, stickyFooterColumnTypes } from '../table-settings';
 
@@ -68,7 +70,7 @@ export const payableColumns = () => ({
     type: columnTypes.usualRow,
   },
   dueDate: {
-    label: 'Due Date',
+    label: 'Due date',
     type: columnTypes.date,
   },
   paymentDate: {
@@ -83,7 +85,7 @@ export const payableColumns = () => ({
     },
   },
   invoiceAttachment: {
-    label: 'Invoice Attachment',
+    label: 'Invoice attachment',
     type: columnTypes.custom,
     tag(value) {
       return <InvoiceAttachmentCell value={value} />;

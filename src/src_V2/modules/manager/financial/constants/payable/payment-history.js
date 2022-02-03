@@ -6,7 +6,7 @@ export const acceptedFileTypes = [
   'application/pdf',
 ];
 
-export const paymentHistoryColumnTypes = {
+export const payablePaymentHistoryColumnTypes = {
   text: 'text',
   price: 'price',
   date: 'date',
@@ -14,26 +14,26 @@ export const paymentHistoryColumnTypes = {
   attachment: 'attachment',
 };
 
-export const paymentHistoryColumns = () => ({
+export const payablePaymentHistoryColumns = () => ({
   invoiceId: {
     label: 'Invoice ID',
-    type: paymentHistoryColumnTypes.text,
+    type: payablePaymentHistoryColumnTypes.text,
   },
   paidAmount: {
     label: 'Paid Amount',
-    type: paymentHistoryColumnTypes.price,
+    type: payablePaymentHistoryColumnTypes.price,
   },
   paymentDate: {
     label: 'Payment Date',
-    type: paymentHistoryColumnTypes.date,
+    type: payablePaymentHistoryColumnTypes.date,
   },
   paymentType: {
     label: 'Payment Type',
-    type: paymentHistoryColumnTypes.select,
+    type: payablePaymentHistoryColumnTypes.select,
   },
   attachment: {
     label: 'Attachment',
-    type: paymentHistoryColumnTypes.attachment,
+    type: payablePaymentHistoryColumnTypes.attachment,
     tooltip:
       'Please upload png, jpg, jpeg, gif, pdf file type. File size should be 10 MB.',
   },

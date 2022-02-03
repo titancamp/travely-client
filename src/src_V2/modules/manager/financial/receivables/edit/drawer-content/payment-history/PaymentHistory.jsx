@@ -25,7 +25,7 @@ import {
 import { useState } from 'react';
 
 import { ConfirmDialog, NoData } from '../../../../../../../components';
-import { receivablesPaymentHistoryInitialValues } from '../../../../../../../utils/schemas';
+import { paymentHistoryInitialValues } from '../../../../../../../utils/schemas';
 import { DateInput } from '../../../../components';
 import {
   PaymentType,
@@ -142,7 +142,7 @@ export default function PaymentHistory({
   const handleAddPayment = () => {
     setFieldValue('paymentHistory', [
       ...paymentHistory,
-      receivablesPaymentHistoryInitialValues(paymentHistory.length + 1),
+      paymentHistoryInitialValues(paymentHistory.length + 1),
     ]);
   };
 

@@ -3,10 +3,7 @@ import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 
 import { ConfirmDialog } from '../../../../../../components';
-import {
-  receivablesRowListInitialValues,
-  receivablesRowListSchema,
-} from '../../../../../../utils/schemas';
+import { rowListInitialValues, rowListSchema } from '../../../../../../utils/schemas';
 import RowList from '../drawer-content/RowList';
 import styles from './EditDrawer.module.css';
 
@@ -29,8 +26,8 @@ export default function EditDrawer({ drawerState, clickedRow, isOpenedChangeHand
   const [applyPopupOpened, setApplyPopupOpened] = useState(false);
 
   const rowEditForm = useFormik({
-    validationSchema: receivablesRowListSchema,
-    initialValues: receivablesRowListInitialValues(clickedRow),
+    validationSchema: rowListSchema,
+    initialValues: rowListInitialValues(clickedRow),
   });
 
   const toggleDrawer = (isOpened) => {
