@@ -1,13 +1,17 @@
-import { Dialog } from '@mui/material';
+import { Dialog, Tab } from '@mui/material';
 
-import ViewCarDialog from './ViewCar.dialog';
-import ViewDriverDialog from './ViewDriver.dialog';
+import DeleteDialog from '../../components/dialogs/Delete.dialog';
+import DetailsDialog from '../../components/dialogs/Details.dialog';
+import MainInfo from '../../components/dialogs/MainInfo';
+import Map from '../../components/dialogs/Map.dialog';
+import Partnership from '../../components/dialogs/Partnership';
 import AddEditCarDialog from './AddEditCar.dialog';
 import AddEditDriverDialog from './AddEditDriver.dialog';
-import Map from '../../components/dialogs/Map.dialog';
-import DeleteDialog from '../../components/dialogs/Delete.dialog';
 import AllFiltersDialog from './AllFilters.dialog';
-import TransportationDetailsDialog from './TransportationDetails/TransportationDetails.dialog';
+import Cars from './TransportationDetails/Cars';
+import Drivers from './TransportationDetails/Drivers';
+import ViewCarDialog from './ViewCar.dialog';
+import ViewDriverDialog from './ViewDriver.dialog';
 
 function CurrentDialog({ data, onClose }) {
   switch (data.mode) {
@@ -46,7 +50,24 @@ function CurrentDialog({ data, onClose }) {
     case 'accommodationFilters':
       return <AllFiltersDialog data={data} onClose={onClose} />;
     case 'transportationDetails':
-      return <TransportationDetailsDialog data={data} onClose={onClose} />;
+      return (
+        <DetailsDialog
+          data={data}
+          onClose={onClose}
+          tabs={{
+            mainInfo: <MainInfo />,
+            drivers: <Drivers />,
+            cars: <Cars />,
+            partnership: <Partnership tabNumber='4' />,
+          }}
+          tabList={{
+            mainInfo: <Tab label='MAIN INFO' value='1' />,
+            drivers: <Tab label='DRIVERS' value='2' />,
+            cars: <Tab label='CARS' value='3' />,
+            partnership: <Tab label='PARTNERSHIP' value='4' />,
+          }}
+        />
+      );
     default:
       return null;
   }

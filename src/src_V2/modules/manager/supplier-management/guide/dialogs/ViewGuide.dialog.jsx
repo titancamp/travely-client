@@ -1,13 +1,13 @@
+import { Delete, Edit } from '@mui/icons-material';
 import {
   Box,
-  Grid,
   Chip,
-  Typography,
-  IconButton,
-  DialogTitle,
   DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
+  Typography,
 } from '@mui/material';
-import { Edit, Delete } from '@mui/icons-material';
 
 import styles from './style.module.css';
 
@@ -73,14 +73,14 @@ export default function ViewRoomDialog({ data: { state: guide, actions } }) {
           </Grid>
           <Grid item xs={12}>
             <Typography>Languages</Typography>
-            {guide.languages.map((item) => (
+            {guide.languages?.map((item) => (
               <Chip label={item.label} key={item.id} />
             ))}
           </Grid>
           <Grid item xs={12}>
             <Typography>Skills</Typography>
 
-            {guide.skills.map((item) => (
+            {guide.skills?.map((item) => (
               <Chip label={item} key={item} />
             ))}
           </Grid>

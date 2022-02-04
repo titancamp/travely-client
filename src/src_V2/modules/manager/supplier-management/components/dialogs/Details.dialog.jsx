@@ -1,19 +1,16 @@
 import { TabContext, TabList } from '@mui/lab';
-import { Box, DialogContent, Tab } from '@mui/material';
+import { Box, DialogContent } from '@mui/material';
 import * as React from 'react';
 
+import { DetailsDialogStyles } from '../../transportation/dialogs/DialogStyles';
+import styles from '../../transportation/dialogs/style.module.css';
 import {
   BootstrapDialog,
   BootstrapDialogTitle,
-} from '../../../components/bootstrapDialogTitle/BootstrapDialogTitle';
-import MainInfo from '../../../components/dialogs/MainInfo';
-import Partnership from '../../../components/dialogs/Partnership';
-import { DetailsDialogStyles } from '../../../transportation/dialogs/DialogStyles';
-import styles from '../style.module.css';
-import Rooms from './Rooms';
+} from '../bootstrapDialogTitle/BootstrapDialogTitle';
 
 //TODO make this component sharable
-export default function AccommodationDetailsDialog({ onClose, data: { open } }) {
+export default function DetailsDialog({ tabs, tabList, onClose, data: { open } }) {
   const [value, setValue] = React.useState('1');
 
   const handleChange = (event, newValue) => {
@@ -36,14 +33,10 @@ export default function AccommodationDetailsDialog({ onClose, data: { open } }) 
               sx={{ borderBottom: 1, borderColor: 'divider' }}
             >
               <TabList onChange={handleChange}>
-                <Tab label='MAIN INFO' value='1' />
-                <Tab label='ROOMS' value='2' />
-                <Tab label='PARTNERSHIP' value='3' />
+                {Object.values(tabList).map((tab) => tab)}
               </TabList>
             </Box>
-            <MainInfo />
-            <Rooms />
-            <Partnership tabNumber='3' />
+            {Object.values(tabs).map((tab) => tab)}
           </TabContext>
         </Box>
       </DialogContent>

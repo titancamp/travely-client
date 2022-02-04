@@ -1,10 +1,14 @@
-import { Dialog } from '@mui/material';
-import ViewGuideDialog from './ViewGuide.dialog';
-import AllFiltersDialog from './AllFilters.dialog';
-import AddEditGuideDialog from './AddEditGuide.dialog';
-import Map from '../../components/dialogs/Map.dialog';
+import { Dialog, Tab } from '@mui/material';
+
 import DeleteDialog from '../../components/dialogs/Delete.dialog';
-import GuideDetailsDialog from './GuideDetails/GuideDetails.dialog';
+import DetailsDialog from '../../components/dialogs/Details.dialog';
+import MainInfo from '../../components/dialogs/MainInfo';
+import Map from '../../components/dialogs/Map.dialog';
+import Partnership from '../../components/dialogs/Partnership';
+import AddEditGuideDialog from './AddEditGuide.dialog';
+import AllFiltersDialog from './AllFilters.dialog';
+import Guides from './GuideDetails/Guides';
+import ViewGuideDialog from './ViewGuide.dialog';
 
 function CurrentDialog({ data, onClose }) {
   switch (data.mode) {
@@ -30,7 +34,22 @@ function CurrentDialog({ data, onClose }) {
     case 'guideFilters':
       return <AllFiltersDialog data={data} onClose={onClose} />;
     case 'guideDetails':
-      return <GuideDetailsDialog data={data} onClose={onClose} />;
+      return (
+        <DetailsDialog
+          data={data}
+          onClose={onClose}
+          tabs={{
+            mainInfo: <MainInfo />,
+            guides: <Guides />,
+            partnership: <Partnership tabNumber='3' />,
+          }}
+          tabList={{
+            mainInfo: <Tab label='MAIN INFO' value='1' />,
+            guides: <Tab label='GUIDES' value='2' />,
+            partnership: <Tab label='PARTNERSHIP' value='3' />,
+          }}
+        />
+      );
     default:
       return null;
   }

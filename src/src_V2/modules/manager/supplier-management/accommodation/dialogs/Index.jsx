@@ -1,10 +1,14 @@
-import { Dialog } from '@mui/material';
-import ViewRoomDialog from './ViewRoom.dialog';
-import AllFiltersDialog from './AllFilters.dialog';
-import AddEditRoomDialog from './AddEditRoom.dialog';
-import Map from '../../components/dialogs/Map.dialog';
+import { Dialog, Tab } from '@mui/material';
+
 import DeleteDialog from '../../components/dialogs/Delete.dialog';
-import AccommodationDetailsDialog from './AccommodationDetails/AccommodationDetails.dialog';
+import DetailsDialog from '../../components/dialogs/Details.dialog';
+import MainInfo from '../../components/dialogs/MainInfo';
+import Map from '../../components/dialogs/Map.dialog';
+import Partnership from '../../components/dialogs/Partnership';
+import Rooms from './AccommodationDetails/Rooms';
+import AddEditRoomDialog from './AddEditRoom.dialog';
+import AllFiltersDialog from './AllFilters.dialog';
+import ViewRoomDialog from './ViewRoom.dialog';
 
 function CurrentDialog({ data, onClose }) {
   switch (data.mode) {
@@ -26,7 +30,22 @@ function CurrentDialog({ data, onClose }) {
     case 'accommodationFilters':
       return <AllFiltersDialog data={data} onClose={onClose} />;
     case 'accommodationDetails':
-      return <AccommodationDetailsDialog data={data} onClose={onClose} />;
+      return (
+        <DetailsDialog
+          data={data}
+          onClose={onClose}
+          tabs={{
+            mainInfo: <MainInfo />,
+            rooms: <Rooms />,
+            partnership: <Partnership tabNumber='3' />,
+          }}
+          tabList={{
+            mainInfo: <Tab label='MAIN INFO' value='1' />,
+            rooms: <Tab label='ROOMS' value='2' />,
+            partnership: <Tab label='PARTNERSHIP' value='3' />,
+          }}
+        />
+      );
     case 'delete':
       return (
         <DeleteDialog onClose={onClose} id={data.state.id} deleteAction={data.actions} />
