@@ -24,7 +24,7 @@ import {
 import { useRef, useState } from 'react';
 
 import { ConfirmDialog, NoData, TooltipText } from '../../../../../../components';
-import { paymentHistoryInitialValues } from '../../../../../../utils/schemas';
+import { payablePaymentHistoryInitialValues as paymentHistoryInitialValues } from '../../../../../../utils/schemas';
 import { DateInput } from '../../../components';
 import {
   PaymentType,
@@ -39,6 +39,7 @@ const EditableTableCell = ({
   value,
   columnName,
   id,
+  autoFocus,
   paymentHistory,
   currency,
   setFieldValue,
@@ -69,6 +70,7 @@ const EditableTableCell = ({
         className={'adornmentInput'}
         name={columnName}
         value={value}
+        autoFocus={autoFocus}
         onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
         onBlur={handleBlur}
         error={!!errorMessage}
@@ -178,7 +180,7 @@ export default function PaymentHistory({
   const handleAddPayment = () => {
     setFieldValue('paymentHistory', [
       ...paymentHistory,
-      paymentHistoryInitialValues(paymentHistory.length + 1),
+      paymentHistoryInitialValues(paymentHistory.length + 1, true),
     ]);
   };
 
@@ -269,6 +271,7 @@ export default function PaymentHistory({
                       value: row[columnKey],
                       columnName: columnKey,
                       id: index + 1,
+                      autoFocus: row.autoFocus,
                       paymentHistory,
                       currency,
                       setFieldValue,

@@ -8,7 +8,7 @@ import { BaseSchemas } from '../BaseSchemas';
  * Initial values for payables.
  */
 
-export function rowListInitialValues(initialValues) {
+export function payableRowListInitialValues(initialValues) {
   return {
     actualCost: '',
     dueDate: '',
@@ -18,7 +18,7 @@ export function rowListInitialValues(initialValues) {
   };
 }
 
-export function paymentHistoryInitialValues(id) {
+export function payablePaymentHistoryInitialValues(id, autoFocus = false) {
   return {
     id,
     invoiceId: '',
@@ -26,6 +26,7 @@ export function paymentHistoryInitialValues(id) {
     paymentType: PaymentType.Cash,
     paymentDate: new Date(),
     attachment: {},
+    autoFocus,
   };
 }
 

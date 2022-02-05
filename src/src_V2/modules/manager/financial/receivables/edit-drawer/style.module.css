@@ -35,9 +35,3 @@
 .primaryColor {
   color: var(--primary);
 }
-
-/* DatePicker */
-
-.dueDatePickerInput > div > div {
-  width: 51.5vw;
-}

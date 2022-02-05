@@ -10,7 +10,7 @@ import { BaseSchemas } from '../BaseSchemas';
  * Initial values for receivables.
  */
 
-export function rowListInitialValues(initialValues) {
+export function receivableRowListInitialValues(initialValues) {
   return {
     actualCost: '',
     dueDate: '',
@@ -20,7 +20,7 @@ export function rowListInitialValues(initialValues) {
   };
 }
 
-export function paymentHistoryInitialValues(id) {
+export function receivablePaymentHistoryInitialValues(id, autoFocus = false) {
   return {
     id,
     invoiceId: '',
@@ -29,6 +29,7 @@ export function paymentHistoryInitialValues(id) {
     paymentDate: new Date(),
     attachment: {},
     sentFlag: false,
+    autoFocus,
   };
 }
 

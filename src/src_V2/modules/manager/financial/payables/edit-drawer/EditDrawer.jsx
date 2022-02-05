@@ -3,7 +3,10 @@ import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 
 import { ConfirmDialog } from '../../../../../components';
-import { rowListInitialValues, rowListSchema } from '../../../../../utils/schemas';
+import {
+  payableRowListInitialValues as rowListInitialValues,
+  rowListSchema,
+} from '../../../../../utils/schemas';
 import { StickyDrawer } from '../../components';
 import styles from './EditDrawer.module.css';
 import EditableInfo from './editable-info/EditableInfo';

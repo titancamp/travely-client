@@ -3,7 +3,10 @@ import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 
 import { ConfirmDialog } from '../../../../../components';
-import { rowListInitialValues, rowListSchema } from '../../../../../utils/schemas';
+import {
+  receivableRowListInitialValues as rowListInitialValues,
+  rowListSchema,
+} from '../../../../../utils/schemas';
 import { StickyDrawer } from '../../components';
 import styles from './EditDrawer.module.css';
 import EditableInfo from './editable-info/EditableInfo';
@@ -46,15 +49,7 @@ const DrawerLayout = ({ rowEditForm, row }) => {
       </Box>
 
       <Box className={styles.layoutDistance}>
-        <EditableInfo
-          values={values}
-          errors={errors}
-          touched={touched}
-          handleBlur={handleBlur}
-          handleChange={handleChange}
-          currency={row.currency}
-          setFieldValue={setFieldValue}
-        />
+        <EditableInfo values={values} setFieldValue={setFieldValue} />
       </Box>
 
       <Box className={styles.layoutDistance}>

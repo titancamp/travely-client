@@ -25,7 +25,7 @@ import {
 import { useRef, useState } from 'react';
 
 import { ConfirmDialog, NoData, TooltipText } from '../../../../../../components';
-import { paymentHistoryInitialValues } from '../../../../../../utils/schemas';
+import { payablePaymentHistoryInitialValues as paymentHistoryInitialValues } from '../../../../../../utils/schemas';
 import { DateInput } from '../../../components';
 import {
   PaymentType,
@@ -40,6 +40,7 @@ const EditableTableCell = ({
   value,
   columnName,
   id,
+  autoFocus,
   paymentHistory,
   setFieldValue,
   touched,
@@ -49,6 +50,8 @@ const EditableTableCell = ({
   handleUploadClick,
 }) => {
   const error = errors && Object.keys(errors).length && errors[id - 1];
+  const errorMessage = error && error[columnName] && touched[columnName];
+  const helperText = touched && touched[columnName] && error && error[columnName];
 
   const handleHistoryChange = (newValue, name) => {
     const newHistories = paymentHistory.map((history) => {
@@ -65,27 +68,31 @@ const EditableTableCell = ({
       <TextField
         size='small'
         variant='outlined'
+        className={'adornmentInput'}
         name={columnName}
         value={value}
-        key={id}
-        onBlur={handleBlur}
+        autoFocus={autoFocus}
         onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
-        error={touched[columnName] && error[columnName]}
-        helperText={touched[columnName] && error[columnName]}
+        onBlur={handleBlur}
+        error={!!errorMessage}
+        helperText={helperText}
+        InputProps={{
+          startAdornment: <InputAdornment position='start'>#</InputAdornment>,
+        }}
       />
     ),
     [columnTypes.price]: (
       <TextField
         size='small'
         variant='outlined'
+        type='number'
+        className={'adornmentInput'}
         name={columnName}
         value={value}
-        key={id}
-        onBlur={handleBlur}
-        className={styles.price}
         onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
-        error={touched[columnName] && error[columnName]}
-        helperText={touched[columnName] && error[columnName]}
+        onBlur={handleBlur}
+        error={!!errorMessage}
+        helperText={helperText}
         InputProps={{
           startAdornment: <InputAdornment position='start'>{currency}</InputAdornment>,
         }}
@@ -105,8 +112,8 @@ const EditableTableCell = ({
           variant='outlined'
           name={columnName}
           value={value}
-          onBlur={handleBlur}
           onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
+          onBlur={handleBlur}
         >
           <MenuItem value={PaymentType.Cash}>{PaymentType[1]}</MenuItem>
           <MenuItem value={PaymentType.Transfer}>{PaymentType[2]}</MenuItem>
@@ -180,7 +187,7 @@ export default function PaymentHistory({
   const handleAddPayment = () => {
     setFieldValue('paymentHistory', [
       ...paymentHistory,
-      paymentHistoryInitialValues(paymentHistory.length + 1),
+      paymentHistoryInitialValues(paymentHistory.length + 1, true),
     ]);
   };
 
@@ -242,10 +249,10 @@ export default function PaymentHistory({
           <Table className={styles.historyTable}>
             <TableHead>
               <TableRow>
-                {columnKeys.map((c) => {
+                {columnKeys.map((c, index) => {
                   const tooltipTxt = historyColumns[c].tooltip;
                   return (
-                    <TableCell align='left' key={c}>
+                    <TableCell align='left' key={`${c}_${index}`}>
                       <Box className={tooltipTxt && styles.attachmentTableCell}>
                         {historyColumns[c].label}
                         {tooltipTxt && (
@@ -262,18 +269,16 @@ export default function PaymentHistory({
               </TableRow>
             </TableHead>
             <TableBody>
-              {paymentHistory?.map((row, i) => (
-                <TableRow
-                  key={row.name}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
+              {paymentHistory?.map((row, index) => (
+                <TableRow key={`${row.id}_${index}`}>
                   {columnKeys.map((columnKey) => {
                     const column = historyColumns[columnKey];
 
                     const cell = EditableTableCell({
                       value: row[columnKey],
                       columnName: columnKey,
-                      id: i + 1,
+                      id: index + 1,
+                      autoFocus: row.autoFocus,
                       paymentHistory,
                       setFieldValue,
                       touched,
@@ -285,7 +290,7 @@ export default function PaymentHistory({
 
                     return (
                       <TableCell
-                        key={`${columnKey}_${row.id}_${i}`}
+                        key={`${columnKey}_${row.id}_${index}`}
                         className={styles.historyCell}
                       >
                         {cell[column.type]}
@@ -306,7 +311,7 @@ export default function PaymentHistory({
 
                   {/*Delete Row*/}
                   <TableCell>
-                    <IconButton onClick={() => handleDeleteHistory(i)}>
+                    <IconButton onClick={() => handleDeleteHistory(index)}>
                       <Delete />
                     </IconButton>
                   </TableCell>
