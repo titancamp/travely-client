@@ -3,8 +3,8 @@ export const receivablePaymentHistoryColumnTypes = {
   price: 'price',
   date: 'date',
   select: 'select',
-  file: 'file',
   checkbox: 'checkbox',
+  attachment: 'attachment',
 };
 
 export const receivablePaymentHistoryColumns = () => ({
@@ -26,7 +26,7 @@ export const receivablePaymentHistoryColumns = () => ({
   },
   attachment: {
     label: 'Attachment',
-    type: receivablePaymentHistoryColumnTypes.file,
+    type: receivablePaymentHistoryColumnTypes.attachment,
     tooltip:
       'Please upload png, jpg, jpeg, gif, pdf file type. File size should be 10 MB.',
   },

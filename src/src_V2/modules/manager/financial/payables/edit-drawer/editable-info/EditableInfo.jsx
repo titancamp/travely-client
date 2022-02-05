@@ -1,6 +1,6 @@
 import { Box, InputAdornment, TextField } from '@mui/material';
 
-import { DateInput } from '../../../../components';
+import { DateInput } from '../../../components';
 import commonStyles from '../style.module.css';
 import styles from './EditableInfo.module.css';
 

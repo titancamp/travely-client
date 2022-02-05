@@ -5,3 +5,4 @@ export {
   TooltipTableCell,
   TableCellWrapper,
 } from './sticky-table/StickyTable';
+export { default as StickyDrawer } from './sticky-drawer/StickyDrawer';

@@ -22,16 +22,17 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
-import { ConfirmDialog, NoData } from '../../../../../../../components';
-import { paymentHistoryInitialValues } from '../../../../../../../utils/schemas';
-import { DateInput } from '../../../../components';
+import { ConfirmDialog, NoData, TooltipText } from '../../../../../../components';
+import { paymentHistoryInitialValues } from '../../../../../../utils/schemas';
+import { DateInput } from '../../../components';
 import {
   PaymentType,
+  acceptedFileTypes,
   receivablePaymentHistoryColumnTypes as columnTypes,
   receivablePaymentHistoryColumns as columns,
-} from '../../../../constants';
+} from '../../../constants';
 import commonStyles from '../style.module.css';
 import styles from './PaymentHistory.module.css';
 
@@ -44,6 +45,8 @@ const EditableTableCell = ({
   touched,
   errors,
   currency,
+  handleBlur,
+  handleUploadClick,
 }) => {
   const error = errors && Object.keys(errors).length && errors[id - 1];
 
@@ -65,6 +68,7 @@ const EditableTableCell = ({
         name={columnName}
         value={value}
         key={id}
+        onBlur={handleBlur}
         onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
         error={touched[columnName] && error[columnName]}
         helperText={touched[columnName] && error[columnName]}
@@ -77,6 +81,7 @@ const EditableTableCell = ({
         name={columnName}
         value={value}
         key={id}
+        onBlur={handleBlur}
         className={styles.price}
         onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
         error={touched[columnName] && error[columnName]}
@@ -100,6 +105,7 @@ const EditableTableCell = ({
           variant='outlined'
           name={columnName}
           value={value}
+          onBlur={handleBlur}
           onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
         >
           <MenuItem value={PaymentType.Cash}>{PaymentType[1]}</MenuItem>
@@ -107,9 +113,15 @@ const EditableTableCell = ({
         </Select>
       </FormControl>
     ),
-    [columnTypes.file]: (
-      <Button variant='outlined' endIcon={<CloudUpload />} className={styles.uploadBtn}>
-        Upload
+    [columnTypes.attachment]: (
+      <Button
+        variant='outlined'
+        endIcon={<CloudUpload />}
+        className={styles.uploadBtn}
+        name={columnName}
+        onClick={() => handleUploadClick(id)}
+      >
+        {(value?.name && <TooltipText text={value.name} />) || 'Upload'}
       </Button>
     ),
     [columnTypes.checkbox]: (
@@ -133,18 +145,14 @@ export default function PaymentHistory({
   touched,
   setFieldValue,
   currency,
+  handleBlur,
+  setFileError,
 }) {
   const [deletePopupOpened, setDeletePopupOpened] = useState(false);
   const [historyIndex, setHistoryIndex] = useState(null);
+  const hiddenFileInput = useRef(null);
   const historyColumns = columns();
   const columnKeys = Object.keys(historyColumns);
-
-  const handleAddPayment = () => {
-    setFieldValue('paymentHistory', [
-      ...paymentHistory,
-      paymentHistoryInitialValues(paymentHistory.length + 1),
-    ]);
-  };
 
   const openDeletePopup = () => {
     setDeletePopupOpened(true);
@@ -164,9 +172,45 @@ export default function PaymentHistory({
     deleteHistoryByIndex();
   };
 
+  const handleUploadClick = (id) => {
+    setHistoryIndex(id);
+    hiddenFileInput.current.click();
+  };
+
+  const handleAddPayment = () => {
+    setFieldValue('paymentHistory', [
+      ...paymentHistory,
+      paymentHistoryInitialValues(paymentHistory.length + 1),
+    ]);
+  };
+
   const handleDeleteHistory = (index) => {
     setHistoryIndex(index);
     openDeletePopup();
+  };
+
+  const handleAddAttachment = (event) => {
+    try {
+      if (event.target.files) {
+        const newFile = event.target.files[0];
+
+        if (!acceptedFileTypes.includes(newFile.type) || newFile.size / 1024 ** 2 > 20) {
+          return setFileError(
+            `Supported file types are - ${acceptedFileTypes.join(', ')}`
+          );
+        } else {
+          const modifiedHistory = paymentHistory.map((history) => {
+            if (history.id === historyIndex) {
+              history.attachment = newFile;
+            }
+            return history;
+          });
+          setFieldValue('paymentHistory', [...modifiedHistory]);
+        }
+      }
+    } catch (error) {
+      return setFileError('Upload Failed - Try again');
+    }
   };
 
   return (
@@ -235,6 +279,8 @@ export default function PaymentHistory({
                       touched,
                       errors,
                       currency,
+                      handleBlur,
+                      handleUploadClick,
                     });
 
                     return (
@@ -246,6 +292,18 @@ export default function PaymentHistory({
                       </TableCell>
                     );
                   })}
+
+                  {/*File input*/}
+                  <TableCell key={`upload_${row.id}`}>
+                    <input
+                      type='file'
+                      className={styles.uploadInput}
+                      ref={hiddenFileInput}
+                      onChange={handleAddAttachment}
+                      accept='image/*, .pdf'
+                    />
+                  </TableCell>
+
                   {/*Delete Row*/}
                   <TableCell>
                     <IconButton onClick={() => handleDeleteHistory(i)}>

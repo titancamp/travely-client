@@ -1,11 +1,3 @@
-export const acceptedFileTypes = [
-  'image/png',
-  'image/jpg',
-  'image/jpeg',
-  'image/gif',
-  'application/pdf',
-];
-
 export const payablePaymentHistoryColumnTypes = {
   text: 'text',
   price: 'price',

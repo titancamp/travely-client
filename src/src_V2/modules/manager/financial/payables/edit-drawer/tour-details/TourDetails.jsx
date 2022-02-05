@@ -8,8 +8,8 @@ import {
   Typography,
 } from '@mui/material';
 
-import { generateDate } from '../../../../../../../utils';
-import { PaymentStatus } from '../../../../constants';
+import { generateDate } from '../../../../../../utils';
+import { PaymentStatus } from '../../../constants';
 import commonStyles from '../style.module.css';
 import styles from './TourDetails.module.css';
 

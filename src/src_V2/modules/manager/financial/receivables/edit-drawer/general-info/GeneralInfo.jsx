@@ -1,7 +1,7 @@
 import { Box, Divider, Stack } from '@mui/material';
 
-import { moneyMask } from '../../../../../../../utils';
-import { remainingCost } from '../../../../utils';
+import { moneyMask } from '../../../../../../utils';
+import { remainingCost } from '../../../utils';
 import commonStyles from '../style.module.css';
 import styles from './GeneralInfo.module.css';
 

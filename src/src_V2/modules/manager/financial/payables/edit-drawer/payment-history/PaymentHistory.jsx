@@ -23,15 +23,15 @@ import {
 } from '@mui/material';
 import { useRef, useState } from 'react';
 
-import { ConfirmDialog, NoData, TooltipText } from '../../../../../../../components';
-import { paymentHistoryInitialValues } from '../../../../../../../utils/schemas';
-import { DateInput } from '../../../../components';
+import { ConfirmDialog, NoData, TooltipText } from '../../../../../../components';
+import { paymentHistoryInitialValues } from '../../../../../../utils/schemas';
+import { DateInput } from '../../../components';
 import {
   PaymentType,
   acceptedFileTypes,
   payablePaymentHistoryColumnTypes as columnTypes,
   payablePaymentHistoryColumns as columns,
-} from '../../../../constants';
+} from '../../../constants';
 import commonStyles from '../style.module.css';
 import styles from './PaymentHistory.module.css';
 

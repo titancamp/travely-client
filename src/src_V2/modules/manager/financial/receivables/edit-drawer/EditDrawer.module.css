@@ -1,0 +1,30 @@
+.mainText {
+  font-size: 17px;
+}
+
+.receivableId {
+  color: var(--darkGrey);
+  font-weight: 600;
+}
+
+.textDiv {
+  margin-left: 25px;
+}
+
+.uploadError {
+  position: absolute;
+  width: 210px;
+  right: 25px;
+  z-index: 1;
+  bottom: 190px;
+}
+
+.layoutDistance {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.supplierName {
+  color: var(--secondary);
+  font-size: 12px;
+}

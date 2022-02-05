@@ -1,4 +1,4 @@
-import { DateInput } from '../../../../components';
+import { DateInput } from '../../../components';
 import commonStyles from '../style.module.css';
 
 export default function EditableInfo({ values, setFieldValue }) {

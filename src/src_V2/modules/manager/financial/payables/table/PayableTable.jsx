@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { StickyTable } from '../../components';
 import { payableColumns, stickyFooterColumns } from '../../constants';
 import { getComparator } from '../../utils';
-import EditDrawer from '../edit/drawer/EditDrawer';
+import EditDrawer from '../edit-drawer/EditDrawer';
 
 export default function PayableTable({ payables, total, payablesLoading }) {
   const [drawerState, setDrawerState] = useState({

@@ -13,3 +13,11 @@ export const stickyFooterColumnTypes = {
   emptyCell: 'emptyCell',
   custom: 'custom',
 };
+
+export const acceptedFileTypes = [
+  'image/png',
+  'image/jpg',
+  'image/jpeg',
+  'image/gif',
+  'application/pdf',
+];

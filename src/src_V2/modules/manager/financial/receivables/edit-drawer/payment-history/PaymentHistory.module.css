@@ -39,3 +39,7 @@
   display: flex;
   align-items: flex-start;
 }
+
+.uploadInput {
+  display: none;
+}
