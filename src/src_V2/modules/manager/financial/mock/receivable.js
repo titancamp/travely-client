@@ -61,12 +61,12 @@ const receivablesList = () => [
         size: 101896,
         type: 'image/jpeg',
       }),
-      paymentHistory(1, '134252-89', '1000', '2021-12-26T09:36:19Z', 1, true, {
+      paymentHistory(2, '134252-89', '1000', '2021-12-26T09:36:19Z', 1, true, {
         name: 'test.jpg',
         size: 101896,
         type: 'image/jpeg',
       }),
-      paymentHistory(1, '134252-89', '1000', '2021-12-26T09:36:19Z', 1, false),
+      paymentHistory(3, '134252-89', '1000', '2021-12-26T09:36:19Z', 1, false),
     ],
     'Lorem'
   ),
@@ -314,12 +314,12 @@ const receivablesList = () => [
         size: 101896,
         type: 'image/jpeg',
       }),
-      paymentHistory(1, '134252-89', '1000', '2021-12-26T09:36:19Z', 1, true, {
+      paymentHistory(2, '134252-89', '1000', '2021-12-26T09:36:19Z', 1, true, {
         name: 'test.jpg',
         size: 101896,
         type: 'image/jpeg',
       }),
-      paymentHistory(1, '134252-89', '1000', '2021-12-26T09:36:19Z', 1, false),
+      paymentHistory(3, '134252-89', '1000', '2021-12-26T09:36:19Z', 1, false),
     ],
     'Lorem'
   ),
@@ -446,7 +446,7 @@ const receivablesList = () => [
         size: 101896,
         type: 'image/jpeg',
       }),
-      paymentHistory(1, '134252-89', '1000', '2021-12-26T09:36:19Z', 1, false),
+      paymentHistory(2, '134252-89', '1000', '2021-12-26T09:36:19Z', 1, false),
     ],
     'Lorem'
   ),

@@ -25,7 +25,7 @@ import {
 import { useRef, useState } from 'react';
 
 import { ConfirmDialog, NoData, TooltipText } from '../../../../../../components';
-import { payablePaymentHistoryInitialValues as paymentHistoryInitialValues } from '../../../../../../utils/schemas';
+import { receivablePaymentHistoryInitialValues as paymentHistoryInitialValues } from '../../../../../../utils/schemas';
 import { DateInput } from '../../../components';
 import {
   PaymentType,
@@ -68,7 +68,7 @@ const EditableTableCell = ({
       <TextField
         size='small'
         variant='outlined'
-        className={'adornmentInput'}
+        className={`adornmentInput ${styles.invoiceIdInput}`}
         name={columnName}
         value={value}
         autoFocus={autoFocus}
@@ -86,7 +86,7 @@ const EditableTableCell = ({
         size='small'
         variant='outlined'
         type='number'
-        className={'adornmentInput'}
+        className={`adornmentInput ${styles.priceInput}`}
         name={columnName}
         value={value}
         onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
@@ -100,6 +100,7 @@ const EditableTableCell = ({
     ),
     [columnTypes.date]: (
       <DateInput
+        className={styles.dateInput}
         name='dueDate'
         value={value}
         searchHandler={(value) => handleHistoryChange(value, columnName)}
@@ -110,6 +111,7 @@ const EditableTableCell = ({
         <Select
           size='small'
           variant='outlined'
+          className={styles.typeInput}
           name={columnName}
           value={value}
           onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
@@ -133,7 +135,9 @@ const EditableTableCell = ({
     ),
     [columnTypes.checkbox]: (
       <Checkbox
-        checked={value}
+        checked={!!value}
+        className={styles.sentFlag}
+        name={columnName}
         onChange={({ target: { checked } }) => handleHistoryChange(checked, columnName)}
       />
     ),
@@ -289,10 +293,7 @@ export default function PaymentHistory({
                     });
 
                     return (
-                      <TableCell
-                        key={`${columnKey}_${row.id}_${index}`}
-                        className={styles.historyCell}
-                      >
+                      <TableCell key={`${columnKey}_${row.id}_${index}`}>
                         {cell[column.type]}
                       </TableCell>
                     );

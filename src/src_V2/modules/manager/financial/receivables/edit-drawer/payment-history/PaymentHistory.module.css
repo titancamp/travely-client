@@ -31,15 +31,32 @@
   align-items: center;
 }
 
-.historyCell {
-  max-width: 150px;
-}
-
 .uploadBtn {
   display: flex;
   align-items: flex-start;
+  width: 125px;
 }
 
 .uploadInput {
   display: none;
+}
+
+.invoiceIdInput {
+  min-width: 125px !important;
+}
+
+.priceInput {
+  min-width: 115px !important;
+}
+
+.dateInput {
+  min-width: 150px !important;
+}
+
+.typeInput {
+  min-width: 106px !important;
+}
+
+.sentFlag {
+  padding-left: 0 !important;
 }

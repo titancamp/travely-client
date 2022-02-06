@@ -67,7 +67,7 @@ const EditableTableCell = ({
       <TextField
         size='small'
         variant='outlined'
-        className={'adornmentInput'}
+        className={`adornmentInput ${styles.invoiceIdInput}`}
         name={columnName}
         value={value}
         autoFocus={autoFocus}
@@ -85,7 +85,7 @@ const EditableTableCell = ({
         size='small'
         variant='outlined'
         type='number'
-        className={'adornmentInput'}
+        className={`adornmentInput ${styles.priceInput}`}
         name={columnName}
         value={value}
         onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
@@ -99,6 +99,7 @@ const EditableTableCell = ({
     ),
     [columnTypes.date]: (
       <DateInput
+        className={styles.dateInput}
         name='dueDate'
         value={value}
         searchHandler={(value) => handleHistoryChange(value, columnName)}
@@ -109,6 +110,7 @@ const EditableTableCell = ({
         <Select
           size='small'
           variant='outlined'
+          className={styles.typeInput}
           name={columnName}
           value={value}
           onChange={({ target: { value } }) => handleHistoryChange(value, columnName)}
@@ -282,10 +284,7 @@ export default function PaymentHistory({
                     });
 
                     return (
-                      <TableCell
-                        key={`${columnKey}_${row.id}`}
-                        className={styles.historyCell}
-                      >
+                      <TableCell key={`${columnKey}_${row.id}`}>
                         {cell[column.type]}
                       </TableCell>
                     );
