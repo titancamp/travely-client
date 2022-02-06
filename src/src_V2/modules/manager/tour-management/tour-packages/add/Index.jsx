@@ -41,7 +41,7 @@ export default function AddTourPackage() {
         onSubmit={onSubmit}
         currentTab={currentTab}
         setCurrentTab={setCurrentTab}
-        subMenus={['TOUR INFO', 'PARTICIPANTS', 'CALENDAR', 'FINANCE']}
+        subMenus={['TOUR INFO', 'PARTICIPANTS', 'CALENDAR', 'PRICE SUMMARY']}
       />
       <Box className={styles.container}>
         <TourPackageSteps currentTab={currentTab} tourPackage={tourPackage} />
