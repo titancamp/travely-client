@@ -54,7 +54,7 @@ export default function AddTourPackage() {
         pageName='Tour Package'
         currentTab={currentTab}
         setCurrentTab={setCurrentTab}
-        subMenus={['TOUR INFO', 'PARTICIPANTS', 'CALENDAR', 'FINANCE']}
+        subMenus={['TOUR INFO', 'PARTICIPANTS', 'CALENDAR', 'PRICE SUMMARY']}
       />
       <TourPackageSteps currentTab={currentTab} tourPackage={tourPackage} />
     </>

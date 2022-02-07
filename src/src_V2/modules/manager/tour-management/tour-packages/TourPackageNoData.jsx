@@ -1,4 +1,4 @@
-import image from '../../../../assets/accommodation.svg';
+import image from '../../../../assets/illustrations/accommodation.svg';
 import { NoData } from '../../supplier-management/components';
 
 export default function TourPackagesLandingPage() {

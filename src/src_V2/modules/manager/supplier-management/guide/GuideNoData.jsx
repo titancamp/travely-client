@@ -1,4 +1,4 @@
-import image from '../../../../assets/guide.svg';
+import image from '../../../../assets/illustrations/guide.svg';
 import { NoData } from '../components';
 
 export default function GuideLandingPage() {
