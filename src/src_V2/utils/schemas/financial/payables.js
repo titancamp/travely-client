@@ -1,14 +1,14 @@
-import { number, object, array } from 'yup';
+import { array, number, object, string } from 'yup';
 
-import { BaseSchemas } from '../BaseSchemas';
-import { ERROR_MESSAGES } from '../../constants';
 import { PaymentType } from '../../../modules/manager/financial/constants';
+import { payableValidationValues } from '../../../modules/manager/financial/constants';
+import { BaseSchemas } from '../BaseSchemas';
 
 /**
  * Initial values for payables.
  */
 
-export function rowListInitialValues(initialValues) {
+export function payableRowListInitialValues(initialValues) {
   return {
     actualCost: '',
     dueDate: '',
@@ -18,14 +18,15 @@ export function rowListInitialValues(initialValues) {
   };
 }
 
-export function paymentHistoryInitialValues(id) {
+export function payablePaymentHistoryInitialValues(id, autoFocus = false) {
   return {
     id,
     invoiceId: '',
     paidAmount: '',
     paymentType: PaymentType.Cash,
-    paymentDate: '',
-    attachment: '',
+    paymentDate: new Date(),
+    attachment: {},
+    autoFocus,
   };
 }
 
@@ -36,16 +37,18 @@ export function paymentHistoryInitialValues(id) {
 export function paymentHistorySchema() {
   return object().shape({
     invoiceId: BaseSchemas.requiredText(64),
-    paidAmount: BaseSchemas.floatingNumber(20),
-    paymentType: number().oneOf([PaymentType[1], PaymentType[2]]),
-    // paymentDate: '',
-    attachment: object().shape([]).nullable(),
+    paidAmount: BaseSchemas.floatingNumber(99999999999999999999.99),
+    paymentType: number().oneOf([PaymentType.Cash, PaymentType.Transfer]),
+    paymentDate: string().nullable(),
+    attachment: object().shape({}).nullable(),
   });
 }
 
 export function rowListSchema() {
   return object().shape({
-    actualCost: BaseSchemas.floatingNumber().required(ERROR_MESSAGES.required),
+    actualCost: BaseSchemas.floatingRequiredNumber(
+      payableValidationValues.actualCostMaxValue
+    ),
     paymentHistory: array().of(paymentHistorySchema()),
     notes: BaseSchemas.textField(500),
   });

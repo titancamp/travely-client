@@ -1,0 +1,11 @@
+.dueDatePickerInput > div > label {
+  top: -6px;
+}
+
+.dueDatePicker > div > div {
+  height: 40px;
+}
+
+.datePickerLblFocused {
+  top: 0 !important;
+}

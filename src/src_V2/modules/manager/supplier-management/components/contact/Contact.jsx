@@ -1,21 +1,20 @@
+import { Email, Person } from '@mui/icons-material';
 import {
   Box,
+  FormControl,
+  FormHelperText,
   Grid,
   InputLabel,
-  FormControl,
   OutlinedInput,
-  FormHelperText,
 } from '@mui/material';
-import { useEffect } from 'react';
 import { useFormik } from 'formik';
-import { Person, Email } from '@mui/icons-material';
+import { useEffect } from 'react';
 
-import { EndAdornment } from '../endAdornment';
 import {
-  contactSchema,
   contactInitialValues,
+  contactSchema,
 } from '../../../../../utils/schemas/tourManagment/components';
-
+import { EndAdornment } from '../endAdornment';
 import styles from './style.module.css';
 
 export default function Contact({ parentRef }) {

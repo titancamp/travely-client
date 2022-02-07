@@ -1,3 +1,4 @@
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Button,
   Dialog,
@@ -7,7 +8,6 @@ import {
   DialogTitle,
   IconButton,
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 
 import styles from './ConfirmDialog.module.css';
 
@@ -32,6 +32,7 @@ export default function ConfirmDialog({
   const cancelBtn = {
     variant: 'outlined',
     txt: 'Cancel',
+    focus: false,
     ...cancelButton,
   };
 
@@ -58,7 +59,7 @@ export default function ConfirmDialog({
       <DialogActions>
         <Button
           onClick={cancelHandler}
-          autoFocus={!confirmBtn.focus}
+          autoFocus={cancelBtn.focus || !confirmBtn.focus}
           variant={cancelBtn.variant}
         >
           {cancelBtn.txt}

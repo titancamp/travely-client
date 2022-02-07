@@ -5,3 +5,8 @@
 @import '../styles/colors.css';
 
 /* globally applied styles go here */
+
+.adornmentInput > div {
+  display: flex;
+  align-items: baseline;
+}

@@ -2,10 +2,9 @@ import { Box } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { Banner, Partnership } from '../../components';
 import Guide from './Guide';
 import MainInfo from './MainInfo';
-import { Banner, Partnership } from '../../components';
-
 import styles from './style.module.css';
 
 function GuideSteps({ currentTab: { step, isValidate }, guide }) {

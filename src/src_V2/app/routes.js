@@ -1,5 +1,6 @@
 import Auth from '../modules/auth';
 import User from '../modules/manager';
+
 /** Global Routes */
 
 const ROUTES = {

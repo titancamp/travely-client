@@ -11,6 +11,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+<<<<<<< HEAD
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -19,6 +20,11 @@ import {
   AccommodationFilterSchema,
   FilterInitialValues,
 } from '../../../../../utils/schemas/tourManagment/accommodation';
+=======
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+>>>>>>> dev
 import { AccommodationTypes } from '../constants';
 import DialogManager from '../dialogs/Index';
 import styles from './style.module.css';

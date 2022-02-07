@@ -1,14 +1,16 @@
-import { number, object, array } from 'yup';
+import { array, boolean, number, object, string } from 'yup';
 
+import {
+  PaymentType,
+  payableValidationValues,
+} from '../../../modules/manager/financial/constants';
 import { BaseSchemas } from '../BaseSchemas';
-import { ERROR_MESSAGES } from '../../constants';
-import { PaymentType } from '../../../modules/manager/financial/constants';
 
 /**
  * Initial values for receivables.
  */
 
-export function receivablesRowListInitialValues(initialValues) {
+export function receivableRowListInitialValues(initialValues) {
   return {
     actualCost: '',
     dueDate: '',
@@ -18,15 +20,16 @@ export function receivablesRowListInitialValues(initialValues) {
   };
 }
 
-export function receivablesPaymentHistoryInitialValues(id) {
+export function receivablePaymentHistoryInitialValues(id, autoFocus = false) {
   return {
     id,
     invoiceId: '',
     paidAmount: '',
     paymentType: PaymentType.Cash,
-    paymentDate: '',
-    attachment: '',
-    sendFlag: false,
+    paymentDate: new Date(),
+    attachment: {},
+    sentFlag: false,
+    autoFocus,
   };
 }
 
@@ -34,20 +37,23 @@ export function receivablesPaymentHistoryInitialValues(id) {
  * Yup schemas for receivables.
  */
 
-export function receivablesPaymentHistorySchema() {
+export function paymentHistorySchema() {
   return object().shape({
     invoiceId: BaseSchemas.requiredText(64),
-    paidAmount: BaseSchemas.floatingNumber(20),
-    paymentType: number().oneOf([PaymentType[1], PaymentType[2]]),
-    // paymentDate: '',
-    attachment: object().shape([]).nullable(),
+    paidAmount: BaseSchemas.floatingNumber(99999999999999999999.99),
+    paymentType: number().oneOf([PaymentType.Cash, PaymentType.Transfer]),
+    paymentDate: string().nullable(),
+    attachment: object().shape({}).nullable(),
+    sentFlag: boolean(), // todo
   });
 }
 
-export function receivablesRowListSchema() {
+export function rowListSchema() {
   return object().shape({
-    actualCost: BaseSchemas.floatingNumber().required(ERROR_MESSAGES.required),
-    paymentHistory: array().of(receivablesPaymentHistorySchema()),
+    actualCost: BaseSchemas.floatingRequiredNumber(
+      payableValidationValues.actualCostMaxValue
+    ),
+    paymentHistory: array().of(paymentHistorySchema()),
     notes: BaseSchemas.textField(500),
   });
 }

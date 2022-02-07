@@ -1,18 +1,17 @@
-import { useEffect } from 'react';
-import { useFormik } from 'formik';
 import { Button } from '@mui/material';
+import { useFormik } from 'formik';
+import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import PasswordField from '../../../components/formUI/PasswordField';
-import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
-import PasswordValidator from '../components/passwordValidator/PasswordValidator';
-
-import { ROUTES } from '../routes';
-import styles from './SignUp.module.css';
+import PasswordValidator from '../../../components/passwordValidator/PasswordValidator';
 import {
   setNewPasswordInitialValues,
   setNewPasswordValidationSchema,
 } from '../../../utils/schemas/auth/auth';
+import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
+import { ROUTES } from '../routes';
+import styles from './SignUp.module.css';
 
 export default function SignUp() {
   const { getFieldProps, errors, touched, isSubmitting, handleSubmit } = useFormik({

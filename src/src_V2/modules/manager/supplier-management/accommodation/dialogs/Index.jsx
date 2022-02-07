@@ -1,11 +1,16 @@
 import { Dialog, Tab } from '@mui/material';
 
 import DeleteDialog from '../../components/dialogs/Delete.dialog';
+<<<<<<< HEAD
 import DetailsDialog from '../../components/dialogs/Details.dialog';
 import MainInfo from '../../components/dialogs/MainInfo';
 import Map from '../../components/dialogs/Map.dialog';
 import Partnership from '../../components/dialogs/Partnership';
 import Rooms from './AccommodationDetails/Rooms';
+=======
+import Map from '../../components/dialogs/Map.dialog';
+import AccommodationDetailsDialog from './AccommodationDetails.dialog';
+>>>>>>> dev
 import AddEditRoomDialog from './AddEditRoom.dialog';
 import AllFiltersDialog from './AllFilters.dialog';
 import ViewRoomDialog from './ViewRoom.dialog';

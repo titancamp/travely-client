@@ -1,8 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 
-import AddGuide from './add/Index';
 import GudeNoData from './GuideNoData';
+<<<<<<< HEAD
 import GuideList from './list/Index';
+=======
+import AddGuide from './add/Index';
+>>>>>>> dev
 
 export const ROUTES = {
   ADD: 'add',

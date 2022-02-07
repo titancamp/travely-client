@@ -1,0 +1,39 @@
+import { Box, Divider, Stack } from '@mui/material';
+
+import { moneyMask } from '../../../../../../utils';
+import { remainingCost } from '../../../utils';
+import commonStyles from '../style.module.css';
+import styles from './GeneralInfo.module.css';
+
+const CostBox = ({ currency, cost, text, className }) => {
+  return (
+    <Box className={`${styles.costBox} ${className && className}`}>
+      <Box className={styles.costAmount}>
+        {currency} {cost}
+      </Box>
+      <Box className={styles.costTxt}>{text}</Box>
+    </Box>
+  );
+};
+
+export default function GeneralInfo({ values, row }) {
+  const { currency, totalAmount, paidAmount } = row;
+
+  return (
+    <Stack
+      className={styles.generalInfo}
+      direction='row'
+      divider={<Divider orientation='vertical' flexItem />}
+      spacing={2}
+    >
+      <CostBox currency={currency} cost={moneyMask(totalAmount)} text='Total Amount' />
+      <CostBox currency={currency} cost={moneyMask(paidAmount)} text='Paid Amount' />
+      <CostBox
+        currency={currency}
+        cost={moneyMask(remainingCost(values.totalAmount, row.paidAmount))}
+        text='Remaining'
+        className={commonStyles.primaryColor}
+      />
+    </Stack>
+  );
+}

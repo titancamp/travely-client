@@ -1,8 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 
-import AddFood from './add/Index';
 import FoodNoData from './FoodNoData';
+<<<<<<< HEAD
 import FoodList from './list/Index';
+=======
+import AddFood from './add/Index';
+>>>>>>> dev
 
 export const ROUTES = {
   ADD: 'add',

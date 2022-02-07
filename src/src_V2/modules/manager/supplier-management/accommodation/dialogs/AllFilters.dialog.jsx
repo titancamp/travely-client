@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Autocomplete, DialogContent, Grid, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 
@@ -11,6 +12,24 @@ import {
 } from '../../components/bootstrapDialogTitle/BootstrapDialogTitle';
 import { AllFiltersDialogStyles } from '../../transportation/dialogs/DialogStyles';
 import { HotelServices, RoomServices, RoomTypes } from '../constants';
+=======
+import CloseIcon from '@mui/icons-material/Close';
+import {
+  Autocomplete,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+
+import MultipleSelectCheckmarks from '../list/MultipleSelectCheckmarks';
+>>>>>>> dev
 import styles from './style.module.css';
 
 export default function AllFiltersDialog({ onClose, data: { open } }) {

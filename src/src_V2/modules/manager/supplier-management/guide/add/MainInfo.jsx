@@ -1,29 +1,28 @@
-import { useFormik } from 'formik';
 import { Map } from '@mui/icons-material';
-import { useEffect, useState } from 'react';
+import { Email, Person } from '@mui/icons-material';
 import {
-  Box,
-  Grid,
-  Button,
-  TextField,
-  InputLabel,
-  FormControl,
   Autocomplete,
-  OutlinedInput,
-  InputAdornment,
+  Box,
+  Button,
+  FormControl,
   FormHelperText,
+  Grid,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  TextField,
 } from '@mui/material';
-import { Person, Email } from '@mui/icons-material';
+import { useFormik } from 'formik';
+import { useEffect, useState } from 'react';
 
-import DialogManager from '../dialogs/Index';
-import { EndAdornment } from '../../components/endAdornment';
 import {
-  mainInfoSchema,
   mainInfoInitialValues,
+  mainInfoSchema,
 } from '../../../../../utils/schemas/tourManagment/guide';
-
-import styles from './style.module.css';
 import { Regions } from '../../accommodation/constants';
+import { EndAdornment } from '../../components/endAdornment';
+import DialogManager from '../dialogs/Index';
+import styles from './style.module.css';
 
 export default function MainInfo({ parentRef, isValidate }) {
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });

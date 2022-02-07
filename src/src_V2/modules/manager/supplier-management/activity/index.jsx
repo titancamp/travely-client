@@ -1,8 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 
-import AddActivity from './add/Index';
 import ActivityNoData from './ActivityNoData';
+<<<<<<< HEAD
 import ActivityList from './list/Index';
+=======
+import AddActivity from './add/Index';
+>>>>>>> dev
 
 export const ROUTES = {
   ADD: 'add',

@@ -1,15 +1,26 @@
+<<<<<<< HEAD
 import * as React from 'react';
 import { useState } from 'react';
+=======
+>>>>>>> dev
 import {
   Box,
+  Button,
   Paper,
   Table,
+<<<<<<< HEAD
   TableRow,
+=======
+>>>>>>> dev
   TableBody,
   TableCell,
   TableContainer,
+  TableHead,
   TablePagination,
+  TableRow,
+  TableSortLabel,
 } from '@mui/material';
+<<<<<<< HEAD
 import FilterBlock from './FilterBlock';
 import { HeadCells, TableRows } from '../constants';
 import DialogManager from '../dialogs/Index';
@@ -21,6 +32,216 @@ import TableMenuActions from '../../../supplier-management/components/tableVerti
 import { EnhancedTableHead } from '../../../supplier-management/components/enhancedTableHead/EnhancedTableHead';
 
 import styles from './style.module.css';
+=======
+import { visuallyHidden } from '@mui/utils';
+import PropTypes from 'prop-types';
+import * as React from 'react';
+import { useState } from 'react';
+
+import DialogManager from '../dialogs/Index';
+import FilterBlock from './FilterBlock';
+import AccommodationActions from './Menu';
+import styles from './style.module.css';
+
+function createData(
+  name,
+  type,
+  region,
+  city,
+  contactNumber,
+  contactPerson,
+  email,
+  status
+) {
+  return { name, type, region, city, contactNumber, contactPerson, email, status };
+}
+
+const rows = [
+  createData(
+    'Mariot',
+    'Hotel',
+    'Kotayq',
+    'Abovyan',
+    '+374 11 11 11 11',
+    'Name Lastname',
+    'customer.care@marriott.com',
+    <Button
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      variant='contained'
+      className={styles.btn}
+      component='span'
+    >
+      Ready
+    </Button>
+  ),
+  createData(
+    'Tufenkyan',
+    'Hotel',
+    'Kotayq',
+    'Abovyan',
+    '+374 11 11 11 11',
+    'Name Lastname',
+    'customer.care@marriott.com',
+    <Button
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      variant='contained'
+      className={`${styles.btn} ${styles.secondaryBtn}`}
+      component='span'
+    >
+      Missed Price
+    </Button>
+  ),
+  createData(
+    'Multi rest',
+    'Hotel',
+    'Kotayq',
+    'Abovyan',
+    '+374 11 11 11 11',
+    'Name Lastname',
+    'customer.care@marriott.com',
+    <Button
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      variant='contained'
+      className={styles.btn}
+      component='span'
+    >
+      Ready
+    </Button>
+  ),
+];
+
+function descendingComparator(a, b, orderBy) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+
+function getComparator(order, orderBy) {
+  return order === 'desc'
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+function stableSort(array, comparator) {
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) {
+      return order;
+    }
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map((el) => el[0]);
+}
+
+const headCells = [
+  {
+    id: 'name',
+    numeric: false,
+    disablePadding: true,
+    label: 'Name',
+  },
+  {
+    id: 'type',
+    numeric: true,
+    disablePadding: false,
+    label: 'Type',
+  },
+  {
+    id: 'region',
+    numeric: true,
+    disablePadding: false,
+    label: 'Region',
+  },
+  {
+    id: 'city',
+    numeric: true,
+    disablePadding: false,
+    label: 'City',
+  },
+  {
+    id: 'contactNumber',
+    numeric: true,
+    disablePadding: false,
+    label: 'Contact number',
+  },
+  {
+    id: 'contactPerson',
+    numeric: true,
+    disablePadding: false,
+    label: 'Contact Person',
+  },
+  {
+    id: 'email',
+    numeric: true,
+    disablePadding: false,
+    label: 'Email',
+  },
+  {
+    id: 'status',
+    numeric: true,
+    disablePadding: false,
+    label: 'Status',
+  },
+  {
+    id: 'actions',
+    numeric: true,
+    disablePadding: false,
+    label: '',
+  },
+];
+
+function EnhancedTableHead(props) {
+  const { order, orderBy, onRequestSort } = props;
+  const createSortHandler = (property) => (event) => {
+    onRequestSort(event, property);
+  };
+
+  return (
+    <TableHead>
+      <TableRow className={styles.tableTitles}>
+        {headCells.map((headCell) => (
+          <TableCell
+            key={headCell.id}
+            align={headCell.numeric ? 'right' : 'left'}
+            padding={headCell.disablePadding ? 'none' : 'normal'}
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
+            >
+              {headCell.label}
+              {orderBy === headCell.id ? (
+                <Box component='span' sx={visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </Box>
+              ) : null}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
+  );
+}
+
+EnhancedTableHead.propTypes = {
+  onRequestSort: PropTypes.func.isRequired,
+  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+  orderBy: PropTypes.string.isRequired,
+};
+>>>>>>> dev
 
 export default function AccommodationList() {
   const [order, setOrder] = React.useState('asc');

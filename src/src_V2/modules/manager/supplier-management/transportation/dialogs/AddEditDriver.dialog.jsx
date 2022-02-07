@@ -1,27 +1,26 @@
+import { Person } from '@mui/icons-material';
 import {
-  Grid,
-  Button,
-  TextField,
-  InputLabel,
-  FormControl,
-  DialogTitle,
   Autocomplete,
-  OutlinedInput,
+  Button,
   DialogActions,
   DialogContent,
+  DialogTitle,
+  FormControl,
   FormHelperText,
+  Grid,
+  InputLabel,
+  OutlinedInput,
+  TextField,
 } from '@mui/material';
 import { useFormik } from 'formik';
-import { Person } from '@mui/icons-material';
 
 import {
-  addDriverSchema,
   AddDriverInitialValues,
+  addDriverSchema,
 } from '../../../../../utils/schemas/tourManagment/transportation';
-
-import styles from './style.module.css';
 import { EndAdornment } from '../../components/endAdornment';
-import { License, Languages } from '../constants';
+import { Languages, License } from '../constants';
+import styles from './style.module.css';
 
 export default function AddEditDriverDialog({ onClose, onSuccess, driver, editMode }) {
   const autoCompleteChangeHandler = (type) => (e, value) => setFieldValue(type, value);

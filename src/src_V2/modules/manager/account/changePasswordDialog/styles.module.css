@@ -1,0 +1,11 @@
+.dialog .paper {
+  max-width: 360px;
+}
+
+.dialog-title {
+  padding-top: 24px;
+}
+
+.dialog-actions {
+  padding: 8px 24px 28px;
+}

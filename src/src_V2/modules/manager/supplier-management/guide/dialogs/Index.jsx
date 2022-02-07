@@ -1,6 +1,7 @@
 import { Dialog, Tab } from '@mui/material';
 
 import DeleteDialog from '../../components/dialogs/Delete.dialog';
+<<<<<<< HEAD
 import DetailsDialog from '../../components/dialogs/Details.dialog';
 import MainInfo from '../../components/dialogs/MainInfo';
 import Map from '../../components/dialogs/Map.dialog';
@@ -8,6 +9,10 @@ import Partnership from '../../components/dialogs/Partnership';
 import AddEditGuideDialog from './AddEditGuide.dialog';
 import AllFiltersDialog from './AllFilters.dialog';
 import Guides from './GuideDetails/Guides';
+=======
+import Map from '../../components/dialogs/Map.dialog';
+import AddEditGuideDialog from './AddEditGuide.dialog';
+>>>>>>> dev
 import ViewGuideDialog from './ViewGuide.dialog';
 
 function CurrentDialog({ data, onClose }) {

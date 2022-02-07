@@ -2,9 +2,8 @@ import { Box } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import MainInfo from './MainInfo';
 import { Banner, Partnership } from '../../components';
-
+import MainInfo from './MainInfo';
 import styles from './style.module.css';
 
 function ActivitySteps({ currentTab: { step, isValidate }, activity }) {

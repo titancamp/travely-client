@@ -1,6 +1,7 @@
 import { Dialog, Tab } from '@mui/material';
 
 import DeleteDialog from '../../components/dialogs/Delete.dialog';
+<<<<<<< HEAD
 import DetailsDialog from '../../components/dialogs/Details.dialog';
 import MainInfo from '../../components/dialogs/MainInfo';
 import Map from '../../components/dialogs/Map.dialog';
@@ -10,6 +11,11 @@ import AddEditDriverDialog from './AddEditDriver.dialog';
 import AllFiltersDialog from './AllFilters.dialog';
 import Cars from './TransportationDetails/Cars';
 import Drivers from './TransportationDetails/Drivers';
+=======
+import Map from '../../components/dialogs/Map.dialog';
+import AddEditCarDialog from './AddEditCar.dialog';
+import AddEditDriverDialog from './AddEditDriver.dialog';
+>>>>>>> dev
 import ViewCarDialog from './ViewCar.dialog';
 import ViewDriverDialog from './ViewDriver.dialog';
 

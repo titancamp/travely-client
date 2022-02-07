@@ -1,9 +1,14 @@
-import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import { Menu, MenuItem } from '@mui/material';
-import { Edit, Delete } from '@mui/icons-material';
+import { Delete, Edit } from '@mui/icons-material';
 import { MoreVert } from '@mui/icons-material';
+<<<<<<< HEAD:src/src_V2/modules/manager/supplier-management/components/tableVerticalActionsMenu/Menu.jsx
 import styles from '../../accommodation/list/style.module.css';
+=======
+import { Menu, MenuItem } from '@mui/material';
+import { alpha, styled } from '@mui/material/styles';
+import * as React from 'react';
+
+import styles from './style.module.css';
+>>>>>>> dev:src/src_V2/modules/manager/supplier-management/accommodation/list/Menu.jsx
 
 const StyledMenu = styled((props) => (
   <Menu

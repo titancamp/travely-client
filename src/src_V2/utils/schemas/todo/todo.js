@@ -1,7 +1,7 @@
-import { BaseSchemas } from '../BaseSchemas';
 import * as Yup from 'yup';
 
 import { TaskPriority, TaskStatus } from '../../../modules/manager/todo/utils';
+import { BaseSchemas } from '../BaseSchemas';
 
 export const getTodoFormInitialValues = (initialValues = {}) => ({
   title: '',
@@ -22,7 +22,7 @@ export const getTodoFormValidation = () =>
   });
 
 export const getTodoFilterInitialValues = (initialValues = {}) => ({
-    name: initialValues.name || '',
-    statuses: initialValues.statuses ? initialValues.statuses.split(',') : [],
-    priorities: initialValues.priorities ? initialValues.priorities.split(',') : [],
+  name: initialValues.name || '',
+  statuses: initialValues.statuses ? initialValues.statuses.split(',') : [],
+  priorities: initialValues.priorities ? initialValues.priorities.split(',') : [],
 });

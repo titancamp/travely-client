@@ -1,0 +1,18 @@
+.actions-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 104px;
+  padding: 0 44px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+}
+
+.btns-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}

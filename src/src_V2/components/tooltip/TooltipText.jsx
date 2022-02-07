@@ -1,5 +1,5 @@
-import { useRef } from 'react';
 import { Box, Tooltip } from '@mui/material';
+import { useRef } from 'react';
 
 import { useHoverTooltip } from '../../utils/hooks';
 import styles from './TooltipText.module.css';
