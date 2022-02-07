@@ -1,3 +1,4 @@
+import { ExpandMore, Map } from '@mui/icons-material';
 import {
   Accordion,
   AccordionDetails,
@@ -6,7 +7,6 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
-import { Map, ExpandMore } from '@mui/icons-material';
 
 import { generateDate } from '../../../../../../../../utils';
 import { PaymentStatus } from '../../../../../constants';

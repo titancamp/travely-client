@@ -6,7 +6,7 @@ import { Button, TextField, Link, Typography } from '@mui/material';
 import VerifyEmail from '../components/verifyEmail/VerifyEmail';
 import PasswordField from '../../../components/formUI/PasswordField';
 import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
-import PasswordValidator from '../components/passwordValidator/PasswordValidator';
+import PasswordValidator from '../../../components/passwordValidator/PasswordValidator';
 
 import { ROUTES } from '../routes';
 import {

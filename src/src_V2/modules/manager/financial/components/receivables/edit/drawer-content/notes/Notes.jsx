@@ -1,3 +1,4 @@
+import { Close, ExpandMore, RateReview } from '@mui/icons-material';
 import {
   Accordion,
   AccordionDetails,
@@ -8,7 +9,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { ExpandMore, Close, RateReview } from '@mui/icons-material';
 
 import commonStyles from '../style.module.css';
 import styles from './Notes.module.css';

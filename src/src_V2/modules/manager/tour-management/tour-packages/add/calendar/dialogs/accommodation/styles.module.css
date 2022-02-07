@@ -1,0 +1,26 @@
+.itemExpandedContainer {
+    padding: 24px;
+    overflow: auto;
+    max-height: 290px;
+    background-color: #FAFAFA;
+    box-shadow: 0 1px 4px -1px grey;
+}
+
+.itemExpanded {
+    display: flex;
+    padding-bottom: 20px;
+    justify-content: space-between;
+}
+
+.tableHead {
+    padding: 16px;
+}
+
+.tableHeadRow {
+    height: 60px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tableRow {
+    height: 50px;
+}

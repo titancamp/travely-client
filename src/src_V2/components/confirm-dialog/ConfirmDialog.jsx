@@ -1,11 +1,11 @@
 import {
   Button,
   Dialog,
+  IconButton,
+  DialogTitle,
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
-  IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 

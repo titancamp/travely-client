@@ -1,0 +1,27 @@
+/* Add supplier dialog*/
+.flex {
+    display: flex;
+}
+
+.icon {
+    margin-top: 2px;
+}
+
+.title {
+    display: inline;
+    margin-left: 13px;
+}
+
+.itemsContainer {
+    height: 660px;
+    margin-top: 24px;
+    overflow-y: auto;
+    padding-bottom: 5px;
+}
+
+.noData {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,5 +1,5 @@
+import image from '../../../../assets/illustrations/food.svg';
 import { NoData } from '../components';
-import image from '../../../../assets/food.svg';
 
 export default function FoodLandingPage() {
   return (

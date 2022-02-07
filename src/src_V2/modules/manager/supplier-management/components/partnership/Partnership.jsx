@@ -1,14 +1,13 @@
+import { Box, Grid, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
-import { Box, Grid, TextField } from '@mui/material';
 
 import {
-  partnershipSchema,
   partnershipInitialValues,
+  partnershipSchema,
 } from '../../../../../utils/schemas/tourManagment/components';
-
-import styles from './style.module.css';
 import AddAttachment from '../add-attachment/AddAttachment';
+import styles from './style.module.css';
 
 export default function Partnership({ parentRef }) {
   const formik = useFormik({

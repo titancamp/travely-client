@@ -29,13 +29,13 @@
 }
 
 .groupRow {
-  background-color: var(--primary);
+  background-color: rgb(43 161 255 / 10%);
   position: sticky;
   top: 0;
 }
 
 .groupRow th {
-  color: #fff !important;
+  color: var(--darkGrey);
 }
 
 .noDataBox {
@@ -49,17 +49,11 @@
 }
 
 .groupTotal {
-  color: #1976d2;
-  font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 0.15px;
+  font-weight: 700 !important;
 }
 
 .totalCost {
-  color: #1976d2 !important;
-  font-weight: 500;
-  letter-spacing: 0.4px;
-  font-size: 14px;
+  font-weight: 700 !important;
 }
 
 .mainText {
@@ -98,7 +92,7 @@
   background-color: var(--midAvgGrey);
   padding: 15px;
   z-index: 1;
-  box-shadow: 0px 0px 10px -5px #000;
+  box-shadow: 0 0 10px -5px #000;
   color: #000;
 }
 
@@ -130,8 +124,8 @@
   flex-basis: 30%;
   margin-left: 20px;
   background-color: #fff;
-  box-shadow: 0px 0px 10px -5px black;
-  border-radius: 0px;
+  box-shadow: 0 0 10px -5px black;
+  border-radius: 0;
 }
 
 .wrapper {
@@ -150,13 +144,17 @@
 /* Accordions */
 
 .accordion {
-  border-radius: 10px !important;
   overflow: hidden;
-  margin: 0 0 10px 0 !important;
+  margin-bottom: 30px !important;
+  border-radius: 0 !important;
+}
+
+.contentData .accordion {
+  border-radius: 8px !important;
 }
 
 .accordionBox {
-  min-height: 50px !important;
+  min-height: 48px !important;
 }
 
 .accordionBox div {

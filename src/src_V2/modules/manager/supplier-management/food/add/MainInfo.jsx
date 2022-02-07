@@ -1,24 +1,23 @@
+import { Map } from '@mui/icons-material';
 import {
+  Autocomplete,
   Box,
-  Grid,
   Button,
   Checkbox,
-  TextField,
-  Autocomplete,
   FormControlLabel,
+  Grid,
+  TextField,
 } from '@mui/material';
-import { useEffect } from 'react';
 import { useFormik } from 'formik';
-import { Map } from '@mui/icons-material';
+import { useEffect } from 'react';
 
 import {
-  mainInfoSchema,
   mainInfoInitialValues,
+  mainInfoSchema,
 } from '../../../../../utils/schemas/tourManagment/food';
-
-import styles from './style.module.css';
 import { Regions } from '../../accommodation/constants';
 import { FoodTypes } from '../constant';
+import styles from './style.module.css';
 
 export default function MainInfo({ parentRef, isValidate }) {
   const {

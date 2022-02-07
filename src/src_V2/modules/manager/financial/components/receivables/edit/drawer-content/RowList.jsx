@@ -1,12 +1,12 @@
-import { Box, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { Box, Button } from '@mui/material';
 
-import GeneralInfo from './general-info/GeneralInfo';
-import EditableInfo from './editable-info/EditableInfo';
-import TourDetails from './tour-details/TourDetails';
-import PaymentHistory from './payment-history/PaymentHistory';
-import Notes from './notes/Notes';
 import styles from './RowList.module.css';
+import EditableInfo from './editable-info/EditableInfo';
+import GeneralInfo from './general-info/GeneralInfo';
+import Notes from './notes/Notes';
+import PaymentHistory from './payment-history/PaymentHistory';
+import TourDetails from './tour-details/TourDetails';
 
 export default function RowList({ row, rowEditForm, onClose, onSave }) {
   // not using context due to future replacement of redux

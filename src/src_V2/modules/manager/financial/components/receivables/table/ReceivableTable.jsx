@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { AttachFile } from '@mui/icons-material';
 import {
   Box,
   Checkbox,
@@ -16,13 +16,13 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { AttachFile } from '@mui/icons-material';
-import { visuallyHidden } from '@mui/utils';
 import { deepPurple, green, orange, pink } from '@mui/material/colors';
+import { visuallyHidden } from '@mui/utils';
+import { useState } from 'react';
 
+import { NoData, TooltipText } from '../../../../../../components';
 import { generateDate } from '../../../../../../utils';
 import { PaymentStatus } from '../../../constants';
-import { NoData, TooltipText } from '../../../../../../components';
 import EditDrawer from '../edit/drawer/EditDrawer';
 import styles from './ReceivableTable.module.css';
 
