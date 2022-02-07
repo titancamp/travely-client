@@ -5,18 +5,31 @@ import { useNavigate } from 'react-router-dom';
 import { Banner } from '../../../supplier-management/components';
 import Finance from './Finance/Finance';
 import TourInfo from './TourInfo';
+import Calendar from './calendar/Calendar';
 import styles from './style.module.css';
 
 function TourPackageSteps({ currentTab: { step, isValidate }, tourPackage }) {
   switch (step) {
     case 1:
-      return <TourInfo isValidate={isValidate} parentRef={tourPackage} />;
+      return (
+        <Box className={styles.container}>
+          <TourInfo isValidate={isValidate} parentRef={tourPackage} />
+        </Box>
+      );
     case 2:
-      return <>PARTICIPANTS</>;
+      return <Box className={styles.container}>PARTICIPANTS</Box>;
     case 3:
-      return <>CALENDAR :(</>;
+      return (
+        <Box className={styles.calendarContainer}>
+          <Calendar />
+        </Box>
+      );
     case 4:
-      return <Finance parentRef={tourPackage} />;
+      return (
+        <Box className={styles.container}>
+          <Finance parentRef={tourPackage} />
+        </Box>
+      );
     default:
       return null;
   }
@@ -37,15 +50,13 @@ export default function AddTourPackage() {
   return (
     <>
       <Banner
-        pageName='Tour Package'
         onSubmit={onSubmit}
+        pageName='Tour Package'
         currentTab={currentTab}
         setCurrentTab={setCurrentTab}
-        subMenus={['TOUR INFO', 'PARTICIPANTS', 'CALENDAR', 'FINANCE']}
+        subMenus={['TOUR INFO', 'PARTICIPANTS', 'CALENDAR', 'PRICE SUMMARY']}
       />
-      <Box className={styles.container}>
-        <TourPackageSteps currentTab={currentTab} tourPackage={tourPackage} />
-      </Box>
+      <TourPackageSteps currentTab={currentTab} tourPackage={tourPackage} />
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
+import Container from './components/container/Container';
 import { managerSidebarConfig } from './config';
-import Container from './container/Container';
 import routes from './routes';
 
 /**

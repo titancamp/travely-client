@@ -16,7 +16,7 @@ import { grey } from '@mui/material/colors';
 import { useCallback, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
-import { CONTAINER_SIZES } from '../../../../utils';
+import { CONTAINER_SIZES } from '../../../../../utils';
 import styles from './Sidebar.module.css';
 
 const listStyles = (open) => ({

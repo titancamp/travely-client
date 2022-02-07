@@ -1,8 +1,8 @@
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Link } from 'react-router-dom';
 
-import travelyIcon from '../../../../assets/images/Travely.png';
-import { ROUTES } from '../../routes';
+import travelyIcon from '../../../../../assets/images/Travely.png';
+import { ROUTES } from '../../../routes';
 import CustomizedMenus from './NavigationMenu';
 import styles from './header.module.css';
 
