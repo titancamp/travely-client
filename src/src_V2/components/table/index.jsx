@@ -3,6 +3,8 @@ import {
   Backdrop,
   Box,
   LinearProgress,
+  Table as MuiTable,
+  Paper,
   TableBody,
   TableCell,
   TableContainer,
@@ -11,9 +13,8 @@ import {
   TablePagination,
   TableRow,
   Typography,
-  Table as MuiTable,
-  Paper,
 } from '@mui/material';
+
 import { noop } from '../../utils';
 
 const EmptyContent = (

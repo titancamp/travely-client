@@ -1,15 +1,14 @@
+import { Button, Link, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { Link, Typography, Button, TextField } from '@mui/material';
 
-import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
-
-import { ROUTES } from '../routes';
-import styles from './Login.module.css';
 import {
   LoginInitialValues,
   loginValidationSchema,
 } from '../../../utils/schemas/auth/auth';
+import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
+import { ROUTES } from '../routes';
+import styles from './Login.module.css';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -64,7 +63,7 @@ export default function Login() {
           LOGIN
         </Button>
         <Typography>
-          {"Don't have an account? "}
+          {'Don\'t have an account? '}
           <Link component={RouterLink} to={`/${ROUTES.REGISTER_AGENCY}`}>
             Sign Up
           </Link>

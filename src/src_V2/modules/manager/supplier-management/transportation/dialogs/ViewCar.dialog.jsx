@@ -1,12 +1,12 @@
+import { Delete, Edit } from '@mui/icons-material';
 import {
   Box,
-  Grid,
-  Typography,
-  IconButton,
-  DialogTitle,
   DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
+  Typography,
 } from '@mui/material';
-import { Edit, Delete } from '@mui/icons-material';
 
 import styles from './style.module.css';
 

@@ -1,10 +1,10 @@
-export default function paymentHistory(
+export function payablePaymentHistory(
   id,
   invoiceId,
   paidAmount,
   paymentDate,
   paymentType,
-  attachment
+  attachment = {}
 ) {
   return { id, invoiceId, paidAmount, paymentDate, paymentType, attachment };
 }
@@ -15,8 +15,8 @@ export function receivablePaymentHistory(
   paidAmount,
   paymentDate,
   paymentType,
-  attachment,
-  invoiceSentFlag
+  invoiceSentFlag,
+  attachment
 ) {
   return {
     id,
@@ -24,7 +24,7 @@ export function receivablePaymentHistory(
     paidAmount,
     paymentDate,
     paymentType,
-    attachment,
     invoiceSentFlag,
+    attachment,
   };
 }

@@ -31,7 +31,7 @@ const boxStyles = {
 
 /**
  * @description - Container component which includes the following components in it, Sidebar, Appbar and Main
-                  component with some ui styles to support the Sidebars behavior(expand/collapse);
+ component with some ui styles to support the Sidebars behavior(expand/collapse);
  * @param children - The children elements.
  * @param managerSidebarConfig - The configs for sidebar menu options.
  * @returns {JSX.Element}

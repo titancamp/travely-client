@@ -2,10 +2,9 @@ import { Box } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Rooms from './Rooms';
+import { Banner, Contact, Partnership } from '../../components';
 import MainInfo from './MainInfo';
-import { Banner, Partnership, Contact } from '../../components';
-
+import Rooms from './Rooms';
 import styles from './style.module.css';
 
 function AccommodationStep({ accommodation, currentTab: { step, isValidate } }) {

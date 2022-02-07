@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
-import AddTransportation from './add/Index';
 import TransportationNoData from './TransportationNoData';
+import AddTransportation from './add/Index';
 
 export const ROUTES = {
   ADD: 'add',

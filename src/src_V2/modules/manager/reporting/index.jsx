@@ -1,8 +1,8 @@
-import { Table } from '../../../components';
-import tourReportTableDataGenerator from './utils/table-data-generator';
-import { useTableDataGenerator } from '../../../utils/hooks';
-
 import { Typography } from '@mui/material';
+
+import { Table } from '../../../components';
+import { useTableDataGenerator } from '../../../utils/hooks';
+import tourReportTableDataGenerator from './utils/table-data-generator';
 
 const MOCK_DATA = [
   {

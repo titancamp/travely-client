@@ -1,8 +1,8 @@
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
+import PageWrapper from '../../../components/userPageWrapper';
 import UserConfigContent from './UserConfig/UserConfig';
 import UserManagementContent from './UserManagementContent';
-import PageWrapper from '../../../components/userPageWrapper';
 
 export const ROUTES = {
   ADD_USER: 'add-user',

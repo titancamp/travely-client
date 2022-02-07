@@ -1,11 +1,11 @@
 import { Dialog } from '@mui/material';
 
-import ViewCarDialog from './ViewCar.dialog';
-import ViewDriverDialog from './ViewDriver.dialog';
+import DeleteDialog from '../../components/dialogs/Delete.dialog';
+import Map from '../../components/dialogs/Map.dialog';
 import AddEditCarDialog from './AddEditCar.dialog';
 import AddEditDriverDialog from './AddEditDriver.dialog';
-import Map from '../../components/dialogs/Map.dialog';
-import DeleteDialog from '../../components/dialogs/Delete.dialog';
+import ViewCarDialog from './ViewCar.dialog';
+import ViewDriverDialog from './ViewDriver.dialog';
 
 function CurrentDialog({ data, onClose }) {
   switch (data.mode) {

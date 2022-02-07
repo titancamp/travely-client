@@ -1,9 +1,9 @@
-import { Box } from '@mui/system';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { Divider, IconButton, Link, Typography } from '@mui/material';
+import { Box } from '@mui/system';
 
-import styles from './styles.module.css';
 import ImgPlaceholder from '../imgPlaceholder';
+import styles from './styles.module.css';
 
 const InfoRow = ({ label, value, type = 'text' }) => {
   return (

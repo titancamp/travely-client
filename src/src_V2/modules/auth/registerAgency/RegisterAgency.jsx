@@ -1,18 +1,17 @@
-import { useState } from 'react';
+import { Button, Link, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
+import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Button, TextField, Link, Typography } from '@mui/material';
 
-import VerifyEmail from '../components/verifyEmail/VerifyEmail';
 import PasswordField from '../../../components/formUI/PasswordField';
-import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
 import PasswordValidator from '../../../components/passwordValidator/PasswordValidator';
-
-import { ROUTES } from '../routes';
 import {
   registerAgencyInitialValues,
   registerAgencyValidationSchema,
 } from '../../../utils/schemas/auth/auth';
+import AuthPageWrapper from '../components/authWrapper/authPageWrapper';
+import VerifyEmail from '../components/verifyEmail/VerifyEmail';
+import { ROUTES } from '../routes';
 import styles from './RegisterAgency.module.css';
 
 export default function RegisterAgency() {

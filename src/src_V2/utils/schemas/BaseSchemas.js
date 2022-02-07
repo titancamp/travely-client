@@ -59,6 +59,9 @@ export const BaseSchemas = {
       .positive(ERROR_MESSAGES.positive)
       .max(max, ERROR_MESSAGES.maxNumberField(max)),
 
+  floatingRequiredNumber: (max) =>
+    BaseSchemas.floatingNumber(max).required(ERROR_MESSAGES.required),
+
   requiredText: (max = 150, msg = ERROR_MESSAGES.maxTextField(max)) =>
     string().max(max, msg).required(ERROR_MESSAGES.required),
 

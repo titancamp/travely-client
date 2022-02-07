@@ -1,18 +1,19 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { AddCircle, Tune } from '@mui/icons-material';
 import {
+  Autocomplete,
   Box,
-  Grid,
   Button,
+  FormControl,
+  Grid,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
   TextField,
   Typography,
-  InputLabel,
-  FormControl,
-  Autocomplete,
-  OutlinedInput,
-  InputAdornment,
 } from '@mui/material';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import { AccommodationTypes } from '../constants';
 import DialogManager from '../dialogs/Index';
 import styles from './style.module.css';
