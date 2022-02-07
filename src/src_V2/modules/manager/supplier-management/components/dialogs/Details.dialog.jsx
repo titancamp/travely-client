@@ -9,7 +9,6 @@ import {
   BootstrapDialogTitle,
 } from '../bootstrapDialogTitle/BootstrapDialogTitle';
 
-//TODO make this component sharable
 export default function DetailsDialog({ tabs, tabList, onClose, data: { open } }) {
   const [value, setValue] = React.useState('1');
 
