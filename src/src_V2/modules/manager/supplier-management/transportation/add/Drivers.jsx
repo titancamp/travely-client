@@ -1,9 +1,8 @@
 import { Box, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import DialogManager from '../dialogs/Index';
 import { AddCard, InfoCard } from '../../components';
-
+import DialogManager from '../dialogs/Index';
 import styles from './style.module.css';
 
 export default function Drivers({ parentRef }) {

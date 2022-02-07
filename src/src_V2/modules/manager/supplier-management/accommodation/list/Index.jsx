@@ -2,13 +2,17 @@ import * as React from 'react';
 import { useState } from 'react';
 import {
   Box,
+  Button,
   Paper,
   Table,
   TableRow,
   TableBody,
   TableCell,
   TableContainer,
+  TableHead,
   TablePagination,
+  TableRow,
+  TableSortLabel,
 } from '@mui/material';
 import FilterBlock from './FilterBlock';
 import { HeadCells, TableRows } from '../constants';

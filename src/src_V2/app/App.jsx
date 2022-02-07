@@ -1,10 +1,9 @@
-import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
-import { CssBaseline } from '@mui/material';
 import { LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { CssBaseline } from '@mui/material';
+import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
 
 import routesConfig from './routes';
-
 import './styles.css';
 
 /**

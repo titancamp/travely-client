@@ -1,11 +1,9 @@
-import { object, string, number, array } from 'yup';
+import { array, number, object, string } from 'yup';
+
 import { ERROR_MESSAGES, PasswordStrengthRegexes, PhoneRegex } from '../constants';
 
 export const BaseSchemas = {
   email: string().email(ERROR_MESSAGES.email),
-
-  requiredEmail: string().email(ERROR_MESSAGES.email).required(ERROR_MESSAGES.required),
-
   password: string()
     .required(ERROR_MESSAGES.required)
     .test('password-strength', ERROR_MESSAGES.password, function (password) {
@@ -60,6 +58,9 @@ export const BaseSchemas = {
       .typeError(typeMsg)
       .positive(ERROR_MESSAGES.positive)
       .max(max, ERROR_MESSAGES.maxNumberField(max)),
+
+  floatingRequiredNumber: (max) =>
+    BaseSchemas.floatingNumber(max).required(ERROR_MESSAGES.required),
 
   requiredText: (max = 150, msg = ERROR_MESSAGES.maxTextField(max)) =>
     string().max(max, msg).required(ERROR_MESSAGES.required),

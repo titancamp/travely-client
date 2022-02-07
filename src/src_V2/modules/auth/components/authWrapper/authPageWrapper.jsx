@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 
+import loginIllustration from '../../../../assets/illustrations/login_illustration.svg';
 import logo from '../../../../assets/images/Travely.png';
-import loginIllustration from '../../../../assets/login_illustration.svg';
 import styles from './authPageWrapper.module.css';
 
 const authPageWrapper = ({ title, description, children }) => {

@@ -3,6 +3,8 @@ import {
   Backdrop,
   Box,
   LinearProgress,
+  Table as MuiTable,
+  Paper,
   TableBody,
   TableCell,
   TableContainer,
@@ -11,10 +13,9 @@ import {
   TablePagination,
   TableRow,
   Typography,
-  Table as MuiTable,
 } from '@mui/material';
+
 import { noop } from '../../utils';
-import styles from './styles';
 
 const EmptyContent = (
   <Box>
@@ -35,26 +36,21 @@ const Table = ({
   handleChangeRowsPerPage = noop,
   data,
   rowsPerPageOptions = [10, 20, 30, 40, 50],
+  customTableClass,
 }) => {
   const { head, rows } = data;
   return (
-    <TableContainer sx={styles.tableContainer}>
+    <TableContainer component={Paper} elevation='1' className={customTableClass}>
       <MuiTable>
         <TableHead>
-          {head.map(({ content, key, styles: style = {} }) => (
-            <TableCell
-              component='div'
-              key={key}
-              sx={[style, styles.headCell]}
-              variant='head'
-              size='small'
-            >
-              {typeof content === 'function' ? content() : content}
+          {head.map(({ content, key, defaultContent, columnStyles: style = {} }) => (
+            <TableCell component='div' key={key} sx={style} variant='head' size='small'>
+              {typeof content === 'function' ? content() : content ?? defaultContent}
             </TableCell>
           ))}
         </TableHead>
         {isLoading && <LinearProgress />}
-        <TableBody component='div'>
+        <TableBody>
           <>
             {rows.length === 0 && !isLoading && (
               <Box display='flex' alignItems='center' justifyContent='center'>
@@ -63,13 +59,17 @@ const Table = ({
             )}
             {rows.map(({ data, columns }) => (
               <TableRow onClick={() => onRowClick(data)} key={data.id}>
-                {columns.map(({ key, content, defaultContent, styles }) => (
-                  <TableCell sx={styles} key={key} variant='body' size='small'>
-                    {typeof content === 'function'
-                      ? content(data)
-                      : content ?? defaultContent}
-                  </TableCell>
-                ))}
+                {columns.map(
+                  ({ key, content, defaultContent, columnStyles: style = {} }) => {
+                    return (
+                      <TableCell sx={style} key={key} variant='body' size='small'>
+                        {typeof content === 'function'
+                          ? content(data)
+                          : content ?? defaultContent}
+                      </TableCell>
+                    );
+                  }
+                )}
               </TableRow>
             ))}
           </>

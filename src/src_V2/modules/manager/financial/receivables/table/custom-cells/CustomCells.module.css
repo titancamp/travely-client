@@ -1,0 +1,32 @@
+/* Table Cell Statuses */
+.statusChip {
+  height: 27px !important;
+}
+
+.canceledReceivableStatus {
+  background-color: var(--midLightGrey) !important;
+  color: var(--secondary) !important;
+  border: 1px solid var(--secondary) !important;
+}
+
+.whiteTableCell {
+  background-color: var(--white) !important;
+}
+
+/* Invoice Status */
+.invoiceFlag {
+  display: flex;
+  align-items: center;
+}
+
+.invoiceFlag p {
+  margin-left: 10px;
+}
+
+.sentIcon {
+  color: var(--primary);
+}
+
+.notSentIcon {
+  color: var(--error);
+}

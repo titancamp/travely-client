@@ -1,4 +1,6 @@
 import { object } from 'yup';
+
+import { ERROR_MESSAGES } from '../../constants';
 import { BaseSchemas } from '../BaseSchemas';
 
 export function LoginInitialValues(initialValues) {
@@ -37,7 +39,7 @@ export function setNewPasswordInitialValues(initialValues) {
 
 export function loginValidationSchema() {
   return object({
-    email: BaseSchemas.requiredEmail,
+    email: BaseSchemas.email.required(ERROR_MESSAGES.required),
     password: BaseSchemas.requiredText(),
   });
 }
@@ -45,7 +47,7 @@ export function loginValidationSchema() {
 export function registerAgencyValidationSchema() {
   return object({
     agencyName: BaseSchemas.requiredText(),
-    email: BaseSchemas.requiredEmail,
+    email: BaseSchemas.email.required(ERROR_MESSAGES.required),
     ownerName: BaseSchemas.requiredText(),
     password: BaseSchemas.password,
     repeatPassword: BaseSchemas.repeatPassword('password'),
@@ -54,7 +56,7 @@ export function registerAgencyValidationSchema() {
 
 export function restorePasswordValidationSchema() {
   return object({
-    email: BaseSchemas.requiredEmail,
+    email: BaseSchemas.email.required(ERROR_MESSAGES.required),
   });
 }
 

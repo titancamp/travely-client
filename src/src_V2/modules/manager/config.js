@@ -1,11 +1,11 @@
 import {
-  Work,
-  People,
+  AirplanemodeActive,
+  AttachMoney,
   BarChart,
   Dashboard,
-  AttachMoney,
+  People,
   PlaylistAddCheck,
-  AirplanemodeActive,
+  Work,
 } from '@mui/icons-material';
 
 export const managerSidebarConfig = [

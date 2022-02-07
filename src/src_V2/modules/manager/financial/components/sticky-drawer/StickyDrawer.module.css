@@ -1,0 +1,51 @@
+.contentDiv {
+  width: 55vw;
+}
+
+.mainBox {
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 3px 1px -2px var(--midDarkGrey), 0 2px 2px var(--midAvgGrey),
+    0 1px 5px var(--midLightGrey);
+}
+
+.layout {
+  min-height: 82vh;
+  padding-right: 25px;
+  padding-left: 25px;
+  max-height: calc(99.8vh - 156px);
+  overflow-y: auto;
+  text-align: justify;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.closeBtnDiv {
+  display: flex;
+  color: var(--secondary);
+  margin-right: 33px;
+  cursor: pointer;
+}
+
+.closeBtn {
+  width: 14px;
+  height: 14px;
+}
+
+.footerBox {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  justify-content: end;
+  background-color: var(--white);
+}
+
+.btnDiv {
+  display: flex;
+}
+
+.saveBtn {
+  margin: 0 30px 0 10px !important;
+}

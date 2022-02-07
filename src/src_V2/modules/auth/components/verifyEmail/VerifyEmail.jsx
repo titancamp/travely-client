@@ -1,14 +1,11 @@
-import clsx from 'clsx';
 import { Divider, Link, Typography } from '@mui/material';
+import clsx from 'clsx';
+import { format } from 'date-fns';
 
-import AuthInfoWrapper from '../authInfoWrapper/AuthInfoWrapper';
-
+import verifyIllustration from '../../../../assets/illustrations/verifyIllustration.svg';
 import { useTimer } from '../../../../utils/hooks';
+import AuthInfoWrapper from '../authInfoWrapper/AuthInfoWrapper';
 import styles from './VerifyEmail.module.css';
-import verifyIllustration from '../../../../assets/verifyIllustration.svg';
-
-// Temporary fix, no date formatting utils
-const addZero = (num) => (num > 10 ? num : '0' + num);
 
 export default function VerifyEmail({ email, onGoBack }) {
   const [secondsRemain, resetTimer] = useTimer(59);
@@ -37,7 +34,9 @@ export default function VerifyEmail({ email, onGoBack }) {
             Resend email.
           </Link>{' '}
           {secondsRemain > 0 && (
-            <span className={styles.counter}>{'00:' + addZero(secondsRemain)}</span>
+            <span className={styles.counter}>
+              {format(secondsRemain * 1000, 'mm:ss')}
+            </span>
           )}
         </Typography>
         <Divider className={styles.divider} />

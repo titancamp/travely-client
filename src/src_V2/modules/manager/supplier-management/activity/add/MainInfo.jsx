@@ -1,14 +1,13 @@
-import { useEffect } from 'react';
+import { Box, Grid, InputAdornment, TextField } from '@mui/material';
 import { useFormik } from 'formik';
-import { Box, Grid, TextField, InputAdornment } from '@mui/material';
+import { useEffect } from 'react';
 
 import {
-  mainInfoSchema,
   mainInfoInitialValues,
+  mainInfoSchema,
 } from '../../../../../utils/schemas/tourManagment/activity';
-
-import styles from './style.module.css';
 import TagsInput from '../../components/tag/Tag';
+import styles from './style.module.css';
 
 export default function MainInfo({ parentRef, isValidate }) {
   const {

@@ -1,0 +1,28 @@
+/* Table Cell Statuses */
+.statusChip {
+  height: 27px !important;
+}
+
+.canceledPayableStatus {
+  background-color: var(--midLightGrey) !important;
+  color: var(--secondary) !important;
+  border: 1px solid var(--secondary) !important;
+}
+
+.whiteTableCell {
+  background-color: var(--white) !important;
+}
+
+.tableCell {
+  min-width: 140px !important;
+}
+
+.boldCell {
+  font-weight: 600 !important;
+}
+
+/* Attachment */
+.attachmentImg {
+  margin-top: 10px;
+  color: var(--secondary);
+}

@@ -1,7 +1,7 @@
-import { IconButton } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { ArrowBack } from '@mui/icons-material';
-import { Box, Tab, Tabs, Button, Typography } from '@mui/material';
+import { IconButton } from '@mui/material';
+import { Box, Button, Tab, Tabs, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './style.module.css';
 

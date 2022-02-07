@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
 import { CircularProgress, Typography } from '@mui/material';
+import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import AuthInfoWrapper from '../authInfoWrapper/AuthInfoWrapper';
-
+import congratsIllustration from '../../../../assets/illustrations/congratsIllustration.svg';
 import { ROUTES } from '../../routes';
+import AuthInfoWrapper from '../authInfoWrapper/AuthInfoWrapper';
 import styles from './Congratulations.module.css';
-import congratsIllusration from '../../../../assets/congratsIllustration.svg';
 
 export default function Congratulations({ urlToRedirect, timeout }) {
   const [searchParams] = useSearchParams();
@@ -23,7 +22,7 @@ export default function Congratulations({ urlToRedirect, timeout }) {
   return (
     <AuthInfoWrapper>
       <div className={styles.content}>
-        <img src={congratsIllusration} alt='' className={styles.illustration} />
+        <img src={congratsIllustration} alt='' className={styles.illustration} />
         <Typography variant='h4' className={styles.title}>
           Congratulations!
         </Typography>
