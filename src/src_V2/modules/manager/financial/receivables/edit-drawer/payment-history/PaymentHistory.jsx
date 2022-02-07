@@ -60,7 +60,7 @@ const EditableTableCell = ({
       }
       return history;
     });
-    setFieldValue('paymentHistory', JSON.parse(JSON.stringify(newHistories)));
+    setFieldValue('paymentHistory', newHistories);
   };
 
   return {
@@ -175,7 +175,7 @@ export default function PaymentHistory({
 
   const deleteHistoryByIndex = () => {
     paymentHistory.splice(historyIndex, 1);
-    setFieldValue('paymentHistory', [...paymentHistory]);
+    setFieldValue('paymentHistory', paymentHistory);
   };
 
   const deleteHistory = () => {
@@ -216,7 +216,7 @@ export default function PaymentHistory({
             }
             return history;
           });
-          setFieldValue('paymentHistory', [...modifiedHistory]);
+          setFieldValue('paymentHistory', modifiedHistory);
         }
       }
     } catch (error) {
