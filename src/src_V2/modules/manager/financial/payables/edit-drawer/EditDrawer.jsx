@@ -101,7 +101,7 @@ export default function EditDrawer({ drawerState, clickedRow, isOpenedChangeHand
     initialValues: rowListInitialValues(clickedRow),
   });
 
-  const toggleDrawer = (isOpened) => {
+  const toggleDrawer = () => {
     if (
       drawerEvent?.type === 'keydown' &&
       (drawerEvent?.key === 'Tab' || drawerEvent?.key === 'Shift')
@@ -113,13 +113,9 @@ export default function EditDrawer({ drawerState, clickedRow, isOpenedChangeHand
   };
 
   // Popup functions
-  const openUnsavedChangesPopup = () => {
-    setUnsavedPopupOpened(true);
-  };
+  const openUnsavedChangesPopup = () => setUnsavedPopupOpened(true);
 
-  const closeUnsavedChangesPopup = () => {
-    setUnsavedPopupOpened(false);
-  };
+  const closeUnsavedChangesPopup = () => setUnsavedPopupOpened(false);
 
   const closeDrawer = () => {
     toggleDrawer(false);
@@ -155,7 +151,7 @@ export default function EditDrawer({ drawerState, clickedRow, isOpenedChangeHand
     closePopupsAndDrawer();
   };
 
-  useEffect(() => toggleDrawer(isOpened), [isOpened]);
+  useEffect(() => toggleDrawer(), [isOpened]);
 
   return (
     <>

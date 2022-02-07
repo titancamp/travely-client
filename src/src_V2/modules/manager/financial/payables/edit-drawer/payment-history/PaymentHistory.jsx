@@ -244,12 +244,12 @@ export default function PaymentHistory({
           <Table className={styles.historyTable}>
             <TableHead>
               <TableRow>
-                {columnKeys.map((c, index) => {
-                  const tooltipTxt = historyColumns[c].tooltip;
+                {columnKeys.map((columnKey, index) => {
+                  const tooltipTxt = historyColumns[columnKey].tooltip;
                   return (
-                    <TableCell align='left' key={`${c}_${index}`}>
+                    <TableCell align='left' key={`${columnKey}_${index}`}>
                       <Box className={tooltipTxt && styles.attachmentTableCell}>
-                        {historyColumns[c].label}
+                        {historyColumns[columnKey].label}
                         {tooltipTxt && (
                           <Tooltip title={tooltipTxt}>
                             <IconButton>
@@ -291,7 +291,7 @@ export default function PaymentHistory({
                   })}
 
                   {/*File input*/}
-                  <TableCell key={`upload_${row.id}`}>
+                  <TableCell>
                     <input
                       type='file'
                       className={styles.uploadInput}
@@ -302,7 +302,7 @@ export default function PaymentHistory({
                   </TableCell>
 
                   {/*Delete Row*/}
-                  <TableCell key={`delete_${row.id}`}>
+                  <TableCell>
                     <IconButton onClick={() => handleDeleteHistory(index)}>
                       <Delete />
                     </IconButton>
