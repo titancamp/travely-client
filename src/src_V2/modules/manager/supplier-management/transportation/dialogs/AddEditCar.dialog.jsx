@@ -1,25 +1,24 @@
+import { AirlineSeatReclineNormal, ColorLens, EventSeat } from '@mui/icons-material';
 import {
-  Grid,
   Button,
-  TextField,
-  InputLabel,
-  FormControl,
-  DialogTitle,
-  OutlinedInput,
   DialogActions,
   DialogContent,
+  DialogTitle,
+  FormControl,
   FormHelperText,
+  Grid,
+  InputLabel,
+  OutlinedInput,
+  TextField,
 } from '@mui/material';
 import { useFormik } from 'formik';
-import { ColorLens, EventSeat, AirlineSeatReclineNormal } from '@mui/icons-material';
 
 import {
-  addCarSchema,
   AddCarInitialValues,
+  addCarSchema,
 } from '../../../../../utils/schemas/tourManagment/transportation';
-
-import styles from './style.module.css';
 import { EndAdornment } from '../../components/endAdornment';
+import styles from './style.module.css';
 
 export default function AddEditCarDialog({ onClose, onSuccess, car, editMode }) {
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({

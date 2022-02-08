@@ -1,12 +1,11 @@
-import clsx from 'clsx';
 import { Divider, Link, Typography } from '@mui/material';
+import clsx from 'clsx';
 import { format } from 'date-fns';
 
-import AuthInfoWrapper from '../authInfoWrapper/AuthInfoWrapper';
-
+import verifyIllustration from '../../../../assets/illustrations/verifyIllustration.svg';
 import { useTimer } from '../../../../utils/hooks';
+import AuthInfoWrapper from '../authInfoWrapper/AuthInfoWrapper';
 import styles from './VerifyEmail.module.css';
-import verifyIllustration from '../../../../assets/verifyIllustration.svg';
 
 export default function VerifyEmail({ email, onGoBack }) {
   const [secondsRemain, resetTimer] = useTimer(59);

@@ -1,17 +1,18 @@
-import PropTypes from 'prop-types';
-import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import {
-  Grid,
+  Autocomplete,
   Button,
   Dialog,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
   TextField,
   Typography,
-  IconButton,
-  DialogTitle,
-  Autocomplete,
-  DialogContent,
 } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+
 import MultipleSelectCheckmarks from '../list/MultipleSelectCheckmarks';
 import styles from './style.module.css';
 

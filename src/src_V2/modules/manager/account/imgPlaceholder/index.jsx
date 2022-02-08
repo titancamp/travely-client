@@ -1,5 +1,5 @@
-import { Box } from '@mui/material';
 import PanoramaIcon from '@mui/icons-material/Panorama';
+import { Box } from '@mui/material';
 
 import styles from './styles.module.css';
 

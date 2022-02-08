@@ -1,0 +1,62 @@
+.accordionBox div {
+  justify-content: space-between !important;
+}
+
+.paymentBox {
+  display: flex;
+}
+
+.noDataBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px;
+}
+
+.noData {
+  margin: 12px;
+}
+
+.historyTable {
+  min-width: 650px;
+}
+
+.price > div {
+  display: flex;
+  align-items: baseline;
+}
+
+.attachmentTableCell {
+  display: flex !important;
+  align-items: center;
+}
+
+.uploadBtn {
+  display: flex;
+  align-items: flex-start;
+  width: 125px;
+}
+
+.uploadInput {
+  display: none;
+}
+
+.invoiceIdInput {
+  min-width: 125px !important;
+}
+
+.priceInput {
+  min-width: 115px !important;
+}
+
+.dateInput {
+  min-width: 150px !important;
+}
+
+.typeInput {
+  min-width: 106px !important;
+}
+
+.sentFlag {
+  padding-left: 0 !important;
+}

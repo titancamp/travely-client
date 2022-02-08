@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
-import AddFood from './add/Index';
 import FoodNoData from './FoodNoData';
+import AddFood from './add/Index';
 
 export const ROUTES = {
   ADD: 'add',

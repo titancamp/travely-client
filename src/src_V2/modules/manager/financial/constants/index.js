@@ -1,12 +1,6 @@
-export { PaymentStatus, PaymentType } from './payment';
-export { rowsPerPageOptions } from './table-settings';
-export {
-  payableColumns,
-  paymentHistoryColumns,
-  paymentHistoryColumnTypes,
-} from './payable-table';
-export {
-  receivableColumns,
-  receivablePaymentHistoryColumns,
-  receivablePaymentHistoryColumnTypes,
-} from './receivable-table';
+export * from './payable';
+export * from './receivable';
+export * from './payment';
+export * from './table-settings';
+export * from './payable/payable-table';
+export * from './receivable/receivable-table';

@@ -1,7 +1,8 @@
+import { Route, Routes } from 'react-router-dom';
+
+import AccommodationNoData from './AccommodationNoData';
 import AddAccommodation from './add/Index';
 import AccommodationList from './list/Index';
-import { Route, Routes } from 'react-router-dom';
-import AccommodationNoData from './AccommodationNoData';
 
 export const ROUTES = {
   ADD: 'add',

@@ -1,0 +1,30 @@
+.mainText {
+  font-size: 17px;
+}
+
+.layoutDistance {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.textDiv {
+  margin-left: 25px;
+}
+
+.payableId {
+  color: var(--darkGrey);
+  font-weight: 600;
+}
+
+.supplierName {
+  color: var(--secondary);
+  font-size: 12px;
+}
+
+.uploadError {
+  position: absolute;
+  width: 210px;
+  right: 25px;
+  z-index: 1;
+  bottom: 190px;
+}

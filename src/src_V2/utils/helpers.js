@@ -12,6 +12,15 @@ export const generateDate = (dateStr) => {
   return `${dd}/${mm}/${yyyy}`;
 };
 
+export const moneyMask = (value = 0) => {
+  // WARNING - floating point number fractional part rounding if fraction is more than maximumFractionDigits
+  return value.toLocaleString('fullwide', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+    useGrouping: true,
+  });
+};
+
 export const generateArrayByRange = (start, end, conditionCallback = () => true) => {
   if (start > end) {
     return [];

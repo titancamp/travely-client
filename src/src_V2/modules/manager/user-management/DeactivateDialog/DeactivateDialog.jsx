@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogTitle, DialogActions, DialogContent } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 
 import styles from './styles.module.css';
 

@@ -1,20 +1,21 @@
+import {
+  AccessTime,
+  Close,
+  Delete,
+  Edit,
+  Email,
+  LocalPhone,
+  LocationOn,
+  Person,
+} from '@mui/icons-material';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { Button, Grid, Typography } from '@mui/material';
+import { Box, Dialog, DialogContent, DialogTitle, IconButton, Tab } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useState } from 'react';
-import PropTypes from 'prop-types';
-import { Button, Grid, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { Box, Tab, Dialog, IconButton, DialogTitle, DialogContent } from '@mui/material';
-import {
-  Edit,
-  Delete,
-  Email,
-  Close,
-  Person,
-  LocalPhone,
-  AccessTime,
-  LocationOn,
-} from '@mui/icons-material';
-import { TabList, TabPanel, TabContext } from '@mui/lab';
+
 import { InfoCard } from '../../components';
 import DialogManager from './Index';
 import styles from './style.module.css';

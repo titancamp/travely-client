@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
-import AddTourPackage from './add/Index';
 import TourPackageNoData from './TourPackageNoData';
+import AddTourPackage from './add/Index';
 
 export const ROUTES = {
   ADD: 'add',

@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react';
-import { Button, Select, IconButton, Box, MenuItem, Typography } from '@mui/material';
 import { Edit } from '@mui/icons-material';
+import { Box, Button, IconButton, MenuItem, Select, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Table } from '../../../../components';
-
 import { useTableDataGenerator } from '../../../../utils/hooks';
-import userManagementTableDataGenerator from '../utils/table-data-generator';
 import { mockUserManagementData } from '../mock/data';
+import userManagementTableDataGenerator from '../utils/table-data-generator';
 import styles from './styles.module.css';
 
 const EditBtn = ({ rowData, handleEdit }) => (

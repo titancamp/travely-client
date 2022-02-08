@@ -1,11 +1,11 @@
 import { Dialog } from '@mui/material';
 
-import ViewRoomDialog from './ViewRoom.dialog';
-import AllFiltersDialog from './AllFilters.dialog';
-import AddEditRoomDialog from './AddEditRoom.dialog';
-import Map from '../../components/dialogs/Map.dialog';
 import DeleteDialog from '../../components/dialogs/Delete.dialog';
+import Map from '../../components/dialogs/Map.dialog';
 import AccommodationDetailsDialog from './AccommodationDetails.dialog';
+import AddEditRoomDialog from './AddEditRoom.dialog';
+import AllFiltersDialog from './AllFilters.dialog';
+import ViewRoomDialog from './ViewRoom.dialog';
 
 function CurrentDialog({ data, onClose }) {
   switch (data.mode) {
