@@ -30,6 +30,15 @@
   margin-right: 164px !important;
 }
 
+main[open] .scheduler-view > div:nth-child(1) {
+  padding-right: 450px !important;
+}
+
+main[open] .scheduler-view div:nth-child(2) {
+  margin-right: 450px !important;
+}
+
+
 .scheduler-bg-table tr th {
   background-color: #f5f5f5 !important;
   border-color: transparent;
@@ -250,10 +259,16 @@
   border: 1px solid rgba(226, 130, 228, 0.4);
 }
 
+@media screen and (max-width: 1520px) {
+  main[open] .scheduler-view {
+    min-width: 1460px;
+  }
+}
+
 
 @media screen and (max-width: 1245px) {
 
   .scheduler-view {
-    min-width: 1172px;
+    min-width: 1174px;
   }
 }
