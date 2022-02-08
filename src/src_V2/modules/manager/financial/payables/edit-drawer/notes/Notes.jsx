@@ -56,7 +56,7 @@ export default function Notes({
             endAdornment: (
               <>
                 <Box className={styles.lengthSection}>
-                  <p>{!!values?.notes?.length && `${values.notes.length}/500 letter`}</p>
+                  <p>{`${values?.notes?.length || 0}/500 letter`}</p>
                 </Box>
                 <InputAdornment position='end' onClick={handleClearNotes}>
                   <IconButton aria-label='close' className={styles.clearNote}>

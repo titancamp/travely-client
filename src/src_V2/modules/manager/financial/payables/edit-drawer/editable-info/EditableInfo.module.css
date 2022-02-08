@@ -1,9 +1,8 @@
 .editableFields {
   display: flex;
-  justify-content: space-between;
 }
 
 .actualCostControl {
-  width: 25.3vw;
+  width: 50%;
   margin-right: 10px !important;
 }
