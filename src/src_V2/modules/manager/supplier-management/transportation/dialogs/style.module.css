@@ -132,11 +132,17 @@ input[type='number'] {
   color: rgba(0, 0, 0, 0.87) !important;
 }
 
-.roomsTabPanel {
+.roomsTabPanel,
+.driversTabPanel,
+.carsTabPanel
+{
   padding: inherit !important;
 }
 
-.roomsSection {
+.roomsSection,
+.driversSection,
+.carsSection
+{
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;

@@ -15,7 +15,7 @@ import { useFormik } from 'formik';
 import {
   FilterInitialValues,
   TransportationFiltersSchema,
-} from '../../../../../utils/schemas/tourManagment/transportation';
+} from '../../../../../utils/schemas/tourManagment/components';
 import {
   BootstrapDialog,
   BootstrapDialogTitle,

@@ -1,10 +1,8 @@
 import { Box, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { Box, Grid } from '@mui/material';
 
-import DialogManager from '../dialogs/Index';
 import { AddCard, InfoCard } from '../../components';
-
+import DialogManager from '../dialogs/Index';
 import styles from './style.module.css';
 
 export default function Rooms({ parentRef }) {

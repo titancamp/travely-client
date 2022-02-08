@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import {
   FilterInitialValues,
   TransportationFiltersSchema,
-} from '../../../../../utils/schemas/tourManagment/transportation';
+} from '../../../../../utils/schemas/tourManagment/components';
 //TODO make this global for Supplier Management
 import { Regions } from '../../accommodation/constants';
 import { TransportationTypes } from '../constants';

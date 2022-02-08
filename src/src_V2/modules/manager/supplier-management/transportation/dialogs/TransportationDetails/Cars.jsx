@@ -1,23 +1,23 @@
-import { useState } from 'react';
 import { TabPanel } from '@mui/lab';
 import { Grid } from '@mui/material';
-import DialogManager from '../Index';
-import { Cars } from '../../constants';
-import { InfoCard } from '../../../components';
+import { useState } from 'react';
 
+import { InfoCard } from '../../../components';
+import { CarsConstants } from '../../constants';
+import DialogManager from '../Index';
 import styles from '../style.module.css';
 
-export default function Drivers() {
+export default function Cars() {
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });
-  const [cars, setCars] = useState(Cars);
+  const [cars, setCars] = useState(CarsConstants);
 
-  function deleteRoom(id) {
-    setCars(cars.filter((driver) => driver.id !== id));
+  function deleteCar(id) {
+    setCars(cars.filter((car) => car.id !== id));
     onShowHideDialog({ open: false });
   }
 
-  function editRoom(newDriver) {
-    setCars(cars.map((driver) => (newDriver.id === driver.id ? newDriver : driver)));
+  function editCar(newCar) {
+    setCars(cars.map((car) => (newCar.id === car.id ? newCar : car)));
     onShowHideDialog({ open: false });
   }
 
@@ -26,7 +26,7 @@ export default function Drivers() {
       open: true,
       state: { id },
       mode: 'delete',
-      actions: deleteRoom,
+      actions: deleteCar,
     });
   }
 
@@ -34,8 +34,8 @@ export default function Drivers() {
     onShowHideDialog({
       open: true,
       mode: 'edit-car',
-      actions: editRoom,
-      state: cars.find((driver) => driver.id === id),
+      actions: editCar,
+      state: cars.find((car) => car.id === id),
     });
   }
 
@@ -43,15 +43,15 @@ export default function Drivers() {
     onShowHideDialog({
       open: true,
       mode: 'view-car',
-      state: cars.find((driver) => driver.id === id),
+      state: cars.find((car) => car.id === id),
       actions: { openDeleteCardDialog, openEditCardDialog },
     });
   }
 
   return (
     <>
-      <TabPanel className={styles.roomsTabPanel} value='3'>
-        <Grid className={styles.roomsSection}>
+      <TabPanel className={styles.carsTabPanel} value='3'>
+        <Grid className={styles.carsSection}>
           {cars.map((car) => (
             <InfoCard
               id={car.id}

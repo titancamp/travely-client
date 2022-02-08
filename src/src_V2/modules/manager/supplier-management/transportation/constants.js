@@ -59,7 +59,7 @@ export const DriversConstants = [
   },
 ];
 
-export const Cars = [
+export const CarsConstants = [
   {
     id: 1,
     carSeats: '33',

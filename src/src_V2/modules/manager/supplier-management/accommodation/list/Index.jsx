@@ -1,29 +1,25 @@
-import * as React from 'react';
-import { useState } from 'react';
 import {
   Box,
-  Button,
   Paper,
   Table,
-  TableRow,
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TablePagination,
   TableRow,
-  TableSortLabel,
 } from '@mui/material';
-import FilterBlock from './FilterBlock';
-import { HeadCells, TableRows } from '../constants';
-import DialogManager from '../dialogs/Index';
+import * as React from 'react';
+import { useState } from 'react';
+
+import { EnhancedTableHead } from '../../../supplier-management/components/enhancedTableHead/EnhancedTableHead';
+import TableMenuActions from '../../../supplier-management/components/tableVerticalActionsMenu/Menu';
 import {
   getComparator,
   stableSort,
 } from '../../components/enhancedTableHead/EnhancedTableHead';
-import TableMenuActions from '../../../supplier-management/components/tableVerticalActionsMenu/Menu';
-import { EnhancedTableHead } from '../../../supplier-management/components/enhancedTableHead/EnhancedTableHead';
-
+import { HeadCells, TableRows } from '../constants';
+import DialogManager from '../dialogs/Index';
+import FilterBlock from './FilterBlock';
 import styles from './style.module.css';
 
 export default function AccommodationList() {

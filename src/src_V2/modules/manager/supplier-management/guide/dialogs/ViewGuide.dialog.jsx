@@ -73,14 +73,14 @@ export default function ViewRoomDialog({ data: { state: guide, actions } }) {
           </Grid>
           <Grid item xs={12}>
             <Typography>Languages</Typography>
-            {guide.languages?.map((item) => (
+            {guide.languages.map((item) => (
               <Chip label={item.label} key={item.id} />
             ))}
           </Grid>
           <Grid item xs={12}>
             <Typography>Skills</Typography>
 
-            {guide.skills?.map((item) => (
+            {guide.skills.map((item) => (
               <Chip label={item} key={item} />
             ))}
           </Grid>

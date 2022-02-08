@@ -1,4 +1,4 @@
-import { Dialog, Tab } from '@mui/material';
+import { Dialog } from '@mui/material';
 
 import DeleteDialog from '../../components/dialogs/Delete.dialog';
 import DetailsDialog from '../../components/dialogs/Details.dialog';
@@ -34,16 +34,16 @@ function CurrentDialog({ data, onClose }) {
         <DetailsDialog
           data={data}
           onClose={onClose}
-          tabs={{
-            mainInfo: <MainInfo />,
-            rooms: <Rooms />,
-            partnership: <Partnership tabNumber='3' />,
-          }}
-          tabList={{
-            mainInfo: <Tab label='MAIN INFO' value='1' />,
-            rooms: <Tab label='ROOMS' value='2' />,
-            partnership: <Tab label='PARTNERSHIP' value='3' />,
-          }}
+          tabs={[
+            <MainInfo key={1} />,
+            <Rooms key={2} />,
+            <Partnership key={3} tabNumber='3' />,
+          ]}
+          tabList={[
+            { label: 'MAIN INFO', value: '1' },
+            { label: 'ROOMS', value: '2' },
+            { label: 'PARTNERSHIP', value: '3' },
+          ]}
         />
       );
     case 'delete':

@@ -1,22 +1,22 @@
-import { useState } from 'react';
 import { TabPanel } from '@mui/lab';
 import { Grid } from '@mui/material';
-import DialogManager from '../Index';
+import { useState } from 'react';
+
 import { InfoCard } from '../../../components';
 import { DriversConstants } from '../../constants';
-
+import DialogManager from '../Index';
 import styles from '../style.module.css';
 
 export default function Drivers() {
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });
   const [drivers, setDrivers] = useState(DriversConstants);
 
-  function deleteRoom(id) {
+  function deleteDriver(id) {
     setDrivers(drivers.filter((driver) => driver.id !== id));
     onShowHideDialog({ open: false });
   }
 
-  function editRoom(newDriver) {
+  function editDriver(newDriver) {
     setDrivers(
       drivers.map((driver) => (newDriver.id === driver.id ? newDriver : driver))
     );
@@ -28,7 +28,7 @@ export default function Drivers() {
       open: true,
       state: { id },
       mode: 'delete',
-      actions: deleteRoom,
+      actions: deleteDriver,
     });
   }
 
@@ -36,7 +36,7 @@ export default function Drivers() {
     onShowHideDialog({
       open: true,
       mode: 'edit-driver',
-      actions: editRoom,
+      actions: editDriver,
       state: drivers.find((driver) => driver.id === id),
     });
   }
@@ -52,8 +52,8 @@ export default function Drivers() {
 
   return (
     <>
-      <TabPanel className={styles.roomsTabPanel} value='2'>
-        <Grid className={styles.roomsSection}>
+      <TabPanel className={styles.driversTabPanel} value='2'>
+        <Grid className={styles.driversSection}>
           {drivers.map((driver) => (
             <InfoCard
               id={driver.id}
