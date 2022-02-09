@@ -20,7 +20,7 @@
 
 .scheduler-view,
 .scheduler {
-  min-width: 1500px;
+  min-width: 800px;
 }
 .scheduler-view > div:nth-child(1) {
   padding-right: 164px !important;
@@ -29,6 +29,15 @@
 .scheduler-view div:nth-child(2) {
   margin-right: 164px !important;
 }
+
+main[open] .scheduler-view > div:nth-child(1) {
+  padding-right: 450px !important;
+}
+
+main[open] .scheduler-view div:nth-child(2) {
+  margin-right: 450px !important;
+}
+
 
 .scheduler-bg-table tr th {
   background-color: #f5f5f5 !important;
@@ -60,25 +69,6 @@
 .scheduler thead tr:first-child td > div:last-child {
   padding-right: 26px;
 }
-
-.scheduler .scheduler-view {
-  /*box-shadow: 10px -12px 10px 5px #000000;*/
-}
-
-/*.scheduler-bg-table td {
-        background-color: blue!important;
-        position: relative;
-    }*/
-
-/*
-.scheduler-bg-table td div::after {
-    content: "";
-    width: 30px;
-    height: 30px;
-    background-color: red;
-    position: absolute;
-    left: -5px
-}*/
 
 .scheduler .resource-view {
   width: 40px !important;
@@ -146,10 +136,6 @@
 .scheduler .resource-view .resource-table tr:nth-child(5) td .header2-text::after {
   background: #e282e4;
   content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9 7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7'%3E%3C/path%3E%3C/svg%3E");
-}
-
-.scheduler .anticon-left {
-  /*display: none!important;*/
 }
 
 .scheduler .ant-col:first-child {
@@ -271,4 +257,18 @@
 .activity {
   background: #fcf3fc;
   border: 1px solid rgba(226, 130, 228, 0.4);
+}
+
+@media screen and (max-width: 1520px) {
+  main[open] .scheduler-view {
+    min-width: 1460px;
+  }
+}
+
+
+@media screen and (max-width: 1245px) {
+
+  .scheduler-view {
+    min-width: 1174px;
+  }
 }

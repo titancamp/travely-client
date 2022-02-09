@@ -91,7 +91,7 @@ export default function Rooms({ parentRef }) {
                 label: 'Beds: ',
               },
               4: {
-                value: `${room.price} ${room.price ? 'AMD' : ''}`,
+                value: `${room.price}${room.price ? ' AMD' : ''}`,
                 label: room.price ? '' : 'Price: ',
               },
             }}

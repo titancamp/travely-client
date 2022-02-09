@@ -118,19 +118,19 @@ export function InfoCard({
           <CardContent>
             <Typography className={styles.detailsInfo}>
               {sectionData[1].label}
-              {sectionData[1].value}
+              {sectionData[1].value || 'N/A'}
             </Typography>
             <Typography variant='h6' className={styles.title}>
               {sectionData[2].label}
-              {sectionData[2].value}
+              {sectionData[2].value || 'N/A'}
             </Typography>
             <Typography className={styles.detailsInfo}>
               {sectionData[3].label}
-              {sectionData[3].value}
+              {sectionData[3].value || 'N/A'}
             </Typography>
             <Typography component='p' className={styles.bottom}>
               {sectionData[4].label}
-              {sectionData[4].value}
+              {sectionData[4].value || 'N/A'}
             </Typography>
           </CardContent>
         </CardActionArea>
