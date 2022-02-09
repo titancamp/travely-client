@@ -1,3 +1,136 @@
+function createData(name, car, type, city, contactNumber, contactPerson) {
+  return { name, car, type, city, contactNumber, contactPerson };
+}
+
+export const TableRows = [
+  createData(
+    'Auto Park Name Example',
+    'Hyundai Veloster (st4)',
+    'Transportation Agency',
+    'Abovyan',
+    '+374 11 11 11 11',
+    'Name Lastname'
+  ),
+  createData(
+    'Savannah Nguyen',
+    'Hyundai Veloster (st4)',
+    'Individual Contractor',
+    'Yerevan',
+    '+374 11 11 11 11',
+    'Name Lastname'
+  ),
+  createData(
+    'Kathryn Murphy',
+    'Volkswagen Touareg (st6)',
+    'Transportation Agency',
+    'Dilijan',
+    '+374 11 11 11 11',
+    'Name Lastname'
+  ),
+];
+
+export const DriversConstants = [
+  {
+    id: 1,
+    name: 'Joe',
+    phone: '0908070605',
+    languages: [
+      { id: 1, label: 'English' },
+      { id: 2, label: 'Armenian' },
+    ],
+    license: [{ id: 1, label: 'A' }],
+  },
+  {
+    id: 2,
+    name: 'Mike',
+    phone: '0908070605',
+    languages: [{ id: 2, label: 'Armenian' }],
+    license: ['A', 'B'],
+  },
+  {
+    id: 3,
+    name: 'Kim',
+    phone: '0908070605',
+    languages: [
+      { id: 1, label: 'English' },
+      { id: 2, label: 'Armenian' },
+    ],
+    license: [{ id: 1, label: 'A' }],
+  },
+];
+
+export const CarsConstants = [
+  {
+    id: 1,
+    carSeats: '33',
+    color: 'Red',
+    model: 'BMW',
+    plate: 'AA6787AAA',
+    seats: '44',
+  },
+  {
+    id: 2,
+    carSeats: 'Opel',
+    color: 'Green',
+    model: 'Astra',
+    plate: '77UU777',
+    seats: '88',
+  },
+  {
+    id: 3,
+    carSeats: '3',
+    color: 'Blue',
+    model: 'Kia',
+    plate: '22LL999',
+    seats: '32',
+  },
+];
+
+export const HeadCells = [
+  {
+    id: 'name',
+    numeric: false,
+    disablePadding: true,
+    label: 'Name',
+  },
+  {
+    id: 'car',
+    numeric: true,
+    disablePadding: false,
+    label: 'Car',
+  },
+  {
+    id: 'type',
+    numeric: true,
+    disablePadding: false,
+    label: 'Type',
+  },
+  {
+    id: 'city',
+    numeric: true,
+    disablePadding: false,
+    label: 'City',
+  },
+  {
+    id: 'contactNumber',
+    numeric: true,
+    disablePadding: false,
+    label: 'Contact number',
+  },
+  {
+    id: 'contactPerson',
+    numeric: true,
+    disablePadding: false,
+    label: 'Contact Person',
+  },
+  {
+    id: 'actions',
+    numeric: true,
+    disablePadding: false,
+    label: '',
+  },
+];
+
 export const TransportationTypes = [
   { id: 1, label: 'Agency' },
   { id: 2, label: 'Contractor' },

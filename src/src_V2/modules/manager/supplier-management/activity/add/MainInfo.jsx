@@ -44,8 +44,8 @@ export default function MainInfo({ parentRef, isValidate }) {
               <TextField
                 fullWidth
                 name='name'
-                label='Type name'
-                placeholder='Type name'
+                label='Type name *'
+                placeholder='Type name *'
                 value={values.name}
                 onBlur={handleBlur}
                 onChange={handleChange}

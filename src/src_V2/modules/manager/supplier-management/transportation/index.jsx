@@ -1,7 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 
-import TransportationNoData from './TransportationNoData';
 import AddTransportation from './add/Index';
+import TransportationNoData from './TransportationNoData';
+import TransportationList from './list/Index';
 
 export const ROUTES = {
   ADD: 'add',
@@ -15,6 +16,7 @@ function routeConfigs() {
   return [
     { index: true, element: <TransportationNoData /> },
     { path: ROUTES.ADD, element: <AddTransportation /> },
+    { path: ROUTES.LIST, element: <TransportationList /> },
   ];
 }
 

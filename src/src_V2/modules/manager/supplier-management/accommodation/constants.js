@@ -1,3 +1,19 @@
+import { Button } from '@mui/material';
+import styles from './list/style.module.css';
+
+function createData(
+  name,
+  type,
+  region,
+  city,
+  contactNumber,
+  contactPerson,
+  email,
+  status
+) {
+  return { name, type, region, city, contactNumber, contactPerson, email, status };
+}
+
 export const RoomTypes = [
   { id: 1, label: 'Standard Single' },
   { id: 2, label: 'Standard Double' },
@@ -76,4 +92,160 @@ export const HotelServices = [
   { id: 26, label: 'Premium Bedding' },
   { id: 27, label: 'Pet-friendly Rooms' },
   { id: 28, label: 'Champagne Bar' },
+];
+
+export const RoomsConstants = [
+  {
+    beds: '6',
+    price: '8000',
+    type: {
+      id: 1,
+      label: 'Standard Single',
+    },
+    quantity: '11',
+    services: [],
+    additionalBeds: '',
+    id: 1,
+  },
+  {
+    beds: '5',
+    price: '3000',
+    type: {
+      id: 4,
+      label: 'Twin',
+    },
+    quantity: '17',
+    services: [],
+    additionalBeds: '',
+    id: 2,
+  },
+  {
+    beds: '4',
+    price: '2000',
+    type: {
+      id: 1,
+      label: 'Standard Single',
+    },
+    quantity: '22',
+    services: [],
+    additionalBeds: '',
+    id: 3,
+  },
+];
+
+export const TableRows = [
+  createData(
+    'Mariot',
+    'Hotel',
+    'Kotayq',
+    'Abovyan',
+    '+374 11 11 11 11',
+    'Name Lastname',
+    'customer.care@marriott.com',
+    <Button
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      variant='contained'
+      className={styles.btn}
+      component='span'
+    >
+      Ready
+    </Button>
+  ),
+  createData(
+    'Tufenkyan',
+    'Hotel',
+    'Kotayq',
+    'Abovyan',
+    '+374 11 11 11 11',
+    'Name Lastname',
+    'customer.care@marriott.com',
+    <Button
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      variant='contained'
+      className={`${styles.btn} ${styles.secondaryBtn}`}
+      component='span'
+    >
+      Missed Price
+    </Button>
+  ),
+  createData(
+    'Multi rest',
+    'Hotel',
+    'Kotayq',
+    'Abovyan',
+    '+374 11 11 11 11',
+    'Name Lastname',
+    'customer.care@marriott.com',
+    <Button
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      variant='contained'
+      className={styles.btn}
+      component='span'
+    >
+      Ready
+    </Button>
+  ),
+];
+
+export const HeadCells = [
+  {
+    id: 'name',
+    numeric: false,
+    disablePadding: true,
+    label: 'Name',
+  },
+  {
+    id: 'type',
+    numeric: true,
+    disablePadding: false,
+    label: 'Type',
+  },
+  {
+    id: 'region',
+    numeric: true,
+    disablePadding: false,
+    label: 'Region',
+  },
+  {
+    id: 'city',
+    numeric: true,
+    disablePadding: false,
+    label: 'City',
+  },
+  {
+    id: 'contactNumber',
+    numeric: true,
+    disablePadding: false,
+    label: 'Contact number',
+  },
+  {
+    id: 'contactPerson',
+    numeric: true,
+    disablePadding: false,
+    label: 'Contact Person',
+  },
+  {
+    id: 'email',
+    numeric: true,
+    disablePadding: false,
+    label: 'Email',
+  },
+  {
+    id: 'status',
+    numeric: true,
+    disablePadding: false,
+    label: 'Status',
+  },
+  {
+    id: 'actions',
+    numeric: true,
+    disablePadding: false,
+    label: '',
+  },
 ];

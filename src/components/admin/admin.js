@@ -1,16 +1,15 @@
-import React from 'react';
-
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import GroupIcon from '@material-ui/icons/Group';
 import HotelIcon from '@material-ui/icons/Hotel';
 import PublicIcon from '@material-ui/icons/Public';
+import React from 'react';
 
-import AgencyProfile from './agency/agency-profile';
-import ManageStaff from './staff/manage-staff';
-import ManageHotels from './hotels/manage-hotels';
-import ManageActivities from './activities/manage-activities';
 import { ContentArea } from '../common/content-area';
 import { Sidebar } from '../common/sidebar';
+import ManageActivities from './activities/manage-activities';
+import AgencyProfile from './agency/agency-profile';
+import ManageHotels from './hotels/manage-hotels';
+import ManageStaff from './staff/manage-staff';
 
 const pages = [
   {

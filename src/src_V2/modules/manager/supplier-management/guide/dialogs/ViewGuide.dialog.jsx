@@ -24,14 +24,16 @@ export default function ViewRoomDialog({ data: { state: guide, actions } }) {
     <Box>
       <DialogTitle className={styles.viewDialogTitle}>
         <Typography className={styles.dialogTitle}>Guide / Details</Typography>
-        <Box className={styles.cardActions}>
-          <IconButton onClick={openEditDialog}>
-            <Edit />
-          </IconButton>
-          <IconButton onClick={openDeleteDialog}>
-            <Delete />
-          </IconButton>
-        </Box>
+        {actions && (
+          <Box className={`${styles.cardActions} ${styles.rightAligned}`}>
+            <IconButton onClick={openEditDialog}>
+              <Edit />
+            </IconButton>
+            <IconButton onClick={openDeleteDialog}>
+              <Delete />
+            </IconButton>
+          </Box>
+        )}
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2}>
@@ -66,20 +68,23 @@ export default function ViewRoomDialog({ data: { state: guide, actions } }) {
             </Grid>
             <Grid item xs={4}>
               <Typography>Sex</Typography>
-              <Typography>{guide.sex}</Typography>
+              <Typography>{guide.sex.label}</Typography>
             </Grid>
           </Grid>
           <Grid item xs={12}>
             <Typography>Languages</Typography>
             {guide.languages.map((item) => (
-              <Chip label={item.label} key={item.id} />
+              <Box key={item.id} className={styles.chip}>
+                <Chip label={item.label} key={item.id} />
+              </Box>
             ))}
           </Grid>
           <Grid item xs={12}>
             <Typography>Skills</Typography>
-
             {guide.skills.map((item) => (
-              <Chip label={item} key={item} />
+              <Box key={item.id} className={styles.chip}>
+                <Chip label={item} key={item} />
+              </Box>
             ))}
           </Grid>
         </Grid>

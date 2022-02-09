@@ -13,6 +13,7 @@
   justify-content: flex-end;
 }
 
+
 .viewDialogTitle {
   display: flex;
   justify-content: space-between;
@@ -64,7 +65,7 @@ input[type='number'] {
 }
 
 .timeBlock {
-  margin: 2px -6px !important;
+  margin: 2px -14px !important;
 }
 
 .dashedBorder {
@@ -91,6 +92,10 @@ input[type='number'] {
 
 .beds {
   width: 159px;
+}
+
+.numberOfBeds {
+  margin-right: 20px !important;
 }
 
 /* Details */
@@ -132,6 +137,7 @@ input[type='number'] {
   border-radius: 16px;
   text-transform: capitalize;
   margin-right: 7px;
+  margin-bottom: 10px;
   height: 30px;
   cursor: inherit;
 }
@@ -202,3 +208,15 @@ input[type='number'] {
 .partnershipSectionBlock {
   margin-right: 25px;
 }
+
+.datesSection {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.calendarIcon {
+  color: rgba(0, 0, 0, 0.54);
+  margin-right: 15px;
+}
+
+

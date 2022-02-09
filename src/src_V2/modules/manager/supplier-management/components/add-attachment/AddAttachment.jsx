@@ -100,7 +100,7 @@ export default function AddAttachment({
           {attachments.map((file) => (
             <Box key={file.id} className={styles.chip}>
               <Chip
-                label={`${file.name}.${acceptedFileTypes[file.type].extension}`}
+                label={file.name}
                 onClick={openInNewTab(file)}
                 onDelete={handleDelete(file.id)}
               />

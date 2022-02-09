@@ -1,224 +1,26 @@
 import {
   Box,
-  Button,
   Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TablePagination,
   TableRow,
-  TableSortLabel,
 } from '@mui/material';
-import { visuallyHidden } from '@mui/utils';
-import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useState } from 'react';
 
+import { EnhancedTableHead } from '../../../supplier-management/components/enhancedTableHead/EnhancedTableHead';
+import TableMenuActions from '../../../supplier-management/components/tableVerticalActionsMenu/Menu';
+import {
+  getComparator,
+  stableSort,
+} from '../../components/enhancedTableHead/EnhancedTableHead';
+import { HeadCells, TableRows } from '../constants';
 import DialogManager from '../dialogs/Index';
 import FilterBlock from './FilterBlock';
-import AccommodationActions from './Menu';
 import styles from './style.module.css';
-
-function createData(
-  name,
-  type,
-  region,
-  city,
-  contactNumber,
-  contactPerson,
-  email,
-  status
-) {
-  return { name, type, region, city, contactNumber, contactPerson, email, status };
-}
-
-const rows = [
-  createData(
-    'Mariot',
-    'Hotel',
-    'Kotayq',
-    'Abovyan',
-    '+374 11 11 11 11',
-    'Name Lastname',
-    'customer.care@marriott.com',
-    <Button
-      onClick={(event) => {
-        event.stopPropagation();
-      }}
-      variant='contained'
-      className={styles.btn}
-      component='span'
-    >
-      Ready
-    </Button>
-  ),
-  createData(
-    'Tufenkyan',
-    'Hotel',
-    'Kotayq',
-    'Abovyan',
-    '+374 11 11 11 11',
-    'Name Lastname',
-    'customer.care@marriott.com',
-    <Button
-      onClick={(event) => {
-        event.stopPropagation();
-      }}
-      variant='contained'
-      className={`${styles.btn} ${styles.secondaryBtn}`}
-      component='span'
-    >
-      Missed Price
-    </Button>
-  ),
-  createData(
-    'Multi rest',
-    'Hotel',
-    'Kotayq',
-    'Abovyan',
-    '+374 11 11 11 11',
-    'Name Lastname',
-    'customer.care@marriott.com',
-    <Button
-      onClick={(event) => {
-        event.stopPropagation();
-      }}
-      variant='contained'
-      className={styles.btn}
-      component='span'
-    >
-      Ready
-    </Button>
-  ),
-];
-
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
-
-const headCells = [
-  {
-    id: 'name',
-    numeric: false,
-    disablePadding: true,
-    label: 'Name',
-  },
-  {
-    id: 'type',
-    numeric: true,
-    disablePadding: false,
-    label: 'Type',
-  },
-  {
-    id: 'region',
-    numeric: true,
-    disablePadding: false,
-    label: 'Region',
-  },
-  {
-    id: 'city',
-    numeric: true,
-    disablePadding: false,
-    label: 'City',
-  },
-  {
-    id: 'contactNumber',
-    numeric: true,
-    disablePadding: false,
-    label: 'Contact number',
-  },
-  {
-    id: 'contactPerson',
-    numeric: true,
-    disablePadding: false,
-    label: 'Contact Person',
-  },
-  {
-    id: 'email',
-    numeric: true,
-    disablePadding: false,
-    label: 'Email',
-  },
-  {
-    id: 'status',
-    numeric: true,
-    disablePadding: false,
-    label: 'Status',
-  },
-  {
-    id: 'actions',
-    numeric: true,
-    disablePadding: false,
-    label: '',
-  },
-];
-
-function EnhancedTableHead(props) {
-  const { order, orderBy, onRequestSort } = props;
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
-
-  return (
-    <TableHead>
-      <TableRow className={styles.tableTitles}>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component='span' sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
-
-EnhancedTableHead.propTypes = {
-  onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  orderBy: PropTypes.string.isRequired,
-};
 
 export default function AccommodationList() {
   const [order, setOrder] = React.useState('asc');
@@ -251,7 +53,8 @@ export default function AccommodationList() {
     setPage(0);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - TableRows.length) : 0;
 
   function openAccommodationDetailsDialog() {
     onShowHideDialog({
@@ -265,17 +68,18 @@ export default function AccommodationList() {
     <>
       <FilterBlock />
       <Box className={styles.table}>
-        <Paper sx={{ width: '100%', mb: 2 }}>
+        <Paper>
           <TableContainer>
-            <Table sx={{ minWidth: 750 }} aria-labelledby='tableTitle' size='medium'>
+            <Table size='medium'>
               <EnhancedTableHead
                 order={order}
                 orderBy={orderBy}
                 onRequestSort={handleRequestSort}
-                rowCount={rows.length}
+                rowCount={TableRows.length}
+                headCells={HeadCells}
               />
               <TableBody>
-                {stableSort(rows, getComparator(order, orderBy))
+                {stableSort(TableRows, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
                     const labelId = `enhanced-table-${index}`;
@@ -291,13 +95,13 @@ export default function AccommodationList() {
                         <TableCell component='th' id={labelId} scope='row' padding='none'>
                           {row.name}
                         </TableCell>
-                        <TableCell align='right'>{row.type}</TableCell>
-                        <TableCell align='right'>{row.region}</TableCell>
-                        <TableCell align='right'>{row.city}</TableCell>
-                        <TableCell align='right'>{row.contactNumber}</TableCell>
-                        <TableCell align='right'>{row.contactPerson}</TableCell>
-                        <TableCell align='right'>{row.email}</TableCell>
-                        <TableCell align='right'>{row.status}</TableCell>
+                        <TableCell align='left'>{row.type}</TableCell>
+                        <TableCell align='left'>{row.region}</TableCell>
+                        <TableCell align='left'>{row.city}</TableCell>
+                        <TableCell align='left'>{row.contactNumber}</TableCell>
+                        <TableCell align='left'>{row.contactPerson}</TableCell>
+                        <TableCell align='left'>{row.email}</TableCell>
+                        <TableCell align='left'>{row.status}</TableCell>
                         <TableCell
                           align='right'
                           onClick={(event) => {
@@ -305,7 +109,7 @@ export default function AccommodationList() {
                           }}
                         >
                           <Box>
-                            <AccommodationActions />
+                            <TableMenuActions />
                           </Box>
                         </TableCell>
                       </TableRow>
@@ -326,7 +130,7 @@ export default function AccommodationList() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component='div'
-            count={rows.length}
+            count={TableRows.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

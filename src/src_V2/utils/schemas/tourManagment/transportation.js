@@ -76,3 +76,11 @@ export function addCarSchema() {
     model: BaseSchemas.requiredText(50),
   });
 }
+
+export function partnershipSchema() {
+  return object().shape({
+    attachments: object().shape([]).nullable(),
+    price: BaseSchemas.floatingNumber(999999.99),
+    percentage: BaseSchemas.floatingNumber(999.99),
+  });
+}

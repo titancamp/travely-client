@@ -1,10 +1,9 @@
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Avatar, Button, Menu, MenuItem } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ROUTES } from '../../../routes';
 import styles from './header.module.css';
 
 const StyledMenu = styled((props) => (
@@ -57,35 +56,18 @@ export default function CustomizedMenus() {
   return (
     <div className={styles.userAvatarSection}>
       <Button
-        id='demo-customized-button'
-        aria-controls='demo-customized-menu'
-        aria-haspopup='true'
         aria-expanded={open ? 'true' : undefined}
         variant='contained'
         disableElevation
         onClick={handleClick}
-        endIcon={<KeyboardArrowDownIcon />}
+        endIcon={<ArrowDropDownIcon className={styles.arrowDropDownIcon} />}
         color='inherit'
-        className={styles.userSection}
+        className={`${styles.userSection} ${open ? styles.userSectionBg : ''}`}
       >
         <Avatar className={styles.avatar}>TM</Avatar>
       </Button>
-      <StyledMenu
-        id='demo-customized-menu'
-        MenuListProps={{
-          'aria-labelledby': 'demo-customized-button',
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-      >
-        <MenuItem
-          onClick={() => {
-            navigate('/manager/' + ROUTES.ACCOUNT);
-            handleClose();
-          }}
-          disableRipple
-        >
+      <StyledMenu anchorEl={anchorEl} open={open} onClose={handleClose}>
+        <MenuItem onClick={handleClose} disableRipple>
           Settings & Privacy
         </MenuItem>
         <MenuItem onClick={handleClose} disableRipple>

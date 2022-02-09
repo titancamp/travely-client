@@ -1,0 +1,69 @@
+/* Details */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerActions {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.headerDeleteBtn{
+  margin-right: 41px;
+  margin-left: 21px;
+}
+
+.infoItem {
+  display: flex;
+  margin-bottom: 3px;
+}
+
+.detailsIcon {
+  margin-right: 13px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.itemBlock {
+  margin-bottom: 16px;
+}
+
+
+.dialogMenu {
+  width: 100%;
+}
+
+.partnershipDetailsSection .detailsServiceBtns,
+.mainInfo .detailsServiceBtns {
+  border-radius: 16px;
+  text-transform: capitalize;
+  margin-right: 7px;
+  margin-bottom: 10px;
+  height: 30px;
+  cursor: inherit;
+}
+
+/* Filter */
+
+.filterHeader .resetBtn {
+  margin-right: 60px;
+  padding: 8px 22px;
+  font-width: 500;
+  line-height: 26px;
+  font-size: 15px;
+}
+
+.container {
+  border-left: 4px solid #2183d1;
+}
+
+.dashedBorder {
+  margin: 20px 0;
+  border-bottom: 1px dashed grey;
+}
+
+.attributesTitle {
+  font-size: 12px !important;
+  margin-bottom: 20px !important;
+  margin-top: 10px !important;
+}

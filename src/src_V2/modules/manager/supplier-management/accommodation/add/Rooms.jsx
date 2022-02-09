@@ -2,7 +2,7 @@ import { Box, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import { AddCard, InfoCard } from '../../components';
-import DialogManager from '../dialogs/Index.jsx';
+import DialogManager from '../dialogs/Index';
 import styles from './style.module.css';
 
 export default function Rooms({ parentRef }) {
@@ -91,7 +91,7 @@ export default function Rooms({ parentRef }) {
                 label: 'Beds: ',
               },
               4: {
-                value: `${room.price} ${room.price ? 'AMD' : ''}`,
+                value: `${room.price}${room.price ? ' AMD' : ''}`,
                 label: room.price ? '' : 'Price: ',
               },
             }}

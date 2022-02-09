@@ -1,7 +1,7 @@
-import React from "react";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import SearchIcon from "@material-ui/icons/Search";
-import TextField from "@material-ui/core/TextField";
+import React from 'react';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import SearchIcon from '@material-ui/icons/Search';
+import TextField from '@material-ui/core/TextField';
 
 export default class SearchActivities extends React.Component {
   constructor(props) {
@@ -17,13 +17,13 @@ export default class SearchActivities extends React.Component {
   render() {
     return (
       <TextField
-        id="searchInput"
-        placeholder="Search Activities by name or address"
+        id='searchInput'
+        placeholder='Search Attributes by name or address'
         fullWidth
-        margin="normal"
+        margin='normal'
         InputProps={{
           startAdornment: (
-            <InputAdornment position="start">
+            <InputAdornment position='start'>
               <SearchIcon />
             </InputAdornment>
           ),
