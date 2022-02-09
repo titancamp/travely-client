@@ -83,3 +83,8 @@
 .expanded {
   max-width: 750px;
 }
+
+.chip {
+  margin: 5px 5px 0 0;
+  display: inline-block;
+}
