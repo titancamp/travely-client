@@ -19,7 +19,7 @@ import { getTodoFilterInitialValues } from '../../../../utils/schemas/todo';
 import { TaskPriority, TaskStatus } from '../utils';
 import styles from './styles';
 
-const TodoFilter = ({ toggle, handleFiltersChange, filters }) => {
+const TodoFilter = ({ toggle, handleFiltersChange, filters, todoCount }) => {
   const { values, touched, errors, handleSubmit, handleChange } = useFormik({
     initialValues: getTodoFilterInitialValues(filters),
   });
@@ -102,15 +102,17 @@ const TodoFilter = ({ toggle, handleFiltersChange, filters }) => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={6} sx={styles.add}>
-              <Button
-                variant='contained'
-                startIcon={<Add sx={styles.addIcon} />}
-                onClick={toggle}
-              >
-                Add New
-              </Button>
-            </Grid>
+            {!!todoCount && (
+              <Grid item xs={6} sx={styles.add}>
+                <Button
+                  variant='contained'
+                  startIcon={<Add sx={styles.addIcon} />}
+                  onClick={toggle}
+                >
+                  Add New
+                </Button>
+              </Grid>
+            )}
           </Grid>
         </form>
       </Grid>
