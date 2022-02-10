@@ -2,7 +2,7 @@ import Account from './account';
 import Dashboard from './dashboard';
 import Payables from './financial/payables/Payables';
 import Receivables from './financial/receivables/Receivables';
-import Reporting from './reporting';
+import TourReport from './reporting/tour-report';
 import Accommodation from './supplier-management/accommodation';
 import Activity from './supplier-management/activity';
 import Food from './supplier-management/food';
@@ -23,7 +23,7 @@ export const ROUTES = {
   TOUR_PACKAGE: 'tour-package/*',
   ACCOMMODATION: 'accommodation/*',
   TRANSPORTATION: 'transportation/*',
-  REPORTING: 'reporting',
+  TOUR_REPORT: 'tour-report',
   ACCOUNT: 'account',
   USER_MANAGEMENT: 'user-management/*',
 };
@@ -43,7 +43,7 @@ export default function routeConfigs() {
     { path: ROUTES.TOUR_PACKAGE, element: <TourPackage /> },
     { path: ROUTES.ACCOMMODATION, element: <Accommodation /> },
     { path: ROUTES.TRANSPORTATION, element: <Transportation /> },
-    { path: ROUTES.REPORTING, element: <Reporting /> },
+    { path: ROUTES.TOUR_REPORT, element: <TourReport /> },
     { path: ROUTES.ACCOUNT, element: <Account /> },
     { path: ROUTES.USER_MANAGEMENT, element: <UserManagement /> },
   ];
