@@ -1,0 +1,10 @@
+.container {
+  background-color: var(--lightGrey);
+  padding: 32px 48px 0;
+  height: 100%;
+}
+
+.table {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}

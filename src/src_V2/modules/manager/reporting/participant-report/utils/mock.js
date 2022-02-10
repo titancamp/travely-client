@@ -1,0 +1,42 @@
+export const MOCK_DATA = [
+  {
+    name: 'Name Surname',
+    incomingCountry: 'Germany',
+    tourId: '1209123',
+    tourName: 'Dilijan',
+    partnerName: 'Plaza',
+    id: 1,
+  },
+  {
+    name: 'Name Surname',
+    incomingCountry: 'Germany',
+    tourId: '1209123',
+    tourName: 'Dilijan',
+    partnerName: 'Plaza',
+    id: 2,
+  },
+  {
+    name: 'Name Surname',
+    incomingCountry: 'Germany',
+    tourId: '1209123',
+    tourName: 'Dilijan',
+    partnerName: 'Plaza',
+    id: 3,
+  },
+  {
+    name: 'Name Surname',
+    incomingCountry: 'Germany',
+    tourId: '1209123',
+    tourName: 'Dilijan',
+    partnerName: 'Plaza',
+    id: 4,
+  },
+  {
+    name: 'Name Surname',
+    incomingCountry: 'Germany',
+    tourId: '1209123',
+    tourName: 'Dilijan',
+    partnerName: 'Plaza',
+    id: 5,
+  },
+];

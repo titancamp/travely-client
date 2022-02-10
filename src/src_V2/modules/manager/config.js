@@ -69,7 +69,11 @@ export const managerSidebarConfig = [
       {
         title: 'Tour Report',
         path: '/manager/tour-report'
-      }
+      },
+      {
+        title: 'Participant Report',
+        path: '/manager/participant-report',
+      },
     ]
   },
   {
