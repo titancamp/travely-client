@@ -1,4 +1,4 @@
-import { createTableColumn, createTableRow } from '../../../../utils';
+import { createTableColumn, createTableRow } from '../../../../../utils';
 
 const tourReportTableDataGenerator = (entries) => ({
   head: [

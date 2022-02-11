@@ -45,15 +45,9 @@ function Calendar() {
 export default dragDropContext(HTML5Backend)(Calendar);
 
 //TODO
-//right section issue
-//there still issue in right side when we came from Finance
-// cursor pointer on event item
-//first items have padding/margin from left
-//scroll issue when console is opened
-//month items have padding left
-// item styles move to css folder
-//css comments and removable comments
-
-//Event count on same column
+//there still issue in right side when we came from price summary
+//month items have padding left .food margin-rigth : 3px
+//css comments
+//Event count on same columnot
 //src/src_V2/modules/manager/tour-management/tour-packages/add/calendar/dialogs/component.jsx styling
-//naming changes need
+//naming changes need details componentd

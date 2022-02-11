@@ -1,8 +1,13 @@
 import { Dialog } from '@mui/material';
 
 import DeleteDialog from '../../components/dialogs/Delete.dialog';
+import DetailsDialog from '../../components/dialogs/Details.dialog';
+import MainInfo from '../../components/dialogs/MainInfo';
 import Map from '../../components/dialogs/Map.dialog';
+import Partnership from '../../components/dialogs/Partnership';
 import AddEditGuideDialog from './AddEditGuide.dialog';
+import AllFiltersDialog from './AllFilters.dialog';
+import Guides from './GuideDetails/Guides';
 import ViewGuideDialog from './ViewGuide.dialog';
 
 function CurrentDialog({ data, onClose }) {
@@ -25,6 +30,25 @@ function CurrentDialog({ data, onClose }) {
     case 'delete':
       return (
         <DeleteDialog onClose={onClose} id={data.state.id} deleteAction={data.actions} />
+      );
+    case 'guideFilters':
+      return <AllFiltersDialog data={data} onClose={onClose} />;
+    case 'guideDetails':
+      return (
+        <DetailsDialog
+          data={data}
+          onClose={onClose}
+          tabs={[
+            <MainInfo key={1} />,
+            <Guides key={2} />,
+            <Partnership key={3} tabNumber='3' />,
+          ]}
+          tabList={[
+            { label: 'MAIN INFO', value: '1' },
+            { label: 'GUIDES', value: '2' },
+            { label: 'PARTNERSHIP', value: '3' },
+          ]}
+        />
       );
     default:
       return null;

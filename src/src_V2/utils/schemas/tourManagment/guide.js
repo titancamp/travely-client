@@ -34,6 +34,15 @@ export function addGuideInitialValues(initialValues) {
   };
 }
 
+export function FilterInitialValues() {
+  return {
+    languages: [],
+    skills: '',
+    cost: '',
+    experience: '',
+  };
+}
+
 /**
  * Yup schemas for transportation page.
  */
@@ -62,5 +71,17 @@ export function addGuideSchema() {
     name: BaseSchemas.requiredText(50),
     experience: BaseSchemas.integer(50),
     languages: BaseSchemas.multiAutocompleteField,
+  });
+}
+
+export function FilterGuideSchema() {
+  return object().shape({
+    skills: BaseSchemas.textField(),
+    cost: BaseSchemas.integer(),
+    experience: BaseSchemas.integer(),
+    languages: BaseSchemas.multiAutocompleteField,
+    type: BaseSchemas.requiredAutocompleteField,
+    region: BaseSchemas.autocompleteField,
+    city: BaseSchemas.textField(50, ERROR_MESSAGES.letters(50)),
   });
 }

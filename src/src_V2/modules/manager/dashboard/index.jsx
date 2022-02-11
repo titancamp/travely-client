@@ -1,6 +1,7 @@
 import { DatePicker } from '@mui/lab';
 import { Box, Button, Divider, Grid, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 
 import { getDashboardInitialValues } from '../../../utils/schemas/dashboard';
@@ -19,6 +20,10 @@ export default function Dashboard() {
   const { values, handleChange } = useFormik({
     initialValues: getDashboardInitialValues(),
   });
+
+  const navigate = useNavigate();
+
+  const viewAllTodos = () => navigate('/manager/todo');
 
   return (
     <Grid container direction='column' rowSpacing={5} className={styles.container}>
@@ -135,7 +140,7 @@ export default function Dashboard() {
           <Typography variant='h6' fontWeight={500}>
             To Do List
           </Typography>
-          <Button variant='text' color='primary'>
+          <Button variant='text' color='primary' onClick={viewAllTodos}>
             View ALL
           </Button>
         </Box>

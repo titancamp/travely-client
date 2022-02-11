@@ -38,10 +38,23 @@
 
 .userSection {
   width: 76px;
+  background: transparent !important;
+}
+
+.userSectionBg {
+  background: #e0e0e0 !important;
+}
+
+.userSection:hover {
+  background: #e0e0e0 !important;
 }
 
 .userAvatarSection .avatar {
   width: 34px;
   height: 34px;
   font-size: 14px;
+}
+
+.arrowDropDownIcon {
+  color: rgba(0, 0, 0, 0.54);;
 }

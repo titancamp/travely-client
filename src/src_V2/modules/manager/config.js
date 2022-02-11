@@ -63,8 +63,14 @@ export const managerSidebarConfig = [
   },
   {
     title: 'Reporting',
-    path: '/manager/reporting',
+    collapsibleId: 4,
     icon: <BarChart />,
+    subPages: [
+      {
+        title: 'Tour Report',
+        path: '/manager/tour-report'
+      }
+    ]
   },
   {
     collapsibleId: 3,

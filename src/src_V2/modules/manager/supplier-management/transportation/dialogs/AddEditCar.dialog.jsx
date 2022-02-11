@@ -37,7 +37,7 @@ export default function AddEditCarDialog({ onClose, onSuccess, car, editMode }) 
               fullWidth
               name='model'
               label='Model'
-              placeholder='Plate Number'
+              placeholder='Model'
               onBlur={handleBlur}
               value={values.model}
               onChange={handleChange}
@@ -53,7 +53,7 @@ export default function AddEditCarDialog({ onClose, onSuccess, car, editMode }) 
                   name='color'
                   onBlur={handleBlur}
                   value={values.color}
-                  label='Contact Phone'
+                  label='Color'
                   onChange={handleChange}
                   error={errors.color && touched.color}
                   endAdornment={<EndAdornment icon={<ColorLens />} />}

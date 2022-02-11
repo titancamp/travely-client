@@ -191,7 +191,7 @@ export default function AddEditGuideDialog({ onClose, onSuccess, guide, editMode
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
         <Button type='submit' variant='contained'>
-          {editMode ? 'Edit' : 'Add'}
+          {editMode ? 'Save' : 'Add'}
         </Button>
       </DialogActions>
     </form>

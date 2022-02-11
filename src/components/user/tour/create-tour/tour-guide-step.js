@@ -1,19 +1,19 @@
-import React, { useCallback, useState } from "react";
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import { useFormik } from "formik";
-import { DataGrid } from "@material-ui/data-grid";
-import TextField from "@material-ui/core/TextField";
-import FormControl from "@material-ui/core/FormControl";
-import Grid from "@material-ui/core/Grid";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
-import Divider from "@material-ui/core/Divider";
-import Select from "@material-ui/core/Select";
-import Typography from "@material-ui/core/Typography";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import { ASSIGN_TOUR_GUIDE_COLUMNS } from "../utils/constants";
+import React, { useCallback, useState } from 'react';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import { useFormik } from 'formik';
+import { DataGrid } from '@material-ui/data-grid';
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import Divider from '@material-ui/core/Divider';
+import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import { ASSIGN_TOUR_GUIDE_COLUMNS } from '../utils/constants';
 
 const useStyles = makeStyles({
   form: {
@@ -25,14 +25,14 @@ const useStyles = makeStyles({
     marginLeft: 14,
   },
   divider: {
-    position: "absolute",
-    height: "42vh",
+    position: 'absolute',
+    height: '42vh',
     left: 0,
     right: 0,
-    margin: "auto",
+    margin: 'auto',
   },
   label: {
-    fontSize: "0.75em",
+    fontSize: '0.75em',
   },
 });
 
@@ -40,19 +40,19 @@ const validate = (values) => {
   const errors = {};
 
   if (!values.destination) {
-    errors.destination = "Required";
+    errors.destination = 'Required';
   }
 
   if (!values.activityName) {
-    errors.activityName = "Required";
+    errors.activityName = 'Required';
   }
 
   if (!values.date) {
-    errors.date = "Required";
+    errors.date = 'Required';
   }
 
   if (!values.guideName) {
-    errors.guideName = "Required";
+    errors.guideName = 'Required';
   }
 
   console.log(errors);
@@ -61,11 +61,11 @@ const validate = (values) => {
 };
 
 const initialValues = {
-  destination: "",
+  destination: '',
   date: new Date(),
   activityName: null,
-  guideName: "",
-  notes: "",
+  guideName: '',
+  notes: '',
 };
 
 const TourGuide = (props) => {
@@ -73,7 +73,7 @@ const TourGuide = (props) => {
   const onNext = props.onNext;
   const [tourGuides, setTourGuides] = useState([]);
 
-  console.log("props.state", props.state);
+  console.log('props.state', props.state);
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -83,8 +83,7 @@ const TourGuide = (props) => {
         (prev, curr) => (prev.id < curr.id ? prev : curr),
         {}
       );
-      tourGuideToAdd.id =
-        tourGuide && !isNaN(tourGuide.id) ? tourGuide.id - 1 : 0;
+      tourGuideToAdd.id = tourGuide && !isNaN(tourGuide.id) ? tourGuide.id - 1 : 0;
 
       setTourGuides([...tourGuides, tourGuideToAdd]);
       formik.resetForm(initialValues);
@@ -92,41 +91,39 @@ const TourGuide = (props) => {
   });
 
   const navigateToNextStep = useCallback(() => {
-    onNext("tourGuide", tourGuides);
+    onNext('tourGuide', tourGuides);
   }, [onNext, tourGuides]);
 
   return (
     <React.Fragment>
       <Grid item xs={12}>
-        <Typography variant="h5">
-          Create new tour - Step 6 - Assign Tour Guide
-        </Typography>
-        <Divider variant="fullWidth" />
+        <Typography variant='h5'>Create new tour - Step 6 - Assign Tour Guide</Typography>
+        <Divider variant='fullWidth' />
       </Grid>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <form className={classes.form}>
             <Grid container spacing={4}>
               <Grid item xs={12}>
-                <Typography variant="h6">Assign Tour Guide</Typography>
+                <Typography variant='h6'>Assign Tour Guide</Typography>
               </Grid>
               <Grid item xs={6}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <FormControl
                       fullWidth
-                      size="small"
-                      variant="outlined"
+                      size='small'
+                      variant='outlined'
                       error={formik.errors.destination ? true : false}
                     >
                       <TextField
-                        size="small"
-                        placeholder="Destination"
+                        size='small'
+                        placeholder='Destination'
                         fullWidth
                         multiline
-                        variant="outlined"
-                        id="destination"
-                        name="destination"
+                        variant='outlined'
+                        id='destination'
+                        name='destination'
                         value={formik.values.destination}
                         onChange={formik.handleChange}
                       />
@@ -135,36 +132,34 @@ const TourGuide = (props) => {
                   <Grid item xs={12}>
                     <FormControl
                       fullWidth
-                      size="small"
-                      variant="outlined"
+                      size='small'
+                      variant='outlined'
                       error={formik.errors.activityName ? true : false}
                     >
-                      <InputLabel id="activityNameLbl">Activities</InputLabel>
+                      <InputLabel id='activityNameLbl'>Attributes</InputLabel>
                       <Select
-                        variant="outlined"
-                        id="activityName"
-                        name="activityName"
-                        label="Activities"
-                        labelId="activityNameLbl"
+                        variant='outlined'
+                        id='activityName'
+                        name='activityName'
+                        label='Attributes'
+                        labelId='activityNameLbl'
                         value={formik.values.activityName}
                         onChange={formik.handleChange}
                       >
-                        <MenuItem value="">
+                        <MenuItem value=''>
                           <em>None</em>
                         </MenuItem>
                         {props.activities.map((a) => {
-                          return (
-                            <MenuItem value={a.id}>{a.activityName}</MenuItem>
-                          );
+                          return <MenuItem value={a.id}>{a.activityName}</MenuItem>;
                         })}
                       </Select>
                       {formik.errors.activityName && (
                         <Typography
                           className={classes.error}
-                          variant="caption"
-                          display="block"
+                          variant='caption'
+                          display='block'
                           gutterBottom
-                          color="error"
+                          color='error'
                         >
                           {formik.errors.activityName}
                         </Typography>
@@ -175,31 +170,27 @@ const TourGuide = (props) => {
                     <InputLabel className={classes.label}>Date</InputLabel>
                     <TextField
                       fullWidth
-                      variant="outlined"
-                      size="small"
-                      id="date"
-                      name="date"
-                      type="date"
+                      variant='outlined'
+                      size='small'
+                      id='date'
+                      name='date'
+                      type='date'
                       error={formik.errors.date ? true : false}
-                      helperText={formik.errors.date ? formik.errors.date : ""}
+                      helperText={formik.errors.date ? formik.errors.date : ''}
                       value={formik.values.date}
                       onChange={formik.handleChange}
                     />
                   </Grid>
                   <Grid item xs={6}>
-                    <InputLabel className={classes.label}>
-                      Tour Guide Name
-                    </InputLabel>
+                    <InputLabel className={classes.label}>Tour Guide Name</InputLabel>
                     <TextField
                       fullWidth
-                      variant="outlined"
-                      size="small"
-                      id="guideName"
-                      name="guideName"
+                      variant='outlined'
+                      size='small'
+                      id='guideName'
+                      name='guideName'
                       error={formik.errors.guideName ? true : false}
-                      helperText={
-                        formik.errors.guideName ? formik.errors.guideName : ""
-                      }
+                      helperText={formik.errors.guideName ? formik.errors.guideName : ''}
                       value={formik.values.guideName}
                       onChange={formik.handleChange}
                     />
@@ -210,13 +201,13 @@ const TourGuide = (props) => {
                 <Grid container spacing={1}>
                   <Grid item xs={12}>
                     <TextField
-                      size="small"
-                      placeholder="Notes"
+                      size='small'
+                      placeholder='Notes'
                       fullWidth
                       multiline
-                      variant="outlined"
-                      id="notes"
-                      name="notes"
+                      variant='outlined'
+                      id='notes'
+                      name='notes'
                       value={formik.values.notes}
                       onChange={formik.handleChange}
                     />
@@ -294,31 +285,26 @@ const TourGuide = (props) => {
                 </Grid>
               </Grid>
               <Grid item xs={12}>
-                <Grid
-                  container
-                  spacing={8}
-                  direction="row"
-                  justify="space-between"
-                >
+                <Grid container spacing={8} direction='row' justify='space-between'>
                   <Grid item xs={4}>
                     <FormControlLabel
                       control={
                         <Checkbox
-                          id="accomodation"
-                          name="accomodation"
-                          color="primary"
+                          id='accomodation'
+                          name='accomodation'
+                          color='primary'
                           checked={formik.values.accomodation}
                           onChange={formik.handleChange}
                         />
                       }
-                      label="Accomodation Requiered"
+                      label='Accomodation Requiered'
                     />
                   </Grid>
                   <Grid item xs={8}>
-                    <Grid container direction="column" alignItems="flex-end">
+                    <Grid container direction='column' alignItems='flex-end'>
                       <Button
-                        variant="contained"
-                        color="primary"
+                        variant='contained'
+                        color='primary'
                         onClick={formik.handleSubmit}
                       >
                         Add
@@ -342,26 +328,21 @@ const TourGuide = (props) => {
           <br />
           <br />
           <br />
-          <Grid
-            container
-            spacing={7}
-            justify="space-between"
-            alignItems="flex-end"
-          >
+          <Grid container spacing={7} justify='space-between' alignItems='flex-end'>
             <Grid item xs={10}>
               <Button
-                variant="contained"
-                color="default"
-                onClick={() => props.onBack("tourGuide", formik.values)}
+                variant='contained'
+                color='default'
+                onClick={() => props.onBack('tourGuide', formik.values)}
               >
-                Back: Activities
+                Back: Attributes
               </Button>
             </Grid>
             <Grid item xs={2}>
               <Button
-                variant="contained"
+                variant='contained'
                 fullWidth
-                color="primary"
+                color='primary'
                 onClick={navigateToNextStep}
               >
                 Save Tour

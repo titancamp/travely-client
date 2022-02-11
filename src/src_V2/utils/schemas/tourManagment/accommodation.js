@@ -33,6 +33,20 @@ export function AddRoomInitialValues(initialValues) {
   };
 }
 
+export function FilterInitialValues() {
+  return {
+    services: [],
+    hotelServices: [],
+    checkIn: '',
+    checkOut: '',
+    type: '',
+    quantity: '',
+    price: '',
+    numberOfBeds: '',
+    additionalBeds: '',
+  };
+}
+
 /**
  * Yup schemas for accommodation.
  */
@@ -52,6 +66,19 @@ export function addRoomSchema() {
     beds: BaseSchemas.integer(),
     quantity: BaseSchemas.integer(),
     price: BaseSchemas.floatingNumber(),
+    additionalBeds: BaseSchemas.integer(),
+    type: BaseSchemas.requiredAutocompleteField,
+  });
+}
+
+export function AccommodationFilterSchema() {
+  return object().shape({
+    region: BaseSchemas.autocompleteField,
+    quantity: BaseSchemas.integer(),
+    price: BaseSchemas.floatingNumber(),
+    priceFrom: BaseSchemas.floatingNumber(),
+    priceTo: BaseSchemas.floatingNumber(),
+    beds: BaseSchemas.integer(),
     additionalBeds: BaseSchemas.integer(),
     type: BaseSchemas.requiredAutocompleteField,
   });
