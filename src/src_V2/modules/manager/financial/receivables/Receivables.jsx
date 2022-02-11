@@ -38,9 +38,9 @@ export default function Receivables() {
     // filtering receivables by Tour Name/ID/Partner
     const filteredReceivables = receivables.filter(
       (item) =>
-        item.tourName.toLowerCase().includes(searchTxt) ||
-        item.receivableId.toString().includes(searchTxt) ||
-        item.partner.toLowerCase().includes(searchTxt)
+        item.tourName?.toLowerCase().includes(searchTxt) ||
+        item.receivableId?.toString().includes(searchTxt) ||
+        item.partner?.toLowerCase().includes(searchTxt)
     );
     setFilteredReceivables(filteredReceivables);
   });

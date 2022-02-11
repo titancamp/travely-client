@@ -45,6 +45,7 @@ export const payableColumns = () => ({
     tag(value) {
       return <DifferenceCell value={value} />;
     },
+    ifEmpty: 0,
   },
   paidCost: {
     label: 'Paid',
@@ -60,6 +61,7 @@ export const payableColumns = () => ({
     tag(value) {
       return <StatusCell value={value} />;
     },
+    ifEmpty: '--',
   },
   createdDate: {
     label: 'Created date',
@@ -83,13 +85,15 @@ export const payableColumns = () => ({
     tag(value) {
       return <PaymentTypeCell value={value} />;
     },
+    ifEmpty: '--',
   },
   invoiceAttachment: {
     label: 'Invoice attachment',
     type: columnTypes.custom,
-    tag(value) {
-      return <InvoiceAttachmentCell value={value} />;
+    tag() {
+      return <InvoiceAttachmentCell />;
     },
+    ifEmpty: '--',
   },
 });
 

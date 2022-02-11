@@ -55,6 +55,7 @@ export const receivableColumns = () => ({
     tag(value) {
       return <StatusCell value={value} />;
     },
+    ifEmpty: '--',
   },
   createdDate: {
     label: 'Created date',
@@ -67,8 +68,9 @@ export const receivableColumns = () => ({
   invoiceAttachment: {
     label: 'Invoice attachment',
     type: columnTypes.custom,
-    tag(value) {
-      return <InvoiceAttachmentCell value={value} />;
+    tag() {
+      return <InvoiceAttachmentCell />;
     },
+    ifEmpty: '--',
   },
 });

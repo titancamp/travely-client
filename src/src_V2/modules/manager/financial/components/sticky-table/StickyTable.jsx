@@ -25,15 +25,22 @@ import {
 } from '../../constants';
 import styles from './StickyTable.module.css';
 
-const TableCellTypes = ({ rowValue, customTag }) => {
+const TableCellTypes = ({ rowValue, customTag, ifEmpty }) => {
   const cells = {
-    [columnTypes.usualRow]: <TooltipTableCell rowValue={rowValue} />,
+    [columnTypes.usualRow]: <TooltipTableCell rowValue={rowValue ? rowValue : '--'} />,
     [columnTypes.moneyMask]: <TooltipTableCell rowValue={moneyMask(rowValue)} />,
-    [columnTypes.date]: <TooltipTableCell rowValue={generateDate(rowValue)} />,
+    [columnTypes.date]: (
+      <TooltipTableCell rowValue={rowValue ? generateDate(rowValue) : '--'} />
+    ),
   };
 
   if (customTag) {
-    cells[columnTypes.custom] = customTag(rowValue);
+    cells[columnTypes.custom] =
+      rowValue || !ifEmpty ? (
+        customTag(rowValue)
+      ) : (
+        <TooltipTableCell rowValue={ifEmpty} />
+      );
   }
 
   return cells;
@@ -295,6 +302,7 @@ export default function StickyTable({
                           const cell = TableCellTypes({
                             rowValue: row[column],
                             customTag: columnValue.tag,
+                            ifEmpty: columnValue.ifEmpty,
                           });
 
                           return (

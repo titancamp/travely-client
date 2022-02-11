@@ -48,13 +48,8 @@ export const StatusCell = ({ value }) => (
   </TableCellWrapper>
 );
 
-// Invoice Cell
-const InvoiceAttachment = ({ attachment }) => (
-  <>{attachment ? <AttachFile className={styles.attachmentImg} /> : '--'}</>
-);
-
-export const InvoiceAttachmentCell = ({ value }) => (
+export const InvoiceAttachmentCell = () => (
   <TableCellWrapper>
-    <InvoiceAttachment attachment={value} />
+    <AttachFile className={styles.attachmentImg} />
   </TableCellWrapper>
 );
