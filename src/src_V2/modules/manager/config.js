@@ -68,12 +68,16 @@ export const managerSidebarConfig = [
     subPages: [
       {
         title: 'Tour Report',
-        path: '/manager/tour-report'
+        path: '/manager/tour-report',
       },
       {
         title: 'Participant Report',
         path: '/manager/participant-report',
       },
+      {
+        title: 'Supplier Report',
+        path: '/manager/supplier-report',
+      }
     ]
   },
   {
