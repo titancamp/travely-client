@@ -1,6 +1,14 @@
 trigger:
   - dev
-
+  
+resources:
+  repositories:
+  - repository: travely
+    type: github
+    name: titancamp/travely
+    ref: refs/heads/develop
+    endpoint: k-harutyunyan
+    
 variables:
 - group: travely
 - name: project
