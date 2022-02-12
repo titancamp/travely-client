@@ -19,7 +19,6 @@
   max-height: calc(99.8vh - 156px);
   overflow-y: auto;
   text-align: justify;
-  overflow-x: hidden;
   box-sizing: border-box;
 }
 

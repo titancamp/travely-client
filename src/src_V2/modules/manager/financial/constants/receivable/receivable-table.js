@@ -37,9 +37,7 @@ export const receivableColumns = () => ({
   invoiceSentFlag: {
     label: 'Invoice sent',
     type: columnTypes.custom,
-    tag(value) {
-      return <InvoiceSentFlag value={value} />;
-    },
+    tag: (value) => <InvoiceSentFlag value={value} />,
   },
   paidAmount: {
     label: 'Paid amount',
@@ -52,9 +50,7 @@ export const receivableColumns = () => ({
   status: {
     label: 'Status',
     type: columnTypes.custom,
-    tag(value) {
-      return <StatusCell value={value} />;
-    },
+    tag: (value) => <StatusCell value={value} />,
     ifEmpty: '--',
   },
   createdDate: {
@@ -68,9 +64,7 @@ export const receivableColumns = () => ({
   invoiceAttachment: {
     label: 'Invoice attachment',
     type: columnTypes.custom,
-    tag() {
-      return <InvoiceAttachmentCell />;
-    },
+    tag: () => <InvoiceAttachmentCell />,
     ifEmpty: '--',
   },
 });

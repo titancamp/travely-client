@@ -9,8 +9,10 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { useState } from 'react';
 
-import commonStyles from '../style.module.css';
+import { useScrollIntoView } from '../../../../../utils/hooks';
+import commonStyles from '../../payables/edit-drawer/style.module.css';
 import styles from './Notes.module.css';
 
 export default function Notes({
@@ -21,12 +23,24 @@ export default function Notes({
   handleBlur,
   setFieldValue,
 }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const detailsRef = useScrollIntoView(isExpanded, { behavior: 'smooth' });
+
+  const handleAccordionClick = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   const handleClearNotes = () => {
     setFieldValue('notes', '');
   };
 
   return (
-    <Accordion className={commonStyles.accordion}>
+    <Accordion
+      className={commonStyles.accordion}
+      onClick={handleAccordionClick}
+      expanded={isExpanded}
+      ref={detailsRef}
+    >
       <AccordionSummary
         expandIcon={<ExpandMore />}
         aria-controls='panel1a-content'

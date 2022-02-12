@@ -52,6 +52,7 @@ export default function Receivables() {
   return (
     <Layout title='Receivables'>
       <ControlPanel searchValue={searchTxt} handleSearchChange={setSearchTxt} />
+
       <ReceivableTable
         receivables={filteredReceivables}
         receivablesLoading={receivablesLoading}

@@ -7,15 +7,29 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
+import { useState } from 'react';
 
 import { generateDate } from '../../../../../../utils';
+import { useScrollIntoView } from '../../../../../../utils/hooks';
 import { PaymentStatus } from '../../../constants';
 import commonStyles from '../style.module.css';
 import styles from './TourDetails.module.css';
 
 export default function TourDetails({ row }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const detailsRef = useScrollIntoView(isExpanded, { behavior: 'smooth' });
+
+  const handleAccordionClick = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   return (
-    <Accordion className={commonStyles.accordion}>
+    <Accordion
+      className={commonStyles.accordion}
+      onClick={handleAccordionClick}
+      expanded={isExpanded}
+      ref={detailsRef}
+    >
       <AccordionSummary
         expandIcon={<ExpandMore />}
         aria-controls='panel1a-content'
