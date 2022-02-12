@@ -30,7 +30,7 @@ stages:
     containerRegistry: $(containerRegistry)
     containerRegistryPassword: $(registry_travely_am_password)
     containerPort: 5000
-    hostname: front.travely.am
+    hostname: dev.travely.am
     path: /
     cname: k8s.travely.am
     environment: dev.dev-travely-am
