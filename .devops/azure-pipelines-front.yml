@@ -2,7 +2,7 @@ trigger:
   branches:
     include:
     - dev
-  
+    
 resources:
   repositories:
   - repository: travely

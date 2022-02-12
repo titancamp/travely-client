@@ -1,11 +1,9 @@
 import {
-  AddAlert,
   Alarm,
   Delete,
   Edit,
   LocationOn,
   MoreVert,
-  NotificationsActive,
   SettingsBackupRestore,
 } from '@mui/icons-material';
 import {
@@ -31,23 +29,9 @@ import { useAnchor, useToggle } from '../../../../utils/hooks';
 import TodoClient from '../../../../utils/services/todo-client';
 import TaskPriorityMenu from '../task-priority-menu';
 import TaskStatusMenu from '../task-status-menu';
-import { ReminderStatus, TaskStatus } from '../utils';
+import { TaskStatus } from '../utils';
+import { mapToReminderState } from '../utils/constants';
 import styles from './styles';
-
-const mapToReminderState = (notificationTime) => ({
-  [ReminderStatus.NOT_SET]: {
-    icon: <AddAlert sx={{ opacity: 0.25 }} />,
-    tooltipText: 'No reminder',
-  },
-  [ReminderStatus.SET]: {
-    icon: <NotificationsActive color='warning' />,
-    tooltipText: notificationTime,
-  },
-  [ReminderStatus.PASSED]: {
-    icon: <NotificationsActive color='warning' sx={{ opacity: 0.5 }} />,
-    tooltipText: 'Sent',
-  },
-});
 
 const TodoItem = ({ tourLocation, id, getTodos, handleEdit }) => {
   const todo = useSelector(getTodoItemSelector(id));

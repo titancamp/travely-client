@@ -1,0 +1,68 @@
+export const MOCK_DATA = [
+  {
+    id: 1,
+    supplierName: 'Gevorg',
+    supplierType: 'Accomodation',
+    subType: 'Hotel',
+    location: 'Yerevan, Armenia',
+    expectedExpenses: '5.000 AMD',
+    actualExpenses: '20.000 AMD',
+  },
+  {
+    id: 2,
+    supplierName: 'Gevorg',
+    supplierType: 'Accomodation',
+    subType: 'Hotel',
+    location: 'Yerevan, Armenia',
+    expectedExpenses: '5.000 AMD',
+    actualExpenses: '20.000 AMD',
+  },
+  {
+    id: 3,
+    supplierName: 'Gevorg',
+    supplierType: 'Accomodation',
+    subType: 'Hotel',
+    location: 'Yerevan, Armenia',
+    expectedExpenses: '5.000 AMD',
+    actualExpenses: '20.000 AMD',
+  },
+  {
+    id: 4,
+    supplierName: 'Gevorg',
+    supplierType: 'Accomodation',
+    subType: 'Hotel',
+    location: 'Yerevan, Armenia',
+    expectedExpenses: '5.000 AMD',
+    actualExpenses: '20.000 AMD',
+  },
+  {
+    id: 5,
+    supplierName: 'Gevorg',
+    supplierType: 'Accomodation',
+    subType: 'Hotel',
+    location: 'Yerevan, Armenia',
+    expectedExpenses: '5.000 AMD',
+    actualExpenses: '20.000 AMD',
+  },
+  {
+    id: 6,
+    supplierName: 'Gevorg',
+    supplierType: 'Accomodation',
+    subType: 'Hotel',
+    location: 'Yerevan, Armenia',
+    expectedExpenses: '5.000 AMD',
+    actualExpenses: '20.000 AMD',
+  },
+];
+
+export const SUPPLIER_TOTALS_MOCK_DATA = [
+  {
+    id: 1,
+    expectedExpenses: '25.000 AMD',
+    actualExpenses: '25.000 AMD',
+    expectedRevenue: '25.000 AMD',
+    actualRevenue: '25.000 AMD',
+    expectedProfit: '25.000 AMD',
+    actualProfit: '25.000 AMD',
+  },
+];

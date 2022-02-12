@@ -1,0 +1,88 @@
+import { ReminderStatus, TaskPriority, TaskStatus } from '../utils/constants';
+
+const description = `
+The tour creation requires to check the hotel availability and send the information to tour customers!
+This is useful description`;
+
+export const TODOS_MOCK_DATA = [
+  {
+    id: 1,
+    name: 'Call to check for hotels',
+    description,
+    reminder: 'Today, 13:00',
+    location: 'Haghpat, Sanahin',
+    reminderStatus: ReminderStatus.SET,
+    priority: TaskPriority.HIGH,
+    status: TaskStatus.DONE,
+  },
+  {
+    id: 2,
+    name: 'Call to check for hotels',
+    description,
+    reminder: 'Today, 13:00',
+    location: 'Haghpat, Sanahin',
+    reminderStatus: ReminderStatus.PASSED,
+    priority: TaskPriority.MEDIUM,
+    status: TaskStatus.TODO,
+  },
+  {
+    id: 3,
+    name: 'Call to check for hotels',
+    description,
+    reminder: 'Today, 13:00',
+    location: 'Haghpat, Sanahin',
+    reminderStatus: ReminderStatus.SET,
+    priority: TaskPriority.HIGH,
+    status: TaskStatus.DONE,
+  },
+  {
+    id: 4,
+    name: 'Call to check for hotels',
+    description,
+    reminder: 'Today, 13:00',
+    location: 'Haghpat, Sanahin',
+    reminderStatus: ReminderStatus.SET,
+    priority: TaskPriority.HIGH,
+    status: TaskStatus.DONE,
+  },
+  {
+    id: 5,
+    name: 'Call to check for hotels',
+    description,
+    reminder: 'Today, 13:00',
+    location: 'Haghpat, Sanahin',
+    reminderStatus: ReminderStatus.SET,
+    priority: TaskPriority.HIGH,
+    status: TaskStatus.DONE,
+  },
+  {
+    id: 6,
+    name: 'Call to check for hotels',
+    description,
+    reminder: 'Today, 13:00',
+    location: 'Haghpat, Sanahin',
+    reminderStatus: ReminderStatus.PASSED,
+    priority: TaskPriority.MEDIUM,
+    status: TaskStatus.TODO,
+  },
+  {
+    id: 7,
+    name: 'Call to check for hotels',
+    description,
+    reminder: 'Today, 13:00',
+    location: 'Haghpat, Sanahin',
+    reminderStatus: ReminderStatus.SET,
+    priority: TaskPriority.HIGH,
+    status: TaskStatus.DONE,
+  },
+  {
+    id: 8,
+    name: 'Call to check for hotels',
+    description,
+    reminder: 'Today, 13:00',
+    location: 'Haghpat, Sanahin',
+    reminderStatus: ReminderStatus.SET,
+    priority: TaskPriority.HIGH,
+    status: TaskStatus.DONE,
+  },
+];

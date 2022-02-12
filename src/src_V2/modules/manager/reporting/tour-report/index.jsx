@@ -7,7 +7,7 @@ import { TOUR_REPORT_MOCK_DATA, TOUR_REPORT_TOTALS_MOCK_DATA } from './utils/moc
 import tourReportTableDataGenerator from './utils/tour-table-data-generator';
 import tourReportTotalsTableDataGenerator from './utils/tour-totals-table-data-generator';
 
-export default function Reporting() {
+export default function TourReport() {
   const tableData = useTableDataGenerator(tourReportTableDataGenerator, [
     TOUR_REPORT_MOCK_DATA,
   ]);
