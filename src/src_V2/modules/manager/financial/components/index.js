@@ -6,4 +6,4 @@ export {
   TableCellWrapper,
 } from './sticky-table/StickyTable';
 export { default as StickyDrawer } from './sticky-drawer/StickyDrawer';
-export { default as Notes } from './notes/Notes';
+export { default as NotesInput } from './notes-input/NotesInput';

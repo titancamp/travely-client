@@ -19,22 +19,18 @@ export default function TourDetails({ row }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const detailsRef = useScrollIntoView(isExpanded, { behavior: 'smooth' });
 
-  const handleAccordionClick = () => {
+  const handleAccordionHeaderClick = () => {
     setIsExpanded(!isExpanded);
   };
 
   return (
-    <Accordion
-      className={commonStyles.accordion}
-      onClick={handleAccordionClick}
-      expanded={isExpanded}
-      ref={detailsRef}
-    >
+    <Accordion className={commonStyles.accordion} expanded={isExpanded} ref={detailsRef}>
       <AccordionSummary
         expandIcon={<ExpandMore />}
         aria-controls='panel1a-content'
         id='panel1a-header'
         className={commonStyles.accordionSummary}
+        onClick={handleAccordionHeaderClick}
       >
         <IconButton>
           <Map />

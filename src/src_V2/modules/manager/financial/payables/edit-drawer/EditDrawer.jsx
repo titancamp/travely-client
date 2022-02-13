@@ -7,10 +7,11 @@ import {
   payableRowListInitialValues as rowListInitialValues,
   rowListSchema,
 } from '../../../../../utils/schemas';
-import { Notes, StickyDrawer } from '../../components';
+import { StickyDrawer } from '../../components';
 import styles from './EditDrawer.module.css';
 import EditableInfo from './editable-info/EditableInfo';
 import GeneralInfo from './general-info/GeneralInfo';
+import Notes from './notes/Notes';
 import PaymentHistory from './payment-history/PaymentHistory';
 import TourDetails from './tour-details/TourDetails';
 
