@@ -21,6 +21,7 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 
+import { useScrollIntoView } from '../../../../../../utils/hooks';
 import { columnTypes, columns, currencyList } from './constants';
 import fakeData from './mock';
 import styles from './style.module.css';
@@ -45,6 +46,7 @@ export default function FinanceSummary() {
     },
   });
   const [totalPrice, setTotalPrice] = useState(totalCost + summary.amount);
+  const [isAccordionExpanded, setIsAccordionExpanded] = useState({});
 
   useEffect(() => {
     let cost = 0;
@@ -60,14 +62,18 @@ export default function FinanceSummary() {
   //TODO: find and change only changed fields, instead of new group creation
   useEffect(() => {
     const newFakeDataGroup = {};
+    const accordionExpanded = {};
+
     for (const key in data) {
       if ('Trasnportations' === key || 'Guides' === key) {
         newFakeDataGroup[key] = [{ name: null, items: data[key] }];
       } else {
         newFakeDataGroup[key] = ArrayGroup(data[key], 'name');
       }
+      accordionExpanded[key] = false;
     }
 
+    setIsAccordionExpanded(accordionExpanded);
     setFakeDataGroup(newFakeDataGroup);
   }, [data]);
 
@@ -142,7 +148,25 @@ export default function FinanceSummary() {
     setData(newData);
   };
 
+  const handleAccordionHeaderClick = (key) => {
+    setIsAccordionExpanded({
+      ...isAccordionExpanded,
+      [key]: !isAccordionExpanded[key],
+    });
+  };
+
   const fakeDataGroupKeys = Object.keys(fakeDataGroup);
+
+  const accordionRef = Object.keys(fakeData).reduce(
+    (acc, groupKey) => ({
+      ...acc,
+      [groupKey]: useScrollIntoView(isAccordionExpanded[groupKey], {
+        behavior: 'smooth',
+        block: 'center',
+      }),
+    }),
+    {}
+  );
 
   return (
     <Box className={styles.container}>
@@ -153,12 +177,17 @@ export default function FinanceSummary() {
             const sum = ArraySum(data[groupKey], 'totalCost');
 
             return (
-              <Accordion key={groupKey} className={styles.accordion}>
+              <Accordion
+                key={groupKey}
+                className={styles.accordion}
+                ref={accordionRef[groupKey]}
+              >
                 <AccordionSummary
                   expandIcon={<ExpandMore />}
                   aria-controls='panel1a-content'
                   id='panel1a-header'
-                  className={`${styles.accordionBox}`}
+                  className={styles.accordionBox}
+                  onClick={() => handleAccordionHeaderClick(groupKey)}
                 >
                   <Typography className={`${styles.detailsTxt} ${styles.name}`}>
                     {groupKey}{' '}

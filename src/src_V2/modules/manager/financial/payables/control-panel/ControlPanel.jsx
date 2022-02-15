@@ -15,11 +15,11 @@ export default function ControlPanel({ searchValue, handleSearchChange }) {
         />
       </Box>
 
-      <Box className={styles.filterDiv}>
-        <Button variant='outlined' startIcon={<FilterAlt />}>
-          Filter
-        </Button>
-      </Box>
+      {/*<Box className={styles.filterDiv}>*/}
+      {/*  <Button variant='outlined' startIcon={<FilterAlt />}>*/}
+      {/*    Filter*/}
+      {/*  </Button>*/}
+      {/*</Box>*/}
 
       {/*<Box className={styles.optionsDiv}>*/}
       {/*  <Button variant='outlined' startIcon={<ViewColumn />}>*/}
