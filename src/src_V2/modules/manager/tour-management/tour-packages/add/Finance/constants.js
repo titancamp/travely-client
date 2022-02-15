@@ -141,7 +141,7 @@ export const columns = (() => ({
     },
     guests: {
       label: 'Guests',
-      type: columnTypes.inputNumber,
+      type: columnTypes.text,
     },
     currency: {
       label: 'Currency',
