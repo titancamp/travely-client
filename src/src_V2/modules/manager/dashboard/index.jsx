@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 
 import { getDashboardInitialValues } from '../../../utils/schemas/dashboard';
+import TodoCard from '../todo/todo-card';
+import { TODOS_MOCK_DATA } from '../todo/utils/mock';
 import styles from './Dashboard.module.css';
 
 const MOCK_DATA = [
@@ -144,6 +146,11 @@ export default function Dashboard() {
             View ALL
           </Button>
         </Box>
+        <Grid container spacing={2} pt={2}>
+          {TODOS_MOCK_DATA.map((todo) => (
+            <TodoCard {...todo} key={todo.id} />
+          ))}
+        </Grid>
       </Grid>
     </Grid>
   );
