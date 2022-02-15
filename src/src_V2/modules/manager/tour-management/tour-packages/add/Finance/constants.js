@@ -33,11 +33,11 @@ export const columns = (() => ({
     },
     costPerDay: {
       label: 'Cost Per Day',
-      type: columnTypes.text,
+      type: columnTypes.price,
     },
     totalCost: {
       label: 'Total Cost',
-      type: columnTypes.text,
+      type: columnTypes.price,
     },
   },
   Trasnportations: {
@@ -49,33 +49,13 @@ export const columns = (() => ({
       label: 'Price Type',
       type: columnTypes.text,
     },
-    /* distance: {
-      label: 'Distance',
-      type: columnTypes.text,
-    },
-    pricePerKm: {
-      label: 'Price Per Km',
-      type: columnTypes.text,
-    },
-    amount: {
-      label: 'Amount',
-      type: columnTypes.text,
-    },
-    days: {
-      label: 'Days',
-      type: columnTypes.text,
-    }, */
     currency: {
       label: 'Currency',
       type: columnTypes.text,
     },
-    /* costPerDay: {
-      label: 'Cost Per Day',
-      type: columnTypes.text,
-    }, */
     totalCost: {
       label: 'Total Cost',
-      type: columnTypes.text,
+      type: columnTypes.price,
     },
   },
   Foods: {
@@ -97,11 +77,11 @@ export const columns = (() => ({
     },
     costPerGuest: {
       label: 'Cost Per Guest',
-      type: columnTypes.text,
+      type: columnTypes.price,
     },
     totalCost: {
       label: 'Total Cost',
-      type: columnTypes.text,
+      type: columnTypes.price,
     },
   },
   Guides: {
@@ -123,11 +103,11 @@ export const columns = (() => ({
     },
     costPerDay: {
       label: 'Cost Per Day',
-      type: columnTypes.text,
+      type: columnTypes.price,
     },
     totalCost: {
       label: 'Total Cost',
-      type: columnTypes.text,
+      type: columnTypes.price,
     },
   },
   Activities: {
@@ -149,11 +129,11 @@ export const columns = (() => ({
     },
     costPerGuest: {
       label: 'Cost Per Guest',
-      type: columnTypes.text,
+      type: columnTypes.price,
     },
     totalCost: {
       label: 'Total Cost',
-      type: columnTypes.text,
+      type: columnTypes.price,
     },
   },
 }))();

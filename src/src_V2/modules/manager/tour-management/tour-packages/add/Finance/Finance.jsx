@@ -19,6 +19,7 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 
+import { moneyMask } from '../../../../../../utils';
 import { useScrollIntoView } from '../../../../../../utils/hooks';
 import { columns, currencyList } from './constants';
 import fakeData from './mock';
@@ -174,7 +175,7 @@ export default function FinanceSummary() {
                     <Typography className={styles.groupTotal}>
                       Total:{' '}
                       <span>
-                        {currency} {sum.toFixed(2)}
+                        {currency} {moneyMask(sum)}
                       </span>
                     </Typography>
                   </Box>
@@ -225,16 +226,13 @@ export default function FinanceSummary() {
                                     columnKey === 'currency' ? null : (
                                       <TableCell
                                         key={`${groupItem.id}_${columnKey}`}
-                                        className={`${
-                                          columnKey === 'totalCost'
-                                            ? styles[columnKey]
-                                            : null
-                                        } ${styles.tableCell}`}
+                                        className={styles.tableCell}
                                       >
+                                        {/*todo bad check - instead define column types*/}
                                         {columnKey.toLowerCase().includes('cost')
-                                          ? `${groupItem.currency} ${groupItem[
-                                              columnKey
-                                            ].toFixed(2)}`
+                                          ? `${groupItem.currency} ${moneyMask(
+                                              groupItem[columnKey]
+                                            )}`
                                           : groupItem[columnKey]}
                                       </TableCell>
                                     )
@@ -258,18 +256,17 @@ export default function FinanceSummary() {
           </Box>
           <Box className={`${styles.flex6} ${styles.flex}`}>
             <Box>
-              <span>Total Cost: AMD {totalCost.toFixed(2)}</span>
+              <span>Total Cost: AMD {moneyMask(totalCost)}</span>
             </Box>
             <Box>
               <span>
-                Total Price: AMD{' '}
-                {(totalPrice * summary.rate[summary.currency]).toFixed(2)}
+                Total Price: AMD {moneyMask(totalPrice * summary.rate[summary.currency])}
               </span>
             </Box>
             <Box>
               <span>Profit: </span>
               <span className={styles.green}>
-                AMD {(totalPrice * summary.rate[summary.currency] - totalCost).toFixed(2)}
+                AMD {moneyMask(totalPrice * summary.rate[summary.currency] - totalCost)}
               </span>
             </Box>
           </Box>
@@ -296,7 +293,7 @@ export default function FinanceSummary() {
               <Box className={styles.accordionDetailItems}>
                 <Box>Total Cost:</Box>
                 <Box className={styles.accordionDetailTxt}>
-                  AMD {totalCost.toFixed(2)}
+                  AMD {moneyMask(totalCost)}
                 </Box>
               </Box>
             </AccordionDetails>
@@ -314,7 +311,6 @@ export default function FinanceSummary() {
             <AccordionDetails className={styles.accordionSummaryDetails}>
               <Box autoComplete='off' className={styles.flexInputs}>
                 <FormControl>
-                  {/* <InputLabel filled>Margin</InputLabel> */}
                   <TextField
                     label={'Margin'}
                     size='small'
@@ -361,7 +357,7 @@ export default function FinanceSummary() {
               <Box className={`${styles.accordionDetailItems} ${styles.totalPrice}`}>
                 <Box>Total Price:</Box>
                 <Box className={styles.accordionDetailTxt}>
-                  AMD {(totalPrice * summary.rate[summary.currency]).toFixed(2)}
+                  AMD {moneyMask(totalPrice * summary.rate[summary.currency])}
                 </Box>
               </Box>
               <Alert className={styles.alert} severity='warning'>

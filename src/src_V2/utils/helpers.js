@@ -13,7 +13,7 @@ export const generateDate = (dateStr) => {
 };
 
 export const moneyMask = (value) => {
-  if (!value) return 0;
+  if (!value && typeof value !== 'number') return 0;
 
   // WARNING - floating point number fractional part rounding if fraction is more than maximumFractionDigits
   return value.toLocaleString('fullwide', {
