@@ -4,6 +4,7 @@ import { alpha, styled } from '@mui/material/styles';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { ROUTES } from '../../../routes';
 import styles from './header.module.css';
 
 const StyledMenu = styled((props) => (
@@ -67,7 +68,13 @@ export default function CustomizedMenus() {
         <Avatar className={styles.avatar}>TM</Avatar>
       </Button>
       <StyledMenu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem
+          onClick={() => {
+            navigate('/manager/' + ROUTES.ACCOUNT);
+            handleClose();
+          }}
+          disableRipple
+        >
           Settings & Privacy
         </MenuItem>
         <MenuItem onClick={handleClose} disableRipple>
