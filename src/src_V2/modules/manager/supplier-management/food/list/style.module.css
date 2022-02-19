@@ -8,6 +8,7 @@
 }
 
 .btn {
+  height: 24px;
   border-radius: 16px !important;
   text-transform: capitalize !important;
 }
@@ -24,10 +25,6 @@
 
 .select {
   width: 170px !important;
-}
-
-.priceInp {
-  width: 121px;
 }
 
 .box {

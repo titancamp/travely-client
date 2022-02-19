@@ -83,7 +83,7 @@ export default function AddEditRoomDialog({ onClose, onSuccess, room, editMode }
               name='price'
               type='number'
               label='Price'
-              placeholder='Price'
+              placeholder='AMD'
               onBlur={handleBlur}
               value={values.price}
               onChange={handleChange}

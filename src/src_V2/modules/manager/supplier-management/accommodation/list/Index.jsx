@@ -30,14 +30,6 @@ export default function AccommodationList() {
 
   const [dialogManagerState, onShowHideDialog] = useState({ open: false });
 
-  const addClass = (e) => {
-    e.target.parentElement.classList.add('moreVertIconTr');
-  };
-
-  const removeClass = (e) => {
-    e.target.parentElement.classList.remove('moreVertIconTr');
-  };
-
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -89,8 +81,6 @@ export default function AccommodationList() {
                         tabIndex={-1}
                         key={row.name}
                         onClick={openAccommodationDetailsDialog}
-                        onMouseEnter={addClass}
-                        onMouseLeave={removeClass}
                       >
                         <TableCell component='th' id={labelId} scope='row' padding='none'>
                           {row.name}
