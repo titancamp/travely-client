@@ -1,16 +1,5 @@
-import { AddCircle, AttachMoney, Tune } from '@mui/icons-material';
-import {
-  Autocomplete,
-  Box,
-  Button,
-  FormControl,
-  Grid,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { AddCircle, Tune } from '@mui/icons-material';
+import { Autocomplete, Box, Button, Grid, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -91,52 +80,6 @@ export default function FilterBlock() {
               error={errors.city && touched.city}
               helperText={touched.city && errors.city}
             />
-          </Grid>
-          <Grid item>
-            <FormControl size='small' className={styles.priceInp}>
-              <InputLabel>Price from</InputLabel>
-              <OutlinedInput
-                name='priceFrom'
-                type='number'
-                startAdornment={
-                  <InputAdornment position='start'>
-                    <AttachMoney />
-                  </InputAdornment>
-                }
-                label='Price from'
-                onBlur={handleBlur}
-                value={values.priceFrom}
-                onChange={handleChange}
-                error={errors.priceFrom && touched.priceFrom}
-                helperText={touched.priceFrom && errors.priceFrom}
-                FormHelperTextProps={{
-                  className: styles.helperText,
-                }}
-              />
-            </FormControl>
-          </Grid>
-          <Grid item>
-            <FormControl size='small' className={styles.priceInp}>
-              <InputLabel>Price to</InputLabel>
-              <OutlinedInput
-                name='priceTo'
-                type='number'
-                startAdornment={
-                  <InputAdornment position='start'>
-                    <AttachMoney />
-                  </InputAdornment>
-                }
-                label='Price to'
-                onBlur={handleBlur}
-                value={values.priceTo}
-                onChange={handleChange}
-                error={errors.priceTo && touched.priceTo}
-                helperText={touched.priceTo && errors.priceTo}
-                FormHelperTextProps={{
-                  className: styles.helperText,
-                }}
-              />
-            </FormControl>
           </Grid>
         </Grid>
       </div>

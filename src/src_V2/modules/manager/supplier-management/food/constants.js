@@ -1,3 +1,7 @@
+import { Button } from '@mui/material';
+
+import styles from './list/style.module.css';
+
 function createData(
   name,
   type,
@@ -44,7 +48,16 @@ export const TableRows = [
     '+374 11 11 11 11',
     ['Vegan, Spicy', 'Italian', 'Mexican'],
     '~ 10 000 AMD',
-    'Ready'
+    <Button
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      variant='contained'
+      className={styles.btn}
+      component='span'
+    >
+      Ready
+    </Button>
   ),
   createData(
     'Tsirani',
@@ -54,7 +67,16 @@ export const TableRows = [
     '+374 11 11 11 11',
     ['Vegan, Spicy', 'Italian', 'Mexican'],
     '~ 10 000 AMD',
-    'Ready'
+    <Button
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      variant='contained'
+      className={styles.btn}
+      component='span'
+    >
+      Ready
+    </Button>
   ),
   createData(
     'Tsirani',
@@ -64,7 +86,16 @@ export const TableRows = [
     '+374 11 11 11 11',
     ['Vegan, Spicy', 'Italian', 'Mexican'],
     '~ 10 000 AMD',
-    'Ready'
+    <Button
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      variant='contained'
+      className={styles.btn}
+      component='span'
+    >
+      Ready
+    </Button>
   ),
 ];
 

@@ -54,21 +54,6 @@ export default function FilterBlock() {
             <Autocomplete
               size='small'
               onChange={handleChange}
-              name='Car'
-              className={styles.select}
-              disablePortal
-              options={TransportationTypes}
-              renderInput={(params) => <TextField {...params} label='Car' />}
-              onBlur={handleBlur}
-              value={values.car}
-              error={errors.car && touched.car}
-              helperText={touched.car && errors.car}
-            />
-          </Grid>
-          <Grid item>
-            <Autocomplete
-              size='small'
-              onChange={handleChange}
               name='region'
               className={styles.select}
               disablePortal

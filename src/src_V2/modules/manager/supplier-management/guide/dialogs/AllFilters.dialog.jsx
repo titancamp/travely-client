@@ -1,4 +1,11 @@
-import { Autocomplete, DialogContent, Grid, TextField } from '@mui/material';
+import {
+  Autocomplete,
+  Button,
+  DialogActions,
+  DialogContent,
+  Grid,
+  TextField,
+} from '@mui/material';
 import { useFormik } from 'formik';
 
 import {
@@ -99,6 +106,12 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
             </Grid>
           </Grid>
         </DialogContent>
+        <DialogActions className={styles.container}>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button type='submit' variant='contained'>
+            Save
+          </Button>
+        </DialogActions>
       </BootstrapDialog>
     </form>
   );

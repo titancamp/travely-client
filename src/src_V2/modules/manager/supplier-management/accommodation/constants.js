@@ -1,7 +1,9 @@
 import { Button } from '@mui/material';
+
 import styles from './list/style.module.css';
 
 function createData(
+  id,
   name,
   type,
   region,
@@ -11,7 +13,7 @@ function createData(
   email,
   status
 ) {
-  return { name, type, region, city, contactNumber, contactPerson, email, status };
+  return { id, name, type, region, city, contactNumber, contactPerson, email, status };
 }
 
 export const RoomTypes = [
@@ -135,6 +137,7 @@ export const RoomsConstants = [
 
 export const TableRows = [
   createData(
+    '1',
     'Mariot',
     'Hotel',
     'Kotayq',
@@ -154,6 +157,7 @@ export const TableRows = [
     </Button>
   ),
   createData(
+    '2',
     'Tufenkyan',
     'Hotel',
     'Kotayq',
@@ -173,6 +177,7 @@ export const TableRows = [
     </Button>
   ),
   createData(
+    '3',
     'Multi rest',
     'Hotel',
     'Kotayq',

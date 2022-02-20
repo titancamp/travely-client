@@ -113,3 +113,11 @@ input[type=number] {
 .workingHoursSection {
   margin-bottom: 32px !important;
 }
+
+.priceBlock {
+  margin-top: 20px !important;
+}
+
+.priceInp {
+  margin-right: 20px;
+}

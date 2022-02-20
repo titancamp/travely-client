@@ -1,3 +1,7 @@
+import { Button } from '@mui/material';
+
+import styles from './list/style.module.css';
+
 function createData(name, type, region, city, contactNumber, languages, price, status) {
   return { name, type, region, city, contactNumber, languages, price, status };
 }
@@ -94,7 +98,16 @@ export const TableRows = [
     '+374 11 11 11 11',
     ['Armenian', 'Russian'],
     '~ 10 000 AMD',
-    'Ready'
+    <Button
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      variant='contained'
+      className={styles.btn}
+      component='span'
+    >
+      Ready
+    </Button>
   ),
   createData(
     'Kathryn Murphy',
@@ -104,7 +117,16 @@ export const TableRows = [
     '+374 11 11 11 11',
     ['English', 'Russian', 'Armenian'],
     '~ 10 000 AMD',
-    'Ready'
+    <Button
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      variant='contained'
+      className={styles.btn}
+      component='span'
+    >
+      Ready
+    </Button>
   ),
   createData(
     'Tsirani',
@@ -114,41 +136,17 @@ export const TableRows = [
     '+374 11 11 11 11',
     ['Armenian'],
     '~ 10 000 AMD',
-    'Ready'
+    <Button
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+      variant='contained'
+      className={styles.btn}
+      component='span'
+    >
+      Ready
+    </Button>
   ),
-];
-
-export const TableRowsData = [
-  [
-    'Tsirani',
-    'Agency',
-    'Kotayq',
-    'Abovyan',
-    '+374 11 11 11 11',
-    ['Armenian', 'Russian'],
-    '~ 10 000 AMD',
-    'Ready',
-  ],
-  [
-    'Kathryn Murphy',
-    'Individual',
-    'Yerevan',
-    'Yerevan',
-    '+374 11 11 11 11',
-    ['English', 'Russian', 'Armenian'],
-    '~ 10 000 AMD',
-    'Ready',
-  ],
-  [
-    'Tsirani',
-    'Agency',
-    'Kotayq',
-    'Abovyan',
-    '+374 11 11 11 11',
-    ['Armenian'],
-    '~ 10 000 AMD',
-    'Ready',
-  ],
 ];
 
 export const GuidesConstants = [
