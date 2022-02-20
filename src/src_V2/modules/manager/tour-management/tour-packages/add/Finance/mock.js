@@ -1,5 +1,5 @@
 export default (() => ({
-  Accomodations: [
+  Accomodation: [
     {
       id: 1,
       name: 'Dilijan Resort',
@@ -31,7 +31,7 @@ export default (() => ({
       totalCost: 945000,
     },
   ],
-  Trasnportations: [
+  Transportation: [
     {
       id: 1,
       name: 'Transportation Agency 1',
@@ -57,7 +57,7 @@ export default (() => ({
       totalCost: 38500,
     },
   ],
-  Foods: [
+  Food: [
     {
       id: 1,
       name: 'Restaurant Name',
@@ -68,7 +68,7 @@ export default (() => ({
       totalCost: 75000,
     },
   ],
-  Guides: [
+  Guide: [
     {
       id: 1,
       name: 'Guide Name',
@@ -79,7 +79,7 @@ export default (() => ({
       totalCost: 210000,
     },
   ],
-  Activities: [
+  Activity: [
     {
       id: 1,
       name: 'Activity Name 1',

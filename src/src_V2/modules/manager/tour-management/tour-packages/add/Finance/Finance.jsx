@@ -55,7 +55,7 @@ export default function FinanceSummary() {
     const accordionExpanded = {};
 
     for (const key in data) {
-      if ('Trasnportations' === key || 'Guides' === key) {
+      if ('Transportation' === key || 'Guide' === key) {
         newFakeDataGroup[key] = [{ name: null, items: data[key] }];
       } else {
         newFakeDataGroup[key] = ArrayGroup(data[key], 'name');

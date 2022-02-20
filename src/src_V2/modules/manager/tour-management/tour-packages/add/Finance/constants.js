@@ -10,7 +10,7 @@ export const columnTypes = {
 };
 
 export const columns = (() => ({
-  Accomodations: {
+  Accomodation: {
     name: {
       label: 'Name',
       type: columnTypes.text,
@@ -40,7 +40,7 @@ export const columns = (() => ({
       type: columnTypes.price,
     },
   },
-  Trasnportations: {
+  Transportation: {
     name: {
       label: 'Name',
       type: columnTypes.text,
@@ -58,7 +58,7 @@ export const columns = (() => ({
       type: columnTypes.price,
     },
   },
-  Foods: {
+  Food: {
     name: {
       label: 'Name',
       type: columnTypes.text,
@@ -84,7 +84,7 @@ export const columns = (() => ({
       type: columnTypes.price,
     },
   },
-  Guides: {
+  Guide: {
     name: {
       label: 'Name',
       type: columnTypes.text,
@@ -110,7 +110,7 @@ export const columns = (() => ({
       type: columnTypes.price,
     },
   },
-  Activities: {
+  Activity: {
     name: {
       label: 'Name',
       type: columnTypes.text,
