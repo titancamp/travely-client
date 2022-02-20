@@ -38,7 +38,7 @@ export default function Banner({
             CANCEL
           </Button>
           <Button variant='contained' className={styles.addBtn} onClick={onSubmit}>
-            ADD
+            SAVE
           </Button>
         </Box>
       </Box>

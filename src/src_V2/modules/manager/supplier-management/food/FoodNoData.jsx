@@ -7,7 +7,7 @@ export default function FoodLandingPage() {
       image={image}
       pageName='Food'
       buttonContent={'ADD MY FIRST FOOD SUPPLIER'}
-      helperText='Create and view information about your partner guides and agencies. You can assign guides to your tour packages.'
+      helperText='Create and view information about the restaurants, cafes and food delivery services you partner with. You can add the saved partners in food service to your tour packages.'
     />
   );
 }
