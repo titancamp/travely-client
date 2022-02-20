@@ -25,4 +25,5 @@
 .attachmentImg {
   margin-top: 10px;
   color: var(--secondary);
+  margin-left: -5px;
 }

@@ -2,6 +2,11 @@
   justify-content: space-between !important;
 }
 
+.accordionBox:hover {
+  background-color: var(--midGrey) !important;
+  cursor: unset !important;
+}
+
 .paymentBox {
   display: flex;
 }

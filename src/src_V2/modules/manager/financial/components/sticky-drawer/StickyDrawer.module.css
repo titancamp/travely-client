@@ -1,5 +1,6 @@
 .contentDiv {
   width: 55vw;
+  min-width: 900px;
 }
 
 .mainBox {
@@ -12,13 +13,12 @@
 }
 
 .layout {
-  min-height: 82vh;
+  height: 100%;
   padding-right: 25px;
   padding-left: 25px;
   max-height: calc(99.8vh - 156px);
   overflow-y: auto;
   text-align: justify;
-  overflow-x: hidden;
   box-sizing: border-box;
 }
 

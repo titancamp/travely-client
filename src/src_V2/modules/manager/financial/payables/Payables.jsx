@@ -41,9 +41,9 @@ export default function Payables() {
     // filtering payables by Tour Name/ID/Supplier
     const filteredPayables = payables.filter(
       (item) =>
-        item.tourName.toLowerCase().includes(searchTxt) ||
-        item.paymentId.toString().includes(searchTxt) ||
-        item.supplier.toLowerCase().includes(searchTxt)
+        item.tourName?.toLowerCase().includes(searchTxt) ||
+        item.paymentId?.toString().includes(searchTxt) ||
+        item.supplier?.toLowerCase().includes(searchTxt)
     );
     setFilteredPayables(filteredPayables);
   });
@@ -55,6 +55,7 @@ export default function Payables() {
   return (
     <Layout title='Payables'>
       <ControlPanel searchValue={searchTxt} handleSearchChange={setSearchTxt} />
+
       <PayableTable
         payables={filteredPayables}
         total={payablesTableData.total}

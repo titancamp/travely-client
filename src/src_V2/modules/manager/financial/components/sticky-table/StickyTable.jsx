@@ -25,15 +25,22 @@ import {
 } from '../../constants';
 import styles from './StickyTable.module.css';
 
-const TableCellTypes = ({ rowValue, customTag }) => {
+const TableCellTypes = ({ rowValue, customTag, ifEmpty }) => {
   const cells = {
-    [columnTypes.usualRow]: <TooltipTableCell rowValue={rowValue} />,
+    [columnTypes.usualRow]: <TooltipTableCell rowValue={rowValue ? rowValue : '--'} />,
     [columnTypes.moneyMask]: <TooltipTableCell rowValue={moneyMask(rowValue)} />,
-    [columnTypes.date]: <TooltipTableCell rowValue={generateDate(rowValue)} />,
+    [columnTypes.date]: (
+      <TooltipTableCell rowValue={rowValue ? generateDate(rowValue) : '--'} />
+    ),
   };
 
   if (customTag) {
-    cells[columnTypes.custom] = customTag(rowValue);
+    cells[columnTypes.custom] =
+      rowValue || !ifEmpty ? (
+        customTag(rowValue)
+      ) : (
+        <TooltipTableCell rowValue={ifEmpty} />
+      );
   }
 
   return cells;
@@ -73,6 +80,7 @@ const EnhancedTableHead = ({
   rowCount,
   onRequestSort,
   columns,
+  showCheckbox,
 }) => {
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -81,17 +89,19 @@ const EnhancedTableHead = ({
   return (
     <TableHead className={styles.tableHead}>
       <TableRow>
-        <TableCell padding='checkbox' className={styles.tableCheckboxCell}>
-          <Checkbox
-            color='primary'
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all desserts',
-            }}
-          />
-        </TableCell>
+        {showCheckbox && (
+          <TableCell padding='checkbox' className={styles.tableCheckboxCell}>
+            <Checkbox
+              color='primary'
+              indeterminate={numSelected > 0 && numSelected < rowCount}
+              checked={rowCount > 0 && numSelected === rowCount}
+              onChange={onSelectAllClick}
+              inputProps={{
+                'aria-label': 'select all desserts',
+              }}
+            />
+          </TableCell>
+        )}
         {Object.keys(columns).map((headCell) => (
           <TableCell
             align='left'
@@ -146,6 +156,7 @@ export default function StickyTable({
   showStickyFooter = false,
   stickyFooterColumns,
   stickyFooterData,
+  showCheckbox = true,
   rowsPerPageNumbers = rowsPerPageOptions,
   handleClickedRow = () => void 0,
   handleDrawerState = () => void 0,
@@ -246,6 +257,7 @@ export default function StickyTable({
             onRequestSort={handleRequestSort}
             rowCount={data.length}
             columns={columns}
+            showCheckbox={showCheckbox}
           />
           {data.length ? (
             <>
@@ -267,27 +279,30 @@ export default function StickyTable({
                         selected={isItemSelected}
                         className={styles.tableRow}
                       >
-                        <TableCell
-                          padding='checkbox'
-                          className={styles.tableCheckboxCell}
-                        >
-                          <Checkbox
-                            color='primary'
-                            checked={isItemSelected}
-                            onClick={(event) =>
-                              handleCheckboxChange(event, row[uniqueKey])
-                            }
-                            inputProps={{
-                              'aria-labelledby': labelId,
-                            }}
-                          />
-                        </TableCell>
+                        {showCheckbox && (
+                          <TableCell
+                            padding='checkbox'
+                            className={styles.tableCheckboxCell}
+                          >
+                            <Checkbox
+                              color='primary'
+                              checked={isItemSelected}
+                              onClick={(event) =>
+                                handleCheckboxChange(event, row[uniqueKey])
+                              }
+                              inputProps={{
+                                'aria-labelledby': labelId,
+                              }}
+                            />
+                          </TableCell>
+                        )}
 
                         {Object.keys(columns).map((column) => {
                           const columnValue = columns[column];
                           const cell = TableCellTypes({
                             rowValue: row[column],
                             customTag: columnValue.tag,
+                            ifEmpty: columnValue.ifEmpty,
                           });
 
                           return (
@@ -313,9 +328,14 @@ export default function StickyTable({
                 <TableBody className={`${styles.tableBody} ${styles.tableStickyBox}`}>
                   {showTableCondition && (
                     <TableRow className={styles.totalFooter}>
-                      <TableCell padding='checkbox' className={styles.tableCheckboxCell}>
-                        <Checkbox className={styles.totalFooterChkBox} />
-                      </TableCell>
+                      {showCheckbox && (
+                        <TableCell
+                          padding='checkbox'
+                          className={styles.tableCheckboxCell}
+                        >
+                          <Checkbox className={styles.totalFooterChkBox} />
+                        </TableCell>
+                      )}
                       {Object.keys(stickyFooterColumns).map((column) => {
                         const columnValue = stickyFooterColumns[column];
                         const cell = StickyRowCellTypes({

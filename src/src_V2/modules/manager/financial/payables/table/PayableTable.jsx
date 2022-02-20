@@ -38,6 +38,7 @@ export default function PayableTable({ payables, total, payablesLoading }) {
           handleClickedRow={setClickedRow}
           handleDrawerState={setDrawerState}
           comparator={getComparator}
+          showCheckbox={false}
         />
       </Paper>
 
