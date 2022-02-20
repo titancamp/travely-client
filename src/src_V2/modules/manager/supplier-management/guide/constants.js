@@ -23,6 +23,12 @@ export const TransportationTypes = [
   { id: 3, label: 'Employee' },
 ];
 
+export const GuideTypes = [
+  { id: 1, label: 'Agency' },
+  { id: 2, label: 'Contractor' },
+  { id: 3, label: 'Employee' },
+];
+
 export const Languages = [
   { id: 1, label: 'English' },
   { id: 2, label: 'Chines' },

@@ -5,7 +5,7 @@ export default function TourPackagesLandingPage() {
   return (
     <NoData
       image={image}
-      pageName='There are no tours to show'
+      pageName='There are no tour packages to show'
       buttonContent={'ADD MY FIRST TOUR PACKAGE'}
       helperText='Get started by creating a tour package. All your tour packages will be displayed on this page.'
     />

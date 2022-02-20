@@ -11,6 +11,7 @@ import {
   InputLabel,
   OutlinedInput,
   TextField,
+  Typography,
 } from '@mui/material';
 import { useFormik } from 'formik';
 
@@ -77,7 +78,11 @@ export default function AddEditDriverDialog({ onClose, onSuccess, driver, editMo
                   value={values.phone}
                   label='Contact Phone'
                   onChange={handleChange}
-                  startAdornment={<>+374&nbsp;</>}
+                  startAdornment={
+                    <Typography sx={{ color: 'text.secondary', mt: 0.2 }}>
+                      +374&nbsp;
+                    </Typography>
+                  }
                   error={errors.phone && touched.phone}
                 />
                 {errors.phone && touched.phone && (

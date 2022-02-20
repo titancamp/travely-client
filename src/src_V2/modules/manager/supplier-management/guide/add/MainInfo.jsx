@@ -11,6 +11,7 @@ import {
   InputLabel,
   OutlinedInput,
   TextField,
+  Typography,
 } from '@mui/material';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
@@ -21,6 +22,7 @@ import {
 } from '../../../../../utils/schemas/tourManagment/guide';
 import { Regions } from '../../accommodation/constants';
 import { EndAdornment } from '../../components/endAdornment';
+import { GuideTypes } from '../constants';
 import DialogManager from '../dialogs/Index';
 import styles from './style.module.css';
 
@@ -66,7 +68,7 @@ export default function MainInfo({ parentRef, isValidate }) {
             <Grid item xs={6}>
               <Autocomplete
                 value={values.type}
-                options={Regions}
+                options={GuideTypes}
                 onChange={autoCompleteChangeHandler('type')}
                 renderInput={(params) => (
                   <TextField
@@ -129,7 +131,11 @@ export default function MainInfo({ parentRef, isValidate }) {
                   value={values.phone}
                   label='Contact Phone'
                   onChange={handleChange}
-                  startAdornment={<>+374&nbsp;</>}
+                  startAdornment={
+                    <Typography sx={{ color: 'text.secondary', mt: 0.2 }}>
+                      +374&nbsp;
+                    </Typography>
+                  }
                   error={errors.phone && touched.phone}
                 />
                 {errors.phone && touched.phone && (

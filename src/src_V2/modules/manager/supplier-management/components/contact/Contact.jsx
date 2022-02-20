@@ -6,6 +6,7 @@ import {
   Grid,
   InputLabel,
   OutlinedInput,
+  Typography,
 } from '@mui/material';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
@@ -65,7 +66,11 @@ export default function Contact({ parentRef }) {
                 value={values.phone}
                 label='Contact Phone'
                 onChange={handleChange}
-                startAdornment={<>+374&nbsp;</>}
+                startAdornment={
+                  <Typography sx={{ color: 'text.secondary', mt: 0.2 }}>
+                    +374&nbsp;
+                  </Typography>
+                }
                 error={errors.phone && touched.phone}
               />
               {errors.phone && touched.phone && (
