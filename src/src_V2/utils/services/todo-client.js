@@ -3,6 +3,7 @@ import {
   TaskPriority,
   TaskStatus,
 } from '../../modules/manager/todo/utils';
+import { TODOS_MOCK_DATA } from '../../modules/manager/todo/utils/mock';
 import ApiClient from '../api/ApiClient';
 import { generateDate } from '../index';
 
@@ -125,7 +126,7 @@ const TodoClient = {
       },
     });
 
-    return data?.data ? data.data.map(todoAdapterClient) : [];
+    return TODOS_MOCK_DATA || (data?.data ? data.data.map(todoAdapterClient) : []);
   },
   addTodo: (values) => {
     return ApiClient.post('api/v1/ToDo', todoAdapterAPI(values));

@@ -1,6 +1,7 @@
 const styles = {
   todo: {
     height: 'calc(100vh - 86px)',
+    width: '95%',
   },
   todoContainer: {
     ml: 3,

@@ -144,7 +144,7 @@ const TodoItem = ({ tourLocation, id, getTodos, handleEdit }) => {
                 </IconButton>
               </Tooltip>
               <TaskStatusMenu todo={todo} getTodos={getTodos} />
-              <IconButton onClick={handleMoreVertClick}>
+              <IconButton onClick={handleMoreVertClick} sx={styles.moreVert}>
                 <MoreVert />
               </IconButton>
               <Menu
