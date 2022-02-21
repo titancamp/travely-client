@@ -6,6 +6,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 
 import './Calendar.styles.css';
 import DialogManager from './dialogs/Index';
+import * as MOCK from './dialogs/mock';
 import { getSchedulerSingleInstance, useSchedulerHandlers } from './helper';
 
 function Calendar() {
@@ -24,8 +25,11 @@ function Calendar() {
     });
   }
 
-  function addEvent(state) {
-    newEvent(...state);
+  function addEvent(state, supplierItem) {
+    const newSupplier = MOCK[supplierItem.title].data.find(
+      (item) => item.id === supplierItem.id
+    );
+    newEvent(...state, newSupplier);
     onShowHideDialog({ open: false });
   }
 
@@ -47,7 +51,6 @@ export default dragDropContext(HTML5Backend)(Calendar);
 //TODO
 //there still issue in right side when we came from price summary
 //month items have padding left .food margin-rigth : 3px
-//css comments
-//Event count on same columnot
+
 //src/src_V2/modules/manager/tour-management/tour-packages/add/calendar/dialogs/component.jsx styling
 //naming changes need details componentd

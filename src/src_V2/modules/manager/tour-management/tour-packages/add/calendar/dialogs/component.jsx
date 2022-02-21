@@ -66,12 +66,12 @@ export const CardItem = ({ expanded, data, action }) => {
           <div style={{ display: 'flex' }}>
             <FormControlLabel control={<Radio />} label='' value={data.id} />
             <div>
-              <Typography variant='h6'>Hotel / Mariot</Typography>
+              <Typography variant='h6'>{data.title}</Typography>
               <Typography
                 variant='body2'
                 style={{ color: 'rgba(0, 0, 0, 0.6)', fontWeight: 400 }}
               >
-                Hotel / Mariot
+                {data.subTitle}
               </Typography>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import { Hotel } from '@mui/icons-material';
 
-import AddSupplierDetails from '../AddSupplier.dialog';
+import AddSupplierDetails from '../AddSupplier';
 import AddAccommodation from './Add';
 
 export default function AccommodationDetailsDialog(props) {

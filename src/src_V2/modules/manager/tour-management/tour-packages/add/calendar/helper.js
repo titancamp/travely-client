@@ -26,14 +26,14 @@ export function useSchedulerHandlers(scheduler) {
   const [error, setError] = useState();
   const [viewModel, setViewModel] = useState({ schedulerData: scheduler, toggle: false });
 
-  function newEvent(schedulerData, slotId, slotName, start, end) {
+  function newEvent(schedulerData, slotId, slotName, start, end, newSupplier) {
     let eventsCountByResource = viewModel.schedulerData.events.reduce(
       (prev, event) => prev + Number(event.resourceId === slotId),
       0
     );
 
-    if (eventsCountByResource === 10) {
-      setError('The events count is up to 10');
+    if (eventsCountByResource === 100) {
+      setError('The suppliers count is up to 100');
       window.scrollTo(0, document.body.scrollHeight);
       return setTimeout(() => setError(''), 4000);
     }
@@ -48,7 +48,7 @@ export function useSchedulerHandlers(scheduler) {
       start,
       id: newFreshId,
       resourceId: slotId,
-      title: 'Mariot/ r(5)',
+      title: newSupplier.title.split('/')[1] || newSupplier.title.split('/')[0], //TODO changeable, for demo reasons
     };
 
     schedulerData.addEvent(newEvent);
