@@ -99,7 +99,6 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
               <Autocomplete
                 onChange={handleChange}
                 name='Car'
-                // className={styles.select}
                 disablePortal
                 options={TransportationTypes}
                 renderInput={(params) => <TextField {...params} label='Car' />}
