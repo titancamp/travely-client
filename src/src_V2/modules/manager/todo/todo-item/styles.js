@@ -39,6 +39,11 @@ const styles = {
   actions: {
     height: '100%',
   },
+  moreVert: {
+    '&&': {
+      marginLeft: 'auto',
+    },
+  },
 };
 
 export default styles;
