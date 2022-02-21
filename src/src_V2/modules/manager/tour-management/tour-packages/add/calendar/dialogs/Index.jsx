@@ -1,9 +1,9 @@
-import ActivityDetailsDialog from './ActivityDetails.dialog';
-import FoodDetailsDialog from './FoodDetails.dialog';
-import GuideDetailsDialog from './GuideDetails.dialog';
-import TransportationDetailsDialog from './TransportationDetails.dialog';
 import AccommodationDetailsDialog from './accommodation/AccommodationDetails.dialog';
+import ActivityDetailsDialog from './activity/ActivityDetails.dialog';
 import { BootstrapDialog } from './component';
+import FoodDetailsDialog from './food/FoodDetails.dialog';
+import GuideDetailsDialog from './guide/GuideDetails.dialog';
+import TransportationDetailsDialog from './transportation/TransportationDetails.dialog';
 
 function CurrentDialog({ data, onClose }) {
   switch (data.mode) {

@@ -14,7 +14,7 @@ import { NoData } from '../../../../../../../components';
 import { DialogAction } from './component';
 import styles from './styles.module.css';
 
-export default function AddSupplierDialog({
+export default function AddSupplier({
   onClose,
   data: { actions, state },
   title,
@@ -26,7 +26,7 @@ export default function AddSupplierDialog({
     initialValues: { search: '', selected: '', expandedId: 0 },
   });
 
-  const newEvent = () => actions.addEvent(state);
+  const newEvent = () => actions.addEvent(state, { id: values.selected, title });
   const onRadioChange = ({ currentTarget: { value } }) =>
     setFieldValue('selected', +value);
 
