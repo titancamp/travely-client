@@ -36,6 +36,11 @@
   color: var(--primary);
 }
 
-.dueDatePickerInput > div > div {
-  width: 25.3vw;
+.dueDatePickerInput {
+  width: 50%;
+  margin-left: 10px;
+}
+
+.dueDatePickerInput > div {
+  width: 100%;
 }

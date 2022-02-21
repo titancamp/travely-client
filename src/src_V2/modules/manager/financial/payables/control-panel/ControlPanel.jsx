@@ -1,5 +1,4 @@
-import { FilterAlt } from '@mui/icons-material';
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 
 import { SearchInput } from '../../components';
 import styles from './ControlPanel.module.css';
@@ -15,11 +14,11 @@ export default function ControlPanel({ searchValue, handleSearchChange }) {
         />
       </Box>
 
-      <Box className={styles.filterDiv}>
-        <Button variant='outlined' startIcon={<FilterAlt />}>
-          Filter
-        </Button>
-      </Box>
+      {/*<Box className={styles.filterDiv}>*/}
+      {/*  <Button variant='outlined' startIcon={<FilterAlt />}>*/}
+      {/*    Filter*/}
+      {/*  </Button>*/}
+      {/*</Box>*/}
 
       {/*<Box className={styles.optionsDiv}>*/}
       {/*  <Button variant='outlined' startIcon={<ViewColumn />}>*/}

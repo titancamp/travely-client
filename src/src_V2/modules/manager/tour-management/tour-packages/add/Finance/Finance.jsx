@@ -1,14 +1,12 @@
-import { Close, ExpandMore } from '@mui/icons-material';
+import { ExpandMore } from '@mui/icons-material';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Alert,
   Box,
-  Collapse,
   FormControl,
-  IconButton,
-  InputAdornment, // InputLabel,
+  InputAdornment,
   MenuItem,
   Table,
   TableBody,
@@ -21,16 +19,16 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import { columnTypes, columns, currencyList } from './constants';
+import { moneyMask } from '../../../../../../utils';
+import { useScrollIntoView } from '../../../../../../utils/hooks';
+import { columns, currencyList } from './constants';
 import fakeData from './mock';
 import styles from './style.module.css';
 import { ArrayGroup, ArraySum } from './utils';
 
 export default function FinanceSummary() {
-  const [data, setData] = useState(fakeData || {}); // remove fakeData
   const [fakeDataGroup, setFakeDataGroup] = useState({});
   const [totalCost, setTotalCost] = useState(0);
-  const [showWarning, setShowWarning] = useState(true);
   const [summary, setSummary] = useState({
     margin: 0,
     amount: 0,
@@ -45,8 +43,31 @@ export default function FinanceSummary() {
     },
   });
   const [totalPrice, setTotalPrice] = useState(totalCost + summary.amount);
+  const [isAccordionExpanded, setIsAccordionExpanded] = useState({});
 
   useEffect(() => {
+    countCosts();
+    groupData();
+  }, []);
+
+  const groupData = () => {
+    const newFakeDataGroup = {};
+    const accordionExpanded = {};
+
+    for (const key in data) {
+      if ('Transportation' === key || 'Guide' === key) {
+        newFakeDataGroup[key] = [{ name: null, items: data[key] }];
+      } else {
+        newFakeDataGroup[key] = ArrayGroup(data[key], 'name');
+      }
+      accordionExpanded[key] = false;
+    }
+
+    setIsAccordionExpanded(accordionExpanded);
+    setFakeDataGroup(newFakeDataGroup);
+  };
+
+  const countCosts = () => {
     let cost = 0;
     for (const key in data) {
       cost += ArraySum(data[key], 'totalCost');
@@ -54,22 +75,7 @@ export default function FinanceSummary() {
 
     setTotalCost(cost);
     setTotalPrice(cost + +summary.amount);
-  }, [data]);
-
-  //Bad case
-  //TODO: find and change only changed fields, instead of new group creation
-  useEffect(() => {
-    const newFakeDataGroup = {};
-    for (const key in data) {
-      if ('Trasnportations' === key || 'Guides' === key) {
-        newFakeDataGroup[key] = [{ name: null, items: data[key] }];
-      } else {
-        newFakeDataGroup[key] = ArrayGroup(data[key], 'name');
-      }
-    }
-
-    setFakeDataGroup(newFakeDataGroup);
-  }, [data]);
+  };
 
   const inSummaryChanges = (name, { target: { value, type } }) => {
     let { amount, margin /* rate */ } = summary;
@@ -118,31 +124,25 @@ export default function FinanceSummary() {
     setSummary(newSummary);
   };
 
-  const inListChanges = (id, groupKey, field, { target: { value } }) => {
-    const newData = { ...data };
-    const rowData = newData[groupKey].find((i) => i.id === id);
-    let groupTotal = 0;
-
-    // let value = target.value;
-
-    // TODO: changes need according to editable data
-    switch (groupKey) {
-      case 'Activities':
-      case 'Foods':
-        groupTotal = rowData.costPerGuest * value;
-        break;
-      default: {
-        groupTotal = rowData.costPerDay * value;
-      }
-    }
-
-    rowData[field] = value;
-    rowData.totalCost = groupTotal;
-
-    setData(newData);
+  const handleAccordionHeaderClick = (key) => {
+    setIsAccordionExpanded({
+      ...isAccordionExpanded,
+      [key]: !isAccordionExpanded[key],
+    });
   };
 
   const fakeDataGroupKeys = Object.keys(fakeDataGroup);
+  const data = fakeData || {};
+  const accordionRef = Object.keys(fakeData).reduce(
+    (acc, groupKey) => ({
+      ...acc,
+      [groupKey]: useScrollIntoView(isAccordionExpanded[groupKey], {
+        behavior: 'smooth',
+        block: 'center',
+      }),
+    }),
+    {}
+  );
 
   return (
     <Box className={styles.container}>
@@ -153,12 +153,17 @@ export default function FinanceSummary() {
             const sum = ArraySum(data[groupKey], 'totalCost');
 
             return (
-              <Accordion key={groupKey} className={styles.accordion}>
+              <Accordion
+                key={groupKey}
+                className={styles.accordion}
+                ref={accordionRef[groupKey]}
+              >
                 <AccordionSummary
                   expandIcon={<ExpandMore />}
                   aria-controls='panel1a-content'
                   id='panel1a-header'
-                  className={`${styles.accordionBox}`}
+                  className={styles.accordionBox}
+                  onClick={() => handleAccordionHeaderClick(groupKey)}
                 >
                   <Typography className={`${styles.detailsTxt} ${styles.name}`}>
                     {groupKey}{' '}
@@ -170,7 +175,7 @@ export default function FinanceSummary() {
                     <Typography className={styles.groupTotal}>
                       Total:{' '}
                       <span>
-                        {currency} {sum.toFixed(2)}
+                        {currency} {moneyMask(sum)}
                       </span>
                     </Typography>
                   </Box>
@@ -191,7 +196,7 @@ export default function FinanceSummary() {
                             {item.name !== null && (
                               <TableRow className={styles.groupRow}>
                                 <TableCell
-                                  className={`${styles.tableCell} ${styles.tableHeaderCell}`}
+                                  className={styles.tableCell}
                                   colSpan={groupColumnKeys.length}
                                 >
                                   <span>
@@ -216,49 +221,22 @@ export default function FinanceSummary() {
                                   className={styles.tableRow}
                                   key={`${groupItem.id}`}
                                 >
-                                  {groupColumnKeys.map((columnKey) => {
-                                    if (
-                                      groupColumns[columnKey].type ===
-                                      columnTypes.inputNumber
-                                    ) {
-                                      return (
-                                        <TableCell key={`${groupItem.id}_${columnKey}`}>
-                                          <TextField
-                                            size='small'
-                                            variant='outlined'
-                                            type='number'
-                                            value={groupItem[columnKey]}
-                                            min={0}
-                                            max={1000}
-                                            onChange={inListChanges.bind(
-                                              this,
-                                              groupItem.id,
-                                              groupKey,
-                                              columnKey
-                                            )}
-                                          />
-                                        </TableCell>
-                                      );
-                                    }
-
-                                    return (item.name !== null && columnKey === 'name') ||
-                                      columnKey === 'currency' ? null : (
+                                  {groupColumnKeys.map((columnKey) =>
+                                    (item.name !== null && columnKey === 'name') ||
+                                    columnKey === 'currency' ? null : (
                                       <TableCell
                                         key={`${groupItem.id}_${columnKey}`}
-                                        className={`${
-                                          columnKey === 'totalCost'
-                                            ? styles[columnKey]
-                                            : null
-                                        } ${styles.tableCell}`}
+                                        className={styles.tableCell}
                                       >
+                                        {/*todo bad check - instead define column types*/}
                                         {columnKey.toLowerCase().includes('cost')
-                                          ? `${groupItem.currency} ${groupItem[
-                                              columnKey
-                                            ].toFixed(2)}`
+                                          ? `${groupItem.currency} ${moneyMask(
+                                              groupItem[columnKey]
+                                            )}`
                                           : groupItem[columnKey]}
                                       </TableCell>
-                                    );
-                                  })}
+                                    )
+                                  )}
                                 </TableRow>
                               );
                             })}
@@ -278,18 +256,17 @@ export default function FinanceSummary() {
           </Box>
           <Box className={`${styles.flex6} ${styles.flex}`}>
             <Box>
-              <span>Total Cost: AMD {totalCost.toFixed(2)}</span>
+              <span>Total Cost: AMD {moneyMask(totalCost)}</span>
             </Box>
             <Box>
               <span>
-                Total Price: AMD{' '}
-                {(totalPrice * summary.rate[summary.currency]).toFixed(2)}
+                Total Price: AMD {moneyMask(totalPrice * summary.rate[summary.currency])}
               </span>
             </Box>
             <Box>
               <span>Profit: </span>
               <span className={styles.green}>
-                AMD {(totalPrice * summary.rate[summary.currency] - totalCost).toFixed(2)}
+                AMD {moneyMask(totalPrice * summary.rate[summary.currency] - totalCost)}
               </span>
             </Box>
           </Box>
@@ -316,7 +293,7 @@ export default function FinanceSummary() {
               <Box className={styles.accordionDetailItems}>
                 <Box>Total Cost:</Box>
                 <Box className={styles.accordionDetailTxt}>
-                  AMD {totalCost.toFixed(2)}
+                  AMD {moneyMask(totalCost)}
                 </Box>
               </Box>
             </AccordionDetails>
@@ -334,7 +311,6 @@ export default function FinanceSummary() {
             <AccordionDetails className={styles.accordionSummaryDetails}>
               <Box autoComplete='off' className={styles.flexInputs}>
                 <FormControl>
-                  {/* <InputLabel filled>Margin</InputLabel> */}
                   <TextField
                     label={'Margin'}
                     size='small'
@@ -381,29 +357,12 @@ export default function FinanceSummary() {
               <Box className={`${styles.accordionDetailItems} ${styles.totalPrice}`}>
                 <Box>Total Price:</Box>
                 <Box className={styles.accordionDetailTxt}>
-                  AMD {(totalPrice * summary.rate[summary.currency]).toFixed(2)}
+                  AMD {moneyMask(totalPrice * summary.rate[summary.currency])}
                 </Box>
               </Box>
-              <Collapse in={showWarning}>
-                <Alert
-                  className={styles.alert}
-                  severity='warning'
-                  action={
-                    <IconButton
-                      aria-label='close'
-                      color='inherit'
-                      size='small'
-                      onClick={() => {
-                        setShowWarning(false);
-                      }}
-                    >
-                      <Close fontSize='inherit' />
-                    </IconButton>
-                  }
-                >
-                  Set currency and exchange rate to calculate total price.
-                </Alert>
-              </Collapse>
+              <Alert className={styles.alert} severity='warning'>
+                Set currency and exchange rate to calculate total price.
+              </Alert>
               <Box autoComplete='off' className={styles.flexInputs}>
                 <TextField
                   select

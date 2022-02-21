@@ -35,6 +35,7 @@ export default function ReceivableTable({ receivables, receivablesLoading }) {
           handleClickedRow={setClickedRow}
           handleDrawerState={setDrawerState}
           comparator={getComparator}
+          showCheckbox={false}
         />
       </Paper>
 

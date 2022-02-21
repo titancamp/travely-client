@@ -1,4 +1,17 @@
-import { Autocomplete, DialogContent, Grid, TextField, Typography } from '@mui/material';
+import { AttachMoney } from '@mui/icons-material';
+import {
+  Autocomplete,
+  Button,
+  DialogActions,
+  DialogContent,
+  FormControl,
+  Grid,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { useFormik } from 'formik';
 
 import {
@@ -60,6 +73,56 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
         </Grid>
         <Grid container item xs={6} spacing={2} className={styles.timeBlock}>
           <Grid item xs={6}>
+            <FormControl className={styles.priceInp}>
+              <InputLabel>Price from</InputLabel>
+              <OutlinedInput
+                name='priceFrom'
+                type='number'
+                startAdornment={
+                  <InputAdornment position='start'>
+                    <AttachMoney />
+                  </InputAdornment>
+                }
+                label='Price from'
+                placeholder='AMD'
+                onBlur={handleBlur}
+                value={values.priceFrom}
+                onChange={handleChange}
+                error={errors.priceFrom && touched.priceFrom}
+                helperText={touched.priceFrom && errors.priceFrom}
+                FormHelperTextProps={{
+                  className: styles.helperText,
+                }}
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={6}>
+            <FormControl className={styles.priceInp}>
+              <InputLabel>Price to</InputLabel>
+              <OutlinedInput
+                name='priceTo'
+                type='number'
+                startAdornment={
+                  <InputAdornment position='start'>
+                    <AttachMoney />
+                  </InputAdornment>
+                }
+                label='Price to'
+                placeholder='AMD'
+                onBlur={handleBlur}
+                value={values.priceFrom}
+                onChange={handleChange}
+                error={errors.priceTo && touched.priceTo}
+                helperText={touched.priceTo && errors.priceTo}
+                FormHelperTextProps={{
+                  className: styles.helperText,
+                }}
+              />
+            </FormControl>
+          </Grid>
+        </Grid>
+        <Grid container item xs={6} spacing={2} className={styles.timeBlock}>
+          <Grid item xs={6}>
             <TextField
               fullWidth
               type='time'
@@ -117,7 +180,7 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
               name='price'
               type='number'
               label='Price'
-              placeholder='Price'
+              placeholder='AMD'
               onBlur={handleBlur}
               value={values.price}
               onChange={handleChange}
@@ -185,7 +248,14 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
             />
           </Grid>
         </Grid>
+        <div className={styles.actions}></div>
       </DialogContent>
+      <DialogActions className={styles.container}>
+        <Button onClick={onClose}>Cancel</Button>
+        <Button type='submit' variant='contained'>
+          Save
+        </Button>
+      </DialogActions>
     </BootstrapDialog>
   );
 }

@@ -42,9 +42,8 @@ export const payableColumns = () => ({
   difference: {
     label: 'Difference',
     type: columnTypes.custom,
-    tag(value) {
-      return <DifferenceCell value={value} />;
-    },
+    tag: (value) => <DifferenceCell value={value} />,
+    ifEmpty: 0,
   },
   paidCost: {
     label: 'Paid',
@@ -57,9 +56,8 @@ export const payableColumns = () => ({
   status: {
     label: 'Status',
     type: columnTypes.custom,
-    tag(value) {
-      return <StatusCell value={value} />;
-    },
+    tag: (value) => <StatusCell value={value} />,
+    ifEmpty: '--',
   },
   createdDate: {
     label: 'Created date',
@@ -80,16 +78,14 @@ export const payableColumns = () => ({
   paymentType: {
     label: 'Payment type',
     type: columnTypes.custom,
-    tag(value) {
-      return <PaymentTypeCell value={value} />;
-    },
+    tag: (value) => <PaymentTypeCell value={value} />,
+    ifEmpty: '--',
   },
   invoiceAttachment: {
     label: 'Invoice attachment',
     type: columnTypes.custom,
-    tag(value) {
-      return <InvoiceAttachmentCell value={value} />;
-    },
+    tag: () => <InvoiceAttachmentCell />,
+    ifEmpty: '--',
   },
 });
 

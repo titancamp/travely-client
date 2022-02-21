@@ -239,8 +239,8 @@ const receivablesList = () => [
     'Mon Jan 03 2022 16:31:13 GMT+0400 (Armenia Standard Time)',
     false,
     '2021-12-26T09:36:19Z',
-    'Lorem Ipsum',
-    []
+    [],
+    'Lorem Ipsum'
   ),
   createReceivable(
     316,

@@ -52,6 +52,7 @@ input[type='number'] {
 /* Details */
 
 .header {
+  height: 79px;
   display: flex;
   justify-content: space-between;
 }
@@ -225,3 +226,10 @@ input[type='number'] {
   margin-bottom: 20px !important;
 }
 
+.textFields {
+  color: var(--secondary) !important;
+}
+
+.carBlock {
+  margin: 2px 0px !important;
+}

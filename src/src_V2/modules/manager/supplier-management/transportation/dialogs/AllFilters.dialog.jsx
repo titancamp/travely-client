@@ -1,6 +1,8 @@
 import { AirlineSeatReclineNormal, EventSeat } from '@mui/icons-material';
 import {
   Autocomplete,
+  Button,
+  DialogActions,
   DialogContent,
   FormControl,
   FormHelperText,
@@ -21,7 +23,7 @@ import {
   BootstrapDialogTitle,
 } from '../../components/bootstrapDialogTitle/BootstrapDialogTitle';
 import { EndAdornment } from '../../components/endAdornment';
-import { Languages, License } from '../constants';
+import { Languages, License, TransportationTypes } from '../constants';
 import { AllFiltersDialogStyles } from './DialogStyles';
 import styles from './style.module.css';
 
@@ -92,19 +94,34 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
           </Grid>
           <Grid className={styles.dashedBorder} />
           <Typography className={styles.roomTitle}>CARS</Typography>
-          <Grid item xs={4}>
-            <TextField
-              fullWidth
-              name='model'
-              label='Model'
-              className={styles.input}
-              placeholder='Plate Number'
-              onBlur={handleBlur}
-              value={values.model}
-              onChange={handleChange}
-              error={errors.model && touched.model}
-              helperText={touched.model && errors.model}
-            />
+          <Grid container item xs={12} spacing={3}>
+            <Grid item xs={4} className={styles.select}>
+              <Autocomplete
+                onChange={handleChange}
+                name='Car'
+                // className={styles.select}
+                disablePortal
+                options={TransportationTypes}
+                renderInput={(params) => <TextField {...params} label='Car' />}
+                onBlur={handleBlur}
+                value={values.car}
+                error={errors.car && touched.car}
+                helperText={touched.car && errors.car}
+              />
+            </Grid>
+            <Grid item xs={4} className={styles.input}>
+              <TextField
+                fullWidth
+                name='model'
+                label='Model'
+                placeholder='Plate Number'
+                onBlur={handleBlur}
+                value={values.model}
+                onChange={handleChange}
+                error={errors.model && touched.model}
+                helperText={touched.model && errors.model}
+              />
+            </Grid>
           </Grid>
           <Grid container item xs={12} spacing={3}>
             <Grid item xs={4}>
@@ -147,6 +164,12 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
             </Grid>
           </Grid>
         </DialogContent>
+        <DialogActions className={styles.container}>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button type='submit' variant='contained'>
+            Save
+          </Button>
+        </DialogActions>
       </BootstrapDialog>
     </form>
   );

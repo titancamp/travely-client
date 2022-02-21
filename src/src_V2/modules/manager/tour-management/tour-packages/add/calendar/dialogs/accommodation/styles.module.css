@@ -1,4 +1,5 @@
 .itemExpandedContainer {
+  border-radius: 4px;
   padding: 24px;
   overflow: auto;
   max-height: 290px;
