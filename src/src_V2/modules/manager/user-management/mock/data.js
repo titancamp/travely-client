@@ -155,11 +155,11 @@ export const resources = {
 
 export const mockResourceDescription = {
   templates:
-    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+    'Having "View" checked, user will be able to view all suppliers and tour templates. Having "Edit" checked, "View" permission will be automatically checked and user will not only be able to view all suppliers and tour templates but also create them.',
   packages:
-    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+    'Having "Edit" permission checked, "View" permission for "Tour Templates" permission will be automatically checked. Having "View" checked for "Tour Packages", user will be able to view all tour packages. Having "Edit" checked, "View" permission will be automatically checked and user will not only be able to view all tour packages but also create them.',
   receivable:
-    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+    'Having "View" checked, user will be able to view receivables. Having "Edit" checked, "View" permission will be automatically checked and user will not only be able to view all receivables but also create them.',
   payable:
-    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+    'Having "View" checked, user will be able to view payables. Having "Edit" checked, "View" permission will be automatically checked and user will not only be able to view all payables but also create them.',
 };
