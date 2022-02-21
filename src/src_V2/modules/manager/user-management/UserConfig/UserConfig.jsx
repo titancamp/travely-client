@@ -85,10 +85,29 @@ export default function UserConfigContent({ newUser }) {
       }
     }
 
-    setFieldValue('permissions', {
+    const newPermissions = {
       ...values.permissions,
       [resourceKey]: newActionLevel,
-    });
+    };
+
+    if (
+      checked &&
+      resourceKey === 'packages' &&
+      currentActionLevel === actionLevels.edit
+    ) {
+      newPermissions.templates = values.permissions.templates | actionLevels.view;
+    }
+
+    if (
+      !checked &&
+      resourceKey === 'templates' &&
+      currentActionLevel === actionLevels.view &&
+      values.permissions.packages === (actionLevels.view | actionLevels.edit)
+    ) {
+      return;
+    }
+
+    setFieldValue('permissions', newPermissions);
   };
 
   return (
