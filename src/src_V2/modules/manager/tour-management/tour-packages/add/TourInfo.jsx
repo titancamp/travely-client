@@ -1,7 +1,7 @@
 import { Autocomplete, Box, Grid, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 
-import { Statuses } from '../constants';
+import { Statuses, TourTypes } from '../constants';
 import styles from './style.module.css';
 
 export default function TourInfo() {
@@ -32,7 +32,7 @@ export default function TourInfo() {
             <Grid item xs={6}>
               <Autocomplete
                 value={values.type}
-                options={[]}
+                options={TourTypes}
                 onChange={autoCompleteChangeHandler('type')}
                 renderInput={(params) => (
                   <TextField
