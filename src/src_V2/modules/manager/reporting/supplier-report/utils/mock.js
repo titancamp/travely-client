@@ -7,6 +7,10 @@ export const MOCK_DATA = [
     location: 'Yerevan, Armenia',
     expectedExpenses: '5.000 AMD',
     actualExpenses: '20.000 AMD',
+    expectedRevenue: '40.000 AMD',
+    actualRevenue: '50.000 AMD',
+    expectedProfit: '50.000 AMD',
+    actualProfit: '50.000 AMD',
   },
   {
     id: 2,
@@ -16,6 +20,10 @@ export const MOCK_DATA = [
     location: 'Yerevan, Armenia',
     expectedExpenses: '5.000 AMD',
     actualExpenses: '20.000 AMD',
+    expectedRevenue: '40.000 AMD',
+    actualRevenue: '50.000 AMD',
+    expectedProfit: '50.000 AMD',
+    actualProfit: '50.000 AMD',
   },
   {
     id: 3,
@@ -25,6 +33,10 @@ export const MOCK_DATA = [
     location: 'Yerevan, Armenia',
     expectedExpenses: '5.000 AMD',
     actualExpenses: '20.000 AMD',
+    expectedRevenue: '40.000 AMD',
+    actualRevenue: '50.000 AMD',
+    expectedProfit: '50.000 AMD',
+    actualProfit: '50.000 AMD',
   },
   {
     id: 4,
@@ -34,6 +46,10 @@ export const MOCK_DATA = [
     location: 'Yerevan, Armenia',
     expectedExpenses: '5.000 AMD',
     actualExpenses: '20.000 AMD',
+    expectedRevenue: '40.000 AMD',
+    actualRevenue: '50.000 AMD',
+    expectedProfit: '50.000 AMD',
+    actualProfit: '50.000 AMD',
   },
   {
     id: 5,
@@ -43,6 +59,10 @@ export const MOCK_DATA = [
     location: 'Yerevan, Armenia',
     expectedExpenses: '5.000 AMD',
     actualExpenses: '20.000 AMD',
+    expectedRevenue: '40.000 AMD',
+    actualRevenue: '50.000 AMD',
+    expectedProfit: '50.000 AMD',
+    actualProfit: '50.000 AMD',
   },
   {
     id: 6,
@@ -52,6 +72,10 @@ export const MOCK_DATA = [
     location: 'Yerevan, Armenia',
     expectedExpenses: '5.000 AMD',
     actualExpenses: '20.000 AMD',
+    expectedRevenue: '40.000 AMD',
+    actualRevenue: '50.000 AMD',
+    expectedProfit: '50.000 AMD',
+    actualProfit: '50.000 AMD',
   },
 ];
 

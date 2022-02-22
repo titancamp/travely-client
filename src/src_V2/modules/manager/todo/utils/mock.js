@@ -13,7 +13,7 @@ export const TODOS_MOCK_DATA = [
     location: 'Haghpat, Sanahin',
     reminderStatus: ReminderStatus.SET,
     priority: TaskPriority.HIGH,
-    status: TaskStatus.DONE,
+    status: TaskStatus.ARCHIVED,
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ export const TODOS_MOCK_DATA = [
     location: 'Haghpat, Sanahin',
     reminderStatus: ReminderStatus.PASSED,
     priority: TaskPriority.MEDIUM,
-    status: TaskStatus.TODO,
+    status: TaskStatus.ARCHIVED,
   },
   {
     id: 3,
