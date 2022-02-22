@@ -15,7 +15,7 @@ import TodoForm from './todo-form';
 import TodoItem from './todo-item';
 import TodoListEmptyContent from './todo-list-empty-content';
 import { TODO_FILTER_DEFAULT_VALUES, TaskStatus, TodoListTabs } from './utils';
-import { TODOS_MOCK_DATA } from './utils/mock';
+import { TODOS_ARCHIVED_MOCK_DATA } from './utils/mock';
 
 const getTodosMemoizedDependencies = (todos) => todos.map(({ status }) => status);
 
@@ -55,7 +55,7 @@ export default function Todo() {
       result = result.filter(({ status }) => status !== TaskStatus.ARCHIVED);
     } else {
       result =
-        TODOS_MOCK_DATA.slice(0, 2) ||
+        TODOS_ARCHIVED_MOCK_DATA ||
         result.filter(({ status }) => status === TaskStatus.ARCHIVED);
     }
 

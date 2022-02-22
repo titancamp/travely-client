@@ -13,7 +13,7 @@ export const TODOS_MOCK_DATA = [
     location: 'Haghpat, Sanahin',
     reminderStatus: ReminderStatus.SET,
     priority: TaskPriority.HIGH,
-    status: TaskStatus.ARCHIVED,
+    status: TaskStatus.DONE,
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ export const TODOS_MOCK_DATA = [
     location: 'Haghpat, Sanahin',
     reminderStatus: ReminderStatus.PASSED,
     priority: TaskPriority.MEDIUM,
-    status: TaskStatus.ARCHIVED,
+    status: TaskStatus.DONE,
   },
   {
     id: 3,
@@ -84,5 +84,28 @@ export const TODOS_MOCK_DATA = [
     reminderStatus: ReminderStatus.SET,
     priority: TaskPriority.HIGH,
     status: TaskStatus.DONE,
+  },
+];
+
+export const TODOS_ARCHIVED_MOCK_DATA = [
+  {
+    id: 1,
+    name: 'Call to check for hotels',
+    description,
+    reminder: 'Today, 13:00',
+    location: 'Haghpat, Sanahin',
+    reminderStatus: ReminderStatus.SET,
+    priority: TaskPriority.HIGH,
+    status: TaskStatus.ARCHIVED,
+  },
+  {
+    id: 2,
+    name: 'Call to check for hotels',
+    description,
+    reminder: 'Today, 13:00',
+    location: 'Haghpat, Sanahin',
+    reminderStatus: ReminderStatus.PASSED,
+    priority: TaskPriority.MEDIUM,
+    status: TaskStatus.ARCHIVED,
   },
 ];
