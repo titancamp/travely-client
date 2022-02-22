@@ -6,7 +6,8 @@ export const DetailsDialogStyles = {
     margin: 'inherit',
     maxWidth: 900,
     width: 900,
-    height: '100%',
+    height: '100vh',
+    maxHeight: '100vh',
   },
 };
 

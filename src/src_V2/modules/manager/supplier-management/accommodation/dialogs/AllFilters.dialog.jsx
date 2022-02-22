@@ -252,7 +252,7 @@ export default function AllFiltersDialog({ onClose, data: { open } }) {
       </DialogContent>
       <DialogActions className={styles.container}>
         <Button onClick={onClose}>Cancel</Button>
-        <Button type='submit' variant='contained'>
+        <Button onClick={onClose} type='submit' variant='contained'>
           Save
         </Button>
       </DialogActions>

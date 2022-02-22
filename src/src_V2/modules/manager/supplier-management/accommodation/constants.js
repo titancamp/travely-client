@@ -144,7 +144,7 @@ export const TableRows = [
     'Yerevan',
     '(010)599000',
     'Karen Markosyan',
-    'customer.care@marriott.com',
+    'karen.markosyan@marriott.com',
     <Button
       onClick={(event) => {
         event.stopPropagation();
@@ -164,7 +164,7 @@ export const TableRows = [
     'Yerevan',
     '(010)599000',
     'Karen Markosyan',
-    'customer.care@marriott.com',
+    'karen.markosyan@marriott.com',
     <Button
       onClick={(event) => {
         event.stopPropagation();
