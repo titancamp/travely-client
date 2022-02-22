@@ -138,13 +138,13 @@ export const RoomsConstants = [
 export const TableRows = [
   createData(
     '1',
-    'Mariot',
+    'Armenia Marriott',
     'Hotel',
-    'Kotayq',
-    'Abovyan',
-    '+374 11 11 11 11',
-    'Name Lastname',
-    'customer.care@marriott.com',
+    'Yerevan',
+    'Yerevan',
+    '(010)599000',
+    'Karen Markosyan',
+    'karen.markosyan@marriott.com',
     <Button
       onClick={(event) => {
         event.stopPropagation();
@@ -158,13 +158,13 @@ export const TableRows = [
   ),
   createData(
     '2',
-    'Tufenkyan',
+    'Armenia Marriott',
     'Hotel',
-    'Kotayq',
-    'Abovyan',
-    '+374 11 11 11 11',
-    'Name Lastname',
-    'customer.care@marriott.com',
+    'Yerevan',
+    'Yerevan',
+    '(010)599000',
+    'Karen Markosyan',
+    'karen.markosyan@marriott.com',
     <Button
       onClick={(event) => {
         event.stopPropagation();
@@ -178,12 +178,12 @@ export const TableRows = [
   ),
   createData(
     '3',
-    'Multi rest',
+    'Armenia Marriott',
     'Hotel',
-    'Kotayq',
-    'Abovyan',
-    '+374 11 11 11 11',
-    'Name Lastname',
+    'Yerevan',
+    'Yerevan',
+    '(010)599000',
+    'Karen Markosyan',
     'customer.care@marriott.com',
     <Button
       onClick={(event) => {

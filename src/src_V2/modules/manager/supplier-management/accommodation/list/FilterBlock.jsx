@@ -8,7 +8,7 @@ import {
   AccommodationFilterSchema,
   FilterInitialValues,
 } from '../../../../../utils/schemas/tourManagment/accommodation';
-import { AccommodationTypes } from '../constants';
+import { AccommodationTypes, Regions } from '../constants';
 import DialogManager from '../dialogs/Index';
 import styles from './style.module.css';
 
@@ -56,7 +56,7 @@ export default function FilterBlock() {
               name='region'
               className={styles.select}
               disablePortal
-              options={AccommodationTypes}
+              options={Regions}
               renderInput={(params) => <TextField {...params} label='Region' />}
               onBlur={handleBlur}
               value={values.region}
@@ -71,7 +71,7 @@ export default function FilterBlock() {
               name='city'
               className={styles.select}
               disablePortal
-              options={AccommodationTypes}
+              options={Regions}
               renderInput={(params) => <TextField {...params} label='City' />}
               onBlur={handleBlur}
               value={values.city}
