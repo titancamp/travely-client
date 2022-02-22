@@ -22,7 +22,7 @@ export default function TourReport() {
       <Grid item>
         <Typography variant='h5'>Tour Report</Typography>
       </Grid>
-      <Grid item>
+      <Grid item className={styles.tableContainer}>
         <Toolbar className={styles.toolbar}>
           <Typography fontWeight='bold'>Totals</Typography>
         </Toolbar>
@@ -33,13 +33,12 @@ export default function TourReport() {
           customTableClass={styles.table}
         />
       </Grid>
-      <Grid item>
+      <Grid item className={styles.tableContainer}>
         <Table
           totalCount={TOUR_REPORT_MOCK_DATA.length}
           isLoading={false}
           data={tableData}
           page={1}
-          hasPagination
           customTableClass={styles.table}
         />
       </Grid>

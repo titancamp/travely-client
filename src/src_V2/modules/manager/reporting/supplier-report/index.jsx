@@ -20,7 +20,7 @@ export default function SupplierReport() {
       <Grid item>
         <Typography variant='h5'>Supplier Report</Typography>
       </Grid>
-      <Grid item>
+      <Grid item className={styles.tableContainer}>
         <Toolbar className={styles.toolbar}>
           <Typography fontWeight='bold'>Totals</Typography>
         </Toolbar>
@@ -31,13 +31,12 @@ export default function SupplierReport() {
           customTableClass={styles.table}
         />
       </Grid>
-      <Grid item>
+      <Grid item className={styles.tableContainer}>
         <Table
           totalCount={MOCK_DATA.length}
           isLoading={false}
           data={tableData}
           page={1}
-          hasPagination
           customTableClass={styles.table}
         />
       </Grid>
