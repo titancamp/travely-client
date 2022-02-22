@@ -112,21 +112,24 @@ const TodoClient = {
       );
     }
 
-    const data = await ApiClient.post('api/v1/ToDo/List', {
-      filters: adaptedFilters,
-      orderings: [
-        {
-          fieldName: 'Deadline',
-          isDescending: true,
+    try {
+      const data = await ApiClient.post('api/v1/ToDo/List', {
+        filters: adaptedFilters,
+        orderings: [
+          {
+            fieldName: 'Deadline',
+            isDescending: true,
+          },
+        ],
+        paging: {
+          from: 0,
+          count: 200,
         },
-      ],
-      paging: {
-        from: 0,
-        count: 200,
-      },
-    });
-
-    return TODOS_MOCK_DATA || (data?.data ? data.data.map(todoAdapterClient) : []);
+      });
+      return data.data.map(todoAdapterClient);
+    } catch (e) {
+      return TODOS_MOCK_DATA;
+    }
   },
   addTodo: (values) => {
     return ApiClient.post('api/v1/ToDo', todoAdapterAPI(values));
