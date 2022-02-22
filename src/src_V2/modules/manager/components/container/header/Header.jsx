@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <Link to={`../${ROUTES.DASHBOARD}`} className={styles.link}>
+        <Link to={`./${ROUTES.DASHBOARD}`} className={styles.link}>
           <img src={travelyIcon} width='160' alt='Travely' />
         </Link>
       </div>
